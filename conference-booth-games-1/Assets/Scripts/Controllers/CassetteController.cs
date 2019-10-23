@@ -20,6 +20,8 @@ namespace Assets.Scripts.Controllers
             var myReliefResource = RandomReliefResource();
             myReliefResourceId = (int) myReliefResource;
 
+            print("myReliefResourceId : " + myReliefResourceId);
+
             var displayText = Regex.Replace(myReliefResource.ToString(), "(\\B[A-Z])", " $1");
             text.text = displayText;
         }

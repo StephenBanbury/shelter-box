@@ -56,7 +56,9 @@ namespace Assets.Scripts
 
             grandScoreText.text = $"Total: {grandScore.ToString("0")}";
 
-            collectedItemText.text = "hahaha";
+            var cassetteController = other.gameObject.GetComponent<CassetteController>();
+
+            collectedItemText.text = cassetteController.text.text;
 
             Destroy(other.gameObject);
 
