@@ -1,4 +1,7 @@
-﻿using Assets.Scripts.Controllers;
+﻿using System.Linq;
+using System.Text.RegularExpressions;
+using Assets.Scripts.Controllers;
+using Assets.Scripts.Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,34 +34,71 @@ namespace Assets.Scripts
 
         void DetectHitOrMiss(Collider other)
         {
+            //collectedItemText.text = cassetteController.cassetteText.text;
+
+            //int[] resourcesRequired = null;
+            int reportIndex = 0;
+
+            // Get suitable resources list from report object
+            // First get report index of report currently associated with hit box
+
             switch (gameObject.name)
             {
                 case "Box1":
+                    reportIndex = Reports.instance.reportIndex0;
                     hits1++;
                     break;
                 case "Box2":
+                    reportIndex = Reports.instance.reportIndex1;
                     hits2++;
                     break;
                 case "Box3":
+                    reportIndex = Reports.instance.reportIndex2;
                     hits3++;
                     break;
                 case "Box4":
+                    reportIndex = Reports.instance.reportIndex3;
                     hits4++;
                     break;
             }
 
-            grandScore = hits1 + hits2 + hits3 + hits4;
+            // Then get collection of resource IDs from indexed report
 
-            score1Text.text = hits1.ToString("0");
-            score2Text.text = hits2.ToString("0");
-            score3Text.text = hits3.ToString("0");
-            score4Text.text = hits4.ToString("0");
+            var cassetteController = other.gameObject.GetComponent<CassetteController>();
+            
+            var myResourceId = cassetteController.myResourceId;
+            var myResourceName = cassetteController.cassetteText;
+
+            var resourcesRequired = Reports.instance.reports[reportIndex].RequiredResources;
+
+            string message;
+
+            if (resourcesRequired.Contains(myResourceId))
+            {
+                message = $"Thanks for the {Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
+                grandScore++;
+            }
+            else
+            {
+                message = $"{Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")} is not required";
+                grandScore--;
+            }
+
+            //collectedItemText.text = resourcesRequired[0].ToString();
+
+            collectedItemText.text = message;
+
+
+            //grandScore = hits1 + hits2 + hits3 + hits4;
+
+            //score1Text.text = hits1.ToString("0");
+            //score2Text.text = hits2.ToString("0");
+            //score3Text.text = hits3.ToString("0");
+            //score4Text.text = hits4.ToString("0");
 
             grandScoreText.text = $"Total: {grandScore.ToString("0")}";
 
-            var cassetteController = other.gameObject.GetComponent<CassetteController>();
 
-            collectedItemText.text = cassetteController.text.text;
 
             Destroy(other.gameObject);
 

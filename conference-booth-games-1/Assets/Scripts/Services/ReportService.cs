@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Enums;
 
 namespace Assets.Scripts.Services
 {
@@ -23,37 +24,41 @@ namespace Assets.Scripts.Services
                 {
                     Id = 1,
                     Title = "Storm Gerry makes landfall",
-                    SubTitle = "Several homes get wet",
-                    Text = "It is not known how many people have been affected, but it is thought to be more than 5",
+                    SubTitle = "Several homes uninhabitable",
+                    Text = "Whole families severely affected",
                     ReportDate = DateTime.UtcNow,
-                    Archived = false
+                    Archived = false,
+                    RequiredResources = new int[] { (int) Resource.Clothing, (int) Resource.Food, (int) Resource.MedicalSupplies, (int) Resource.Tents, (int) Resource.Toys, (int) Resource.Water }
                 },
                 new Report
                 {
                     Id = 2,
                     Title = "Record drought causes widespread famine in East Grinstead",
-                    SubTitle = "Big Macs are scarce",
-                    Text = "Queues for Krispy Kreme donuts reach record lengths",
+                    SubTitle = "Water supplies and fast food outlets running dry",
+                    Text = "Queues reach record lengths at local shops and GP surgeries",
                     ReportDate = DateTime.UtcNow,
-                    Archived = false
+                    Archived = false,
+                    RequiredResources = new int[] { (int) Resource.Food, (int) Resource.MedicalSupplies, (int) Resource.Water }
                 },
                 new Report
                 {
                     Id = 3,
                     Title = "Civil unrest in Barry",
                     SubTitle = "Barry Island under siege",
-                    Text = "Chip suppers having trouble getting through the barricades",
+                    Text = "Some people badly injured",
                     ReportDate = DateTime.UtcNow,
-                    Archived = false
+                    Archived = false,
+                    RequiredResources = new int[] { (int) Resource.MedicalSupplies }
                 },
                 new Report
                 {
                     Id = 4,
                     Title = "Electricity cut in Penryn",
                     SubTitle = "University campus offline for whole lunchtime",
-                    Text = "The deprivation is appalling",
+                    Text = "Kitchen appliances and cashpoints not working",
                     ReportDate = DateTime.UtcNow,
-                    Archived = false
+                    Archived = false,
+                    RequiredResources = new int[] { (int) Resource.Food, (int) Resource.Water }
                 }
 
             };
@@ -71,6 +76,7 @@ namespace Assets.Scripts.Services
         public string Text { get; set; }
         public DateTime ReportDate { get; set; }
         public bool Archived { get; set; }
+        public int[] RequiredResources { get; set; }
     }
 
 }

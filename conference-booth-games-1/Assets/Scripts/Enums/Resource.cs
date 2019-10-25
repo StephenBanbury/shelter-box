@@ -1,8 +1,6 @@
-﻿using System.ComponentModel;
-
-namespace Assets.Scripts.Enums  
+﻿namespace Assets.Scripts.Enums  
 {
-    public enum ReliefResource
+    public enum Resource
     {
         None = 0,
         Food = 1,

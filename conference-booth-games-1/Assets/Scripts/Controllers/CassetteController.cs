@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Assets.Scripts.Enums;
 using UnityEngine;
@@ -11,19 +10,17 @@ namespace Assets.Scripts.Controllers
 
     public class CassetteController : MonoBehaviour
     {
-        public Text text;
-        public int myReliefResourceId;
+        public Text cassetteText;
+        public int myResourceId;
 
         // Start is called before the first frame update
         void Start()
         {
-            var myReliefResource = RandomReliefResource();
-            myReliefResourceId = (int) myReliefResource;
+            var myResource = RandomResource();
+            myResourceId = (int) myResource;
 
-            print("myReliefResourceId : " + myReliefResourceId);
-
-            var displayText = Regex.Replace(myReliefResource.ToString(), "(\\B[A-Z])", " $1");
-            text.text = displayText;
+            var displayText = Regex.Replace(myResource.ToString(), "(\\B[A-Z])", " $1");
+            cassetteText.text = displayText;
         }
 
         // Update is called once per frame
@@ -32,11 +29,11 @@ namespace Assets.Scripts.Controllers
 
         }
 
-        private ReliefResource RandomReliefResource()
+        private Resource RandomResource()
         {
-            Array values = Enum.GetValues(typeof(ReliefResource));
+            Array values = Enum.GetValues(typeof(Resource));
             Random random = new Random();
-            ReliefResource randomValue = (ReliefResource)values.GetValue(random.Next(1, values.Length - 1));
+            Resource randomValue = (Resource)values.GetValue(random.Next(1, values.Length - 1));
             return randomValue;
         }
 
