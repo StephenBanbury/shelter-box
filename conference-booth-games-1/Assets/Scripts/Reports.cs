@@ -32,7 +32,7 @@ namespace Assets.Scripts
 
         private DateTime startDateTime = DateTime.UtcNow;
         private DateTime reviewDateTime;
-        private int intervalSeconds = 15;
+        private int updateReportsInterval = 15;
 
         private ReportService reportService = new ReportService();
 
@@ -50,7 +50,7 @@ namespace Assets.Scripts
         // Start is called before the first frame update
         void Start()
         {
-            reviewDateTime = startDateTime.AddSeconds(intervalSeconds);
+            reviewDateTime = startDateTime.AddSeconds(updateReportsInterval);
             reports = reportService.GetReports();
             AssignReportsToMonitors();
         }
@@ -67,7 +67,7 @@ namespace Assets.Scripts
 
                 AssignReportsToMonitors();
 
-                reviewDateTime = DateTime.UtcNow.AddSeconds(intervalSeconds);
+                reviewDateTime = DateTime.UtcNow.AddSeconds(updateReportsInterval);
             }
         }
 

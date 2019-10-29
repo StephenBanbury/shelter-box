@@ -23,9 +23,9 @@ namespace Assets.Scripts.Services
                 new Report
                 {
                     Id = 1,
-                    Title = "Storm Gerry makes landfall",
-                    SubTitle = "Several homes uninhabitable",
-                    Text = "Whole families severely affected",
+                    Title = "Hurricane!",
+                    SubTitle = "Thousands of homes destroyed",
+                    Text = "Hundreds of families affected",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
                     RequiredResources = new int[] { (int) Resource.Clothing, (int) Resource.Food, (int) Resource.MedicalSupplies, (int) Resource.Tents, (int) Resource.Toys, (int) Resource.Water }
@@ -33,9 +33,9 @@ namespace Assets.Scripts.Services
                 new Report
                 {
                     Id = 2,
-                    Title = "Record drought causes widespread famine in East Grinstead",
-                    SubTitle = "Water supplies and fast food outlets running dry",
-                    Text = "Queues reach record lengths at local shops and GP surgeries",
+                    Title = "Drought!",
+                    SubTitle = "Water supplies depleted and crops failing",
+                    Text = "UN declares it a Humanitarian Crisis",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
                     RequiredResources = new int[] { (int) Resource.Food, (int) Resource.MedicalSupplies, (int) Resource.Water }
@@ -43,9 +43,9 @@ namespace Assets.Scripts.Services
                 new Report
                 {
                     Id = 3,
-                    Title = "Civil unrest in Barry",
-                    SubTitle = "Barry Island under siege",
-                    Text = "Some people badly injured",
+                    Title = "Civil unrest!",
+                    SubTitle = "Whole villages forced to leave homes",
+                    Text = "It's not known how many have found safety'",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
                     RequiredResources = new int[] { (int) Resource.MedicalSupplies }
@@ -53,9 +53,9 @@ namespace Assets.Scripts.Services
                 new Report
                 {
                     Id = 4,
-                    Title = "Electricity cut in Penryn",
-                    SubTitle = "University campus offline for whole lunchtime",
-                    Text = "Kitchen appliances and cashpoints not working",
+                    Title = "Severe flooding in delta region!",
+                    SubTitle = "Widespread displacement of people",
+                    Text = "Neighbouring countries say they can provide limited assistance",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
                     RequiredResources = new int[] { (int) Resource.Food, (int) Resource.Water }

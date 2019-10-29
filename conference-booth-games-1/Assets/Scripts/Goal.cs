@@ -18,6 +18,7 @@ namespace Assets.Scripts
         public Text collectedItemText;
 
         private AudioSource goalAudioSource;
+        private bool floorHit;
 
         static int hits1;
         static int hits2;
@@ -66,45 +67,58 @@ namespace Assets.Scripts
                     reportIndex = Reports.instance.reportIndex3;
                     hits4++;
                     break;
+                case "Floor":
+                    floorHit = true;
+                    break;
             }
-
-            // Then get collection of resource IDs from indexed report
-
-            var cassetteController = other.gameObject.GetComponent<CassetteController>();
             
-            var myResourceId = cassetteController.myResourceId;
-            var myResourceName = cassetteController.cassetteText;
-
-            var resourcesRequired = Reports.instance.reports[reportIndex].RequiredResources;
-
             string message;
 
-            if (resourcesRequired.Contains(myResourceId))
+            // Then get collection of resource IDs from indexed report
+            if (!floorHit)
             {
-                message = $"Thanks for the {Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
-                goalAudioSource.Play();
-                grandScore++;
+                var cassetteController = other.gameObject.GetComponent<CassetteController>();
+
+                var myResourceId = cassetteController.myResourceId;
+                var myResourceName = cassetteController.cassetteText;
+
+                var resourcesRequired = Reports.instance.reports[reportIndex].RequiredResources;
+
+                
+
+                if (resourcesRequired.Contains(myResourceId))
+                {
+                    message =
+                        $"Thanks for the {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
+                    goalAudioSource.Play();
+                    grandScore++;
+                }
+                else
+                {
+                    message =
+                        $"{Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")} is not required";
+                    grandScore--;
+                }
+
+                //collectedItemText.text = resourcesRequired[0].ToString();
+
             }
             else
             {
-                message = $"{Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")} is not required";
                 grandScore--;
+                message = "Floor!";
             }
-
-            //collectedItemText.text = resourcesRequired[0].ToString();
 
             collectedItemText.text = message;
 
+                //grandScore = hits1 + hits2 + hits3 + hits4;
 
-            //grandScore = hits1 + hits2 + hits3 + hits4;
+                //score1Text.text = hits1.ToString("0");
+                //score2Text.text = hits2.ToString("0");
+                //score3Text.text = hits3.ToString("0");
+                //score4Text.text = hits4.ToString("0");
 
-            //score1Text.text = hits1.ToString("0");
-            //score2Text.text = hits2.ToString("0");
-            //score3Text.text = hits3.ToString("0");
-            //score4Text.text = hits4.ToString("0");
-
-            grandScoreText.text = $"Total: {grandScore.ToString("0")}";
-
+                grandScoreText.text = $"Total: {grandScore.ToString("0")}";
 
 
             Destroy(other.gameObject);
