@@ -13,11 +13,12 @@
         RaftComponents = 8
     }
 
-    public enum Assistance
+    public enum Service
     {
         None = 0,
         Airlift = 1,
-        Evacuation = 2
+        Evacuation = 2,
+        MedicalStaff = 3
     }
 
     public enum PersonalBelongings
