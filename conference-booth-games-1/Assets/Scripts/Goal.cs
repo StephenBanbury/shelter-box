@@ -17,12 +17,18 @@ namespace Assets.Scripts
         public Text grandScoreText;
         public Text collectedItemText;
 
+        private AudioSource goalAudioSource;
+
         static int hits1;
         static int hits2;
         static int hits3;
         static int hits4;
         static int grandScore;
 
+        void Start()
+        {
+            goalAudioSource = GetComponent<AudioSource>();
+        }
 
         void OnTriggerEnter(Collider other)
         {
@@ -76,6 +82,7 @@ namespace Assets.Scripts
             if (resourcesRequired.Contains(myResourceId))
             {
                 message = $"Thanks for the {Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
+                goalAudioSource.Play();
                 grandScore++;
             }
             else
