@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using Assets.Scripts.Controllers;
 using Assets.Scripts.Enums;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,17 +22,12 @@ namespace Assets.Scripts
         private AudioSource audioSource2;
 
         private bool floorHit;
-
-        static int hits1;
-        static int hits2;
-        static int hits3;
-        static int hits4;
         static int grandScore;
 
         void Start()
         {
             var audioSources = GetComponents<AudioSource>();
-            audioSource1 = audioSources[0];
+            audioSource1 = audioSources[0]; // Audio source = if this is a box then it's is a beep; if it's the floor then it's a thud
             audioSource2 = audioSources[1];
         }
 
@@ -54,74 +50,76 @@ namespace Assets.Scripts
             {
                 case "Box1":
                     reportIndex = Reports.instance.reportIndex0;
-                    hits1++;
                     break;
                 case "Box2":
                     reportIndex = Reports.instance.reportIndex1;
-                    hits2++;
                     break;
                 case "Box3":
                     reportIndex = Reports.instance.reportIndex2;
-                    hits3++;
                     break;
                 case "Box4":
                     reportIndex = Reports.instance.reportIndex3;
-                    hits4++;
                     break;
                 case "Floor":
                     floorHit = true;
                     break;
             }
             
-            string message;
+            //string mainMessage;
+
+            score1Text.text = "";
+            score2Text.text = "";
+            score3Text.text = "";
+            score4Text.text = "";
 
             // Then get collection of resource IDs from indexed report
             if (!floorHit)
             {
                 var cassetteController = other.gameObject.GetComponent<CassetteController>();
-
                 var myResourceId = cassetteController.myResourceId;
-                //var myResourceName = cassetteController.cassetteText;
-
                 var resourcesRequiredForDisaster = Reports.instance.reports[reportIndex].RequiredResources;
+                var selectedIsRequiredResource = resourcesRequiredForDisaster.Contains(myResourceId);
 
-                
-
-                if (resourcesRequiredForDisaster.Contains(myResourceId))
+                if (selectedIsRequiredResource)
                 {
-                    message =
-                        $"Thanks for the {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
+                    //mainMessage =
+                    //    $"Thanks for the {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
                     audioSource1.Play();
                     grandScore++;
+
+                    switch (gameObject.name)
+                    {
+                        case "Box1":
+                            score1Text.text = "Thanks!";
+                            break;
+                        case "Box2":
+                            score2Text.text = "Thanks!";
+                            break;
+                        case "Box3":
+                            score3Text.text = "Thanks!";
+                            break;
+                        case "Box4":
+                            score4Text.text = "Thanks!";
+                            break;
+                    }
                 }
                 else
                 {
-                    message =
-                        $"{Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")} is not required";
+                    //mainMessage =
+                    //    $"{Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")} not required";
                     audioSource2.Play();
                     grandScore--;
                 }
-
-                //collectedItemText.text = resourcesRequired[0].ToString();
-
             }
             else
             {
                 grandScore--;
-                message = "Floor!";
+                //mainMessage = "";
+                audioSource1.Play();
             }
 
-            collectedItemText.text = message;
-
-                //grandScore = hits1 + hits2 + hits3 + hits4;
-
-                //score1Text.text = hits1.ToString("0");
-                //score2Text.text = hits2.ToString("0");
-                //score3Text.text = hits3.ToString("0");
-                //score4Text.text = hits4.ToString("0");
-
-                grandScoreText.text = $"Total: {grandScore.ToString("0")}";
-
+            //collectedItemText.text = mainMessage;
+            grandScoreText.text = $"Total: {grandScore.ToString("0")}";
 
             Destroy(other.gameObject);
 
