@@ -60,10 +60,10 @@ namespace Assets.Scripts
         {
             if (DateTime.UtcNow >= reviewDateTime)
             {
-                reportIndex0 = reportIndex0 < 3 ? reportIndex0 + 1 : 0;
-                reportIndex1 = reportIndex1 < 3 ? reportIndex1 + 1 : 0;
-                reportIndex2 = reportIndex2 < 3 ? reportIndex2 + 1 : 0;
-                reportIndex3 = reportIndex3 < 3 ? reportIndex3 + 1 : 0;
+                reportIndex0 = reportIndex0 < reports.Count - 1 ? reportIndex0 + 1 : 0;
+                reportIndex1 = reportIndex1 < reports.Count - 1 ? reportIndex1 + 1 : 0;
+                reportIndex2 = reportIndex2 < reports.Count - 1 ? reportIndex2 + 1 : 0;
+                reportIndex3 = reportIndex3 < reports.Count - 1 ? reportIndex3 + 1 : 0;
 
                 AssignReportsToMonitors();
 

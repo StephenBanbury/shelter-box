@@ -17,7 +17,9 @@ namespace Assets.Scripts
         public Text grandScoreText;
         public Text collectedItemText;
 
-        private AudioSource goalAudioSource;
+        private AudioSource audioSource1;
+        private AudioSource audioSource2;
+
         private bool floorHit;
 
         static int hits1;
@@ -28,7 +30,9 @@ namespace Assets.Scripts
 
         void Start()
         {
-            goalAudioSource = GetComponent<AudioSource>();
+            var audioSources = GetComponents<AudioSource>();
+            audioSource1 = audioSources[0];
+            audioSource2 = audioSources[1];
         }
 
         void OnTriggerEnter(Collider other)
@@ -41,9 +45,6 @@ namespace Assets.Scripts
 
         void DetectHitOrMiss(Collider other)
         {
-            //collectedItemText.text = cassetteController.cassetteText.text;
-
-            //int[] resourcesRequired = null;
             int reportIndex = 0;
 
             // Get suitable resources list from report object
@@ -80,23 +81,24 @@ namespace Assets.Scripts
                 var cassetteController = other.gameObject.GetComponent<CassetteController>();
 
                 var myResourceId = cassetteController.myResourceId;
-                var myResourceName = cassetteController.cassetteText;
+                //var myResourceName = cassetteController.cassetteText;
 
-                var resourcesRequired = Reports.instance.reports[reportIndex].RequiredResources;
+                var resourcesRequiredForDisaster = Reports.instance.reports[reportIndex].RequiredResources;
 
                 
 
-                if (resourcesRequired.Contains(myResourceId))
+                if (resourcesRequiredForDisaster.Contains(myResourceId))
                 {
                     message =
                         $"Thanks for the {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
-                    goalAudioSource.Play();
+                    audioSource1.Play();
                     grandScore++;
                 }
                 else
                 {
                     message =
                         $"{Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")} is not required";
+                    audioSource2.Play();
                     grandScore--;
                 }
 
