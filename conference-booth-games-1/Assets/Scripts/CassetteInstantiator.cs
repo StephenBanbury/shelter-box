@@ -5,6 +5,7 @@ namespace Assets.Scripts
     public class CassetteInstantiator : MonoBehaviour
     {
         public GameObject myPrefab;
+        public int numberOfCassettes = 5;
 
         public static CassetteInstantiator instance;
 
@@ -21,7 +22,10 @@ namespace Assets.Scripts
         // This script will simply instantiate the Prefab when the game starts.
         void Start()
         {
-            CreateCassette();
+            for (int i = 1; i <= numberOfCassettes; i++)
+            {
+                CreateCassette();
+            }
         }
 
         public void CreateCassette()
