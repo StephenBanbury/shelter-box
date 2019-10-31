@@ -16,7 +16,7 @@ namespace Assets.Scripts
         public Text score3Text;
         public Text score4Text;
         public Text grandScoreText;
-        public Text collectedItemText;
+        //public Text collectedItemText;
 
         private AudioSource audioSource1;
         private AudioSource audioSource2;

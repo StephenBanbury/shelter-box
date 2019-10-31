@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Assets.Scripts.Enums;
 using Assets.Scripts.Services;
 using UnityEngine;
 using UnityEngine.UI;
@@ -81,10 +83,26 @@ namespace Assets.Scripts
             monitor2bText.text = reports[reportIndex1].SubTitle;
             monitor3bText.text = reports[reportIndex2].SubTitle;
             monitor4bText.text = reports[reportIndex3].SubTitle;
-            monitor1cText.text = reports[reportIndex0].Text;
-            monitor2cText.text = reports[reportIndex1].Text;
-            monitor3cText.text = reports[reportIndex2].Text;
-            monitor4cText.text = reports[reportIndex3].Text;
+            monitor1cText.text = resourceListText(reports[reportIndex0].RequiredResources);
+            monitor2cText.text = resourceListText(reports[reportIndex1].RequiredResources);
+            monitor3cText.text = resourceListText(reports[reportIndex2].RequiredResources);
+            monitor4cText.text = resourceListText(reports[reportIndex3].RequiredResources);
+        }
+
+        private string resourceListText(int[] requiredResources)
+        {
+            var resourceText = "";
+            foreach (var resource in requiredResources)
+            {
+                if (resourceText != "")
+                {
+                    resourceText += ", ";
+                }
+
+                resourceText += Regex.Replace(((Resource)resource).ToString(), "(\\B[A-Z])", " $1");
+            }
+
+            return $"Required: {resourceText}";
         }
     }
 }

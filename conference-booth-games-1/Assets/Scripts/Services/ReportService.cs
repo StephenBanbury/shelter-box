@@ -28,7 +28,16 @@ namespace Assets.Scripts.Services
                     Text = "Hundreds of families affected",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[] { (int) Resource.Clothing, (int) Resource.Food, (int) Resource.MedicalSupplies, (int) Resource.Tents, (int) Resource.Toys, (int) Resource.Water }
+                    RequiredResources = new int[]
+                    {
+                        (int) Resource.Clothing, 
+                        (int) Resource.Food, 
+                        (int) Resource.MedicalSupplies, 
+                        (int) Resource.Tents, 
+                        (int) Resource.Toys, 
+                        (int) Resource.Water,
+                        (int) Resource.Blankets
+                    }
                 },
                 new Report
                 {
@@ -38,7 +47,12 @@ namespace Assets.Scripts.Services
                     Text = "UN declares it a Humanitarian Crisis",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[] { (int) Resource.Food, (int) Resource.MedicalSupplies, (int) Resource.Water }
+                    RequiredResources = new int[]
+                    {
+                        (int) Resource.Food, 
+                        (int) Resource.MedicalSupplies, 
+                        (int) Resource.Water
+                    }
                 },
                 new Report
                 {
@@ -48,17 +62,29 @@ namespace Assets.Scripts.Services
                     Text = "It's not known how many have found safety'",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[] { (int) Resource.MedicalSupplies }
+                    RequiredResources = new int[]
+                    {
+                        (int) Resource.MedicalSupplies
+                    }
                 },
                 new Report
                 {
                     Id = 4,
-                    Title = "Severe flooding!",
+                    Title = "Flooding!",
                     SubTitle = "Widespread displacement of people",
                     Text = "Neighbouring countries say they can provide limited assistance",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[] { (int) Resource.Food, (int) Resource.Water }
+                    RequiredResources = new int[]
+                    {
+                        (int) Resource.Food, 
+                        (int) Resource.Water,
+                        (int) Resource.MedicalSupplies,
+                        (int) Resource.Tents,
+                        (int) Resource.Toys,
+                        (int) Resource.Blankets,
+                        (int) Resource.RaftComponents
+                    }
                 },
                 new Report
                 {
@@ -68,27 +94,50 @@ namespace Assets.Scripts.Services
                     Text = "Rescue is underway",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[] { (int) Resource.Food, (int) Resource.Water }
+                    RequiredResources = new int[]
+                    {
+                        (int) Resource.Food, 
+                        (int) Resource.Water,
+                        (int) Resource.MedicalSupplies,
+                        (int) Resource.Tents,
+                        (int) Resource.Toys,
+                        (int) Resource.Blankets,
+                        (int) Resource.RaftComponents
+                    }
                 },
                 new Report
                 {
                     Id = 6,
                     Title = "Earthquake!",
                     SubTitle = "Five villages evacuated",
-                    Text = "100s of people unaccounted for",
+                    Text = "Hundreds of people unaccounted for",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[] { (int) Resource.Food, (int) Resource.Water }
+                    RequiredResources = new int[]
+                    {
+                        (int) Resource.Food, 
+                        (int) Resource.Water,
+                        (int) Resource.MedicalSupplies,
+                        (int) Resource.Tents,
+                        (int) Resource.Toys,
+                        (int) Resource.Blankets,
+                    }
                 },
                 new Report
                 {
                     Id = 7,
                     Title = "Volcano!",
                     SubTitle = "East side of island evacuated",
-                    Text = "1000s of people in search of shelter",
+                    Text = "Thousands of people in search of shelter",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[] { (int) Resource.Food, (int) Resource.Water }
+                    RequiredResources = new int[]
+                    {
+                        (int) Resource.Food, 
+                        (int) Resource.Water,
+                        (int) Resource.MedicalSupplies,
+                        (int) Resource.Tents,
+                    }
                 }
 
             };
