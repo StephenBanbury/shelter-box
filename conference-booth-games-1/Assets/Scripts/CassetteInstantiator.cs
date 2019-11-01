@@ -4,7 +4,10 @@ namespace Assets.Scripts
 {
     public class CassetteInstantiator : MonoBehaviour
     {
-        public GameObject myPrefab;
+        public GameObject myPrefab1;
+        public GameObject myPrefab2;
+        public GameObject myPrefab3;
+
         public int numberOfCassettes = 5;
 
         public static CassetteInstantiator instance;
@@ -30,6 +33,7 @@ namespace Assets.Scripts
 
         public void CreateCassette()
         {
+            var myPrefab = myPrefab1;
             Instantiate(myPrefab, new Vector3(0.08f, 3.5f, 2.3f), Quaternion.identity);
         }
     }

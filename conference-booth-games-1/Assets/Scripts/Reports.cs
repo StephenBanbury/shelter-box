@@ -32,6 +32,11 @@ namespace Assets.Scripts
         public int reportIndex2 = 2;
         public int reportIndex3 = 3;
 
+        public Text timerDisplay;
+
+        public static float timer = (5*60);
+        public static bool timeStarted = true;
+
         private DateTime startDateTime = DateTime.UtcNow;
         private DateTime reviewDateTime;
         private int updateReportsInterval = 15;
@@ -71,18 +76,30 @@ namespace Assets.Scripts
 
                 reviewDateTime = DateTime.UtcNow.AddSeconds(updateReportsInterval);
             }
-        }
 
+            if (timeStarted)
+            {
+                timer -= Time.deltaTime;
+
+                float minutes = Mathf.Floor(timer / 60);
+                float seconds = timer % 60;
+
+                timerDisplay.text = $"{minutes:0}:{seconds:00}";
+            }
+        }
+        
         void AssignReportsToMonitors()
         {
             monitor1aText.text = reports[reportIndex0].Title;
             monitor2aText.text = reports[reportIndex1].Title;
             monitor3aText.text = reports[reportIndex2].Title;
             monitor4aText.text = reports[reportIndex3].Title;
+
             monitor1bText.text = reports[reportIndex0].SubTitle;
             monitor2bText.text = reports[reportIndex1].SubTitle;
             monitor3bText.text = reports[reportIndex2].SubTitle;
             monitor4bText.text = reports[reportIndex3].SubTitle;
+
             monitor1cText.text = resourceListText(reports[reportIndex0].RequiredResources);
             monitor2cText.text = resourceListText(reports[reportIndex1].RequiredResources);
             monitor3cText.text = resourceListText(reports[reportIndex2].RequiredResources);

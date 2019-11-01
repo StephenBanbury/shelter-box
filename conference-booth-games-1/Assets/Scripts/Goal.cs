@@ -119,7 +119,7 @@ namespace Assets.Scripts
             }
 
             //collectedItemText.text = mainMessage;
-            grandScoreText.text = $"Total: {grandScore.ToString("0")}";
+            grandScoreText.text = $"Score: {grandScore.ToString("0")}";
 
             Destroy(other.gameObject);
 
