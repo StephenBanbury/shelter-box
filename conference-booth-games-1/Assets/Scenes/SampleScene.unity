@@ -273,7 +273,6 @@ MonoBehaviour:
   BoxMessage3Text: {fileID: 1552924575}
   BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
-  infoText: {fileID: 1081603900}
 --- !u!82 &63068017
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1153,7 +1152,6 @@ MonoBehaviour:
   BoxMessage3Text: {fileID: 1552924575}
   BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
-  infoText: {fileID: 1081603900}
 --- !u!82 &225398837
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1720,7 +1718,6 @@ MonoBehaviour:
   BoxMessage3Text: {fileID: 1552924575}
   BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
-  infoText: {fileID: 1081603900}
 --- !u!82 &316080950
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1949,7 +1946,6 @@ MonoBehaviour:
   BoxMessage3Text: {fileID: 1552924575}
   BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
-  infoText: {fileID: 1081603900}
 --- !u!82 &360976231
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3036,7 +3032,7 @@ GameObject:
   - component: {fileID: 1063046055}
   - component: {fileID: 1063046054}
   m_Layer: 0
-  m_Name: CassetteInstantiator
+  m_Name: ResourceObjectInstantiator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3060,7 +3056,7 @@ MonoBehaviour:
     type: 3}
   myPrefab3: {fileID: 672908762183548354, guid: f869423377dc5064ba90c0e9be648332,
     type: 3}
-  numberOfCassettes: 5
+  numberOfResourceObjects: 5
 --- !u!4 &1063046055
 Transform:
   m_ObjectHideFlags: 0
@@ -3169,7 +3165,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1081603899
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4661,7 +4657,6 @@ MonoBehaviour:
   BoxMessage3Text: {fileID: 1552924575}
   BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
-  infoText: {fileID: 1081603900}
 --- !u!65 &1931790597
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ namespace Assets.Scripts
         public Text BoxMessage3Text;
         public Text BoxMessage4Text;
         public Text grandScoreText;
-        public Text infoText;
+        //public Text infoText;
 
         private AudioSource audioSource1;
         private AudioSource audioSource2;
@@ -80,29 +80,13 @@ namespace Assets.Scripts
                 var myResourceId = cassetteController.myResourceId;
                 var resourcesRequiredForDisaster = Reports.instance.reports[reportIndex].RequiredResources;
                 var selectedIsRequiredResource = resourcesRequiredForDisaster.Contains(myResourceId);
-                
+
                 if (selectedIsRequiredResource)
                 {
                     infoMessage =
                         $"Thanks for the {Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
                     audioSource1.Play();
                     grandScore++;
-
-                    switch (gameObject.name)
-                    {
-                        case "Box1":
-                            BoxMessage1Text.text = "Thanks!";
-                            break;
-                        case "Box2":
-                            BoxMessage2Text.text = "Thanks!";
-                            break;
-                        case "Box3":
-                            BoxMessage3Text.text = "Thanks!";
-                            break;
-                        case "Box4":
-                            BoxMessage4Text.text = "Thanks!";
-                            break;
-                    }
                 }
                 else
                 {
@@ -111,15 +95,30 @@ namespace Assets.Scripts
                     audioSource2.Play();
                     grandScore--;
                 }
+
+                switch (gameObject.name)
+                {
+                    case "Box1":
+                        BoxMessage1Text.text = infoMessage;
+                        break;
+                    case "Box2":
+                        BoxMessage2Text.text = infoMessage;
+                        break;
+                    case "Box3":
+                        BoxMessage3Text.text = infoMessage;
+                        break;
+                    case "Box4":
+                        BoxMessage4Text.text = infoMessage;
+                        break;
+                }
             }
             else
             {
                 grandScore--;
-                infoMessage = "Floor hit";
                 audioSource1.Play();
             }
 
-            infoText.text = infoMessage;
+            //infoText.text = infoMessage;
             grandScoreText.text = $"Score: {grandScore.ToString("0")}";
 
             Destroy(other.gameObject);
