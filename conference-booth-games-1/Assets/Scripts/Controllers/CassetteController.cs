@@ -19,8 +19,11 @@ namespace Assets.Scripts.Controllers
             var myResource = RandomResource();
             myResourceId = (int) myResource;
 
-            var displayText = Regex.Replace(myResource.ToString(), "(\\B[A-Z])", " $1");
-            cassetteText.text = displayText;
+            if (gameObject.CompareTag("Cassette"))
+            {
+                var displayText = Regex.Replace(myResource.ToString(), "(\\B[A-Z])", " $1");
+                cassetteText.text = displayText;
+            }
         }
 
         // Update is called once per frame

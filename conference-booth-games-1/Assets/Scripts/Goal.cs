@@ -2,7 +2,6 @@
 using System.Text.RegularExpressions;
 using Assets.Scripts.Controllers;
 using Assets.Scripts.Enums;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,12 +15,11 @@ namespace Assets.Scripts
         public Text score3Text;
         public Text score4Text;
         public Text grandScoreText;
-        //public Text collectedItemText;
+        public Text infoText;
 
         private AudioSource audioSource1;
         private AudioSource audioSource2;
 
-        private bool floorHit;
         static int grandScore;
 
         void Start()
@@ -33,7 +31,7 @@ namespace Assets.Scripts
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Cassette"))
+            if (other.CompareTag("Cassette") || other.CompareTag("Tent") || other.CompareTag("Bottle"))
             {
                 DetectHitOrMiss(other);
             }
@@ -41,7 +39,10 @@ namespace Assets.Scripts
 
         void DetectHitOrMiss(Collider other)
         {
+            string infoMessage = "";
+
             int reportIndex = 0;
+            bool hitFloor = false;
 
             // Get suitable resources list from report object
             // First get report index of report currently associated with hit box
@@ -61,11 +62,11 @@ namespace Assets.Scripts
                     reportIndex = Reports.instance.reportIndex3;
                     break;
                 case "Floor":
-                    floorHit = true;
+                    hitFloor = true;
                     break;
             }
-            
-            //string mainMessage;
+
+            infoText.text = $"Report Index: {reportIndex.ToString()}";
 
             score1Text.text = "";
             score2Text.text = "";
@@ -73,17 +74,19 @@ namespace Assets.Scripts
             score4Text.text = "";
 
             // Then get collection of resource IDs from indexed report
-            if (!floorHit)
+            if (!hitFloor)
             {
                 var cassetteController = other.gameObject.GetComponent<CassetteController>();
                 var myResourceId = cassetteController.myResourceId;
                 var resourcesRequiredForDisaster = Reports.instance.reports[reportIndex].RequiredResources;
                 var selectedIsRequiredResource = resourcesRequiredForDisaster.Contains(myResourceId);
 
+                infoMessage = "Box hit";
+
                 if (selectedIsRequiredResource)
                 {
-                    //mainMessage =
-                    //    $"Thanks for the {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
+                    infoMessage =
+                        $"Thanks for the {Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
                     audioSource1.Play();
                     grandScore++;
 
@@ -105,8 +108,8 @@ namespace Assets.Scripts
                 }
                 else
                 {
-                    //mainMessage =
-                    //    $"{Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")} not required";
+                    infoMessage =
+                        $"{Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")} not required";
                     audioSource2.Play();
                     grandScore--;
                 }
@@ -114,11 +117,11 @@ namespace Assets.Scripts
             else
             {
                 grandScore--;
-                //mainMessage = "";
+                infoMessage = "Floor hit";
                 audioSource1.Play();
             }
 
-            //collectedItemText.text = mainMessage;
+            infoText.text = infoMessage;
             grandScoreText.text = $"Score: {grandScore.ToString("0")}";
 
             Destroy(other.gameObject);

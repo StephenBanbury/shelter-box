@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Hand
   - Cassette
+  - Tent
+  - Bottle
   layers:
   - Default
   - TransparentFX

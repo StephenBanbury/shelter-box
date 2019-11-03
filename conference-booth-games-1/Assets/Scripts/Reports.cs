@@ -34,7 +34,7 @@ namespace Assets.Scripts
 
         public Text timerDisplay;
 
-        public static float timer = (5*60);
+        public static float timer = (5 * 60);
         public static bool timeStarted = true;
 
         private DateTime startDateTime = DateTime.UtcNow;
