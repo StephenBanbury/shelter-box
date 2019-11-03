@@ -76,7 +76,7 @@ namespace Assets.Scripts
             // Then get collection of resource IDs from indexed report
             if (!hitFloor)
             {
-                var cassetteController = other.gameObject.GetComponent<CassetteController>();
+                var cassetteController = other.gameObject.GetComponent<ResourceObjectController>();
                 var myResourceId = cassetteController.myResourceId;
                 var resourcesRequiredForDisaster = Reports.instance.reports[reportIndex].RequiredResources;
                 var selectedIsRequiredResource = resourcesRequiredForDisaster.Contains(myResourceId);
@@ -124,7 +124,7 @@ namespace Assets.Scripts
 
             Destroy(other.gameObject);
 
-            CassetteInstantiator.instance.CreateCassette();
+            ResourceObjectInstantiator.instance.CreateResourceObject();
         }
     }
 }

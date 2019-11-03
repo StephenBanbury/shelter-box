@@ -8,7 +8,7 @@ using Random = System.Random;
 namespace Assets.Scripts.Controllers
 {
 
-    public class CassetteController : MonoBehaviour
+    public class ResourceObjectController : MonoBehaviour
     {
         public Text cassetteText;
         public int myResourceId;
@@ -16,8 +16,6 @@ namespace Assets.Scripts.Controllers
         // Start is called before the first frame update
         void Start()
         {
-            cassetteText.text = "";
-
             if (gameObject.CompareTag("Cassette"))
             {
                 var myResource = RandomResource();

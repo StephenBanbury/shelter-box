@@ -3,7 +3,7 @@ using Random = System.Random;
 
 namespace Assets.Scripts
 {
-    public class CassetteInstantiator : MonoBehaviour
+    public class ResourceObjectInstantiator : MonoBehaviour
     {
         public GameObject myPrefab1;
         public GameObject myPrefab2;
@@ -11,9 +11,9 @@ namespace Assets.Scripts
 
         private GameObject[] myPrefabs;
 
-        public int numberOfCassettes = 5;
+        public int numberOfResourceObjects = 5;
 
-        public static CassetteInstantiator instance;
+        public static ResourceObjectInstantiator instance;
 
         void Awake()
         {
@@ -34,13 +34,13 @@ namespace Assets.Scripts
             //myPrefabs[1] = myPrefab2;
             //myPrefabs[2] = myPrefab3;
 
-            for (int i = 1; i <= numberOfCassettes; i++)
+            for (int i = 1; i <= numberOfResourceObjects; i++)
             {
-                CreateCassette();
+                CreateResourceObject();
             }
         }
 
-        public void CreateCassette()
+        public void CreateResourceObject()
         {
             Random random = new Random();
             int randomValue = random.Next(0, myPrefabs.Length);
