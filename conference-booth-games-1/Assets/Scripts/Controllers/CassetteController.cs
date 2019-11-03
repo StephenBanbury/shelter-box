@@ -16,13 +16,21 @@ namespace Assets.Scripts.Controllers
         // Start is called before the first frame update
         void Start()
         {
-            var myResource = RandomResource();
-            myResourceId = (int) myResource;
-
             if (gameObject.CompareTag("Cassette"))
             {
+                var myResource = RandomResource();
+                myResourceId = (int) myResource;
+
                 var displayText = Regex.Replace(myResource.ToString(), "(\\B[A-Z])", " $1");
                 cassetteText.text = displayText;
+            }
+            else if (gameObject.CompareTag("Tent"))
+            {
+                myResourceId = (int) Resource.Tents;
+            }
+            else if (gameObject.CompareTag("Bottle"))
+            {
+                myResourceId = (int) Resource.Water;
             }
         }
 
