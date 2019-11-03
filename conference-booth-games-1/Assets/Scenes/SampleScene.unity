@@ -268,10 +268,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f07b244f9e26c140b55332c143bd391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score1Text: {fileID: 1492863426}
-  score2Text: {fileID: 866292161}
-  score3Text: {fileID: 1552924575}
-  score4Text: {fileID: 69274789}
+  BoxMessage1Text: {fileID: 1492863426}
+  BoxMessage2Text: {fileID: 866292161}
+  BoxMessage3Text: {fileID: 1552924575}
+  BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
   infoText: {fileID: 1081603900}
 --- !u!82 &63068017
@@ -478,7 +478,7 @@ GameObject:
   - component: {fileID: 69274790}
   - component: {fileID: 69274789}
   m_Layer: 5
-  m_Name: Score4Text
+  m_Name: BoxMessage4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -588,7 +588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1148,10 +1148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f07b244f9e26c140b55332c143bd391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score1Text: {fileID: 1492863426}
-  score2Text: {fileID: 866292161}
-  score3Text: {fileID: 1552924575}
-  score4Text: {fileID: 69274789}
+  BoxMessage1Text: {fileID: 1492863426}
+  BoxMessage2Text: {fileID: 866292161}
+  BoxMessage3Text: {fileID: 1552924575}
+  BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
   infoText: {fileID: 1081603900}
 --- !u!82 &225398837
@@ -1715,10 +1715,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f07b244f9e26c140b55332c143bd391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score1Text: {fileID: 1492863426}
-  score2Text: {fileID: 866292161}
-  score3Text: {fileID: 1552924575}
-  score4Text: {fileID: 69274789}
+  BoxMessage1Text: {fileID: 1492863426}
+  BoxMessage2Text: {fileID: 866292161}
+  BoxMessage3Text: {fileID: 1552924575}
+  BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
   infoText: {fileID: 1081603900}
 --- !u!82 &316080950
@@ -1944,10 +1944,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f07b244f9e26c140b55332c143bd391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score1Text: {fileID: 1492863426}
-  score2Text: {fileID: 866292161}
-  score3Text: {fileID: 1552924575}
-  score4Text: {fileID: 69274789}
+  BoxMessage1Text: {fileID: 1492863426}
+  BoxMessage2Text: {fileID: 866292161}
+  BoxMessage3Text: {fileID: 1552924575}
+  BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
   infoText: {fileID: 1081603900}
 --- !u!82 &360976231
@@ -2229,7 +2229,7 @@ GameObject:
   m_Component:
   - component: {fileID: 382153132}
   m_Layer: 5
-  m_Name: ScoreText
+  m_Name: BoxMessages
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2710,7 +2710,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &866292159
 GameObject:
@@ -2724,7 +2724,7 @@ GameObject:
   - component: {fileID: 866292162}
   - component: {fileID: 866292161}
   m_Layer: 5
-  m_Name: Score2Text
+  m_Name: BoxMessage2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3073,7 +3073,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1074997155
 GameObject:
@@ -3375,7 +3375,7 @@ Transform:
   - {fileID: 131960750}
   - {fileID: 223974229}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1313811209
 GameObject:
@@ -3677,7 +3677,7 @@ GameObject:
   - component: {fileID: 1492863427}
   - component: {fileID: 1492863426}
   m_Layer: 5
-  m_Name: Score1Text
+  m_Name: BoxMessage1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3754,7 +3754,7 @@ GameObject:
   - component: {fileID: 1552924576}
   - component: {fileID: 1552924575}
   m_Layer: 5
-  m_Name: Score3Text
+  m_Name: BoxMessage3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3965,6 +3965,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604933314}
   m_CullTransparentMesh: 0
+--- !u!1001 &1608779110
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 672908762183548354, guid: f869423377dc5064ba90c0e9be648332,
+        type: 3}
+      propertyPath: m_Name
+      value: BP_cola_color_2 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 675237995297192052, guid: f869423377dc5064ba90c0e9be648332,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.1578255
+      objectReference: {fileID: 0}
+    - target: {fileID: 675237995297192052, guid: f869423377dc5064ba90c0e9be648332,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.3888001
+      objectReference: {fileID: 0}
+    - target: {fileID: 675237995297192052, guid: f869423377dc5064ba90c0e9be648332,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.8571774
+      objectReference: {fileID: 0}
+    - target: {fileID: 675237995297192052, guid: f869423377dc5064ba90c0e9be648332,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 675237995297192052, guid: f869423377dc5064ba90c0e9be648332,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 675237995297192052, guid: f869423377dc5064ba90c0e9be648332,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 675237995297192052, guid: f869423377dc5064ba90c0e9be648332,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 675237995297192052, guid: f869423377dc5064ba90c0e9be648332,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 675237995297192052, guid: f869423377dc5064ba90c0e9be648332,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 675237995297192052, guid: f869423377dc5064ba90c0e9be648332,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 675237995297192052, guid: f869423377dc5064ba90c0e9be648332,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f869423377dc5064ba90c0e9be648332, type: 3}
 --- !u!1 &1626709488
 GameObject:
   m_ObjectHideFlags: 0
@@ -4587,10 +4656,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f07b244f9e26c140b55332c143bd391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score1Text: {fileID: 1492863426}
-  score2Text: {fileID: 866292161}
-  score3Text: {fileID: 1552924575}
-  score4Text: {fileID: 69274789}
+  BoxMessage1Text: {fileID: 1492863426}
+  BoxMessage2Text: {fileID: 866292161}
+  BoxMessage3Text: {fileID: 1552924575}
+  BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
   infoText: {fileID: 1081603900}
 --- !u!65 &1931790597

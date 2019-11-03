@@ -16,6 +16,8 @@ namespace Assets.Scripts.Controllers
         // Start is called before the first frame update
         void Start()
         {
+            cassetteText.text = "";
+
             if (gameObject.CompareTag("Cassette"))
             {
                 var myResource = RandomResource();

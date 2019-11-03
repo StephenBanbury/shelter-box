@@ -10,10 +10,10 @@ namespace Assets.Scripts
 {
     public class Goal : MonoBehaviour
     {
-        public Text score1Text;
-        public Text score2Text;
-        public Text score3Text;
-        public Text score4Text;
+        public Text BoxMessage1Text;
+        public Text BoxMessage2Text;
+        public Text BoxMessage3Text;
+        public Text BoxMessage4Text;
         public Text grandScoreText;
         public Text infoText;
 
@@ -66,12 +66,12 @@ namespace Assets.Scripts
                     break;
             }
 
-            infoText.text = $"Report Index: {reportIndex.ToString()}";
+            //infoText.text = $"Report Index: {reportIndex.ToString()}";
 
-            score1Text.text = "";
-            score2Text.text = "";
-            score3Text.text = "";
-            score4Text.text = "";
+            BoxMessage1Text.text = "";
+            BoxMessage2Text.text = "";
+            BoxMessage3Text.text = "";
+            BoxMessage4Text.text = "";
 
             // Then get collection of resource IDs from indexed report
             if (!hitFloor)
@@ -80,9 +80,7 @@ namespace Assets.Scripts
                 var myResourceId = cassetteController.myResourceId;
                 var resourcesRequiredForDisaster = Reports.instance.reports[reportIndex].RequiredResources;
                 var selectedIsRequiredResource = resourcesRequiredForDisaster.Contains(myResourceId);
-
-                infoMessage = "Box hit";
-
+                
                 if (selectedIsRequiredResource)
                 {
                     infoMessage =
@@ -93,16 +91,16 @@ namespace Assets.Scripts
                     switch (gameObject.name)
                     {
                         case "Box1":
-                            score1Text.text = "Thanks!";
+                            BoxMessage1Text.text = "Thanks!";
                             break;
                         case "Box2":
-                            score2Text.text = "Thanks!";
+                            BoxMessage2Text.text = "Thanks!";
                             break;
                         case "Box3":
-                            score3Text.text = "Thanks!";
+                            BoxMessage3Text.text = "Thanks!";
                             break;
                         case "Box4":
-                            score4Text.text = "Thanks!";
+                            BoxMessage4Text.text = "Thanks!";
                             break;
                     }
                 }
