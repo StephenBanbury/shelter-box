@@ -10,7 +10,7 @@
         MedicalSupplies = 5,
         Toys = 6,
         Blankets = 7,
-        RaftComponents = 8
+        FloatationDevices = 8
     }
 
     public enum Service

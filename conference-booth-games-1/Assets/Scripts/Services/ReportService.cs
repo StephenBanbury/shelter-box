@@ -83,7 +83,7 @@ namespace Assets.Scripts.Services
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Blankets,
-                        (int) Resource.RaftComponents
+                        (int) Resource.FloatationDevices
                     }
                 },
                 new Report
@@ -102,7 +102,7 @@ namespace Assets.Scripts.Services
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Blankets,
-                        (int) Resource.RaftComponents
+                        (int) Resource.FloatationDevices
                     }
                 },
                 new Report
