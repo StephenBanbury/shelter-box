@@ -8,6 +8,10 @@ namespace Assets.Scripts
         public GameObject myPrefab1;
         public GameObject myPrefab2;
         public GameObject myPrefab3;
+        public GameObject myPrefab4;
+        public GameObject myPrefab5;
+        public GameObject myPrefab6;
+        public GameObject myPrefab7;
 
         private GameObject[] myPrefabs;
 
@@ -28,11 +32,7 @@ namespace Assets.Scripts
         // This script will simply instantiate the Prefab when the game starts.
         void Start()
         {
-            myPrefabs = new GameObject[] {myPrefab1, myPrefab2, myPrefab3};
-
-            //myPrefabs[0] = myPrefab1;
-            //myPrefabs[1] = myPrefab2;
-            //myPrefabs[2] = myPrefab3;
+            myPrefabs = new GameObject[] {myPrefab1, myPrefab2, myPrefab3, myPrefab4, myPrefab5, myPrefab6, myPrefab7};
 
             for (int i = 1; i <= numberOfResourceObjects; i++)
             {

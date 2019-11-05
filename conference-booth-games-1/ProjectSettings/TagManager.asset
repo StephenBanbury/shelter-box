@@ -8,6 +8,10 @@ TagManager:
   - Cassette
   - Tent
   - Bottle
+  - Toy
+  - FirstAidKit
+  - Boat
+  - Food
   layers:
   - Default
   - TransparentFX

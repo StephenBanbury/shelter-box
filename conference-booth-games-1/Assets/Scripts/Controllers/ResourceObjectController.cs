@@ -32,6 +32,22 @@ namespace Assets.Scripts.Controllers
             {
                 myResourceId = (int) Resource.Water;
             }
+            else if (gameObject.CompareTag("Food"))
+            {
+                myResourceId = (int) Resource.Food;
+            }
+            else if (gameObject.CompareTag("FirstAidKit"))
+            {
+                myResourceId = (int) Resource.MedicalSupplies;
+            }
+            else if (gameObject.CompareTag("Boat"))
+            {
+                myResourceId = (int) Resource.FloatationDevices;
+            }
+            else if (gameObject.CompareTag("Toy"))
+            {
+                myResourceId = (int) Resource.Toys;
+            }
         }
 
         // Update is called once per frame

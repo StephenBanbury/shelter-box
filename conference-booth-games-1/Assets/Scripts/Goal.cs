@@ -76,8 +76,8 @@ namespace Assets.Scripts
             // Then get collection of resource IDs from indexed report
             if (!hitFloor)
             {
-                var cassetteController = other.gameObject.GetComponent<ResourceObjectController>();
-                var myResourceId = cassetteController.myResourceId;
+                var resourceObjectController = other.gameObject.GetComponent<ResourceObjectController>();
+                var myResourceId = resourceObjectController.myResourceId;
                 var resourcesRequiredForDisaster = Reports.instance.reports[reportIndex].RequiredResources;
                 var selectedIsRequiredResource = resourcesRequiredForDisaster.Contains(myResourceId);
 
