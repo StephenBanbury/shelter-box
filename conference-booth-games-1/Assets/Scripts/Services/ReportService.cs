@@ -32,7 +32,7 @@ namespace Assets.Scripts.Services
                     {
                         (int) Resource.Clothing, 
                         (int) Resource.Food, 
-                        (int) Resource.MedicalSupplies, 
+                        (int) Resource.FirstAidKits, 
                         (int) Resource.Tents, 
                         (int) Resource.Toys, 
                         (int) Resource.Water,
@@ -50,7 +50,7 @@ namespace Assets.Scripts.Services
                     RequiredResources = new int[]
                     {
                         (int) Resource.Food, 
-                        (int) Resource.MedicalSupplies, 
+                        (int) Resource.FirstAidKits, 
                         (int) Resource.Water
                     }
                 },
@@ -64,7 +64,7 @@ namespace Assets.Scripts.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        (int) Resource.MedicalSupplies
+                        (int) Resource.FirstAidKits
                     }
                 },
                 new Report
@@ -79,11 +79,11 @@ namespace Assets.Scripts.Services
                     {
                         (int) Resource.Food, 
                         (int) Resource.Water,
-                        (int) Resource.MedicalSupplies,
+                        (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Blankets,
-                        (int) Resource.FloatationDevices
+                        (int) Resource.Boats
                     }
                 },
                 new Report
@@ -98,11 +98,11 @@ namespace Assets.Scripts.Services
                     {
                         (int) Resource.Food, 
                         (int) Resource.Water,
-                        (int) Resource.MedicalSupplies,
+                        (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Blankets,
-                        (int) Resource.FloatationDevices
+                        (int) Resource.Boats
                     }
                 },
                 new Report
@@ -117,7 +117,7 @@ namespace Assets.Scripts.Services
                     {
                         (int) Resource.Food, 
                         (int) Resource.Water,
-                        (int) Resource.MedicalSupplies,
+                        (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Blankets,
@@ -135,7 +135,7 @@ namespace Assets.Scripts.Services
                     {
                         (int) Resource.Food, 
                         (int) Resource.Water,
-                        (int) Resource.MedicalSupplies,
+                        (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
                     }
                 }

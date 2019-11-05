@@ -7,10 +7,10 @@
         Water = 2,
         Clothing = 3,
         Tents = 4,
-        MedicalSupplies = 5,
+        FirstAidKits = 5,
         Toys = 6,
         Blankets = 7,
-        FloatationDevices = 8
+        Boats = 8
     }
 
     public enum Service

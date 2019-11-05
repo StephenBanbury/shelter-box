@@ -31,7 +31,14 @@ namespace Assets.Scripts
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Cassette") || other.CompareTag("Tent") || other.CompareTag("Bottle"))
+            if (other.CompareTag("Cassette") || 
+                other.CompareTag("Tent") || 
+                other.CompareTag("Food") ||
+                other.CompareTag("Bottle") ||
+                other.CompareTag("FirstAidKit") ||
+                other.CompareTag("Boat") ||
+                other.CompareTag("Toy")
+                )
             {
                 DetectHitOrMiss(other);
             }

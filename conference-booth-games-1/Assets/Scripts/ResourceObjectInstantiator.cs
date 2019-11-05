@@ -5,7 +5,7 @@ namespace Assets.Scripts
 {
     public class ResourceObjectInstantiator : MonoBehaviour
     {
-        public GameObject myPrefab1;
+        //public GameObject myPrefab1;
         public GameObject myPrefab2;
         public GameObject myPrefab3;
         public GameObject myPrefab4;
@@ -15,7 +15,7 @@ namespace Assets.Scripts
 
         private GameObject[] myPrefabs;
 
-        public int numberOfResourceObjects = 5;
+        public int numberOfResourceObjects = 8;
 
         public static ResourceObjectInstantiator instance;
 
@@ -32,7 +32,7 @@ namespace Assets.Scripts
         // This script will simply instantiate the Prefab when the game starts.
         void Start()
         {
-            myPrefabs = new GameObject[] {myPrefab1, myPrefab2, myPrefab3, myPrefab4, myPrefab5, myPrefab6, myPrefab7};
+            myPrefabs = new GameObject[] { myPrefab2, myPrefab3, myPrefab4, myPrefab5, myPrefab6, myPrefab7};
 
             for (int i = 1; i <= numberOfResourceObjects; i++)
             {

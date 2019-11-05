@@ -10,21 +10,23 @@ namespace Assets.Scripts.Controllers
 
     public class ResourceObjectController : MonoBehaviour
     {
-        public Text cassetteText;
+        //public Text cassetteText;
         public int myResourceId;
 
         // Start is called before the first frame update
         void Start()
         {
-            if (gameObject.CompareTag("Cassette"))
-            {
-                var myResource = RandomResource();
-                myResourceId = (int) myResource;
+            //if (gameObject.CompareTag("Cassette"))
+            //{
+            //    var randomResource = RandomResource();
+            //    myResourceId = (int) randomResource;
 
-                var displayText = Regex.Replace(myResource.ToString(), "(\\B[A-Z])", " $1");
-                cassetteText.text = displayText;
-            }
-            else if (gameObject.CompareTag("Tent"))
+            //    var displayText = Regex.Replace(randomResource.ToString(), "(\\B[A-Z])", " $1");
+            //    cassetteText.text = displayText;
+            //}
+            //else 
+            
+            if (gameObject.CompareTag("Tent"))
             {
                 myResourceId = (int) Resource.Tents;
             }
@@ -38,11 +40,11 @@ namespace Assets.Scripts.Controllers
             }
             else if (gameObject.CompareTag("FirstAidKit"))
             {
-                myResourceId = (int) Resource.MedicalSupplies;
+                myResourceId = (int) Resource.FirstAidKits;
             }
             else if (gameObject.CompareTag("Boat"))
             {
-                myResourceId = (int) Resource.FloatationDevices;
+                myResourceId = (int) Resource.Boats;
             }
             else if (gameObject.CompareTag("Toy"))
             {
