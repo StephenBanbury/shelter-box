@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
-public class EnterPrepRoom : MonoBehaviour
+public class NavigatePrepRoom : MonoBehaviour
 {
-    public Text DoorMessage;
     private AudioSource audioSource1;
     //private AudioSource audioSource2;
 
@@ -19,8 +17,7 @@ public class EnterPrepRoom : MonoBehaviour
         if (other.CompareTag("Hand"))
         {
             audioSource1.Play();
-            DoorMessage.text = "Welcome!";
-            GameManager.instance.LoadAppropriateScene("PreperationCentre");
+            GameManager.instance.LoadAppropriateScene("PreparationCentre");
         } 
     }
 }

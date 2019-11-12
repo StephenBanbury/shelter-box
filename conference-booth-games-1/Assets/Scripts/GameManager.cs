@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        print("Awake");
         // Check that it exists
         if (instance == null)
         {
@@ -25,19 +24,6 @@ public class GameManager : MonoBehaviour
 
         // don't destroy the object when changing scenes!
         DontDestroyOnLoad(gameObject);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        print("HomeTown");
-        SceneManager.LoadScene("HomeTown");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void LoadAppropriateScene(string sceneName)
