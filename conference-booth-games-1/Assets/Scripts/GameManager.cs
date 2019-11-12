@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
         // don't destroy the object when changing scenes!
         DontDestroyOnLoad(gameObject);
     }
-
+    
     public void LoadAppropriateScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
