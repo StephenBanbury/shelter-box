@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class NavigatePrepRoom : MonoBehaviour
 {
@@ -17,7 +19,9 @@ public class NavigatePrepRoom : MonoBehaviour
         if (other.CompareTag("Hand"))
         {
             audioSource1.Play();
-            GameManager.instance.LoadAppropriateScene("PreparationCentre");
+            GameManager.instance.LoadAppropriateScene(GameManager.instance.CurrentScene() == "HomeTown"
+                ? "PrepRoom"
+                : "HomeTown");
         } 
     }
 }

@@ -1,10 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     // static instance of the GM can be accessed from anywhere
     public static GameManager instance;
+    public Text doorMessage;
+
+    private Scene scene;
+
+    void Start()
+    {
+        scene = SceneManager.GetActiveScene();
+        doorMessage.text = scene.name == "HomeTown" ? "Enter" : "Exit";
+    }
 
     void Awake()
     {
@@ -24,6 +34,11 @@ public class GameManager : MonoBehaviour
 
         // don't destroy the object when changing scenes!
         DontDestroyOnLoad(gameObject);
+    }
+
+    public string CurrentScene()
+    {
+        return scene.name;
     }
     
     public void LoadAppropriateScene(string sceneName)
