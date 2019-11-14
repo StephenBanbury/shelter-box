@@ -57,16 +57,16 @@ namespace Assets.Scripts
             switch (gameObject.name)
             {
                 case "Box1":
-                    reportIndex = Reports.instance.reportIndex0;
+                    reportIndex = ReportsManager.instance.reportIndex0;
                     break;
                 case "Box2":
-                    reportIndex = Reports.instance.reportIndex1;
+                    reportIndex = ReportsManager.instance.reportIndex1;
                     break;
                 case "Box3":
-                    reportIndex = Reports.instance.reportIndex2;
+                    reportIndex = ReportsManager.instance.reportIndex2;
                     break;
                 case "Box4":
-                    reportIndex = Reports.instance.reportIndex3;
+                    reportIndex = ReportsManager.instance.reportIndex3;
                     break;
                 case "Floor":
                     hitFloor = true;
@@ -85,7 +85,7 @@ namespace Assets.Scripts
             {
                 var resourceObjectController = other.gameObject.GetComponent<ResourceObjectController>();
                 var myResourceId = resourceObjectController.myResourceId;
-                var resourcesRequiredForDisaster = Reports.instance.reports[reportIndex].RequiredResources;
+                var resourcesRequiredForDisaster = ReportsManager.instance.reports[reportIndex].RequiredResources;
                 var selectedIsRequiredResource = resourcesRequiredForDisaster.Contains(myResourceId);
 
                 if (selectedIsRequiredResource)

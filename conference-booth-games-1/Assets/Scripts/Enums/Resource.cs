@@ -21,7 +21,7 @@
         MedicalStaff = 3
     }
 
-    public enum PersonalBelongings
+    public enum CheckListItem
     {
         None = 0,
         Passport = 1,

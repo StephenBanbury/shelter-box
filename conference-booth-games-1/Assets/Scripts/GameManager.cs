@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -7,6 +8,10 @@ public class GameManager : MonoBehaviour
     // static instance of the GM can be accessed from anywhere
     public static GameManager instance;
     public Text doorMessage;
+
+    public Text timerDisplay;
+    public static float timer = (5 * 60);
+    public static bool timeStarted = true;
 
     private Scene scene;
 
@@ -34,6 +39,19 @@ public class GameManager : MonoBehaviour
 
         // don't destroy the object when changing scenes!
         DontDestroyOnLoad(gameObject);
+    }
+
+    void Update()
+    {
+        if (timeStarted)
+        {
+            timer -= Time.deltaTime;
+
+            float minutes = Mathf.Floor(timer / 60);
+            float seconds = timer % 60;
+
+            timerDisplay.text = $"{minutes:0}:{seconds:00}";
+        }
     }
 
     public string CurrentScene()
