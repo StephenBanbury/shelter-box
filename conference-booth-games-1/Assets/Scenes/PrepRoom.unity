@@ -1019,6 +1019,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorMessage: {fileID: 334915367}
   timerDisplay: {fileID: 1335831542}
+--- !u!114 &187238236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187238234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9684c0b2856e5c646b5fb63126e2248c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkListText: {fileID: 0}
 --- !u!114 &187238239
 MonoBehaviour:
   m_ObjectHideFlags: 0

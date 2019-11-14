@@ -7,34 +7,24 @@ using UnityEngine.UI;
 
 public class CheckListCollector : MonoBehaviour
 {
-
-    private List<CheckListItem> collectedCheckListItems;
-    public Text checkListText;
-
-    private CheckListCollector()
-    {
-        //checkListService = new CheckListService();
-        collectedCheckListItems = new List<CheckListItem>();
-    }
-
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Hand"))
         {
-            // TODO
+            var item = CheckListItem.None;
+
             switch (gameObject.name)
             {
                 case "CollectFirstAidKit":
-                    collectedCheckListItems.Add(CheckListItem.FirstAidKit);
+                    item = CheckListItem.FirstAidKit;
                     break;
                 case "CollectPassport":
-                    collectedCheckListItems.Add(CheckListItem.Passport);
+                    item = CheckListItem.Passport;
                     break;
             }
 
-            //CheckListManager.UpdateCheckListText();
-
-            checkListText.text = gameObject.name;
+            CheckListManager.instance.UpdateCollectedList(item);
+            CheckListManager.instance.UpdateCheckListText();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Assets.Scripts.Enums;
 using UnityEngine;
@@ -9,10 +10,9 @@ namespace Assets.Scripts
     public class CheckListManager: MonoBehaviour
     {
         public static CheckListManager instance;
+        public static List<CheckListItem> collectedCheckListItems = new List<CheckListItem>();
+
         public Text checkListText;
-
-        //private CheckListService checkListService;
-
 
         void Awake()
         {
@@ -32,6 +32,11 @@ namespace Assets.Scripts
             UpdateCheckListText();
         }
 
+        public void UpdateCollectedList(CheckListItem item)
+        {
+            collectedCheckListItems.Add(item);
+        }
+
         public void UpdateCheckListText()
         {
             Array checkListItems = Enum.GetValues(typeof(CheckListItem));
@@ -42,8 +47,9 @@ namespace Assets.Scripts
             {
                 if ((int)checkListItem != 0)
                 {
-                    var item = Regex.Replace(((CheckListItem)checkListItem).ToString(), "(\\B[A-Z])", " $1");
-                    checkListText.text += item + Environment.NewLine;
+                    var collected = collectedCheckListItems.Contains((CheckListItem) checkListItem) ? "(checked)" : "";
+                    var itemText = Regex.Replace(((CheckListItem)checkListItem).ToString(), "(\\B[A-Z])", " $1");
+                    checkListText.text += $"{itemText} {collected}" + Environment.NewLine;
                 }
             }
         }

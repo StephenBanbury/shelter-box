@@ -26,27 +26,27 @@ namespace Assets.Scripts.Controllers
             
             if (gameObject.CompareTag("Tent"))
             {
-                myResourceId = (int) Resource.Tents;
+                myResourceId = (int)Resource.Tents;
             }
             else if (gameObject.CompareTag("Bottle"))
             {
-                myResourceId = (int) Resource.Water;
+                myResourceId = (int)Resource.Water;
             }
             else if (gameObject.CompareTag("Food"))
             {
-                myResourceId = (int) Resource.Food;
+                myResourceId = (int)Resource.Food;
             }
             else if (gameObject.CompareTag("FirstAidKit"))
             {
-                myResourceId = (int) Resource.FirstAidKits;
+                myResourceId = (int)Resource.FirstAidKits;
             }
             else if (gameObject.CompareTag("Boat"))
             {
-                myResourceId = (int) Resource.Boats;
+                myResourceId = (int)Resource.Boats;
             }
             else if (gameObject.CompareTag("Toy"))
             {
-                myResourceId = (int) Resource.Toys;
+                myResourceId = (int)Resource.Toys;
             }
         }
 
