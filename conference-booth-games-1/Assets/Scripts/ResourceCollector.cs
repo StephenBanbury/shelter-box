@@ -83,29 +83,16 @@ namespace Assets.Scripts
             // Then get collection of resource IDs from indexed report
             if (!hitFloor)
             {
-                var resourceObjectController = other.gameObject.GetComponent<ResourceManager>();
-                var myResourceId = resourceObjectController.myResourceId;
-                var resourcesRequiredForDisaster = ReportsManager.instance.reports[reportIndex].RequiredResources;
+                var resourceManager = other.gameObject.GetComponent<ResourceManager>();
+                var myResourceId = resourceManager.myResourceId;
+                var resourcesRequiredForDisaster = ReportsManager.instance.RequiredResources(reportIndex);
                 var selectedIsRequiredResource = resourcesRequiredForDisaster.Contains(myResourceId);
 
                 if (selectedIsRequiredResource)
                 {
-                    //infoMessage = $"{reportIndex}, {myResourceId}";
-
-                    //ReportsManager.instance.CollectResource(reportIndex, myResourceId);
-
-
-                    //var collectedResourceIds = ReportsManager.instance.CollectedResources(reportIndex).ToList();
-                    //StringBuilder collectedResources = new StringBuilder();
-
-                    //foreach (var collectedResourceId in collectedResourceIds)
-                    //{
-                    //    collectedResources.Append(
-                    //        $"{Regex.Replace(((Resource)collectedResourceId).ToString(), "(\\B[A-Z])", " $1")}; ");
-                    //}
-
-                    //infoMessage = collectedResources.ToString();
-
+                    ReportsManager.instance.CollectResource(reportIndex, myResourceId);
+                    ReportsManager.instance.AssignReportsToMonitors();
+                    
                     infoMessage =
                         $"Thanks for the {Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
 

@@ -83,7 +83,7 @@ namespace Assets.Scripts
             }
         }
         
-        void AssignReportsToMonitors()
+        public void AssignReportsToMonitors()
         {
             monitor1aText.text = reports[reportIndex0].Title;
             monitor2aText.text = reports[reportIndex1].Title;
@@ -95,10 +95,24 @@ namespace Assets.Scripts
             monitor3bText.text = reports[reportIndex2].SubTitle;
             monitor4bText.text = reports[reportIndex3].SubTitle;
 
-            monitor1cText.text = resourceListText(reports[reportIndex0].RequiredResources);
-            monitor2cText.text = resourceListText(reports[reportIndex1].RequiredResources);
-            monitor3cText.text = resourceListText(reports[reportIndex2].RequiredResources);
-            monitor4cText.text = resourceListText(reports[reportIndex3].RequiredResources);
+            monitor1cText.text = resourceListText(reportIndex0);
+            monitor2cText.text = resourceListText(reportIndex1);
+            monitor3cText.text = resourceListText(reportIndex2);
+            monitor4cText.text = resourceListText(reportIndex3);
+            //monitor1cText.text = resourceListText(reports[reportIndex0].RequiredResources);
+            //monitor2cText.text = resourceListText(reports[reportIndex1].RequiredResources);
+            //monitor3cText.text = resourceListText(reports[reportIndex2].RequiredResources);
+            //monitor4cText.text = resourceListText(reports[reportIndex3].RequiredResources);
+        }
+
+        public void CollectResource(int reportId, int resourceId)
+        {
+            //var report = reports.Find(r => r.Id == reportId);
+            //if (report.RequiredResourcesCollected.All(r => r != resourceId))
+            //{
+            //report.RequiredResourcesCollected.Add(resourceId);
+            //}
+            reports[reportId].CollectedResources.Add(resourceId);
         }
 
         public int[] CollectedResources(int reportIndex)
@@ -108,29 +122,56 @@ namespace Assets.Scripts
             return resourceIds;
         }
 
-        public void CollectResource(int reportId, int resourceId)
+        public int[] RequiredResources(int reportIndex)
         {
-            var report = reports.First(r => r.Id == reportId);
-            if (report.RequiredResourcesCollected.All(r => r != resourceId))
-            {
-                report.RequiredResourcesCollected.Add(resourceId);
-            }
+            return reports[reportIndex].RequiredResources;
         }
 
-        private string resourceListText(int[] requiredResources)
+        private string resourceListText(int reportIndex) //int[] requiredResources)
         {
+            var requiredResources = reports[reportIndex].RequiredResources;
+            var collectedResources = reports[reportIndex].CollectedResources;
+
             var resourceText = "";
-            foreach (var resource in requiredResources)
+            //foreach (var resource in requiredResources)
+            foreach (var requiredResource in requiredResources)
             {
                 if (resourceText != "")
                 {
                     resourceText += ", ";
                 }
 
-                resourceText += Regex.Replace(((Resource)resource).ToString(), "(\\B[A-Z])", " $1");
+                if (collectedResources.Contains(requiredResource))
+                {
+                    resourceText += $"{Regex.Replace(((Resource)requiredResource).ToString(), "(\\B[A-Z])", " $1")} (checked)";
+                }
+                else
+                {
+                    resourceText += Regex.Replace(((Resource)requiredResource).ToString(), "(\\B[A-Z])", " $1");
+                }
             }
 
             return $"Required: {resourceText}";
         }
+
+        //private string resourceListText(int[] requiredResources)
+        //{
+        //    //var requiredResources = reports[reportIndex1].RequiredResources;
+        //    //var collectedResources = reports[reportIndex].CollectedResources;
+
+        //    var resourceText = "";
+        //    //foreach (var resource in requiredResources)
+        //    foreach (var requiredResource in requiredResources)
+        //    {
+        //        if (resourceText != "")
+        //        {
+        //            resourceText += ", ";
+        //        }
+
+        //        resourceText += Regex.Replace(((Resource) requiredResource).ToString(), "(\\B[A-Z])", " $1");
+        //    }
+
+        //    return $"Required: {resourceText}";
+        //}
     }
 }

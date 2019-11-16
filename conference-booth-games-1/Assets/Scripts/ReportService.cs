@@ -37,7 +37,8 @@ namespace Assets.Scripts.Services
                         (int) Resource.Toys, 
                         (int) Resource.Water,
                         (int) Resource.Blankets
-                    }
+                    },
+                    CollectedResources = new List<int>()
                 },
                 new Report
                 {
@@ -52,7 +53,8 @@ namespace Assets.Scripts.Services
                         (int) Resource.Food, 
                         (int) Resource.FirstAidKits, 
                         (int) Resource.Water
-                    }
+                    },
+                    CollectedResources = new List<int>()
                 },
                 new Report
                 {
@@ -65,7 +67,8 @@ namespace Assets.Scripts.Services
                     RequiredResources = new int[]
                     {
                         (int) Resource.FirstAidKits
-                    }
+                    },
+                    CollectedResources = new List<int>()
                 },
                 new Report
                 {
@@ -84,7 +87,8 @@ namespace Assets.Scripts.Services
                         (int) Resource.Toys,
                         (int) Resource.Blankets,
                         (int) Resource.Boats
-                    }
+                    },
+                    CollectedResources = new List<int>()
                 },
                 new Report
                 {
@@ -103,7 +107,8 @@ namespace Assets.Scripts.Services
                         (int) Resource.Toys,
                         (int) Resource.Blankets,
                         (int) Resource.Boats
-                    }
+                    },
+                    CollectedResources = new List<int>()
                 },
                 new Report
                 {
@@ -121,7 +126,8 @@ namespace Assets.Scripts.Services
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Blankets,
-                    }
+                    },
+                    CollectedResources = new List<int>()
                 },
                 new Report
                 {
@@ -137,7 +143,8 @@ namespace Assets.Scripts.Services
                         (int) Resource.Water,
                         (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
-                    }
+                    },
+                    CollectedResources = new List<int>()
                 }
 
             };
@@ -156,7 +163,7 @@ namespace Assets.Scripts.Services
         public DateTime ReportDate { get; set; }
         public bool Archived { get; set; }
         public int[] RequiredResources { get; set; }
-        public List<int> RequiredResourcesCollected { get; set; }
+        public List<int> CollectedResources { get; set; }
     }
 
 }
