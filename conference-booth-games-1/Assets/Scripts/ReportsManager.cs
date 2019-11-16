@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Assets.Scripts.Enums;
 using Assets.Scripts.Services;
@@ -98,6 +99,22 @@ namespace Assets.Scripts
             monitor2cText.text = resourceListText(reports[reportIndex1].RequiredResources);
             monitor3cText.text = resourceListText(reports[reportIndex2].RequiredResources);
             monitor4cText.text = resourceListText(reports[reportIndex3].RequiredResources);
+        }
+
+        public int[] CollectedResources(int reportIndex)
+        {
+            var report = reports.First(r => r.Id == reportIndex);
+            var resourceIds = report.RequiredResources;
+            return resourceIds;
+        }
+
+        public void CollectResource(int reportId, int resourceId)
+        {
+            var report = reports.First(r => r.Id == reportId);
+            if (report.RequiredResourcesCollected.All(r => r != resourceId))
+            {
+                report.RequiredResourcesCollected.Add(resourceId);
+            }
         }
 
         private string resourceListText(int[] requiredResources)

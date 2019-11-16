@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
-    public class CheckListManager: MonoBehaviour
+    public class CheckListManager : MonoBehaviour
     {
         public static CheckListManager instance;
         public static List<CheckListItem> collectedCheckListItems = new List<CheckListItem>();
@@ -24,6 +24,7 @@ namespace Assets.Scripts
             {
                 Destroy(gameObject);
             }
+
             DontDestroyOnLoad(gameObject);
         }
 
@@ -45,10 +46,10 @@ namespace Assets.Scripts
 
             foreach (var checkListItem in checkListItems)
             {
-                if ((int)checkListItem != 0)
+                if ((int) checkListItem != 0)
                 {
                     var collected = collectedCheckListItems.Contains((CheckListItem) checkListItem) ? "(checked)" : "";
-                    var itemText = Regex.Replace(((CheckListItem)checkListItem).ToString(), "(\\B[A-Z])", " $1");
+                    var itemText = Regex.Replace(((CheckListItem) checkListItem).ToString(), "(\\B[A-Z])", " $1");
                     checkListText.text += $"{itemText} {collected}" + Environment.NewLine;
                 }
             }

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
-using Assets.Scripts.Controllers;
 using Assets.Scripts.Enums;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
-    public class Goal : MonoBehaviour
+    public class ResourceCollector : MonoBehaviour
     {
         public Text BoxMessage1Text;
         public Text BoxMessage2Text;
@@ -83,17 +83,35 @@ namespace Assets.Scripts
             // Then get collection of resource IDs from indexed report
             if (!hitFloor)
             {
-                var resourceObjectController = other.gameObject.GetComponent<ResourceObjectController>();
+                var resourceObjectController = other.gameObject.GetComponent<ResourceManager>();
                 var myResourceId = resourceObjectController.myResourceId;
                 var resourcesRequiredForDisaster = ReportsManager.instance.reports[reportIndex].RequiredResources;
                 var selectedIsRequiredResource = resourcesRequiredForDisaster.Contains(myResourceId);
 
                 if (selectedIsRequiredResource)
                 {
+                    //infoMessage = $"{reportIndex}, {myResourceId}";
+
+                    //ReportsManager.instance.CollectResource(reportIndex, myResourceId);
+
+
+                    //var collectedResourceIds = ReportsManager.instance.CollectedResources(reportIndex).ToList();
+                    //StringBuilder collectedResources = new StringBuilder();
+
+                    //foreach (var collectedResourceId in collectedResourceIds)
+                    //{
+                    //    collectedResources.Append(
+                    //        $"{Regex.Replace(((Resource)collectedResourceId).ToString(), "(\\B[A-Z])", " $1")}; ");
+                    //}
+
+                    //infoMessage = collectedResources.ToString();
+
                     infoMessage =
                         $"Thanks for the {Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
+
                     audioSource1.Play();
                     grandScore++;
+
                 }
                 else
                 {
@@ -130,7 +148,7 @@ namespace Assets.Scripts
 
             Destroy(other.gameObject);
 
-            ResourceObjectInstantiator.instance.CreateResourceObject();
+            ResourceInstantiator.instance.CreateResourceObject();
         }
     }
 }

@@ -156,6 +156,7 @@ namespace Assets.Scripts.Services
         public DateTime ReportDate { get; set; }
         public bool Archived { get; set; }
         public int[] RequiredResources { get; set; }
+        public List<int> RequiredResourcesCollected { get; set; }
     }
 
 }

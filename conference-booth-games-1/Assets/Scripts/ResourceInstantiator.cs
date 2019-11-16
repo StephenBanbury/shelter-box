@@ -3,7 +3,7 @@ using Random = System.Random;
 
 namespace Assets.Scripts
 {
-    public class ResourceObjectInstantiator : MonoBehaviour
+    public class ResourceInstantiator : MonoBehaviour
     {
         //public GameObject myPrefab1;
         public GameObject myPrefab2;
@@ -17,7 +17,7 @@ namespace Assets.Scripts
 
         public int numberOfResourceObjects = 8;
 
-        public static ResourceObjectInstantiator instance;
+        public static ResourceInstantiator instance;
 
         void Awake()
         {

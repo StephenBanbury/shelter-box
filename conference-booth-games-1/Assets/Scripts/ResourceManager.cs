@@ -3,10 +3,10 @@ using Assets.Scripts.Enums;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Assets.Scripts.Controllers
+namespace Assets.Scripts
 {
 
-    public class ResourceObjectController : MonoBehaviour
+    public class ResourceManager : MonoBehaviour
     {
         //public Text cassetteText;
         public int myResourceId;
