@@ -755,20 +755,21 @@ public class LocomotionTeleport : MonoBehaviour
 	/// </summary>
 	public event Action<Transform, Vector3, Quaternion> Teleported;
 
-	/// <summary>
-	/// Perform the actual teleport.
-	/// Note that warp transitions do not call this function and instead moves the game object 
-	/// during the transition time time.
-	/// </summary>
-	public void DoTeleport()
-	{
-		var character = LocomotionController.CharacterController;
-		var characterTransform = character.transform;
-		var destTransform = _teleportDestination.OrientationIndicator;
+    /// <summary>
+    /// Perform the actual teleport.
+    /// Note that warp transitions do not call this function and instead moves the game object 
+    /// during the transition time time.
+    /// </summary>
+    public void DoTeleport()
+    {
+        var character = LocomotionController.CharacterController;
+        character.enabled = false;
+        var characterTransform = character.transform;
+        var destTransform = _teleportDestination.OrientationIndicator;
 
-		Vector3 destPosition = destTransform.position;
-		destPosition.y += character.height * 0.5f;
-		Quaternion destRotation = _teleportDestination.LandingRotation;// destTransform.rotation;
+        Vector3 destPosition = destTransform.position;
+        destPosition.y += character.height * 0.5f;
+        Quaternion destRotation = _teleportDestination.LandingRotation;// destTransform.rotation;
 #if false
 		Quaternion destRotation = destTransform.rotation;
 
@@ -776,22 +777,25 @@ public class LocomotionTeleport : MonoBehaviour
 
 		destRotation = destRotation * Quaternion.Euler(0, -LocomotionController.CameraRig.trackingSpace.localEulerAngles.y, 0);
 #endif
-		if (Teleported != null)
-		{
-			Teleported(characterTransform, destPosition, destRotation);
-		}
+        if (Teleported != null)
+        {
+            Teleported(characterTransform, destPosition, destRotation);
+        }
 
-		characterTransform.position = destPosition;
-		characterTransform.rotation = destRotation;
+        characterTransform.position = destPosition;
+        characterTransform.rotation = destRotation;
 
-		LocomotionController.PlayerController.Teleported = true;
-	}
+        Debug.Log("destPosition: " + destPosition + "  destRotation: " + destRotation);
 
-	/// <summary>
-	/// Convenience method for finding the character's position.
-	/// </summary>
-	/// <returns></returns>
-	public Vector3 GetCharacterPosition()
+        LocomotionController.PlayerController.Teleported = true;
+        character.enabled = true;
+    }
+
+    /// <summary>
+    /// Convenience method for finding the character's position.
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetCharacterPosition()
 	{
 		return LocomotionController.CharacterController.transform.position;
 	}
