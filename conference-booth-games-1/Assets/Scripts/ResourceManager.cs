@@ -48,12 +48,10 @@ namespace Assets.Scripts
             {
                 myResourceId = (int)Resource.Toys;
             }
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            else if (gameObject.CompareTag("Blanket"))
+            {
+                myResourceId = (int)Resource.Blankets;
+            }
         }
 
         private Resource RandomResource()

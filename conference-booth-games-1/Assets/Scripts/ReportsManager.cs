@@ -12,6 +12,7 @@ namespace Assets.Scripts
     public class ReportsManager : MonoBehaviour
     {
         public static ReportsManager instance;
+        public static List<Report> reports;
 
         public Text monitor1aText;
         public Text monitor2aText;
@@ -26,19 +27,17 @@ namespace Assets.Scripts
         public Text monitor3cText;
         public Text monitor4cText;
 
-        public List<Report> reports;
 
-        public int reportIndex0 = 0;
-        public int reportIndex1 = 1;
-        public int reportIndex2 = 2;
-        public int reportIndex3 = 3;
+        public int reportId0 = 0;
+        public int reportId1 = 1;
+        public int reportId2 = 2;
+        public int reportId3 = 3;
 
         private DateTime startDateTime = DateTime.UtcNow;
         private DateTime reviewDateTime;
         private int updateReportsInterval = 15;
 
         private ReportService reportService = new ReportService();
-
 
         void Awake()
         {
@@ -47,6 +46,7 @@ namespace Assets.Scripts
             {
                 //assign it to the current object
                 instance = this;
+                reports = reportService.GetReports();
             }
             // make sure that it is equal to the current object
             else if (instance != this)
@@ -59,23 +59,20 @@ namespace Assets.Scripts
             DontDestroyOnLoad(gameObject);
         }
 
-        // Start is called before the first frame update
         void Start()
         {
             reviewDateTime = startDateTime.AddSeconds(updateReportsInterval);
-            reports = reportService.GetReports();
             AssignReportsToMonitors();
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (DateTime.UtcNow >= reviewDateTime)
             {
-                reportIndex0 = reportIndex0 < reports.Count - 1 ? reportIndex0 + 1 : 0;
-                reportIndex1 = reportIndex1 < reports.Count - 1 ? reportIndex1 + 1 : 0;
-                reportIndex2 = reportIndex2 < reports.Count - 1 ? reportIndex2 + 1 : 0;
-                reportIndex3 = reportIndex3 < reports.Count - 1 ? reportIndex3 + 1 : 0;
+                reportId0 = reportId0 < reports.Count - 1 ? reportId0 + 1 : 0;
+                reportId1 = reportId1 < reports.Count - 1 ? reportId1 + 1 : 0;
+                reportId2 = reportId2 < reports.Count - 1 ? reportId2 + 1 : 0;
+                reportId3 = reportId3 < reports.Count - 1 ? reportId3 + 1 : 0;
 
                 AssignReportsToMonitors();
 
@@ -85,55 +82,51 @@ namespace Assets.Scripts
         
         public void AssignReportsToMonitors()
         {
-            monitor1aText.text = reports[reportIndex0].Title;
-            monitor2aText.text = reports[reportIndex1].Title;
-            monitor3aText.text = reports[reportIndex2].Title;
-            monitor4aText.text = reports[reportIndex3].Title;
+            monitor1aText.text = reports[reportId0].Title;
+            monitor2aText.text = reports[reportId1].Title;
+            monitor3aText.text = reports[reportId2].Title;
+            monitor4aText.text = reports[reportId3].Title;
 
-            monitor1bText.text = reports[reportIndex0].SubTitle;
-            monitor2bText.text = reports[reportIndex1].SubTitle;
-            monitor3bText.text = reports[reportIndex2].SubTitle;
-            monitor4bText.text = reports[reportIndex3].SubTitle;
+            monitor1bText.text = reports[reportId0].SubTitle;
+            monitor2bText.text = reports[reportId1].SubTitle;
+            monitor3bText.text = reports[reportId2].SubTitle;
+            monitor4bText.text = reports[reportId3].SubTitle;
 
-            monitor1cText.text = resourceListText(reportIndex0);
-            monitor2cText.text = resourceListText(reportIndex1);
-            monitor3cText.text = resourceListText(reportIndex2);
-            monitor4cText.text = resourceListText(reportIndex3);
-            //monitor1cText.text = resourceListText(reports[reportIndex0].RequiredResources);
-            //monitor2cText.text = resourceListText(reports[reportIndex1].RequiredResources);
-            //monitor3cText.text = resourceListText(reports[reportIndex2].RequiredResources);
-            //monitor4cText.text = resourceListText(reports[reportIndex3].RequiredResources);
+            monitor1cText.text = resourceListText(reportId0);
+            monitor2cText.text = resourceListText(reportId1);
+            monitor3cText.text = resourceListText(reportId2);
+            monitor4cText.text = resourceListText(reportId3);
         }
 
         public void CollectResource(int reportId, int resourceId)
         {
-            //var report = reports.Find(r => r.Id == reportId);
-            //if (report.RequiredResourcesCollected.All(r => r != resourceId))
-            //{
-            //report.RequiredResourcesCollected.Add(resourceId);
-            //}
             reports[reportId].CollectedResources.Add(resourceId);
         }
 
-        public int[] CollectedResources(int reportIndex)
+        public int[] CollectedResources(int reportId)
         {
-            var report = reports.First(r => r.Id == reportIndex);
+            var report = reports.First(r => r.Id == reportId);
             var resourceIds = report.RequiredResources;
             return resourceIds;
         }
 
-        public int[] RequiredResources(int reportIndex)
+        public bool AllResourcesCollected(int reportId)
         {
-            return reports[reportIndex].RequiredResources;
+            var report = reports[reportId];
+            return report.RequiredResources.Length == report.CollectedResources.Count;
         }
 
-        private string resourceListText(int reportIndex) //int[] requiredResources)
+        public int[] RequiredResources(int reportId)
         {
-            var requiredResources = reports[reportIndex].RequiredResources;
-            var collectedResources = reports[reportIndex].CollectedResources;
+            return reports[reportId].RequiredResources;
+        }
+
+        private string resourceListText(int reportId)
+        {
+            var requiredResources = reports[reportId].RequiredResources;
+            var collectedResources = reports[reportId].CollectedResources;
 
             var resourceText = "";
-            //foreach (var resource in requiredResources)
             foreach (var requiredResource in requiredResources)
             {
                 if (resourceText != "")
@@ -153,25 +146,5 @@ namespace Assets.Scripts
 
             return $"Required: {resourceText}";
         }
-
-        //private string resourceListText(int[] requiredResources)
-        //{
-        //    //var requiredResources = reports[reportIndex1].RequiredResources;
-        //    //var collectedResources = reports[reportIndex].CollectedResources;
-
-        //    var resourceText = "";
-        //    //foreach (var resource in requiredResources)
-        //    foreach (var requiredResource in requiredResources)
-        //    {
-        //        if (resourceText != "")
-        //        {
-        //            resourceText += ", ";
-        //        }
-
-        //        resourceText += Regex.Replace(((Resource) requiredResource).ToString(), "(\\B[A-Z])", " $1");
-        //    }
-
-        //    return $"Required: {resourceText}";
-        //}
     }
 }

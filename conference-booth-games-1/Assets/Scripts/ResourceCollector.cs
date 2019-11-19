@@ -27,6 +27,8 @@ namespace Assets.Scripts
             AudioSource[] audioSources = GetComponents<AudioSource>();
             audioSource1 = audioSources[0]; // Audio source = if this is a box then it's is a beep; if it's the floor then it's a thud
             audioSource2 = audioSources[1];
+
+            ChangeMaterial(0);
         }
 
         void OnTriggerEnter(Collider other)
@@ -48,7 +50,7 @@ namespace Assets.Scripts
         {
             string infoMessage = "";
 
-            int reportIndex = 0;
+            int reportId = 0;
             bool hitFloor = false;
 
             // Get suitable resources list from report object
@@ -57,16 +59,16 @@ namespace Assets.Scripts
             switch (gameObject.name)
             {
                 case "Box1":
-                    reportIndex = ReportsManager.instance.reportIndex0;
+                    reportId = ReportsManager.instance.reportId0;
                     break;
                 case "Box2":
-                    reportIndex = ReportsManager.instance.reportIndex1;
+                    reportId = ReportsManager.instance.reportId1;
                     break;
                 case "Box3":
-                    reportIndex = ReportsManager.instance.reportIndex2;
+                    reportId = ReportsManager.instance.reportId2;
                     break;
                 case "Box4":
-                    reportIndex = ReportsManager.instance.reportIndex3;
+                    reportId = ReportsManager.instance.reportId3;
                     break;
                 case "Floor":
                     hitFloor = true;
@@ -85,27 +87,31 @@ namespace Assets.Scripts
             {
                 var resourceManager = other.gameObject.GetComponent<ResourceManager>();
                 var myResourceId = resourceManager.myResourceId;
-                var resourcesRequiredForDisaster = ReportsManager.instance.RequiredResources(reportIndex);
+                var resourcesRequiredForDisaster = ReportsManager.instance.RequiredResources(reportId);
                 var selectedIsRequiredResource = resourcesRequiredForDisaster.Contains(myResourceId);
 
                 if (selectedIsRequiredResource)
                 {
-                    ReportsManager.instance.CollectResource(reportIndex, myResourceId);
+                    ReportsManager.instance.CollectResource(reportId, myResourceId);
                     ReportsManager.instance.AssignReportsToMonitors();
                     
                     infoMessage =
                         $"Thanks for the {Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
 
                     audioSource1.Play();
-                    grandScore++;
+                    //grandScore++;
 
+                    if (ReportsManager.instance.AllResourcesCollected(reportId))
+                    {
+                        ChangeMaterial(1);
+                    }
                 }
                 else
                 {
                     infoMessage =
                         $"{Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")} not required";
                     audioSource2.Play();
-                    grandScore--;
+                    //grandScore--;
                 }
 
                 switch (gameObject.name)
@@ -126,7 +132,7 @@ namespace Assets.Scripts
             }
             else
             {
-                grandScore--;
+                //grandScore--;
                 audioSource1.Play();
             }
 
@@ -137,5 +143,14 @@ namespace Assets.Scripts
 
             ResourceInstantiator.instance.CreateResourceObject();
         }
+
+        private void ChangeMaterial(int matIndex)
+        {
+            var mats = gameObject.GetComponent<Renderer>().materials;
+            var mat = mats[matIndex];
+            mats[0] = mat;
+            gameObject.GetComponent<Renderer>().materials = mats;
+        }
+
     }
 }

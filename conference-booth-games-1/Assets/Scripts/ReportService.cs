@@ -30,13 +30,13 @@ namespace Assets.Scripts.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        (int) Resource.Clothing, 
+                        //(int) Resource.Clothing, 
                         (int) Resource.Food, 
                         (int) Resource.FirstAidKits, 
                         (int) Resource.Tents, 
                         (int) Resource.Toys, 
                         (int) Resource.Water,
-                        (int) Resource.Blankets
+                        //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>()
                 },
@@ -50,8 +50,11 @@ namespace Assets.Scripts.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        (int) Resource.Food, 
-                        (int) Resource.FirstAidKits, 
+                        //(int) Resource.Clothing,
+                        (int) Resource.Food,
+                        (int) Resource.FirstAidKits,
+                        (int) Resource.Tents,
+                        (int) Resource.Toys,
                         (int) Resource.Water
                     },
                     CollectedResources = new List<int>()
@@ -66,7 +69,13 @@ namespace Assets.Scripts.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        (int) Resource.FirstAidKits
+                        //(int) Resource.Clothing,
+                        (int) Resource.Food,
+                        (int) Resource.FirstAidKits,
+                        (int) Resource.Tents,
+                        (int) Resource.Toys,
+                        (int) Resource.Water,
+                        //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>()
                 },
@@ -80,13 +89,14 @@ namespace Assets.Scripts.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        (int) Resource.Food, 
-                        (int) Resource.Water,
+                        //(int) Resource.Clothing,
+                        (int) Resource.Food,
                         (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
-                        (int) Resource.Blankets,
-                        (int) Resource.Boats
+                        (int) Resource.Water,
+                        (int) Resource.Boats,
+                        //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>()
                 },
@@ -100,13 +110,14 @@ namespace Assets.Scripts.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        (int) Resource.Food, 
-                        (int) Resource.Water,
+                        //(int) Resource.Clothing,
+                        (int) Resource.Food,
                         (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
-                        (int) Resource.Blankets,
-                        (int) Resource.Boats
+                        (int) Resource.Water,
+                        (int) Resource.Boats,
+                        //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>()
                 },
@@ -120,12 +131,13 @@ namespace Assets.Scripts.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        (int) Resource.Food, 
-                        (int) Resource.Water,
+                        //(int) Resource.Clothing,
+                        (int) Resource.Food,
                         (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
-                        (int) Resource.Blankets,
+                        (int) Resource.Water,
+                        //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>()
                 },
@@ -139,10 +151,13 @@ namespace Assets.Scripts.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        (int) Resource.Food, 
-                        (int) Resource.Water,
+                        //(int) Resource.Clothing,
+                        (int) Resource.Food,
                         (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
+                        (int) Resource.Toys,
+                        (int) Resource.Water,
+                        //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>()
                 }
