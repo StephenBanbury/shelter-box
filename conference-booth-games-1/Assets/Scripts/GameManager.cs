@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text.RegularExpressions;
+using Assets.Scripts.Enums;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,7 +15,10 @@ public class GameManager : MonoBehaviour
     public static float timer = (5 * 60);
     public static bool timeStarted = true;
 
-    private Scene scene;
+    public static DeploymentStatus deploymentStatus;
+    public Text deploymentStatusText;
+
+    private Scene scene; 
 
     void Start()
     {
@@ -62,5 +67,12 @@ public class GameManager : MonoBehaviour
     public void LoadAppropriateScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void UpdateDeploymentStatus(int alterStatusBy)
+    {
+        deploymentStatus = deploymentStatus + alterStatusBy;
+        var statusText = Regex.Replace((deploymentStatus).ToString(), "(\\B[A-Z])", " $1");
+        deploymentStatusText.text = $"Deployment status: {statusText}";
     }
 }

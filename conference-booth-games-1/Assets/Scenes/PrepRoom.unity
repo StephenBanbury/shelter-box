@@ -1097,6 +1097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorMessage: {fileID: 334915367}
   timerDisplay: {fileID: 1335831542}
+  deploymentStatusText: {fileID: 478675871}
 --- !u!114 &187238236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1109,7 +1110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9684c0b2856e5c646b5fb63126e2248c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deploymentStatusText: {fileID: 478675871}
   checkListText: {fileID: 45079265}
 --- !u!114 &187238237 stripped
 MonoBehaviour:

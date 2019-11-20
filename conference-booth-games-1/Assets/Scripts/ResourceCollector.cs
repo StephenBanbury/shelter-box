@@ -103,7 +103,7 @@ namespace Assets.Scripts
                     if (ReportsManager.instance.AllResourcesCollected(reportId))
                     {
                         ChangeMaterial(1);
-                        CheckListManager.instance.UpdateDeploymentStatus(1);
+                        GameManager.instance.UpdateDeploymentStatus(1);
                     }
                 }
                 else
