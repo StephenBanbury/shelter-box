@@ -38,6 +38,7 @@ namespace Assets.Scripts
 
                 CheckListManager.instance.UpdateCollectedList(item);
                 CheckListManager.instance.UpdateCheckListText();
+                CheckListManager.instance.CheckIfAllCollected();
             }
         }
     }

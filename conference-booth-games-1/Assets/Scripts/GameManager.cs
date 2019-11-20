@@ -74,5 +74,12 @@ public class GameManager : MonoBehaviour
         deploymentStatus = deploymentStatus + alterStatusBy;
         var statusText = Regex.Replace((deploymentStatus).ToString(), "(\\B[A-Z])", " $1");
         deploymentStatusText.text = $"Deployment status: {statusText}";
+
+        // If green we're good to go
+        if (deploymentStatus == DeploymentStatus.Green)
+        {
+            var hornAudioSource = GameObject.Find("ShelterBoxBuilding").GetComponent<AudioSource>();
+            hornAudioSource.Play();
+        }
     }
 }
