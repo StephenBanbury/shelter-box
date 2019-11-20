@@ -203,6 +203,83 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1587654233}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &45079263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 45079264}
+  - component: {fileID: 45079266}
+  - component: {fileID: 45079265}
+  m_Layer: 5
+  m_Name: CheckList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &45079264
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45079263}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 22.93}
+  m_LocalScale: {x: 0.033138778, y: 0.03177285, z: 0.03155473}
+  m_Children: []
+  m_Father: {fileID: 645589335}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 633.94, y: -345.3}
+  m_SizeDelta: {x: 320, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &45079265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45079263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.039443493, g: 0, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 3887e3ed8517a9f469c3f30dd1f92a1f, type: 3}
+    m_FontSize: 32
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 64
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Checklist
+--- !u!222 &45079266
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 45079263}
+  m_CullTransparentMesh: 0
 --- !u!1 &53003660
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +350,7 @@ MonoBehaviour:
   BoxMessage3Text: {fileID: 1552924575}
   BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
+  grandScore: 0
 --- !u!82 &63068017
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1031,7 +1109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9684c0b2856e5c646b5fb63126e2248c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkListText: {fileID: 0}
+  deploymentStatusText: {fileID: 478675871}
+  checkListText: {fileID: 45079265}
 --- !u!114 &187238237 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11400020, guid: ce816f2e6abb0504092c23ed9b970dfd,
@@ -1157,6 +1236,7 @@ MonoBehaviour:
   BoxMessage3Text: {fileID: 1552924575}
   BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
+  grandScore: 0
 --- !u!82 &225398837
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1355,7 +1435,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh2265078
+  m_Name: pb_Mesh34546
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1548,6 +1628,7 @@ MonoBehaviour:
   BoxMessage3Text: {fileID: 1552924575}
   BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
+  grandScore: 0
 --- !u!82 &316080950
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1991,7 +2072,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh2265172
+  m_Name: pb_Mesh34640
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2184,6 +2265,7 @@ MonoBehaviour:
   BoxMessage3Text: {fileID: 1552924575}
   BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
+  grandScore: 0
 --- !u!82 &360976231
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3114,7 +3196,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh2265242
+  m_Name: pb_Mesh34710
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3271,6 +3353,83 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &478675869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 478675870}
+  - component: {fileID: 478675872}
+  - component: {fileID: 478675871}
+  m_Layer: 5
+  m_Name: TrafficLights
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &478675870
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478675869}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 22.93}
+  m_LocalScale: {x: 0.033138778, y: 0.03177285, z: 0.03155473}
+  m_Children: []
+  m_Father: {fileID: 645589335}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 645.64, y: -347.1}
+  m_SizeDelta: {x: 320, y: 78}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &478675871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478675869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.039443493, g: 0, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 3887e3ed8517a9f469c3f30dd1f92a1f, type: 3}
+    m_FontSize: 32
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 64
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Traffic lights
+--- !u!222 &478675872
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478675869}
+  m_CullTransparentMesh: 0
 --- !u!1001 &504420138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3575,6 +3734,8 @@ RectTransform:
   - {fileID: 1335831541}
   - {fileID: 1081603899}
   - {fileID: 334915366}
+  - {fileID: 478675870}
+  - {fileID: 45079264}
   m_Father: {fileID: 1108092402}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4610,7 +4771,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh2265374
+  m_Name: pb_Mesh34842
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4773,7 +4934,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh2265328
+  m_Name: pb_Mesh34796
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14062,7 +14223,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh2265344
+  m_Name: pb_Mesh34812
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14379,7 +14540,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh2265142
+  m_Name: pb_Mesh34610
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -17179,6 +17340,7 @@ MonoBehaviour:
   BoxMessage3Text: {fileID: 1552924575}
   BoxMessage4Text: {fileID: 69274789}
   grandScoreText: {fileID: 17915609}
+  grandScore: 0
 --- !u!65 &1931790597
 BoxCollider:
   m_ObjectHideFlags: 0

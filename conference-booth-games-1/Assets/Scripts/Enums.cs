@@ -13,14 +13,6 @@
         Boats = 8
     }
 
-    public enum Service
-    {
-        None = 0,
-        Airlift = 1,
-        Evacuation = 2,
-        MedicalStaff = 3
-    }
-
     public enum CheckListItem
     {
         None = 0,
@@ -31,5 +23,12 @@
         MobilePhone = 5,
         BatteryCharger = 6,
         SunBlock = 7
+    }
+
+    public enum DeploymentStatus
+    {
+        Red = 0,
+        Amber = 1, 
+        Green = 2
     }
 }

@@ -11,8 +11,10 @@ namespace Assets.Scripts
     {
         public static CheckListManager instance;
         public static List<CheckListItem> collectedCheckListItems = new List<CheckListItem>();
+        public static DeploymentStatus deploymentStatus;
 
         public Text checkListText;
+        public Text deploymentStatusText;
 
         void Awake()
         {
@@ -30,7 +32,16 @@ namespace Assets.Scripts
 
         void Start()
         {
+            // Here we need to ensure the respective text is updated to display the static variables in order for them to appear to user as we move scenes
             UpdateCheckListText();
+            UpdateDeploymentStatus(0);
+        }
+
+        public void UpdateDeploymentStatus(int alterStatusBy)
+        {
+            deploymentStatus = deploymentStatus + alterStatusBy;
+            var statusText = Regex.Replace((deploymentStatus).ToString(), "(\\B[A-Z])", " $1");
+            deploymentStatusText.text = $"Deployment status: {statusText}";
         }
 
         public void UpdateCollectedList(CheckListItem item)

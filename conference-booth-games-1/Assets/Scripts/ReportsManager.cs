@@ -37,25 +37,22 @@ namespace Assets.Scripts
         private DateTime reviewDateTime;
         private int updateReportsInterval = 15;
 
+        private bool rotateReports = false; 
+
         private ReportService reportService = new ReportService();
 
         void Awake()
         {
-            // Check that it exists
             if (instance == null)
             {
-                //assign it to the current object
                 instance = this;
                 reports = reportService.GetReports();
             }
-            // make sure that it is equal to the current object
             else if (instance != this)
             {
-                // Destroy current game object - we only need one and we already have it
                 Destroy(gameObject);
             }
 
-            // don't destroy the object when changing scenes!
             DontDestroyOnLoad(gameObject);
         }
 
@@ -67,7 +64,7 @@ namespace Assets.Scripts
 
         void Update()
         {
-            if (DateTime.UtcNow >= reviewDateTime)
+            if (DateTime.UtcNow >= reviewDateTime && rotateReports)
             {
                 reportId0 = reportId0 < reports.Count - 1 ? reportId0 + 1 : 0;
                 reportId1 = reportId1 < reports.Count - 1 ? reportId1 + 1 : 0;

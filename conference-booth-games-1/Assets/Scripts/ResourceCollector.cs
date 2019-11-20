@@ -5,7 +5,6 @@ using Assets.Scripts.Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 namespace Assets.Scripts
 {
     public class ResourceCollector : MonoBehaviour
@@ -20,7 +19,7 @@ namespace Assets.Scripts
         private AudioSource audioSource1;
         private AudioSource audioSource2;
 
-        static int grandScore;
+        public int grandScore;
 
         void Start()
         {
@@ -104,6 +103,7 @@ namespace Assets.Scripts
                     if (ReportsManager.instance.AllResourcesCollected(reportId))
                     {
                         ChangeMaterial(1);
+                        CheckListManager.instance.UpdateDeploymentStatus(1);
                     }
                 }
                 else
@@ -137,7 +137,7 @@ namespace Assets.Scripts
             }
 
             //infoText.text = infoMessage;
-            grandScoreText.text = $"Score: {grandScore.ToString("0")}";
+            //grandScoreText.text = $"Score: {grandScore.ToString("0")}";
 
             Destroy(other.gameObject);
 
