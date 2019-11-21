@@ -14,7 +14,6 @@ namespace Assets.Scripts
         public Text BoxMessage3Text;
         public Text BoxMessage4Text;
         public Text grandScoreText;
-        //public Text infoText;
 
         private AudioSource audioSource1;
         private AudioSource audioSource2;
@@ -32,7 +31,7 @@ namespace Assets.Scripts
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Cassette") || 
+            if (other.CompareTag("Water") || 
                 other.CompareTag("Tent") || 
                 other.CompareTag("Food") ||
                 other.CompareTag("Bottle") ||
@@ -73,9 +72,7 @@ namespace Assets.Scripts
                     hitFloor = true;
                     break;
             }
-
-            //infoText.text = $"Report Index: {reportIndex.ToString()}";
-
+            
             BoxMessage1Text.text = "";
             BoxMessage2Text.text = "";
             BoxMessage3Text.text = "";
@@ -86,33 +83,70 @@ namespace Assets.Scripts
             {
                 var resourceManager = other.gameObject.GetComponent<ResourceManager>();
                 var myResourceId = resourceManager.myResourceId;
-                var resourcesRequiredForDisaster = ReportsManager.instance.RequiredResources(reportId);
-                var selectedIsRequiredResource = resourcesRequiredForDisaster.Contains(myResourceId);
 
-                if (selectedIsRequiredResource)
+                var selectedIsRequiredResource = ReportsManager.instance.SelectedResourceIsRequired(reportId, myResourceId);
+
+                switch (selectedIsRequiredResource)
                 {
-                    ReportsManager.instance.CollectResource(reportId, myResourceId);
-                    ReportsManager.instance.AssignReportsToMonitors();
-                    
-                    infoMessage =
-                        $"Thanks for the {Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
+                    // Resource not required
+                    case TripleState.One:
+                        infoMessage =
+                            $"{Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")} not required";
+                        audioSource2.Play();
+                        break;
 
-                    audioSource1.Play();
-                    //grandScore++;
+                    // Resource already collected
+                    case TripleState.Two:
+                        infoMessage =
+                            $"You have already collected {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
+                        audioSource2.Play();
+                        break;
 
-                    if (ReportsManager.instance.AllResourcesCollected(reportId))
-                    {
-                        ChangeMaterial(1);
-                        GameManager.instance.UpdateDeploymentStatus(1);
-                    }
+                    // Resource required
+                    case TripleState.Three:
+                        ReportsManager.instance.CollectResource(reportId, myResourceId);
+                        ReportsManager.instance.AssignReportsToMonitors();
+
+                        infoMessage =
+                            $"Thanks for the {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
+
+                        // Have all resources been collected?
+                        var required = ReportsManager.instance.RequiredResources(reportId).Length;
+                        var collected = ReportsManager.instance.CollectedResources(reportId).Length;
+
+
+                        grandScoreText.text = $"{required == collected} - {required} : {collected}";
+
+                        if (required == collected)
+                        {
+                            ChangeMaterial(1);
+
+                            GameManager.instance.UpdateDeploymentStatus(1);
+
+                            // TODO - not getting this far!??!
+
+                            grandScoreText.text = Regex.Replace(GameManager.instance.GetDeploymentStatus().ToString(), "(\\B[A-Z])", " $1");
+
+                            if (GameManager.instance.GetDeploymentStatus() != DeploymentStatus.Green)
+                            {
+                                audioSource1.Play();
+                            }
+                            else
+                            {
+                                grandScoreText.text = "gotcha";
+                            }
+
+                            // TODO Destroy all existing resource objects and stop producing new ones
+                        }
+                        else
+                        {
+                            audioSource1.Play(); // In this instance this is audio source component of the current Box GameObject
+                        }
+
+                        break;
                 }
-                else
-                {
-                    infoMessage =
-                        $"{Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")} not required";
-                    audioSource2.Play();
-                    //grandScore--;
-                }
+                
+                //grandScoreText.text = $"TripleState: {selectedIsRequiredResource.ToString()}";
 
                 switch (gameObject.name)
                 {
@@ -132,11 +166,9 @@ namespace Assets.Scripts
             }
             else
             {
-                //grandScore--;
-                audioSource1.Play();
+                audioSource1.Play(); // In this instance this is audio source component of the Floor GameObject
             }
 
-            //infoText.text = infoMessage;
             //grandScoreText.text = $"Score: {grandScore.ToString("0")}";
 
             Destroy(other.gameObject);

@@ -69,17 +69,25 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public DeploymentStatus GetDeploymentStatus()
+    {
+        return deploymentStatus;
+    }
+
     public void UpdateDeploymentStatus(int alterStatusBy)
     {
         deploymentStatus = deploymentStatus + alterStatusBy;
-        var statusText = Regex.Replace((deploymentStatus).ToString(), "(\\B[A-Z])", " $1");
-        deploymentStatusText.text = $"Deployment status: {statusText}";
+        deploymentStatusText.text = $"Deployment status: {Regex.Replace((deploymentStatus).ToString(), "(\\B[A-Z])", " $1")}";
 
         // If green we're good to go
         if (deploymentStatus == DeploymentStatus.Green)
         {
+            //deploymentStatusText.text = "yahoo";
             var hornAudioSource = GameObject.Find("ShelterBoxBuilding").GetComponent<AudioSource>();
             hornAudioSource.Play();
+            //return true;
         }
+        //deploymentStatusText.text = "boohoo";
+        //return false;
     }
 }

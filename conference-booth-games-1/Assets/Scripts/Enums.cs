@@ -31,4 +31,11 @@
         Amber = 1, 
         Green = 2
     }
+
+    public enum TripleState
+    {
+        One = 1,
+        Two = 2,
+        Three = 3
+    }
 }

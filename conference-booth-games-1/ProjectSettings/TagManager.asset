@@ -12,6 +12,7 @@ TagManager:
   - FirstAidKit
   - Boat
   - Food
+  - Floor
   layers:
   - Default
   - TransparentFX

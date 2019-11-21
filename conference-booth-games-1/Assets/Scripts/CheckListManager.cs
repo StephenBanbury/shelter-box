@@ -64,7 +64,7 @@ namespace Assets.Scripts
 
             var collectedItems = collectedCheckListItems.Count;
 
-            debugInfoText.text = $"Items: {numItems}, Collected: {collectedItems}";
+            //debugInfoText.text = $"Items: {numItems}, Collected: {collectedItems}";
 
             if (numItems == collectedItems)
             {

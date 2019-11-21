@@ -992,7 +992,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2884238881840325834, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
     - {fileID: 2619786737855652105, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
-    - {fileID: 881461552, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
 --- !u!4 &144168314 stripped
 Transform:
@@ -1111,6 +1111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkListText: {fileID: 45079265}
+  debugInfoText: {fileID: 0}
 --- !u!114 &187238237 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11400020, guid: ce816f2e6abb0504092c23ed9b970dfd,
@@ -3691,7 +3692,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 2884238881840325834, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
     - {fileID: 2619786737855652105, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
-    - {fileID: 881461552, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
 --- !u!4 &643375918 stripped
 Transform:
@@ -4063,8 +4064,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 881461552, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
 --- !u!4 &896491751 stripped
 Transform:
@@ -5120,6 +5120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f8a9e926cacca45b379d33bafeac8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myPrefab1: {fileID: 9198159518294187307, guid: f2a4e647dcc40f84f88f46fd71225545,
+    type: 3}
   myPrefab2: {fileID: 2237023041771416443, guid: c88c17536b1f6c04da5dee3fe2a3d8b1,
     type: 3}
   myPrefab3: {fileID: 672908762183548354, guid: f869423377dc5064ba90c0e9be648332,
@@ -5130,9 +5132,6 @@ MonoBehaviour:
     type: 3}
   myPrefab6: {fileID: 5123146071052598011, guid: b2e8012c1aaea2743ab07078df36c337,
     type: 3}
-  myPrefab7: {fileID: 9198159518294187307, guid: f2a4e647dcc40f84f88f46fd71225545,
-    type: 3}
-  numberOfResourceObjects: 5
 --- !u!4 &1063046055
 Transform:
   m_ObjectHideFlags: 0
@@ -17244,7 +17243,7 @@ GameObject:
   - component: {fileID: 1931790598}
   m_Layer: 0
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17361,7 +17360,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1931790591}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 02dc8c20030211e40b6aa4c2bf948ec3, type: 3}
@@ -18316,7 +18315,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 881461552, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
 --- !u!4 &6460924658929622846 stripped
 Transform:

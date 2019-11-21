@@ -89,10 +89,10 @@ namespace Assets.Scripts
             monitor3bText.text = reports[reportId2].SubTitle;
             monitor4bText.text = reports[reportId3].SubTitle;
 
-            monitor1cText.text = resourceListText(reportId0);
-            monitor2cText.text = resourceListText(reportId1);
-            monitor3cText.text = resourceListText(reportId2);
-            monitor4cText.text = resourceListText(reportId3);
+            monitor1cText.text = ResourceListText(reportId0);
+            monitor2cText.text = ResourceListText(reportId1);
+            monitor3cText.text = ResourceListText(reportId2);
+            monitor4cText.text = ResourceListText(reportId3);
         }
 
         public void CollectResource(int reportId, int resourceId)
@@ -100,25 +100,37 @@ namespace Assets.Scripts
             reports[reportId].CollectedResources.Add(resourceId);
         }
 
-        public int[] CollectedResources(int reportId)
-        {
-            var report = reports.First(r => r.Id == reportId);
-            var resourceIds = report.RequiredResources;
-            return resourceIds;
-        }
-
-        public bool AllResourcesCollected(int reportId)
-        {
-            var report = reports[reportId];
-            return report.RequiredResources.Length == report.CollectedResources.Count;
-        }
-
         public int[] RequiredResources(int reportId)
         {
             return reports[reportId].RequiredResources;
         }
 
-        private string resourceListText(int reportId)
+        public int[] CollectedResources(int reportId)
+        {
+            var report = reports[reportId];
+            return report.CollectedResources.ToArray();
+        }
+
+        public TripleState SelectedResourceIsRequired(int reportId, int resourceId)
+        {
+            var response = TripleState.One; // Not required or collected
+
+            var resourcesRequiredForDisaster = RequiredResources(reportId);
+            var resourcesCollected = CollectedResources(reportId);
+
+            if (resourcesCollected.Contains(resourceId))
+            {
+                response = TripleState.Two; // Already collected
+            }
+            else if (resourcesRequiredForDisaster.Contains(resourceId))
+            {
+                response = TripleState.Three; // Is required
+            }
+
+            return response;
+        }
+
+        private string ResourceListText(int reportId)
         {
             var requiredResources = reports[reportId].RequiredResources;
             var collectedResources = reports[reportId].CollectedResources;
