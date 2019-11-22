@@ -18,12 +18,15 @@ public class GameManager : MonoBehaviour
     public static DeploymentStatus deploymentStatus;
     public Text deploymentStatusText;
 
-    private Scene scene; 
-
+    private Scene scene;
     void Start()
     {
         scene = SceneManager.GetActiveScene();
         doorMessage.text = scene.name == "HomeTown" ? "Enter" : "Exit";
+
+        //var redLight = GameObject.Find("TrafficLightRed").GetComponent<Renderer>().material.color = new Color(82, 82, 82, 255); 
+        //var amberLight = GameObject.Find("TrafficLightAmber").GetComponent<Renderer>().material.color = new Color(82, 82, 82, 255);
+        //var greenLight = GameObject.Find("TrafficLightGreen").GetComponent<Renderer>().material.color = new Color(82, 82, 82, 255);
     }
 
     void Awake()
@@ -79,15 +82,28 @@ public class GameManager : MonoBehaviour
         deploymentStatus = deploymentStatus + alterStatusBy;
         deploymentStatusText.text = $"Deployment status: {Regex.Replace((deploymentStatus).ToString(), "(\\B[A-Z])", " $1")}";
 
-        // If green we're good to go
-        if (deploymentStatus == DeploymentStatus.Green)
+        var redLight = GameObject.Find("TrafficLightRed");
+        var amberLight = GameObject.Find("TrafficLightAmber");
+        var greenLight = GameObject.Find("TrafficLightGreen");
+
+        switch (deploymentStatus)
         {
-            //deploymentStatusText.text = "yahoo";
-            var hornAudioSource = GameObject.Find("ShelterBoxBuilding").GetComponent<AudioSource>();
-            hornAudioSource.Play();
-            //return true;
+            case DeploymentStatus.Red:
+                redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
+                break;
+            case DeploymentStatus.Amber:
+                redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
+                amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
+                break;
+            case DeploymentStatus.Green:
+                redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
+                amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
+                greenLight.GetComponent<Renderer>().material.color = new Color(0, 160, 10, 255);
+
+                var hornAudioSource = GameObject.Find("OVRCameraRig").GetComponent<AudioSource>();
+                hornAudioSource.Play();
+                break;
         }
         //deploymentStatusText.text = "boohoo";
-        //return false;
     }
 }
