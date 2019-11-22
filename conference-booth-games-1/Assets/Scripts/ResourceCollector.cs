@@ -131,15 +131,13 @@ namespace Assets.Scripts
                             {
                                 audioSource1.Play();
                             }
-                            else
-                            {
-                                grandScoreText.text = "gotcha";
-                            }
+                          
 
                             // TODO Destroy all existing resource objects and stop producing new ones
                         }
                         else
                         {
+                            grandScoreText.text = "floor";
                             audioSource1.Play(); // In this instance this is audio source component of the current Box GameObject
                         }
 
