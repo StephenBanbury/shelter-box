@@ -748,6 +748,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 92867938}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &92867944 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11414578, guid: ce816f2e6abb0504092c23ed9b970dfd,
+    type: 3}
+  m_PrefabInstance: {fileID: 92867938}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8e1d778abf442e4bec449c360e9e1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &92867945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1835,9 +1847,9 @@ GameObject:
   - component: {fileID: 328391362}
   - component: {fileID: 328391361}
   - component: {fileID: 328391360}
-  - component: {fileID: 328391359}
   - component: {fileID: 328391358}
   - component: {fileID: 328391357}
+  - component: {fileID: 328391359}
   - component: {fileID: 328391356}
   m_Layer: 0
   m_Name: Teleportation
@@ -1869,9 +1881,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 328391354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39fbe3faa8f659944b47b2bb36927a5d, type: 3}
+  m_Script: {fileID: 11500000, guid: 65ac96eeca5eff442ba798f7bfc4f002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fader: {fileID: 92867944}
+  TransitionDuration: 0.5
+  TeleportDelay: 0.5
+  FadeLevels:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &328391357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1886,7 +1934,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OrientationMode: 0
   Thumbstick: 2
-  RotateStickThreshold: 0.8
+  RotateStickThreshold: 0
 --- !u!114 &328391358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1910,10 +1958,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 328391354}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70bc4ab8bfd254f42902a4d602fef956, type: 3}
+  m_Script: {fileID: 11500000, guid: f2207d0346672d340874d20d6a45eb69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Range: 100
+  Range: 10
+  MinimumElevation: -100
+  Gravity: -9.8
+  AimVelocity: 2.7
+  AimStep: 1
 --- !u!114 &328391360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1948,7 +2000,7 @@ MonoBehaviour:
   InputMode: 1
   AimingController: 2
   CapacitiveAimAndTeleportButton: 4
-  ThumbstickTeleportThreshold: 1
+  ThumbstickTeleportThreshold: 0.5
 --- !u!114 &328391362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1962,13 +2014,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnableMovementDuringReady: 1
-  EnableMovementDuringAim: 1
-  EnableMovementDuringPreTeleport: 1
-  EnableMovementDuringPostTeleport: 1
+  EnableMovementDuringAim: 0
+  EnableMovementDuringPreTeleport: 0
+  EnableMovementDuringPostTeleport: 0
   EnableRotationDuringReady: 1
-  EnableRotationDuringAim: 1
-  EnableRotationDuringPreTeleport: 1
-  EnableRotationDuringPostTeleport: 1
+  EnableRotationDuringAim: 0
+  EnableRotationDuringPreTeleport: 0
+  EnableRotationDuringPostTeleport: 0
   TeleportDestinationPrefab: {fileID: 114000013141257940, guid: 1b474618c4fc5f54e8a8b803c8352c7d,
     type: 3}
   AimCollisionType: 0
