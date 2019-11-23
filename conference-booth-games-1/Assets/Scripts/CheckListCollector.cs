@@ -36,6 +36,11 @@ namespace Assets.Scripts
                         break;
                 }
 
+                var collectedSound = GetComponent<AudioSource>();
+                collectedSound.Play();
+
+                gameObject.GetComponent<Renderer>().material.color = new Color(0, 196, 255, 255);
+
                 CheckListManager.instance.UpdateCollectedList(item);
                 CheckListManager.instance.UpdateCheckListText();
                 CheckListManager.instance.CheckIfAllCollected();

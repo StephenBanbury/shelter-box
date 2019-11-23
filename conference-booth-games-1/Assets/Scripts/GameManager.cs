@@ -104,6 +104,5 @@ public class GameManager : MonoBehaviour
                 hornAudioSource.Play();
                 break;
         }
-        //deploymentStatusText.text = "boohoo";
     }
 }
