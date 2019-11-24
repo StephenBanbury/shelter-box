@@ -18,15 +18,18 @@ public class GameManager : MonoBehaviour
     public static DeploymentStatus deploymentStatus;
     public Text deploymentStatusText;
 
+    private AudioSource hornAudioSource;
+    private AudioSource whooshAudioSource;
+
     private Scene scene;
     void Start()
     {
         scene = SceneManager.GetActiveScene();
         doorMessage.text = scene.name == "HomeTown" ? "Enter" : "Exit";
-
-        //var redLight = GameObject.Find("TrafficLightRed").GetComponent<Renderer>().material.color = new Color(82, 82, 82, 255); 
-        //var amberLight = GameObject.Find("TrafficLightAmber").GetComponent<Renderer>().material.color = new Color(82, 82, 82, 255);
-        //var greenLight = GameObject.Find("TrafficLightGreen").GetComponent<Renderer>().material.color = new Color(82, 82, 82, 255);
+        
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+        hornAudioSource = audioSources[0];
+        whooshAudioSource = audioSources[1];
     }
 
     void Awake()
@@ -91,16 +94,20 @@ public class GameManager : MonoBehaviour
             case DeploymentStatus.Red:
                 redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
                 break;
+
             case DeploymentStatus.Amber:
                 redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
                 amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
+
+                whooshAudioSource.Play();
                 break;
+
             case DeploymentStatus.Green:
                 redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
                 amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
-                greenLight.GetComponent<Renderer>().material.color = new Color(0, 160, 10, 255);
+                greenLight.GetComponent<Renderer>().material.color = new Color(0, 110, 10, 255);
 
-                var hornAudioSource = GameObject.Find("OVRCameraRig").GetComponent<AudioSource>();
+                whooshAudioSource.Play();
                 hornAudioSource.Play();
                 break;
         }

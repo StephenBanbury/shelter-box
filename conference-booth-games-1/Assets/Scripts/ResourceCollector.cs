@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Assets.Scripts.Enums;
 using UnityEngine;
 using UnityEngine.UI;
@@ -115,15 +113,13 @@ namespace Assets.Scripts
                         var collected = ReportsManager.instance.CollectedResources(reportId).Length;
 
 
-                        grandScoreText.text = $"{required == collected} - {required} : {collected}";
+                        //grandScoreText.text = $"{required == collected} - {required} : {collected}";
 
                         if (required == collected)
                         {
                             ChangeMaterial(1);
 
                             GameManager.instance.UpdateDeploymentStatus(1);
-
-                            // TODO - not getting this far!??!
 
                             grandScoreText.text = Regex.Replace(GameManager.instance.GetDeploymentStatus().ToString(), "(\\B[A-Z])", " $1");
 
@@ -137,7 +133,7 @@ namespace Assets.Scripts
                         }
                         else
                         {
-                            grandScoreText.text = "floor";
+                            //grandScoreText.text = "floor";
                             audioSource1.Play(); // In this instance this is audio source component of the current Box GameObject
                         }
 

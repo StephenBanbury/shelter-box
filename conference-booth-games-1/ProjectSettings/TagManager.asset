@@ -13,6 +13,7 @@ TagManager:
   - Boat
   - Food
   - Floor
+  - CollectionItem
   layers:
   - Default
   - TransparentFX
