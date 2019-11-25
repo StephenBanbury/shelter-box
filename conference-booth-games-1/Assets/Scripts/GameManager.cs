@@ -18,18 +18,18 @@ public class GameManager : MonoBehaviour
     public static DeploymentStatus deploymentStatus;
     public Text deploymentStatusText;
 
-    private AudioSource hornAudioSource;
-    private AudioSource whooshAudioSource;
+    private AudioSource audioSource1;
+    private AudioSource audioSource2;
 
     private Scene scene;
     void Start()
     {
         scene = SceneManager.GetActiveScene();
         doorMessage.text = scene.name == "HomeTown" ? "Enter" : "Exit";
-        
+
         AudioSource[] audioSources = GetComponents<AudioSource>();
-        hornAudioSource = audioSources[0];
-        whooshAudioSource = audioSources[1];
+        audioSource1 = audioSources[0]; 
+        audioSource2 = audioSources[1];
     }
 
     void Awake()
@@ -98,8 +98,9 @@ public class GameManager : MonoBehaviour
             case DeploymentStatus.Amber:
                 redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
                 amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
+                
+                audioSource2.Play();
 
-                whooshAudioSource.Play();
                 break;
 
             case DeploymentStatus.Green:
@@ -107,8 +108,8 @@ public class GameManager : MonoBehaviour
                 amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
                 greenLight.GetComponent<Renderer>().material.color = new Color(0, 110, 10, 255);
 
-                whooshAudioSource.Play();
-                hornAudioSource.Play();
+                audioSource1.Play();
+
                 break;
         }
     }

@@ -233,7 +233,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6498d28330d4c6a448e5abeb0387c4d2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: aff14d1cd4d01ac4392df02b19060a34, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -395,4 +395,6 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: First Aid Kit
+  m_Text: 'Battery
+
+    Charger'
