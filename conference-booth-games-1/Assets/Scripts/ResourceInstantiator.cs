@@ -18,6 +18,7 @@ namespace Assets.Scripts
         //public int numberOfResourceObjects = 7;
 
         public static ResourceInstantiator instance;
+        static Random random = new Random();
 
         void Awake()
         {
@@ -34,20 +35,30 @@ namespace Assets.Scripts
         {
             myPrefabs = new GameObject[] { myPrefab1, myPrefab2, myPrefab3, myPrefab4, myPrefab5, myPrefab6};
 
+            // Disable collection box BoxColliders when initiating - prevents resource items being collected when bounced into box
+            GameObject.Find("Box1").GetComponent<BoxCollider>().enabled = false;
+            GameObject.Find("Box2").GetComponent<BoxCollider>().enabled = false;
+            GameObject.Find("Box3").GetComponent<BoxCollider>().enabled = false;
+            GameObject.Find("Box4").GetComponent<BoxCollider>().enabled = false;
+
             for (int i = 1; i <= myPrefabs.Length; i++)
             {
                 CreateResourceObject();
             }
+
+            GameObject.Find("Box1").GetComponent<BoxCollider>().enabled = true;
+            GameObject.Find("Box2").GetComponent<BoxCollider>().enabled = true;
+            GameObject.Find("Box3").GetComponent<BoxCollider>().enabled = true;
+            GameObject.Find("Box4").GetComponent<BoxCollider>().enabled = true;
+
         }
 
         public void CreateResourceObject()
         {
-            Random random = new Random();
             int randomPrefab = random.Next(0, myPrefabs.Length);
             float randomPosition = random.Next(-2, 2) * 0.1f;
 
             var myPrefab = myPrefabs[randomPrefab];
-
             Instantiate(myPrefab, new Vector3(0.08f + randomPosition, 3.5f, 2.3f + randomPosition), Quaternion.identity);
         }
     }

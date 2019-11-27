@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
             case DeploymentStatus.Red:
 
                 redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
+
                 deploymentStatusText.text = $"{deploymentStatus.ToString()}: Go to Shelter Box building and collect deployment resources.";
 
                 if (collectionPoints != null)
@@ -130,7 +131,9 @@ public class GameManager : MonoBehaviour
 
                 redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
                 amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
+
                 audioSource2.Play();
+
                 deploymentStatusText.text = $"{deploymentStatus.ToString()}: Now collect your personal checklist items.";
 
                 if (collectionPoints != null)
@@ -150,7 +153,9 @@ public class GameManager : MonoBehaviour
                 redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
                 amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
                 greenLight.GetComponent<Renderer>().material.color = new Color(0, 110, 10, 255);
+
                 audioSource1.Play();
+
                 deploymentStatusText.text = $"{deploymentStatus.ToString()}: Go to airport!";
 
                 break;

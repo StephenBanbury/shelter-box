@@ -166,7 +166,7 @@ namespace Assets.Scripts
 
                 if (collectedResources.Contains(requiredResource))
                 {
-                    resourceText += $"{Regex.Replace(((Resource)requiredResource).ToString(), "(\\B[A-Z])", " $1")} (CHECK)";
+                    resourceText += $"{Regex.Replace(((Resource)requiredResource).ToString(), "(\\B[A-Z])", " $1")} [check]";
                 }
                 else
                 {
@@ -174,7 +174,7 @@ namespace Assets.Scripts
                 }
             }
 
-            return $"Required: {resourceText}";
+            return resourceText;
         }
     }
 }
