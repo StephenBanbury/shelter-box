@@ -7,14 +7,12 @@ namespace Assets.Scripts
     {
         public Text checkInText;
 
-        private AudioSource audioSource1;
-        private AudioSource audioSource2;
+        private AudioSource audioSource;
 
         void Start()
         {
             AudioSource[] audioSources = GetComponents<AudioSource>();
-            audioSource1 = audioSources[0]; 
-            audioSource2 = audioSources[1];
+            audioSource = audioSources[0]; 
         }
         private void OnTriggerEnter(Collider other)
         {
@@ -24,11 +22,11 @@ namespace Assets.Scripts
                 GameObject.Find("CheckIn").GetComponent<Renderer>().material.color = new Color(0, 196, 255, 255);
 
                 var audioSources = gameObject.GetComponents<AudioSource>();
-                audioSource1.Play();
-                audioSource2.Play();
+                audioSource.Play();
+
                 checkInText.text = "Enjoy your flight!";
 
-                FindObjectOfType<AeroplaneController>().startTaxi = true;
+                FindObjectOfType<AeroplaneController>().StartTaxi();
             }
         }
     }

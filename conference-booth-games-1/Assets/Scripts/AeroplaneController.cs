@@ -1,4 +1,4 @@
-﻿
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -9,14 +9,11 @@ namespace Assets.Scripts
 
         private float forwardForce = 0f;
         private float upwardForce = 0f;
-        //private float sidewaysForce = 5f;
 
         public bool startTaxi;
 
-        // Start is called before the first frame update
         void Start()
         {
-            //startTaxi = true;
         }
 
         // Update is called once per frame
@@ -31,7 +28,7 @@ namespace Assets.Scripts
 
                 if (forwardForce >= 130f)
                 {
-                    upwardForce += 0.1f;
+                    upwardForce += 0.2f;
                 }
 
                 //if (Input.GetKey("d"))
@@ -46,12 +43,20 @@ namespace Assets.Scripts
             }
         }
 
-        //public void StartTaxi()
-        //{
-        //    // Add a forward force
-        //    forwardForce = 1f;
-        //    upwardForce = 0f;
-        //    startTaxi = true;
-        //}
+        public void StartTaxi()
+        {
+            startTaxi = false;
+
+            var audioSource = gameObject.GetComponent<AudioSource>();
+            audioSource.Play();
+
+            StartCoroutine(DelayTakeoff(5));
+        }
+
+        IEnumerator DelayTakeoff(int seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+            startTaxi = true;
+        } 
     }
 }
