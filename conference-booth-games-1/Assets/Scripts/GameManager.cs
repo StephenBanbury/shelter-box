@@ -20,11 +20,14 @@ public class GameManager : MonoBehaviour
 
     private AudioSource audioSource1;
     private AudioSource audioSource2;
+    private AudioSource audioSource3;
 
     private Scene scene;
 
     private GameObject collectionPoints;
     private GameObject checkListText;
+
+    private bool timesUp;
 
     void Start()
     {
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour
         AudioSource[] audioSources = GetComponents<AudioSource>();
         audioSource1 = audioSources[0]; 
         audioSource2 = audioSources[1];
+        audioSource3 = audioSources[2];
 
         collectionPoints = GameObject.Find("CollectionPoints");
         checkListText = GameObject.Find("CheckListText");
@@ -69,6 +73,13 @@ public class GameManager : MonoBehaviour
             float seconds = timer % 60;
 
             timerDisplay.text = $"{minutes:0}:{seconds:00}";
+
+            if (timer <= 4 * 60 && !timesUp)
+            {
+                timerDisplay.color = Color.black;
+                audioSource3.Play();
+                timesUp = true;
+            }
         }
     }
 
