@@ -43,10 +43,12 @@ namespace Assets.Scripts
         public void CreateResourceObject()
         {
             Random random = new Random();
-            int randomValue = random.Next(0, myPrefabs.Length);
+            int randomPrefab = random.Next(0, myPrefabs.Length);
+            float randomPosition = random.Next(-2, 2) * 0.1f;
 
-            var myPrefab = myPrefabs[randomValue];
-            Instantiate(myPrefab, new Vector3(0.08f, 3.5f, 2.3f), Quaternion.identity);
+            var myPrefab = myPrefabs[randomPrefab];
+
+            Instantiate(myPrefab, new Vector3(0.08f + randomPosition, 3.5f, 2.3f + randomPosition), Quaternion.identity);
         }
     }
 }

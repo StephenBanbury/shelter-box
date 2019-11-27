@@ -6,6 +6,7 @@ using Assets.Scripts.Enums;
 using Assets.Scripts.Services;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = System.Random;
 
 namespace Assets.Scripts
 {
@@ -59,11 +60,31 @@ namespace Assets.Scripts
         void Start()
         {
             reviewDateTime = startDateTime.AddSeconds(updateReportsInterval);
+
+            List<int> randomReportIndexes = new List<int>();
+
+            // Randomize reports at start
+            while(randomReportIndexes.Count < 4)
+            {
+                Random random = new Random();
+                int randomIndex = random.Next(0, reports.Count);
+                if (!randomReportIndexes.Contains(randomIndex))
+                {
+                    randomReportIndexes.Add((randomIndex));
+                }
+            }
+
+            reportId0 = randomReportIndexes[0];
+            reportId1 = randomReportIndexes[1];
+            reportId2 = randomReportIndexes[2];
+            reportId3 = randomReportIndexes[3];
+
             AssignReportsToMonitors();
         }
 
         void Update()
         {
+            // Only rotate reports if rotateReports = true
             if (DateTime.UtcNow >= reviewDateTime && rotateReports)
             {
                 reportId0 = reportId0 < reports.Count - 1 ? reportId0 + 1 : 0;
@@ -145,7 +166,7 @@ namespace Assets.Scripts
 
                 if (collectedResources.Contains(requiredResource))
                 {
-                    resourceText += $"{Regex.Replace(((Resource)requiredResource).ToString(), "(\\B[A-Z])", " $1")} (checked)";
+                    resourceText += $"{Regex.Replace(((Resource)requiredResource).ToString(), "(\\B[A-Z])", " $1")} (CHECK)";
                 }
                 else
                 {

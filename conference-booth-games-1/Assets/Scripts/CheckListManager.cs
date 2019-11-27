@@ -51,7 +51,7 @@ namespace Assets.Scripts
                 if ((int) checkListItem != 0)
                 {
                     var itemText = Regex.Replace(((CheckListItem)checkListItem).ToString(), "(\\B[A-Z])", " $1");
-                    var collected = collectedCheckListItems.Contains((CheckListItem) checkListItem) ? "(checked)" : "";
+                    var collected = collectedCheckListItems.Contains((CheckListItem) checkListItem) ? " (CHECK)" : "";
                     checkListText.text += $"{itemText} {collected}" + Environment.NewLine;
                 }
             }

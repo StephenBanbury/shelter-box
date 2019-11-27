@@ -16,7 +16,7 @@ namespace Assets.Scripts
         private AudioSource audioSource1;
         private AudioSource audioSource2;
 
-        public int grandScore;
+        //public int grandScore;
 
         void Start()
         {
@@ -120,7 +120,7 @@ namespace Assets.Scripts
 
                             GameManager.instance.UpdateDeploymentStatus(1);
 
-                            //grandScoreText.text = Regex.Replace(GameManager.instance.GetDeploymentStatus().ToString(), "(\\B[A-Z])", " $1");
+                            grandScoreText.text = "Well done! Now collect your personal items.";
 
                             if (GameManager.instance.GetDeploymentStatus() != DeploymentStatus.Green)
                             {
