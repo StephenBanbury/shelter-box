@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     private GameObject collectionPoints;
     private GameObject checkListText;
 
-    private bool timesUp;
+    private static bool timesUp;
 
     void Start()
     {
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
 
             timerDisplay.text = $"{minutes:0}:{seconds:00}";
 
-            if (timer <= 4 * 60 && !timesUp)
+            if (timer <= 0 && !timesUp)
             {
                 timerDisplay.color = Color.black;
                 audioSource3.Play();
