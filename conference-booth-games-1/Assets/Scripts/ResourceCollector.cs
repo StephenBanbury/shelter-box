@@ -32,7 +32,6 @@ namespace Assets.Scripts
             if (other.CompareTag("Water") || 
                 other.CompareTag("Tent") || 
                 other.CompareTag("Food") ||
-                other.CompareTag("Bottle") ||
                 other.CompareTag("FirstAidKit") ||
                 other.CompareTag("Boat") ||
                 other.CompareTag("Toy")
@@ -121,14 +120,13 @@ namespace Assets.Scripts
 
                             GameManager.instance.UpdateDeploymentStatus(1);
 
-                            grandScoreText.text = Regex.Replace(GameManager.instance.GetDeploymentStatus().ToString(), "(\\B[A-Z])", " $1");
+                            //grandScoreText.text = Regex.Replace(GameManager.instance.GetDeploymentStatus().ToString(), "(\\B[A-Z])", " $1");
 
                             if (GameManager.instance.GetDeploymentStatus() != DeploymentStatus.Green)
                             {
                                 audioSource1.Play();
                             }
-                          
-
+                            
                             // TODO Destroy all existing resource objects and stop producing new ones
                         }
                         else

@@ -28,7 +28,7 @@ namespace Assets.Scripts
             {
                 myResourceId = (int)Resource.Tents;
             }
-            else if (gameObject.CompareTag("Bottle"))
+            else if (gameObject.CompareTag("Water"))
             {
                 myResourceId = (int)Resource.Water;
             }
@@ -47,10 +47,6 @@ namespace Assets.Scripts
             else if (gameObject.CompareTag("Toy"))
             {
                 myResourceId = (int)Resource.Toys;
-            }
-            else if (gameObject.CompareTag("Blanket"))
-            {
-                myResourceId = (int)Resource.Blankets;
             }
         }
 

@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
     public class CheckIn : MonoBehaviour
     {
+        public Text checkInText;
 
         private AudioSource audioSource1;
         private AudioSource audioSource2;
@@ -24,9 +26,7 @@ namespace Assets.Scripts
                 var audioSources = gameObject.GetComponents<AudioSource>();
                 audioSource1.Play();
                 audioSource2.Play();
-                
-                //var aeroplaneController = new AeroplaneController();
-                //aeroplaneController.StartTaxi();
+                checkInText.text = "Enjoy your flight!";
 
                 FindObjectOfType<AeroplaneController>().startTaxi = true;
             }

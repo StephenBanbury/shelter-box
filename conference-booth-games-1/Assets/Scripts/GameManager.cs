@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource2;
 
     private Scene scene;
+
+    private GameObject collectionPoints;
+    private GameObject checkListText;
+
     void Start()
     {
         scene = SceneManager.GetActiveScene();
@@ -30,6 +34,9 @@ public class GameManager : MonoBehaviour
         AudioSource[] audioSources = GetComponents<AudioSource>();
         audioSource1 = audioSources[0]; 
         audioSource2 = audioSources[1];
+
+        collectionPoints = GameObject.Find("CollectionPoints");
+        checkListText = GameObject.Find("CheckListText");
     }
 
     void Awake()
@@ -83,7 +90,7 @@ public class GameManager : MonoBehaviour
     public void UpdateDeploymentStatus(int alterStatusBy)
     {
         deploymentStatus = deploymentStatus + alterStatusBy;
-        deploymentStatusText.text = $"Deployment status: {Regex.Replace((deploymentStatus).ToString(), "(\\B[A-Z])", " $1")}";
+        //deploymentStatusText.text = $"Deployment status: {Regex.Replace((deploymentStatus).ToString(), "(\\B[A-Z])", " $1")}";
 
         var redLight = GameObject.Find("TrafficLightRed");
         var amberLight = GameObject.Find("TrafficLightAmber");
@@ -92,23 +99,48 @@ public class GameManager : MonoBehaviour
         switch (deploymentStatus)
         {
             case DeploymentStatus.Red:
+
                 redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
+                deploymentStatusText.text = $"{deploymentStatus.ToString()}: Go to Shelter Box building and collect deployment resources.";
+
+                if (collectionPoints != null)
+                {
+                    collectionPoints.SetActive(false);
+                }
+
+                if (checkListText != null)
+                {
+                    checkListText.SetActive(false);
+                }
+
                 break;
 
             case DeploymentStatus.Amber:
+
                 redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
                 amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
-                
                 audioSource2.Play();
+                deploymentStatusText.text = $"{deploymentStatus.ToString()}: Now collect your personal checklist items.";
+
+                if (collectionPoints != null)
+                {
+                    collectionPoints.SetActive(true);
+                }
+
+                if (checkListText != null)
+                {
+                    checkListText.SetActive(true);
+                }
 
                 break;
 
             case DeploymentStatus.Green:
+
                 redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
                 amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
                 greenLight.GetComponent<Renderer>().material.color = new Color(0, 110, 10, 255);
-
                 audioSource1.Play();
+                deploymentStatusText.text = $"{deploymentStatus.ToString()}: Go to airport!";
 
                 break;
         }
