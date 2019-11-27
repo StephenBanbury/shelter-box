@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets
+namespace Assets.Scripts
 {
     public class CheckIn : MonoBehaviour
     {
@@ -24,6 +24,11 @@ namespace Assets
                 var audioSources = gameObject.GetComponents<AudioSource>();
                 audioSource1.Play();
                 audioSource2.Play();
+                
+                //var aeroplaneController = new AeroplaneController();
+                //aeroplaneController.StartTaxi();
+
+                FindObjectOfType<AeroplaneController>().startTaxi = true;
             }
         }
     }
