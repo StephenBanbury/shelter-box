@@ -1,27 +1,29 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class NavigatePrepRoom : MonoBehaviour
+namespace Assets.Scripts
 {
-    private AudioSource audioSource1;
-    //private AudioSource audioSource2;
-
-    void Start()
+    public class NavigatePrepRoom : MonoBehaviour
     {
-        var audioSources = GetComponents<AudioSource>();
-        audioSource1 = audioSources[0]; 
-        //audioSource2 = audioSources[1];
-    }
+        private AudioSource audioSource1;
+        //private AudioSource audioSource2;
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Hand"))
+        void Start()
         {
-            audioSource1.Play();
-            GameManager.instance.LoadAppropriateScene(GameManager.instance.CurrentScene() == "HomeTown"
-                ? "PrepRoom"
-                : "HomeTown");
-        } 
+            var audioSources = GetComponents<AudioSource>();
+            audioSource1 = audioSources[0];
+            //audioSource2 = audioSources[1];
+        }
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Hand"))
+            {
+                audioSource1.Play();
+
+                GameManager.instance.LoadAppropriateScene(GameManager.instance.CurrentScene() == "HomeTown"
+                    ? "PrepRoom"
+                    : "HomeTown");
+            }
+        }
     }
 }
