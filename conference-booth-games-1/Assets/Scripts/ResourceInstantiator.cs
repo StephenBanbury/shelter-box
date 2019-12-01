@@ -59,7 +59,7 @@ namespace Assets.Scripts
             float randomPosition = random.Next(-2, 2) * 0.1f;
 
             var myPrefab = myPrefabs[randomPrefab];
-            Instantiate(myPrefab, new Vector3(0.08f + randomPosition, 3.5f, 2.3f + randomPosition), Quaternion.identity);
+            Instantiate(myPrefab, new Vector3(0.08f + randomPosition, 3.5f, 1.4f + randomPosition), Quaternion.identity);
         }
     }
 }

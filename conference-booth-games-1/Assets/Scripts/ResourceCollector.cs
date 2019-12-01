@@ -24,7 +24,8 @@ namespace Assets.Scripts
             audioSource1 = audioSources[0]; // Audio source = if this is a box then it's is a beep; if it's the floor then it's a thud
             audioSource2 = audioSources[1];
 
-            ChangeMaterial(0);
+            ChangeMaterial(gameObject, 0);
+            ChangeMaterial(gameObject.transform.GetChild(0).gameObject, 0);
         }
 
         void OnTriggerEnter(Collider other)
@@ -116,7 +117,8 @@ namespace Assets.Scripts
 
                         if (required == collected)
                         {
-                            ChangeMaterial(1);
+                            ChangeMaterial(gameObject, 1);
+                            ChangeMaterial(gameObject.transform.GetChild(0).gameObject, 1);
 
                             GameManager.instance.UpdateDeploymentStatus(1);
 
@@ -168,13 +170,31 @@ namespace Assets.Scripts
             ResourceInstantiator.instance.CreateResourceObject();
         }
 
-        private void ChangeMaterial(int matIndex)
+        private void ChangeMaterial(GameObject gameObjectToAffect, int matIndex)
         {
-            var mats = gameObject.GetComponent<Renderer>().materials;
-            var mat = mats[matIndex];
-            mats[0] = mat;
-            gameObject.GetComponent<Renderer>().materials = mats;
+            var mats = gameObjectToAffect.GetComponent<Renderer>().materials;
+            var newMat = mats[matIndex];
+
+            mats[0] = newMat;
+            gameObjectToAffect.GetComponent<Renderer>().materials = mats;
         }
 
+        //private void ChangeMaterial(int matIndex)
+        //{
+        //    // Apply ShelterBox green-blue material to box and lid
+
+        //    var box = gameObject;
+        //    var boxLid = box.transform.GetChild(0).gameObject;
+
+        //    var boxMaterials = box.GetComponent<Renderer>().materials;
+        //    var mat = boxMaterials[matIndex];
+
+        //    boxMaterials[0] = mat;
+        //    box.GetComponent<Renderer>().materials = boxMaterials;
+
+        //    var boxLidMats = boxLid.GetComponent<Renderer>().materials;
+        //    boxLidMats[0] = mat;
+        //    boxLid.GetComponent<Renderer>().materials = boxLidMats;
+        //}
     }
 }
