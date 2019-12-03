@@ -32,15 +32,23 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         scene = SceneManager.GetActiveScene();
-        doorMessage.text = scene.name == "HomeTown" ? "Enter" : "Exit";
 
-        AudioSource[] audioSources = GetComponents<AudioSource>();
-        audioSource1 = audioSources[0]; 
-        audioSource2 = audioSources[1];
-        audioSource3 = audioSources[2];
+        if (scene.name != "Disaster")
+        {
+            doorMessage.text = scene.name == "HomeTown" ? "Enter" : "Exit";
 
-        collectionPoints = GameObject.Find("CollectionPoints");
-        checkListText = GameObject.Find("CheckListText");
+            AudioSource[] audioSources = GetComponents<AudioSource>();
+            audioSource1 = audioSources[0];
+            audioSource2 = audioSources[1];
+            audioSource3 = audioSources[2];
+
+            collectionPoints = GameObject.Find("CollectionPoints");
+            checkListText = GameObject.Find("CheckListText");
+        }
+        else
+        {
+            timeStarted = false;
+        }
     }
 
     void Awake()

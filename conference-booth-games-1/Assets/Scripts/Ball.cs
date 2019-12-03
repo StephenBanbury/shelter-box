@@ -17,6 +17,7 @@ namespace Assets.Scripts
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
+            print($"rb: {rb.name}");
         }
 
         void Update()
@@ -38,6 +39,8 @@ namespace Assets.Scripts
 
         void FixedUpdate()
         {
+            print($"inWindZone: {inWindZone.ToString()}");
+
             if (inWindZone)
             {
                 var windArea = windZone.GetComponent<WindArea>();
