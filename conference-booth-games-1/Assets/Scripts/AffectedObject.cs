@@ -5,9 +5,8 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class Ball : MonoBehaviour
+    public class AffectedObject : MonoBehaviour
     {
-
         public float lifeTime = 10f;
         public bool inWindZone = false;
         public GameObject windZone;
@@ -16,20 +15,21 @@ namespace Assets.Scripts
 
         private void Start()
         {
+            windZone = GameObject.Find("Floor");
             rb = GetComponent<Rigidbody>();
             print($"rb: {rb.name}");
         }
 
         void Update()
         {
-            if (lifeTime > 0)
-            {
-                lifeTime -= Time.deltaTime;
-                if (lifeTime <= 0)
-                {
-                    Destruction();
-                }
-            }
+            //if (lifeTime > 0)
+            //{
+            //    lifeTime -= Time.deltaTime;
+            //    if (lifeTime <= 0)
+            //    {
+            //        Destruction();
+            //    }
+            //}
 
             if (this.transform.position.y <= -20)
             {
