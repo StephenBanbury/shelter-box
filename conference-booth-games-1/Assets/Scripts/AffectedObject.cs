@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Reflection.Emit;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
+using Random = System.Random;
 
 namespace Assets.Scripts
 {
@@ -14,14 +11,15 @@ namespace Assets.Scripts
         public GameObject windZone;
 
         private Rigidbody rb;
-        private Vector3 trans;
         private GameObject go;
+        private Vector3 trans;
+
+        static Random random = new Random();
 
         private void Start()
         {
             windZone = GameObject.Find("Floor");
             go = gameObject;
-            //trans = gameObject.transform.position;
             rb = GetComponent<Rigidbody>();
             trans = rb.transform.position;
             //print($"rb: {rb.name}");
@@ -61,7 +59,22 @@ namespace Assets.Scripts
             if (inWindZone)
             {
                 var windArea = windZone.GetComponent<WindArea>();
-                rb.AddForce(windArea.direction * windArea.strength);
+                rb.AddForce(windArea.direction1 * windArea.strength);
+
+
+                //Random random = new Random();
+                int randomIndex = random.Next(0, 100);
+                
+                //print($"randomIndex:{randomIndex}");
+
+                if (randomIndex > 10 && randomIndex < 40)
+                {
+                    rb.AddForce(windArea.direction2 * windArea.strength / 2);
+                }
+                else if (randomIndex > 60 && randomIndex < 90)
+                {
+                    rb.AddForce(-windArea.direction2 * windArea.strength / 2);
+                }
             }
         }
 
