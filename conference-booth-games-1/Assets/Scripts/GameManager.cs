@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Assets.Scripts.Enums;
+﻿using Assets.Scripts.Enums;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,14 +7,19 @@ public class GameManager : MonoBehaviour
 {
     // static instance of the GM can be accessed from anywhere
     public static GameManager instance;
-    public Text doorMessage;
 
+    public Text doorMessage;
     public Text timerDisplay;
+    public Text deploymentStatusText;
+    public Text hudText;
+
     public static float timer = (5 * 60);
     public static bool timeStarted = true;
+    private static bool timesUp;
 
     public static DeploymentStatus deploymentStatus;
-    public Text deploymentStatusText;
+
+    private static float hudDisplayTimer;
 
     private AudioSource audioSource1;
     private AudioSource audioSource2;
@@ -26,8 +29,6 @@ public class GameManager : MonoBehaviour
 
     private GameObject collectionPoints;
     private GameObject checkListText;
-
-    private static bool timesUp;
 
     void Start()
     {
@@ -47,7 +48,9 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            timeStarted = false;
+            //timeStarted = false;
+            //hudText.text = "Make your way to the shop and find the button to exit this disaster area!";
+            HudMessage("Make your way to the shop and find the button to exit this disaster area!", 10);
         }
     }
 
@@ -88,7 +91,19 @@ public class GameManager : MonoBehaviour
                 audioSource3.Play();
                 timesUp = true;
             }
+
+            if (timer <= hudDisplayTimer && hudDisplayTimer != 0)
+            {
+                hudText.text = "";
+                hudDisplayTimer = 0;
+            }
         }
+    }
+
+    private void HudMessage(string messageText, int displayTimeSeconds)
+    {
+        hudDisplayTimer = timer - displayTimeSeconds;
+        hudText.text = messageText;
     }
 
     public string CurrentScene()
@@ -122,6 +137,7 @@ public class GameManager : MonoBehaviour
                 redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
 
                 deploymentStatusText.text = $"{deploymentStatus.ToString()}: Go to Shelter Box building and collect deployment resources.";
+                hudText.text = $"{deploymentStatus.ToString()}: Go to Shelter Box building and collect deployment resources.";
 
                 if (collectionPoints != null)
                 {
@@ -143,6 +159,7 @@ public class GameManager : MonoBehaviour
                 audioSource2.Play();
 
                 deploymentStatusText.text = $"{deploymentStatus.ToString()}: Now collect your personal checklist items.";
+                hudText.text = $"{deploymentStatus.ToString()}: Now collect your personal checklist items.";
 
                 if (collectionPoints != null)
                 {
@@ -165,6 +182,7 @@ public class GameManager : MonoBehaviour
                 audioSource1.Play();
 
                 deploymentStatusText.text = $"{deploymentStatus.ToString()}: Go to airport!";
+                hudText.text = $"{deploymentStatus.ToString()}: Go to airport!";
 
                 break;
         }

@@ -67,7 +67,7 @@ namespace Assets.Scripts
                 
                 //print($"randomIndex:{randomIndex}");
 
-                if (randomIndex > 10 && randomIndex < 40)
+                if (randomIndex >= 10 && randomIndex <= 40)
                 {
                     rb.AddForce(windArea.direction2 * windArea.strength / 2);
                 }
