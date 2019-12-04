@@ -21,9 +21,9 @@ namespace Assets.Scripts
         {
             windZone = GameObject.Find("Floor");
             go = gameObject;
-            trans = gameObject.transform.position;
+            //trans = gameObject.transform.position;
             rb = GetComponent<Rigidbody>();
-
+            trans = rb.transform.position;
             //print($"rb: {rb.name}");
         }
 
