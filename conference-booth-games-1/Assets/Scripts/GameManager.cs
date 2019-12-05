@@ -9,8 +9,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public Text doorMessage;
-    public Text timerDisplay;
     public Text deploymentStatusText;
+    //public Text timerDisplay;
+    public Text hudTimerDisplay;
     public Text hudText;
 
     public static float timer = (5 * 60);
@@ -83,11 +84,13 @@ public class GameManager : MonoBehaviour
             float minutes = Mathf.Floor(timer / 60);
             float seconds = timer % 60;
 
-            timerDisplay.text = $"{minutes:0}:{seconds:00}";
+            //timerDisplay.text = $"{minutes:0}:{seconds:00}";
+            hudTimerDisplay.text = $"{minutes:0}:{seconds:00}";
 
             if (timer <= 0 && !timesUp)
             {
-                timerDisplay.color = Color.black;
+                //timerDisplay.color = Color.black;
+                hudTimerDisplay.color = Color.black;
                 audioSource3.Play();
                 timesUp = true;
             }
@@ -136,8 +139,9 @@ public class GameManager : MonoBehaviour
 
                 redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
 
-                deploymentStatusText.text = $"{deploymentStatus.ToString()}: Go to Shelter Box building and collect deployment resources.";
-                hudText.text = $"{deploymentStatus.ToString()}: Go to Shelter Box building and collect deployment resources.";
+                deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to Shelter Box building and collect deployment resources.";
+                //hudText.text = $"{deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.";
+                HudMessage($"Status {deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.", 10);
 
                 if (collectionPoints != null)
                 {
@@ -158,8 +162,9 @@ public class GameManager : MonoBehaviour
 
                 audioSource2.Play();
 
-                deploymentStatusText.text = $"{deploymentStatus.ToString()}: Now collect your personal checklist items.";
-                hudText.text = $"{deploymentStatus.ToString()}: Now collect your personal checklist items.";
+                deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.";
+                //hudText.text = $"{deploymentStatus.ToString()}: Now collect your personal checklist items.";
+                HudMessage($"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.", 10);
 
                 if (collectionPoints != null)
                 {
@@ -181,7 +186,7 @@ public class GameManager : MonoBehaviour
 
                 audioSource1.Play();
 
-                deploymentStatusText.text = $"{deploymentStatus.ToString()}: Go to airport!";
+                deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to airport!";
                 hudText.text = $"{deploymentStatus.ToString()}: Go to airport!";
 
                 break;
