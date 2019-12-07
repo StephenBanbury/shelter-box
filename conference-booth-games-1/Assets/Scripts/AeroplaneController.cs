@@ -12,8 +12,14 @@ namespace Assets.Scripts
 
         public bool startTaxi;
 
+        private Rigidbody player;
+        private Vector3 offset;
+
         void Start()
         {
+            player = GameObject.Find("TrackingSpace").GetComponent<Rigidbody>();
+            offset = new Vector3(0.1f,3,-0.21f);
+            // x: back, y: up, z: right
         }
 
         // Update is called once per frame
@@ -21,9 +27,14 @@ namespace Assets.Scripts
         {
             if (startTaxi)
             {
-                // Add a forward force
+                player.rotation = Quaternion.Euler(0,-90,0);
+
+                // Add a gradually increasing forward and later upward force
                 rb.AddForce(- forwardForce * Time.deltaTime, upwardForce * Time.deltaTime, 0);
-                
+
+                // Make player's tracking space follow plane
+                player.transform.position = rb.transform.position + offset;
+
                 forwardForce += 0.2f;
 
                 if (forwardForce >= 130f)
@@ -57,6 +68,14 @@ namespace Assets.Scripts
         {
             yield return new WaitForSeconds(seconds);
             startTaxi = true;
+
+            var playerComponent = GameObject.Find("OVRPlayerController").gameObject.GetComponent<FollowAeroplane>();
+
+            // TODO set player / player camera in position to follow the aeroplane as it takes off
+            // Currently this does not work, not sure why.
+
+            //playerComponent.startFollowing = true;
+            //playerComponent.RotateCamera();
         } 
     }
 }

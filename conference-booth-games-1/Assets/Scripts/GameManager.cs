@@ -11,16 +11,16 @@ public class GameManager : MonoBehaviour
     public Text doorMessage;
     public Text deploymentStatusText;
     //public Text timerDisplay;
-    public Text hudTimerDisplay;
+    public Text hudCountdownDisplay;
     public Text hudText;
 
-    public static float timer = (5 * 60);
-    public static bool timeStarted = true;
+    public static float countdown = (5 * 60);
+    public static bool countdownStarted = true;
     private static bool timesUp;
 
     public static DeploymentStatus deploymentStatus;
 
-    private static float hudDisplayTimer;
+    private static float hudDisplayTime;
 
     private AudioSource audioSource1;
     private AudioSource audioSource2;
@@ -77,37 +77,38 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (timeStarted)
+        if (countdownStarted)
         {
-            timer -= Time.deltaTime;
+            countdown -= Time.deltaTime;
 
-            float minutes = Mathf.Floor(timer / 60);
-            float seconds = timer % 60;
+            float minutes = Mathf.Floor(countdown / 60);
+            float seconds = countdown % 60;
 
             //timerDisplay.text = $"{minutes:0}:{seconds:00}";
-            hudTimerDisplay.text = $"{minutes:0}:{seconds:00}";
+            hudCountdownDisplay.text = $"{minutes:0}:{seconds:00}";
 
-            if (timer <= 0 && !timesUp)
+            if (countdown <= 0 && !timesUp)
             {
                 //timerDisplay.color = Color.black;
-                hudTimerDisplay.color = Color.black;
+                hudCountdownDisplay.color = Color.black;
                 audioSource3.Play();
                 timesUp = true;
             }
 
-            if (timer <= hudDisplayTimer && hudDisplayTimer != 0)
+            if (countdown <= hudDisplayTime && hudDisplayTime != 0)
             {
                 hudText.text = "";
-                hudDisplayTimer = 0;
+                hudDisplayTime = 0;
             }
         }
     }
 
     private void HudMessage(string messageText, int displayTimeSeconds)
     {
-        hudDisplayTimer = timer - displayTimeSeconds;
+        hudDisplayTime = countdown - displayTimeSeconds;
         hudText.text = messageText;
     }
+
 
     public string CurrentScene()
     {
@@ -139,7 +140,7 @@ public class GameManager : MonoBehaviour
 
                 redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
 
-                deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to Shelter Box building and collect deployment resources.";
+                deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to the Shelter Box building and assign deployment resources.";
                 //hudText.text = $"{deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.";
                 HudMessage($"Status {deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.", 10);
 
@@ -187,7 +188,8 @@ public class GameManager : MonoBehaviour
                 audioSource1.Play();
 
                 deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to airport!";
-                hudText.text = $"{deploymentStatus.ToString()}: Go to airport!";
+                //hudText.text = $"{deploymentStatus.ToString()}: Go to airport!";
+                HudMessage($"{deploymentStatus.ToString()}: Go to airport!", 10);
 
                 break;
         }
