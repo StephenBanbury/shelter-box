@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Enums;
+﻿using System.Collections;
+using Assets.Scripts.Enums;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -30,6 +31,8 @@ public class GameManager : MonoBehaviour
 
     private GameObject collectionPoints;
     private GameObject checkListText;
+
+    public GameObject ToBeContinuedUI;
 
     void Start()
     {
@@ -193,5 +196,17 @@ public class GameManager : MonoBehaviour
 
                 break;
         }
+    }
+
+    public void GameOver()
+    {
+        ToBeContinuedUI.SetActive(true);
+
+        StartCoroutine(EndGameAfterDelay(10));
+    }
+    IEnumerator EndGameAfterDelay(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Application.Quit();
     }
 }

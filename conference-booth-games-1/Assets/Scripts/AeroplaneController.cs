@@ -68,14 +68,6 @@ namespace Assets.Scripts
         {
             yield return new WaitForSeconds(seconds);
             startTaxi = true;
-
-            var playerComponent = GameObject.Find("OVRPlayerController").gameObject.GetComponent<FollowAeroplane>();
-
-            // TODO set player / player camera in position to follow the aeroplane as it takes off
-            // Currently this does not work, not sure why.
-
-            //playerComponent.startFollowing = true;
-            //playerComponent.RotateCamera();
         } 
     }
 }
