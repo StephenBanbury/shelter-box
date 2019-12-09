@@ -94,18 +94,18 @@ public class TeleportOrientationHandlerThumbstick : TeleportOrientationHandler
 			_lastValidDirection = direction;
 		}
 
-		var tracking = LocomotionTeleport.LocomotionController.CameraRig.trackingSpace.rotation;
+		//var tracking = LocomotionTeleport.LocomotionController.CameraRig.trackingSpace.rotation;
 
-		if (magnitude > RotateStickThreshold)
-		{
-			direction /= magnitude; // normalize the vector
-			var rot = _initialRotation * Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y), Vector3.up);
-			_currentRotation = tracking * rot;
-		}
-		else
-		{
-			_currentRotation = tracking * LocomotionTeleport.GetHeadRotationY();
-		}
+		//if (magnitude > RotateStickThreshold)
+		//{
+		//	direction /= magnitude; // normalize the vector
+		//	var rot = _initialRotation * Quaternion.LookRotation(new Vector3(direction.x, 0, direction.y), Vector3.up);
+		//	_currentRotation = tracking * rot;
+		//}
+		//else
+		//{
+		//	_currentRotation = tracking * LocomotionTeleport.GetHeadRotationY();
+		//}
 
 		LocomotionTeleport.OnUpdateTeleportDestination(AimData.TargetValid, AimData.Destination, _currentRotation, GetLandingOrientation(OrientationMode, _currentRotation));
 	}
