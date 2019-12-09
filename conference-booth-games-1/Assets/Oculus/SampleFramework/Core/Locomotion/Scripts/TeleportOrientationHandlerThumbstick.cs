@@ -33,14 +33,14 @@ public class TeleportOrientationHandlerThumbstick : TeleportOrientationHandler
 	[Tooltip("The orientation will only change if the thumbstick magnitude is above this value. This will usually be larger than the TeleportInputHandlerAvatarTouch.ThumbstickTeleportThreshold.")]
 	public float RotateStickThreshold = 0.8f;
 
-	private Quaternion _initialRotation;
+	//private Quaternion _initialRotation;
 	private Quaternion _currentRotation;
 	private Vector2 _lastValidDirection;
 
 	protected override void InitializeTeleportDestination()
 	{
-		_initialRotation = LocomotionTeleport.GetHeadRotationY();
-		_currentRotation = _initialRotation;
+		//_initialRotation = LocomotionTeleport.GetHeadRotationY();
+		//_currentRotation = _initialRotation;
 		_lastValidDirection = new Vector2();
 	}
 
@@ -84,7 +84,7 @@ public class TeleportOrientationHandlerThumbstick : TeleportOrientationHandler
 
 			if (magnitude < RotateStickThreshold)
 			{
-				_initialRotation = LocomotionTeleport.GetHeadRotationY();
+				//_initialRotation = LocomotionTeleport.GetHeadRotationY();
 				direction.x = 0;
 				direction.y = 1;
 			}
