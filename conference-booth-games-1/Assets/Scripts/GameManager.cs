@@ -15,8 +15,9 @@ public class GameManager : MonoBehaviour
     public Text hudCountdownDisplay;
     public Text hudText;
 
-    public static float countdown = (5 * 60);
-    public static bool countdownStarted = true;
+    public int timeAllowed = 7;
+    public static float countdown;
+    private static bool countdownStarted;
     private static bool timesUp;
 
     public static DeploymentStatus deploymentStatus;
@@ -37,11 +38,24 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         scene = SceneManager.GetActiveScene();
-
+        
         if (scene.name != "Disaster")
         {
-            doorMessage.text = scene.name == "HomeTown" ? "Enter" : "Exit";
+            switch (scene.name)
+            {
+                case "Welcome":
+                    doorMessage.text = "Welcome to ShelterBox! Begin Prepare and Deploy";
+                    break;
 
+                case "HomeTown":
+                    doorMessage.text = "Enter";
+                    break;
+
+                case "PrepRoom":
+                    doorMessage.text = "Exit";
+                    break;
+            }
+            
             AudioSource[] audioSources = GetComponents<AudioSource>();
             audioSource1 = audioSources[0];
             audioSource2 = audioSources[1];
@@ -54,7 +68,7 @@ public class GameManager : MonoBehaviour
         {
             //timeStarted = false;
             //hudText.text = "Make your way to the shop and find the button to exit this disaster area!";
-            HudMessage("Make your way to the shop and find the button to exit this disaster area!", 10);
+            HudMessage("Make your way to the shop, find the red button, and exit this disaster area!", 10);
         }
     }
 
@@ -106,12 +120,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void HudMessage(string messageText, int displayTimeSeconds)
+    public void StartCountdown()
     {
-        hudDisplayTime = countdown - displayTimeSeconds;
-        hudText.text = messageText;
+        countdown = (timeAllowed * 60);
+        countdownStarted = true;
     }
-
 
     public string CurrentScene()
     {
@@ -208,5 +221,11 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         Application.Quit();
+    }
+
+    private void HudMessage(string messageText, int displayTimeSeconds)
+    {
+        hudDisplayTime = countdown - displayTimeSeconds;
+        hudText.text = messageText;
     }
 }

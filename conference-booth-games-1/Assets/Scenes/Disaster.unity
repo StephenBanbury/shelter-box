@@ -2246,8 +2246,8 @@ GameObject:
   - component: {fileID: 344442676}
   - component: {fileID: 344442675}
   - component: {fileID: 344442674}
-  - component: {fileID: 344442673}
   - component: {fileID: 344442679}
+  - component: {fileID: 344442673}
   m_Layer: 0
   m_Name: SecretDoor
   m_TagString: Untagged
@@ -2278,7 +2278,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 344442671}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d90c6463beceda40ad2e4a25ae431d1, type: 3}
+  m_Script: {fileID: 11500000, guid: aa21e2ce136f72a40b3fd985ec8097af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &344442674
@@ -11686,7 +11686,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh877406
+  m_Name: pb_Mesh1228358
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13251,6 +13251,7 @@ MonoBehaviour:
   deploymentStatusText: {fileID: 0}
   hudCountdownDisplay: {fileID: 1261877247}
   hudText: {fileID: 447322151}
+  ToBeContinuedUI: {fileID: 0}
 --- !u!81 &743432122
 AudioListener:
   m_ObjectHideFlags: 0
