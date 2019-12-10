@@ -785,7 +785,7 @@ public class LocomotionTeleport : MonoBehaviour
         }
 
         characterTransform.position = destPosition;
-        characterTransform.rotation = destRotation;
+        //characterTransform.rotation = destRotation;
 
         Debug.Log("destPosition: " + destPosition + "  destRotation: " + destRotation);
 
