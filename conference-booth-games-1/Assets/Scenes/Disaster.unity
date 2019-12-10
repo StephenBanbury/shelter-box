@@ -466,14 +466,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81966351}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 1.2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!4 &81966354 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: bf5176189eca2a943a46af2c9b6557db,
@@ -11195,14 +11195,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379087132}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 1.2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!4 &384588440 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4488567837450824, guid: 80c5916b9606ce646be16611d9a06d13,
@@ -11321,14 +11321,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 409031075}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 1.2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &409031078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11554,14 +11554,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 455552719}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 1.2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1001 &459891705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13251,6 +13251,7 @@ MonoBehaviour:
   deploymentStatusText: {fileID: 0}
   hudCountdownDisplay: {fileID: 1261877247}
   hudText: {fileID: 447322151}
+  timeAllowed: 7
   ToBeContinuedUI: {fileID: 0}
 --- !u!81 &743432122
 AudioListener:
@@ -15280,6 +15281,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.5891894
       objectReference: {fileID: 0}
+    - target: {fileID: 8296776406935655238, guid: 9cd1c534745abb641a8c3e9fcc2b5dfb,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: -6081895620588481280, guid: 9cd1c534745abb641a8c3e9fcc2b5dfb,
         type: 3}
       propertyPath: debugText
@@ -15289,11 +15295,6 @@ PrefabInstance:
         type: 3}
       propertyPath: windZone
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8296776406935655238, guid: 9cd1c534745abb641a8c3e9fcc2b5dfb,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3854463429679083007, guid: 9cd1c534745abb641a8c3e9fcc2b5dfb, type: 3}
@@ -15504,14 +15505,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004388693}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 1.2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!4 &1004388696 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: bf5176189eca2a943a46af2c9b6557db,
@@ -16034,6 +16035,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.5891894
       objectReference: {fileID: 0}
+    - target: {fileID: 8296776406935655238, guid: 9cd1c534745abb641a8c3e9fcc2b5dfb,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: -6081895620588481280, guid: 9cd1c534745abb641a8c3e9fcc2b5dfb,
         type: 3}
       propertyPath: debugText
@@ -16043,11 +16049,6 @@ PrefabInstance:
         type: 3}
       propertyPath: windZone
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8296776406935655238, guid: 9cd1c534745abb641a8c3e9fcc2b5dfb,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3854463429679083007, guid: 9cd1c534745abb641a8c3e9fcc2b5dfb, type: 3}
@@ -17953,6 +17954,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.8478949
       objectReference: {fileID: 0}
+    - target: {fileID: 557861387047044057, guid: 484bb58e659a0ee45948f71c23b5e47d,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 800614807435310649, guid: 484bb58e659a0ee45948f71c23b5e47d,
         type: 3}
       propertyPath: debugText
@@ -17962,11 +17968,6 @@ PrefabInstance:
         type: 3}
       propertyPath: windZone
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 557861387047044057, guid: 484bb58e659a0ee45948f71c23b5e47d,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3591394066900816831, guid: 484bb58e659a0ee45948f71c23b5e47d, type: 3}
@@ -18328,14 +18329,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372979190}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 1.2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!4 &1387102481 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4488567837450824, guid: 80c5916b9606ce646be16611d9a06d13,
@@ -18634,14 +18635,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1443778785}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 1.2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!4 &1443778788 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: bf5176189eca2a943a46af2c9b6557db,
@@ -19079,15 +19080,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.5891895
       objectReference: {fileID: 0}
-    - target: {fileID: -6081895620588481280, guid: 9cd1c534745abb641a8c3e9fcc2b5dfb,
-        type: 3}
-      propertyPath: debugText
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8296776406935655238, guid: 9cd1c534745abb641a8c3e9fcc2b5dfb,
         type: 3}
       propertyPath: m_Mass
       value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: -6081895620588481280, guid: 9cd1c534745abb641a8c3e9fcc2b5dfb,
+        type: 3}
+      propertyPath: debugText
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cd1c534745abb641a8c3e9fcc2b5dfb, type: 3}
@@ -19248,14 +19249,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566398490}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 1.2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &1566398494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19416,14 +19417,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593002680}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 1.2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &1594325838 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100002, guid: bf5176189eca2a943a46af2c9b6557db,
@@ -19451,14 +19452,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594325838}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 1.2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!4 &1594325841 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: bf5176189eca2a943a46af2c9b6557db,
@@ -19656,6 +19657,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.8478945
       objectReference: {fileID: 0}
+    - target: {fileID: 1782714203413177329, guid: 47303e88d0ed03a4893de32386ec6cb3,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: -3373311558777708509, guid: 47303e88d0ed03a4893de32386ec6cb3,
         type: 3}
       propertyPath: debugText
@@ -19665,11 +19671,6 @@ PrefabInstance:
         type: 3}
       propertyPath: windZone
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1782714203413177329, guid: 47303e88d0ed03a4893de32386ec6cb3,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1255408988928011796, guid: 47303e88d0ed03a4893de32386ec6cb3, type: 3}
@@ -20768,6 +20769,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.8478945
       objectReference: {fileID: 0}
+    - target: {fileID: 1782714203413177329, guid: 47303e88d0ed03a4893de32386ec6cb3,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: -3373311558777708509, guid: 47303e88d0ed03a4893de32386ec6cb3,
         type: 3}
       propertyPath: debugText
@@ -20777,11 +20783,6 @@ PrefabInstance:
         type: 3}
       propertyPath: windZone
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1782714203413177329, guid: 47303e88d0ed03a4893de32386ec6cb3,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1255408988928011796, guid: 47303e88d0ed03a4893de32386ec6cb3, type: 3}
@@ -21207,6 +21208,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1.8478945
       objectReference: {fileID: 0}
+    - target: {fileID: 1782714203413177329, guid: 47303e88d0ed03a4893de32386ec6cb3,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: -3373311558777708509, guid: 47303e88d0ed03a4893de32386ec6cb3,
         type: 3}
       propertyPath: debugText
@@ -21216,11 +21222,6 @@ PrefabInstance:
         type: 3}
       propertyPath: windZone
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1782714203413177329, guid: 47303e88d0ed03a4893de32386ec6cb3,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1255408988928011796, guid: 47303e88d0ed03a4893de32386ec6cb3, type: 3}
@@ -21245,14 +21246,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1890839126}
   serializedVersion: 2
-  m_Mass: 1.25
+  m_Mass: 1.2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &1890839129
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21611,7 +21612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb7a093693d1a724d9b9ce2587f5ad6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 4.3
+  strength: 4.4
   direction1: {x: 1.8, y: 0, z: 0}
   direction2: {x: 0, y: 0, z: 4}
 --- !u!65 &1900732828
@@ -22519,7 +22520,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh878214
+  m_Name: pb_Mesh60080
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

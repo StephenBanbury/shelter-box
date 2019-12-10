@@ -44,15 +44,16 @@ public class GameManager : MonoBehaviour
             switch (scene.name)
             {
                 case "Welcome":
-                    doorMessage.text = "Welcome to ShelterBox! Begin Prepare and Deploy";
+                    //doorMessage.text = "Welcome to ShelterBox! Begin Prepare and Deploy";
+                    HudMessage("When you've finished here please make your way to the exit.'", 10);
                     break;
 
                 case "HomeTown":
-                    doorMessage.text = "Enter";
+                    //doorMessage.text = "ShelterBox Building";
                     break;
 
                 case "PrepRoom":
-                    doorMessage.text = "Exit";
+                    //doorMessage.text = "Exit";
                     break;
             }
             

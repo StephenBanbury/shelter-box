@@ -28,7 +28,7 @@ namespace Assets.Scripts
                         break;
 
                     case "Disaster":
-                        GameManager.instance.LoadAppropriateScene("HomeTown");
+                        GameManager.instance.LoadAppropriateScene("PrepRoom");
                         break;
 
                     case "HomeTown":

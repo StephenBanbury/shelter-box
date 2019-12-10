@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 8157442898216154149}
   m_LocalRotation: {x: 0.722744, y: 0.0000000059224736, z: 0.0000000059224736, w: 0.6911159}
   m_LocalPosition: {x: 0.62, y: 2.251, z: 0.776}
-  m_LocalScale: {x: 0.20651007, y: 0.13318577, z: 0.024821967}
+  m_LocalScale: {x: 0.434683, y: 0.28034282, z: 0.052247778}
   m_Children:
   - {fileID: 8157442898933636709}
   m_Father: {fileID: 0}
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c5e6b104a0a90ec459f7dad996f46b0e, type: 2}
+  - {fileID: 2100000, guid: c3a9fab4bb7b4724c999c83eda8cbcc8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -141,7 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94bb9f3dd3caea4b9fde2b8dae3f2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cassetteText: {fileID: 8157442899031613247}
   myResourceId: 0
 --- !u!1 &8157442898933636706
 GameObject:
@@ -170,7 +169,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8157442898933636706}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.53}
+  m_LocalPosition: {x: 0, y: 0, z: -0.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8157442899031613244}
@@ -179,7 +178,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.000000074334, y: 0.0058458}
+  m_AnchoredPosition: {x: 0, y: 0.006}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8157442898933636710
@@ -269,7 +268,7 @@ RectTransform:
   m_GameObject: {fileID: 8157442899031613245}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01306349, y: 0.01306349, z: 0.01306349}
+  m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
   m_Children: []
   m_Father: {fileID: 8157442898933636709}
   m_RootOrder: 0
@@ -277,7 +276,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 195, y: 195}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8157442899031613246
 CanvasRenderer:
@@ -300,17 +299,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0.013663791, b: 0.8962264, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 4c90d3c4d98a33647872e06a6f654f9f, type: 3}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: 87ce8664c858fef4983c754c797e9ebb, type: 3}
+    m_FontSize: 12
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -318,4 +317,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Food\t"
+  m_Text: "Earthquake - Nepal - 2015 \r\nOn 25.4.2015 The Nepal earthquake killed
+    nearly 9,000 people and injured nearly 22,000. It occurred at 11:56 Nepal Standard
+    Time with a magnitude of 7.8M. \r\nAid Sent: 69 boxes, 497 Tents, 2734 Shelter
+    Kits, 13279 tarpaulins 3607 locally built shelters 9 school boxes\r"
