@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c2f484f132c044097f03d65cac3b24, type: 3}
   m_Name: OvrAvatarSettings
   m_EditorClassIdentifier: 
-  ovrAppID: 2292462050863862
-  ovrGearAppID: 2292462050863862
+  ovrAppID: 3722345287806218
+  ovrGearAppID: 3722345287806218

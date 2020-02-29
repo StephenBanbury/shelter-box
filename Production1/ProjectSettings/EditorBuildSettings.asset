@@ -8,13 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Welcome.unity
     guid: 1444547ebb979054bae0484f90260012
-  - enabled: 1
-    path: Assets/Scenes/Disaster.unity
-    guid: 5608c853e7187474cadc78687ad701c0
-  - enabled: 1
-    path: Assets/Scenes/HomeTown.unity
-    guid: f6c31dcd5349e464380e66744fdccd22
-  - enabled: 1
-    path: Assets/Scenes/PrepRoom.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 0
+    path: Assets/Scenes/HandTracking.unity
+    guid: 0b8cc5738932c02438533692f251da06
   m_configObjects: {}
