@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Scripts.Enums;
+using Com.MachineApps.PrepareAndDeploy.Enums;
 
-namespace Assets.Scripts.Services
+namespace Com.MachineApps.PrepareAndDeploy.Services
 {
     public class ReportService
     {

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Assets.Scripts.Enums;
-using Assets.Scripts.Services;
+using Com.MachineApps.PrepareAndDeploy.Enums;
+using Com.MachineApps.PrepareAndDeploy.Services;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
 
-namespace Assets.Scripts
+namespace Com.MachineApps.PrepareAndDeploy
 {
     public class ReportsManager : MonoBehaviour
     {

@@ -1,11 +1,10 @@
 ﻿using System;
-using Assets.Scripts.Enums;
+using Com.MachineApps.PrepareAndDeploy.Enums;
 using UnityEngine;
 using Random = System.Random;
 
-namespace Assets.Scripts
+namespace Com.MachineApps.PrepareAndDeploy
 {
-
     public class ResourceManager : MonoBehaviour
     {
         //public Text cassetteText;

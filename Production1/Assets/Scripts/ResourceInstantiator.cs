@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Random = System.Random;
 
-namespace Assets.Scripts
+namespace Com.MachineApps.PrepareAndDeploy
 {
     public class ResourceInstantiator : MonoBehaviour
     {

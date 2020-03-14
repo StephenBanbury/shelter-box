@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Enums  
+﻿namespace Com.MachineApps.PrepareAndDeploy.Enums  
 {
     public enum Resource
     {

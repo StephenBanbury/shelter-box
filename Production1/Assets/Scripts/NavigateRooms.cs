@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts
+namespace Com.MachineApps.PrepareAndDeploy
 {
     public class NavigateRooms : MonoBehaviour
     {

@@ -1,9 +1,9 @@
 ﻿using System.Text.RegularExpressions;
-using Assets.Scripts.Enums;
+using Com.MachineApps.PrepareAndDeploy.Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts
+namespace Com.MachineApps.PrepareAndDeploy
 {
     public class ResourceCollector : MonoBehaviour
     {

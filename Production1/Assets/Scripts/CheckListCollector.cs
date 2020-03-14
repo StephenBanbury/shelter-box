@@ -1,7 +1,8 @@
-﻿using Assets.Scripts.Enums;
+﻿using Com.MachineApps.PrepareAndDeploy;
+using Com.MachineApps.PrepareAndDeploy.Enums;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Com.MachineApps.PrepareAndDeploy
 {
     public class CheckListCollector : MonoBehaviour
     {
