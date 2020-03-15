@@ -24,8 +24,8 @@ namespace Com.MachineApps.PrepareAndDeploy
             audioSource1 = audioSources[0]; // Audio source = if this is a box then it's is a beep; if it's the floor then it's a thud
             audioSource2 = audioSources[1];
 
-            ChangeMaterial(gameObject, 0);
-            ChangeMaterial(gameObject.transform.GetChild(0).gameObject, 0);
+            //ChangeMaterial(gameObject, 0);
+            //ChangeMaterial(gameObject.transform.GetChild(0).gameObject, 0);
         }
 
         void OnTriggerEnter(Collider other)
