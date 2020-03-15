@@ -10,7 +10,6 @@ namespace Com.MachineApps.PrepareAndDeploy
         //public Text cassetteText;
         public int myResourceId;
 
-        // Start is called before the first frame update
         void Start()
         {
             //if (gameObject.CompareTag("Cassette"))

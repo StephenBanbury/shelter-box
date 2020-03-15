@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using UnityEngine;
 using UnityEngine.UI;
@@ -79,6 +80,8 @@ namespace Com.MachineApps.PrepareAndDeploy
             // Then get collection of resource IDs from indexed report
             if (!hitFloor)
             {
+                Debug.Log("Hit!");
+
                 var resourceManager = other.gameObject.GetComponent<ResourceManager>();
                 var myResourceId = resourceManager.myResourceId;
 
@@ -88,6 +91,9 @@ namespace Com.MachineApps.PrepareAndDeploy
                 {
                     // Resource not required
                     case TripleState.One:
+                        
+                        Debug.Log("Resource not required");
+
                         infoMessage =
                             $"{Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")} not required";
                         audioSource2.Play();
@@ -95,27 +101,45 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                     // Resource already collected
                     case TripleState.Two:
+                        
+                        Debug.Log("Resource already collected");
+
                         infoMessage =
                             $"You have already collected {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
                         audioSource2.Play();
                         break;
 
-                    // Resource required
+                    // Resource is required
                     case TripleState.Three:
+
+                        Debug.Log("Resource is required");
+
                         ReportsManager.instance.CollectResource(reportId, myResourceId);
+
+                        // TODO
+                        // Here we need to reduce the budget by the cost of the resource
+                        var cost = 50; //temporary cost
+
+                        //BudgetManager.instance.ReduceBudget(cost);
+
+                        //var test = BudgetManager.instance.CurrentBudget;
+
+                        //Debug.Log($"Budget: {test}");
+
+
                         ReportsManager.instance.AssignReportsToMonitors();
 
                         infoMessage =
                             $"Thanks for the {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
 
                         // Have all resources been collected?
-                        var required = ReportsManager.instance.RequiredResources(reportId).Length;
-                        var collected = ReportsManager.instance.CollectedResources(reportId).Length;
+                        var numberRequired = ReportsManager.instance.RequiredResources(reportId).Length;
+                        var numberCollected = ReportsManager.instance.CollectedResources(reportId).Length;
 
 
                         //grandScoreText.text = $"{required == collected} - {required} : {collected}";
 
-                        if (required == collected)
+                        if (numberRequired == numberCollected)
                         {
                             ChangeMaterial(gameObject, 1);
                             ChangeMaterial(gameObject.transform.GetChild(0).gameObject, 1);
@@ -160,6 +184,9 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
             else
             {
+
+                Debug.Log("Hit floor!!");
+
                 audioSource1.Play(); // In this instance this is audio source component of the Floor GameObject
             }
 

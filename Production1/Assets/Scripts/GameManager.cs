@@ -1,29 +1,42 @@
 ﻿using System.Collections;
+using Com.MachineApps.PrepareAndDeploy;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Com.MachineApps.PrepareAndDeploy
-{
+//namespace Com.MachineApps.PrepareAndDeploy
+//{
     public class GameManager : MonoBehaviour
     {
         // static instance of the GM can be accessed from anywhere
         public static GameManager instance;
 
-        public Text doorMessage;
-        public Text deploymentStatusText;
-        //public Text timerDisplay;
-        public Text hudCountdownDisplay;
-        public Text hudText;
+        [Tooltip("Message on the exit door")]
+        [SerializeField]
+        private Text doorMessage;
 
-        public int timeAllowed = 7;
-        public static float countdown;
-        private static bool countdownStarted;
-        private static bool timesUp;
+        [Tooltip("Current deployment status message text")]
+        [SerializeField]
+        private Text deploymentStatusText;
 
+        [Tooltip("Heads-up display countdown timer text")]
+        [SerializeField]
+        private Text hudCountdownDisplay;
+
+        [Tooltip("Heads-up display text")]
+        [SerializeField]
+        private Text hudText;
+
+        [Tooltip("Time allowed for game countdown")]
+        [SerializeField]
+        private int timeAllowed = 7;
+
+    public static float countdown;
         public static DeploymentStatus deploymentStatus;
 
+        private static bool countdownStarted;
+        private static bool timesUp;
         private static float hudDisplayTime;
 
         private AudioSource audioSource1;
@@ -32,70 +45,74 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         private Scene scene;
 
-        private GameObject collectionPoints;
-        private GameObject checkListText;
+    //private GameObject collectionPoints;
+    //private GameObject checkListText;
 
-        public GameObject ToBeContinuedUI;
+    //public GameObject ToBeContinuedUI;
 
-        void Start()
-        {
-            scene = SceneManager.GetActiveScene();
+    void Start()
+    {
+        StartCountdown();
 
-            if (scene.name != "Disaster")
-            {
-                switch (scene.name)
-                {
-                    case "Welcome":
-                        //doorMessage.text = "Welcome to ShelterBox! Begin Prepare and Deploy";
-                        HudMessage("When you've finished here please make your way to the exit.'", 10);
-                        break;
+        scene = SceneManager.GetActiveScene();
 
-                    case "HomeTown":
-                        //doorMessage.text = "ShelterBox Building";
-                        break;
-
-                    case "PrepRoom":
-                        //doorMessage.text = "Exit";
-                        break;
-                }
-
-                AudioSource[] audioSources = GetComponents<AudioSource>();
-                audioSource1 = audioSources[0];
-                audioSource2 = audioSources[1];
-                audioSource3 = audioSources[2];
-
-                collectionPoints = GameObject.Find("CollectionPoints");
-                checkListText = GameObject.Find("CheckListText");
-            }
-            else
-            {
-                //timeStarted = false;
-                //hudText.text = "Make your way to the shop and find the button to exit this disaster area!";
-                HudMessage("Make your way to the shop, find the red button, and exit this disaster area!", 10);
-            }
-        }
-
-        //void Awake()
+        //if (scene.name != "Disaster")
         //{
-        //    // Check that it exists
-        //    if (instance == null)
-        //    {
-        //        //assign it to the current object
-        //        instance = this;
-        //    }
+            //switch (scene.name)
+            //{
+            //    case "Welcome":
+            //        //doorMessage.text = "Welcome to ShelterBox! Begin Prepare and Deploy";
+            //        HudMessage("When you've finished here please make your way to the exit.'", 10);
+            //        break;
 
-        //    // make sure that it is equal to the current object
-        //    else if (instance != this)
-        //    {
-        //        // Destroy current game object - we only need one and we already have it
-        //        Destroy(gameObject);
-        //    }
+            //    case "HomeTown":
+            //        //doorMessage.text = "ShelterBox Building";
+            //        break;
 
-        //    // don't destroy the object when changing scenes!
-        //    DontDestroyOnLoad(gameObject);
+            //    case "PrepRoom":
+            //        //doorMessage.text = "Exit";
+            //        break;
+            //}
+
+            AudioSource[] audioSources = GetComponents<AudioSource>();
+            audioSource1 = audioSources[0];
+            audioSource2 = audioSources[1];
+            audioSource3 = audioSources[2];
+
+            //collectionPoints = GameObject.Find("CollectionPoints");
+            //checkListText = GameObject.Find("CheckListText");
+        //}
+        //else
+        //{
+        //    //timeStarted = false;
+        //    //hudText.text = "Make your way to the shop and find the button to exit this disaster area!";
+        //    HudMessage("Make your way to the shop, find the red button, and exit this disaster area!", 10);
         //}
 
-        void Update()
+
+    }
+
+    void Awake()
+    {
+        // Check that it exists
+        if (instance == null)
+        {
+            //assign it to the current object
+            instance = this;
+        }
+
+        // make sure that it is equal to the current object
+        else if (instance != this)
+        {
+            // Destroy current game object - we only need one and we already have it
+            Destroy(gameObject);
+        }
+
+        // don't destroy the object when changing scenes!
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void Update()
         {
             if (countdownStarted)
             {
@@ -163,15 +180,15 @@ namespace Com.MachineApps.PrepareAndDeploy
                     //hudText.text = $"{deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.";
                     HudMessage($"Status {deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.", 10);
 
-                    if (collectionPoints != null)
-                    {
-                        collectionPoints.SetActive(false);
-                    }
+                    //if (collectionPoints != null)
+                    //{
+                    //    collectionPoints.SetActive(false);
+                    //}
 
-                    if (checkListText != null)
-                    {
-                        checkListText.SetActive(false);
-                    }
+                    //if (checkListText != null)
+                    //{
+                    //    checkListText.SetActive(false);
+                    //}
 
                     break;
 
@@ -186,15 +203,15 @@ namespace Com.MachineApps.PrepareAndDeploy
                     //hudText.text = $"{deploymentStatus.ToString()}: Now collect your personal checklist items.";
                     HudMessage($"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.", 10);
 
-                    if (collectionPoints != null)
-                    {
-                        collectionPoints.SetActive(true);
-                    }
+                    //if (collectionPoints != null)
+                    //{
+                    //    collectionPoints.SetActive(true);
+                    //}
 
-                    if (checkListText != null)
-                    {
-                        checkListText.SetActive(true);
-                    }
+                    //if (checkListText != null)
+                    //{
+                    //    checkListText.SetActive(true);
+                    //}
 
                     break;
 
@@ -216,7 +233,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public void GameOver()
         {
-            ToBeContinuedUI.SetActive(true);
+            //ToBeContinuedUI.SetActive(true);
 
             StartCoroutine(EndGameAfterDelay(10));
         }
@@ -233,4 +250,4 @@ namespace Com.MachineApps.PrepareAndDeploy
         }
     }
 
-}
+//}
