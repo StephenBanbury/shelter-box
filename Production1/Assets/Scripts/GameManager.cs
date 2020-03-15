@@ -1,89 +1,94 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Globalization;
 using Com.MachineApps.PrepareAndDeploy;
 using Com.MachineApps.PrepareAndDeploy.Enums;
+using Com.MachineApps.PrepareAndDeploy.Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //namespace Com.MachineApps.PrepareAndDeploy
 //{
-    public class GameManager : MonoBehaviour
-    {
-        // static instance of the GM can be accessed from anywhere
-        public static GameManager instance;
+public class GameManager : MonoBehaviour
+{
+    // static instance of the GM can be accessed from anywhere
+    public static GameManager instance;
 
-        [Tooltip("Message on the exit door")]
-        //[SerializeField]
-        public Text doorMessage;
+    [Tooltip("Message on the exit door")]
+    //[SerializeField]
+    public Text doorMessage;
 
-        [Tooltip("Current deployment status message text")]
-        //[SerializeField]
-        public Text deploymentStatusText;
+    [Tooltip("Current deployment status message text")]
+    //[SerializeField]
+    public Text deploymentStatusText;
 
-        [Tooltip("Heads-up display countdown timer text")]
-        //[SerializeField]
-        public Text hudCountdownDisplay;
+    [Tooltip("Heads-up display countdown timer text")]
+    //[SerializeField]
+    public Text hudCountdownDisplay;
 
-        [Tooltip("Heads-up display text")]
-        //[SerializeField]
-        public Text hudText;
+    [Tooltip("Heads-up display text")]
+    //[SerializeField]
+    public Text hudText;
 
-        [Tooltip("Time allowed for game countdown")]
-        //[SerializeField]
-        public int timeAllowed = 7;
+    [Tooltip("Time allowed for game countdown")]
+    //[SerializeField]
+    public int timeAllowed = 7;
 
-        public static float countdown;
-        public static DeploymentStatus deploymentStatus;
+    public int BudgetRemaining = 1000;
 
-        private static bool countdownStarted;
-        private static bool timesUp;
-        private static float hudDisplayTime;
+    public Text BudgetMeter;
 
-        private AudioSource audioSource1;
-        private AudioSource audioSource2;
-        private AudioSource audioSource3;
+    public static float countdown;
+    public static DeploymentStatus deploymentStatus;
 
-        private Scene scene;
+    private static bool countdownStarted;
+    private static bool timesUp;
+    private static float hudDisplayTime;
 
-        //private GameObject collectionPoints;
-        //private GameObject checkListText;
+    private AudioSource audioSource1;
+    private AudioSource audioSource2;
+    private AudioSource audioSource3;
 
-        //public GameObject ToBeContinuedUI;
+    private Scene scene;
+
+    //private GameObject collectionPoints;
+    //private GameObject checkListText;
+
+    //public GameObject ToBeContinuedUI;
 
     void Start()
     {
-        hudCountdownDisplay.text = "default text";
-        hudText.text = "default text";
-
         StartCountdown();
 
         scene = SceneManager.GetActiveScene();
 
+        
         //if (scene.name != "Disaster")
         //{
-            //switch (scene.name)
-            //{
-            //    case "Welcome":
-            //        //doorMessage.text = "Welcome to ShelterBox! Begin Prepare and Deploy";
-            //        HudMessage("When you've finished here please make your way to the exit.'", 10);
-            //        break;
+        //switch (scene.name)
+        //{
+        //    case "Welcome":
+        //        //doorMessage.text = "Welcome to ShelterBox! Begin Prepare and Deploy";
+        //        HudMessage("When you've finished here please make your way to the exit.'", 10);
+        //        break;
 
-            //    case "HomeTown":
-            //        //doorMessage.text = "ShelterBox Building";
-            //        break;
+        //    case "HomeTown":
+        //        //doorMessage.text = "ShelterBox Building";
+        //        break;
 
-            //    case "PrepRoom":
-            //        //doorMessage.text = "Exit";
-            //        break;
-            //}
+        //    case "PrepRoom":
+        //        //doorMessage.text = "Exit";
+        //        break;
+        //}
 
-            AudioSource[] audioSources = GetComponents<AudioSource>();
-            audioSource1 = audioSources[0];
-            audioSource2 = audioSources[1];
-            audioSource3 = audioSources[2];
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+        audioSource1 = audioSources[0];
+        audioSource2 = audioSources[1];
+        audioSource3 = audioSources[2];
 
-            //collectionPoints = GameObject.Find("CollectionPoints");
-            //checkListText = GameObject.Find("CheckListText");
+        //collectionPoints = GameObject.Find("CollectionPoints");
+        //checkListText = GameObject.Find("CheckListText");
         //}
         //else
         //{
@@ -116,141 +121,172 @@ using UnityEngine.UI;
     }
 
     void Update()
+    {
+        if (countdownStarted)
         {
-            if (countdownStarted)
+            countdown -= Time.deltaTime;
+
+            float minutes = Mathf.Floor(countdown / 60);
+            float seconds = countdown % 60;
+
+            //timerDisplay.text = $"{minutes:0}:{seconds:00}";
+            hudCountdownDisplay.text = $"{minutes:0}:{seconds:00}";
+
+            if (countdown <= 0 && !timesUp)
             {
-                countdown -= Time.deltaTime;
-
-                float minutes = Mathf.Floor(countdown / 60);
-                float seconds = countdown % 60;
-
-                //timerDisplay.text = $"{minutes:0}:{seconds:00}";
-                hudCountdownDisplay.text = $"{minutes:0}:{seconds:00}";
-
-                if (countdown <= 0 && !timesUp)
-                {
-                    //timerDisplay.color = Color.black;
-                    hudCountdownDisplay.color = Color.black;
-                    audioSource3.Play();
-                    timesUp = true;
-                }
-
-                if (countdown <= hudDisplayTime && hudDisplayTime != 0)
-                {
-                    hudText.text = "";
-                    hudDisplayTime = 0;
-                }
+                //timerDisplay.color = Color.black;
+                hudCountdownDisplay.color = Color.black;
+                audioSource3.Play();
+                timesUp = true;
             }
-        }
 
-        public void StartCountdown()
-        {
-            countdown = (timeAllowed * 60);
-            countdownStarted = true;
-        }
-
-        public string CurrentScene()
-        {
-            return scene.name;
-        }
-
-        public void LoadAppropriateScene(string sceneName)
-        {
-            SceneManager.LoadScene(sceneName);
-        }
-
-        public DeploymentStatus GetDeploymentStatus()
-        {
-            return deploymentStatus;
-        }
-
-        public void UpdateDeploymentStatus(int alterStatusBy)
-        {
-            deploymentStatus = deploymentStatus + alterStatusBy;
-            //deploymentStatusText.text = $"Deployment status: {Regex.Replace((deploymentStatus).ToString(), "(\\B[A-Z])", " $1")}";
-
-            var redLight = GameObject.Find("TrafficLightRed");
-            var amberLight = GameObject.Find("TrafficLightAmber");
-            var greenLight = GameObject.Find("TrafficLightGreen");
-
-            switch (deploymentStatus)
+            if (countdown <= hudDisplayTime && hudDisplayTime != 0)
             {
-                case DeploymentStatus.Red:
-
-                    redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
-
-                    deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to the Shelter Box building and assign deployment resources.";
-                    //hudText.text = $"{deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.";
-                    HudMessage($"Status {deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.", 10);
-
-                    //if (collectionPoints != null)
-                    //{
-                    //    collectionPoints.SetActive(false);
-                    //}
-
-                    //if (checkListText != null)
-                    //{
-                    //    checkListText.SetActive(false);
-                    //}
-
-                    break;
-
-                case DeploymentStatus.Amber:
-
-                    redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
-                    amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
-
-                    audioSource2.Play();
-
-                    deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.";
-                    //hudText.text = $"{deploymentStatus.ToString()}: Now collect your personal checklist items.";
-                    HudMessage($"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.", 10);
-
-                    //if (collectionPoints != null)
-                    //{
-                    //    collectionPoints.SetActive(true);
-                    //}
-
-                    //if (checkListText != null)
-                    //{
-                    //    checkListText.SetActive(true);
-                    //}
-
-                    break;
-
-                case DeploymentStatus.Green:
-
-                    redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
-                    amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
-                    greenLight.GetComponent<Renderer>().material.color = new Color(0, 110, 10, 255);
-
-                    audioSource1.Play();
-
-                    deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to airport!";
-                    //hudText.text = $"{deploymentStatus.ToString()}: Go to airport!";
-                    HudMessage($"{deploymentStatus.ToString()}: Go to airport!", 10);
-
-                    break;
+                hudText.text = "";
+                hudDisplayTime = 0;
             }
-        }
-
-        public void GameOver()
-        {
-            //ToBeContinuedUI.SetActive(true);
-
-            StartCoroutine(EndGameAfterDelay(10));
-        }
-        IEnumerator EndGameAfterDelay(int seconds)
-        {
-            yield return new WaitForSeconds(seconds);
-            Application.Quit();
-        }
-
-        private void HudMessage(string messageText, int displayTimeSeconds)
-        {
-            hudDisplayTime = countdown - displayTimeSeconds;
-            hudText.text = messageText;
         }
     }
+
+    public void StartCountdown()
+    {
+        countdown = (timeAllowed * 60);
+        countdownStarted = true;
+    }
+
+    public string CurrentScene()
+    {
+        return scene.name;
+    }
+
+    public void LoadAppropriateScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public DeploymentStatus GetDeploymentStatus()
+    {
+        return deploymentStatus;
+    }
+
+    public void UpdateDeploymentStatus(int alterStatusBy)
+    {
+        deploymentStatus = deploymentStatus + alterStatusBy;
+        //deploymentStatusText.text = $"Deployment status: {Regex.Replace((deploymentStatus).ToString(), "(\\B[A-Z])", " $1")}";
+
+        var redLight = GameObject.Find("TrafficLightRed");
+        var amberLight = GameObject.Find("TrafficLightAmber");
+        var greenLight = GameObject.Find("TrafficLightGreen");
+
+        switch (deploymentStatus)
+        {
+            case DeploymentStatus.Red:
+
+                redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
+
+                deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to the Shelter Box building and assign deployment resources.";
+                //hudText.text = $"{deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.";
+                HudMessage($"Status {deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.", 10);
+
+                //if (collectionPoints != null)
+                //{
+                //    collectionPoints.SetActive(false);
+                //}
+
+                //if (checkListText != null)
+                //{
+                //    checkListText.SetActive(false);
+                //}
+
+                break;
+
+            case DeploymentStatus.Amber:
+
+                redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
+                amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
+
+                audioSource2.Play();
+
+                deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.";
+                //hudText.text = $"{deploymentStatus.ToString()}: Now collect your personal checklist items.";
+                HudMessage($"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.", 10);
+
+                //if (collectionPoints != null)
+                //{
+                //    collectionPoints.SetActive(true);
+                //}
+
+                //if (checkListText != null)
+                //{
+                //    checkListText.SetActive(true);
+                //}
+
+                break;
+
+            case DeploymentStatus.Green:
+
+                redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
+                amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
+                greenLight.GetComponent<Renderer>().material.color = new Color(0, 110, 10, 255);
+
+                audioSource1.Play();
+
+                deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to airport!";
+                //hudText.text = $"{deploymentStatus.ToString()}: Go to airport!";
+                HudMessage($"{deploymentStatus.ToString()}: Go to airport!", 10);
+
+                break;
+        }
+    }
+
+    public void GameOver()
+    {
+        //ToBeContinuedUI.SetActive(true);
+
+        StartCoroutine(EndGameAfterDelay(10));
+    }
+    IEnumerator EndGameAfterDelay(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Application.Quit();
+    }
+
+    #region Budget
+
+    public void UpdateBudgetDisplay()
+    {
+        // BudgetMeter.text = $"Remaining budget: £{String.Format("0:c}", BudgetRemaining)}";
+        BudgetMeter.text = $"£{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture)}";
+    }
+
+    public void IncreaseBudget(int value)
+    {
+        BudgetRemaining += value;
+    }
+
+    public void ReduceBudget(int value)
+    {
+        Debug.Log($"Reduce budget by: {value}");
+        BudgetRemaining -= value;
+        UpdateBudgetDisplay();
+    }
+
+    public int GetResourceCost(Resource resource)
+    {
+        var budgetService = new BudgetService();
+        var resourceCost = budgetService.ResourceCosts();
+        var cost = resourceCost[resource];
+
+        return cost;
+    }
+
+    #endregion
+
+    private void HudMessage(string messageText, int displayTimeSeconds)
+    {
+        hudDisplayTime = countdown - displayTimeSeconds;
+        hudText.text = messageText;
+    }
+}
 
 //}

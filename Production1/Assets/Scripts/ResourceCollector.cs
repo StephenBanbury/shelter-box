@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +11,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         public Text BoxMessage2Text;
         public Text BoxMessage3Text;
         public Text BoxMessage4Text;
-        public Text grandScoreText;
+        public Text GrandScoreText;
 
         private AudioSource audioSource1;
         private AudioSource audioSource2;
@@ -92,7 +91,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                     // Resource not required
                     case TripleState.One:
                         
-                        Debug.Log("Resource not required");
+                        //Debug.Log("Resource not required");
 
                         infoMessage =
                             $"{Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")} not required";
@@ -102,7 +101,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                     // Resource already collected
                     case TripleState.Two:
                         
-                        Debug.Log("Resource already collected");
+                        //Debug.Log("Resource already collected");
 
                         infoMessage =
                             $"You have already collected {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
@@ -112,19 +111,21 @@ namespace Com.MachineApps.PrepareAndDeploy
                     // Resource is required
                     case TripleState.Three:
 
-                        Debug.Log("Resource is required");
+                        //Debug.Log("Resource is required");
 
                         ReportsManager.instance.CollectResource(reportId, myResourceId);
 
                         // TODO
                         // Here we need to reduce the budget by the cost of the resource
-                        //var cost = 50; //temporary cost
 
-                        //BudgetManager.instance.ReduceBudget(cost);
+                        var resourceCost = GameManager.instance.GetResourceCost((Resource) myResourceId);
 
-                        //var test = BudgetManager.instance.CurrentBudget;
+                        Debug.Log($"Resource Cost: {resourceCost}");
 
-                        //Debug.Log($"Budget: {test}");
+                        GameManager.instance.ReduceBudget(resourceCost);
+
+                        //GameManager.instance.UpdateBudget();
+
 
 
                         ReportsManager.instance.AssignReportsToMonitors();
@@ -146,7 +147,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                             GameManager.instance.UpdateDeploymentStatus(1);
 
-                            grandScoreText.text = "Well done! Now collect your personal items.";
+                            GrandScoreText.text = "Congratulations! You have collected everything required!";
 
                             if (GameManager.instance.GetDeploymentStatus() != DeploymentStatus.Green)
                             {

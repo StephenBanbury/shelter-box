@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Com.MachineApps.PrepareAndDeploy.Enums;
+using Com.MachineApps.PrepareAndDeploy.Models;
 
 namespace Com.MachineApps.PrepareAndDeploy.Services
 {
@@ -30,13 +31,13 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        //(int) Resource.Clothing, 
+                        (int) Resource.Clothing, 
                         (int) Resource.Food, 
                         (int) Resource.FirstAidKits, 
                         (int) Resource.Tents, 
                         (int) Resource.Toys, 
                         (int) Resource.Water,
-                        //(int) Resource.Blankets
+                        (int) Resource.Blankets
                     },
                     CollectedResources = new List<int>()
                 },
@@ -53,7 +54,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         //(int) Resource.Clothing,
                         (int) Resource.Food,
                         (int) Resource.FirstAidKits,
-                        (int) Resource.Tents,
+                        //(int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Water
                     },
@@ -75,7 +76,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Water,
-                        //(int) Resource.Blankets
+                        (int) Resource.Blankets
                     },
                     CollectedResources = new List<int>()
                 },
@@ -89,14 +90,14 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        //(int) Resource.Clothing,
+                        (int) Resource.Clothing,
                         (int) Resource.Food,
                         (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Water,
                         (int) Resource.Boats,
-                        //(int) Resource.Blankets
+                        (int) Resource.Blankets
                     },
                     CollectedResources = new List<int>()
                 },
@@ -110,12 +111,12 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        //(int) Resource.Clothing,
+                        (int) Resource.Clothing,
                         (int) Resource.Food,
                         (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
-                        (int) Resource.Water,
+                        //(int) Resource.Water,
                         (int) Resource.Boats,
                         //(int) Resource.Blankets
                     },
@@ -151,8 +152,8 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        //(int) Resource.Clothing,
-                        (int) Resource.Food,
+                        (int) Resource.Clothing,
+                        //(int) Resource.Food,
                         (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
@@ -168,17 +169,5 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
         }
     }
 
-
-    public class Report
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string SubTitle { get; set; }
-        public string Text { get; set; }
-        public DateTime ReportDate { get; set; }
-        public bool Archived { get; set; }
-        public int[] RequiredResources { get; set; }
-        public List<int> CollectedResources { get; set; }
-    }
-
+    
 }

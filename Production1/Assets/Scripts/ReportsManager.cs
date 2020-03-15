@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Com.MachineApps.PrepareAndDeploy.Enums;
+using Com.MachineApps.PrepareAndDeploy.Models;
 using Com.MachineApps.PrepareAndDeploy.Services;
 using UnityEngine;
 using UnityEngine.UI;
@@ -70,6 +71,8 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         void Start()
         {
+            Debug.Log("ReportManager Start");
+
             reviewDateTime = startDateTime.AddSeconds(updateReportsInterval);
 
             List<int> randomReportIndexes = new List<int>();
@@ -111,16 +114,19 @@ namespace Com.MachineApps.PrepareAndDeploy
         
         public void AssignReportsToMonitors()
         {
+            // Heading
             monitor1aText.text = reports[reportId0].Title;
             monitor2aText.text = reports[reportId1].Title;
             monitor3aText.text = reports[reportId2].Title;
             monitor4aText.text = reports[reportId3].Title;
 
+            // Subheading
             monitor1bText.text = reports[reportId0].SubTitle;
             monitor2bText.text = reports[reportId1].SubTitle;
             monitor3bText.text = reports[reportId2].SubTitle;
             monitor4bText.text = reports[reportId3].SubTitle;
 
+            // Checklist
             monitor1cText.text = ResourceListText(reportId0);
             monitor2cText.text = ResourceListText(reportId1);
             monitor3cText.text = ResourceListText(reportId2);
