@@ -36,8 +36,8 @@ namespace Com.MachineApps.PrepareAndDeploy
             myPrefabs = new GameObject[] { myPrefab1, myPrefab2, myPrefab3, myPrefab4, myPrefab5, myPrefab6};
 
             // Disable collection box BoxColliders when initiating - prevents resource items being collected when bounced into box
-            GameObject.Find("Box1").GetComponent<BoxCollider>().enabled = false;
-            GameObject.Find("Box2").GetComponent<BoxCollider>().enabled = false;
+            GameObject.Find("FloorPanel").GetComponent<MeshCollider>().enabled = false;
+            //GameObject.Find("Box2").GetComponent<MeshCollider>().enabled = false;
             GameObject.Find("Box3").GetComponent<BoxCollider>().enabled = false;
             GameObject.Find("Box4").GetComponent<BoxCollider>().enabled = false;
 
@@ -46,8 +46,8 @@ namespace Com.MachineApps.PrepareAndDeploy
                 CreateResourceObject();
             }
 
-            GameObject.Find("Box1").GetComponent<BoxCollider>().enabled = true;
-            GameObject.Find("Box2").GetComponent<BoxCollider>().enabled = true;
+            GameObject.Find("FloorPanel").GetComponent<MeshCollider>().enabled = true;
+            //GameObject.Find("Box2").GetComponent<MeshCollider>().enabled = true;
             GameObject.Find("Box3").GetComponent<BoxCollider>().enabled = true;
             GameObject.Find("Box4").GetComponent<BoxCollider>().enabled = true;
 

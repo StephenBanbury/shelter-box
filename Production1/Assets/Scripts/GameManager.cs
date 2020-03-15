@@ -256,7 +256,7 @@ public class GameManager : MonoBehaviour
     public void UpdateBudgetDisplay()
     {
         // BudgetMeter.text = $"Remaining budget: £{String.Format("0:c}", BudgetRemaining)}";
-        BudgetMeter.text = $"£{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture)}";
+        BudgetMeter.text = $"{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture)}";
     }
 
     public void IncreaseBudget(int value)
