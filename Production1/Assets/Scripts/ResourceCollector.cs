@@ -118,7 +118,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         // TODO
                         // Here we need to reduce the budget by the cost of the resource
-                        var cost = 50; //temporary cost
+                        //var cost = 50; //temporary cost
 
                         //BudgetManager.instance.ReduceBudget(cost);
 

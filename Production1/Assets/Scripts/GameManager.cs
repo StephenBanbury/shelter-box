@@ -13,26 +13,26 @@ using UnityEngine.UI;
         public static GameManager instance;
 
         [Tooltip("Message on the exit door")]
-        [SerializeField]
-        private Text doorMessage;
+        //[SerializeField]
+        public Text doorMessage;
 
         [Tooltip("Current deployment status message text")]
-        [SerializeField]
-        private Text deploymentStatusText;
+        //[SerializeField]
+        public Text deploymentStatusText;
 
         [Tooltip("Heads-up display countdown timer text")]
-        [SerializeField]
-        private Text hudCountdownDisplay;
+        //[SerializeField]
+        public Text hudCountdownDisplay;
 
         [Tooltip("Heads-up display text")]
-        [SerializeField]
-        private Text hudText;
+        //[SerializeField]
+        public Text hudText;
 
         [Tooltip("Time allowed for game countdown")]
-        [SerializeField]
-        private int timeAllowed = 7;
+        //[SerializeField]
+        public int timeAllowed = 7;
 
-    public static float countdown;
+        public static float countdown;
         public static DeploymentStatus deploymentStatus;
 
         private static bool countdownStarted;
@@ -45,13 +45,16 @@ using UnityEngine.UI;
 
         private Scene scene;
 
-    //private GameObject collectionPoints;
-    //private GameObject checkListText;
+        //private GameObject collectionPoints;
+        //private GameObject checkListText;
 
-    //public GameObject ToBeContinuedUI;
+        //public GameObject ToBeContinuedUI;
 
     void Start()
     {
+        hudCountdownDisplay.text = "default text";
+        hudText.text = "default text";
+
         StartCountdown();
 
         scene = SceneManager.GetActiveScene();

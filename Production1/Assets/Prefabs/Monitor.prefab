@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2730374743202960442}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.14255404, y: 0.8168913, z: -0.025270907}
-  m_LocalScale: {x: 1.2784986, y: 0.91800004, z: 0.02374594}
+  m_LocalPosition: {x: -0.1429, y: 0.8201, z: -0.0253}
+  m_LocalScale: {x: 1.350439, y: 0.96389604, z: 0.024422698}
   m_Children: []
   m_Father: {fileID: 3903398650735703013}
   m_RootOrder: 1
@@ -54,6 +54,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -104,7 +105,7 @@ Transform:
   m_GameObject: {fileID: 8987221007275361504}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.14255404, y: -0.21689129, z: 0.009270906}
-  m_LocalScale: {x: 0.78474796, y: 0.78474796, z: 0.78474796}
+  m_LocalScale: {x: 1, y: 1, z: 0.78474796}
   m_Children:
   - {fileID: 4798140331376652441}
   - {fileID: 2214390037118910710}
@@ -178,6 +179,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
