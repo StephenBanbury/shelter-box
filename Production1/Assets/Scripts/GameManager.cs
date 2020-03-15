@@ -1,7 +1,6 @@
-﻿using System;
+﻿
 using System.Collections;
 using System.Globalization;
-using Com.MachineApps.PrepareAndDeploy;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using Com.MachineApps.PrepareAndDeploy.Services;
 using UnityEngine;
@@ -26,6 +25,10 @@ public class GameManager : MonoBehaviour
     [Tooltip("Heads-up display countdown timer text")]
     //[SerializeField]
     public Text hudCountdownDisplay;
+
+    [Tooltip("Countdown timer text")]
+    //[SerializeField]
+    public Text countdownDisplay;
 
     [Tooltip("Heads-up display text")]
     //[SerializeField]
@@ -130,12 +133,12 @@ public class GameManager : MonoBehaviour
             float seconds = countdown % 60;
 
             //timerDisplay.text = $"{minutes:0}:{seconds:00}";
-            hudCountdownDisplay.text = $"{minutes:0}:{seconds:00}";
+            countdownDisplay.text = $"{minutes:0}:{seconds:00}";
 
             if (countdown <= 0 && !timesUp)
             {
                 //timerDisplay.color = Color.black;
-                hudCountdownDisplay.color = Color.black;
+                countdownDisplay.color = Color.black;
                 audioSource3.Play();
                 timesUp = true;
             }

@@ -30,6 +30,8 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         void OnTriggerEnter(Collider other)
         {
+            //Debug.Log($"Detected resource: {other.tag}");
+
             if (other.CompareTag("Water") || 
                 other.CompareTag("Tent") || 
                 other.CompareTag("Food") ||
@@ -52,7 +54,9 @@ namespace Com.MachineApps.PrepareAndDeploy
             // Get suitable resources list from report object
             // First get report index of report currently associated with hit box
 
-            switch (gameObject.name)
+            //Debug.Log($"transform.parent.name: {transform.parent.name}");
+
+            switch (transform.parent.name)
             {
                 case "Box1":
                     reportId = ReportsManager.instance.reportId0;
@@ -167,7 +171,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 
                 //grandScoreText.text = $"TripleState: {selectedIsRequiredResource.ToString()}";
 
-                switch (gameObject.name)
+                switch (transform.parent.name)
                 {
                     case "Box1":
                         BoxMessage1Text.text = infoMessage;
