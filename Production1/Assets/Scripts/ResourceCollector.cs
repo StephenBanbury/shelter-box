@@ -49,41 +49,38 @@ namespace Com.MachineApps.PrepareAndDeploy
             string infoMessage = "";
 
             int reportId = 0;
-            bool hitFloor = false;
 
             // Get suitable resources list from report object
             // First get report index of report currently associated with hit box
 
             //Debug.Log($"transform.parent.name: {transform.parent.name}");
 
-            switch (transform.parent.name)
-            {
-                case "Box1":
-                    reportId = ReportsManager.instance.reportId0;
-                    break;
-                case "Box2":
-                    reportId = ReportsManager.instance.reportId1;
-                    break;
-                case "Box3":
-                    reportId = ReportsManager.instance.reportId2;
-                    break;
-                case "Box4":
-                    reportId = ReportsManager.instance.reportId3;
-                    break;
-                case "Floor":
-                    hitFloor = true;
-                    break;
-            }
-            
             BoxMessage1Text.text = "";
             BoxMessage2Text.text = "";
             BoxMessage3Text.text = "";
             BoxMessage4Text.text = "";
 
-            // Then get collection of resource IDs from indexed report
-            if (!hitFloor)
+            if (gameObject.name != "Floor")
             {
-                Debug.Log("Hit!");
+                // Then get collection of resource IDs from indexed report
+
+                switch (transform.parent.name)
+                {
+                    case "Box1":
+                        reportId = ReportsManager.instance.reportId0;
+                        break;
+                    case "Box2":
+                        reportId = ReportsManager.instance.reportId1;
+                        break;
+                    case "Box3":
+                        reportId = ReportsManager.instance.reportId2;
+                        break;
+                    case "Box4":
+                        reportId = ReportsManager.instance.reportId3;
+                        break;
+                }
+
+                //Debug.Log("Collected!");
 
                 var resourceManager = other.gameObject.GetComponent<ResourceManager>();
                 var myResourceId = resourceManager.myResourceId;
@@ -141,7 +138,6 @@ namespace Com.MachineApps.PrepareAndDeploy
                         var numberRequired = ReportsManager.instance.RequiredResources(reportId).Length;
                         var numberCollected = ReportsManager.instance.CollectedResources(reportId).Length;
 
-
                         //grandScoreText.text = $"{required == collected} - {required} : {collected}";
 
                         if (numberRequired == numberCollected)
@@ -188,10 +184,8 @@ namespace Com.MachineApps.PrepareAndDeploy
                 }
             }
             else
-            {
-
-                Debug.Log("Hit floor!!");
-
+            { 
+                //Debug.Log("Hit floor!!");
                 audioSource1.Play(); // In this instance this is audio source component of the Floor GameObject
             }
 
