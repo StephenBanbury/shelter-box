@@ -12,11 +12,10 @@ namespace Com.MachineApps.PrepareAndDeploy
         public GameObject myPrefab4;
         public GameObject myPrefab5;
         public GameObject myPrefab6;
-        //public GameObject myPrefab7;
+
+        public int resourcesPerBin = 1;
 
         private GameObject[] myPrefabs;
-
-        //public int numberOfResourceObjects = 7;
 
         public static ResourceInstantiator instance;
         static Random random = new Random();
@@ -36,56 +35,28 @@ namespace Com.MachineApps.PrepareAndDeploy
         {
             myPrefabs = new GameObject[] { myPrefab1, myPrefab2, myPrefab3, myPrefab4, myPrefab5, myPrefab6};
 
-            // Disable collection box BoxColliders when initiating - prevents resource items being collected when bounced into box
-            //GameObject.Find("FloorPanel").GetComponent<MeshCollider>().enabled = false;
-            //GameObject.Find("Box2").GetComponent<MeshCollider>().enabled = false;
-            //GameObject.Find("Box3").GetComponent<BoxCollider>().enabled = false;
-            //GameObject.Find("Box4").GetComponent<BoxCollider>().enabled = false;
-
-            //for (int i = 1; i <= myPrefabs.Length; i++)
-            //{
-            //    CreateResourceObjectAtRandomPosition();
-            //}
-
-            for (int z = 1; z <= 3; z++)
+            for (int z = 1; z <= resourcesPerBin; z++)
             {
                 for (int i = 1; i <= myPrefabs.Length; i++)
                 {
-                    //StartCoroutine(InstantiateOneResource(i));
                     InstantiateOneResource(i);
                 }
             }
-
-            //GameObject.Find("FloorPanel").GetComponent<MeshCollider>().enabled = true;
-            //GameObject.Find("Box2").GetComponent<MeshCollider>().enabled = true;
-            //GameObject.Find("Box3").GetComponent<BoxCollider>().enabled = true;
-            //GameObject.Find("Box4").GetComponent<BoxCollider>().enabled = true;
-
         }
 
-        private void InstantiateOneResource(int i)
+        public void CreateResourceObject(string resourceObjectName)
         {
-            var boxName = $"ResourceBin{i}";
+            Debug.Log($"Replace resourceObjectName: {resourceObjectName}");
 
-            var box = GameObject.Find(boxName);
+            for (int i = 1; i <= myPrefabs.Length; i++)
+            {
+                Debug.Log($"myPrefabs name: {myPrefabs[i - 1].name}");
 
-            Debug.Log($"BoxName: {box.name}");
-
-            var XPos = box.transform.position.x;
-            var yPos = box.transform.position.y;
-            var ZPos = box.transform.position.z;
-
-            Debug.Log($"box.transform.position.x: {box.transform.position.x}");
-            Debug.Log($"box.transform.position.y: {box.transform.position.y}");
-            Debug.Log($"box.transform.position.z: {box.transform.position.z}");
-
-            var myPrefab = myPrefabs[i - 1];
-
-            Debug.Log($"myPrefab: {myPrefab.name}");
-
-            Instantiate(myPrefab, new Vector3(XPos, box.transform.position.y, box.transform.position.z), Quaternion.identity);
-
-            //yield return 50000;
+                if (myPrefabs[i-1].name == resourceObjectName)
+                {
+                    InstantiateOneResource(i);
+                }
+            }
         }
 
         public void CreateResourceObjectAtRandomPosition()
@@ -95,6 +66,20 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             var myPrefab = myPrefabs[randomPrefab];
             Instantiate(myPrefab, new Vector3(0.08f + randomPosition, 3.5f, 1.4f + randomPosition), Quaternion.identity);
+        }
+
+        private void InstantiateOneResource(int i)
+        {
+            var boxName = $"ResourceBin{i}";
+            var box = GameObject.Find(boxName);
+
+            var xPos = box.transform.position.x;
+            var yPos = box.transform.position.y + 0.5f;
+            var zPos = box.transform.position.z;
+
+            var myPrefab = myPrefabs[i - 1];
+
+            Instantiate(myPrefab, new Vector3(xPos, yPos, zPos), Quaternion.identity);
         }
     }
 }

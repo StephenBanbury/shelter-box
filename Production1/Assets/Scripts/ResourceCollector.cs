@@ -134,8 +134,6 @@ namespace Com.MachineApps.PrepareAndDeploy
                         var numberRequired = ReportsManager.instance.RequiredResources(reportId).Length;
                         var numberCollected = ReportsManager.instance.CollectedResources(reportId).Length;
 
-                        //grandScoreText.text = $"{required == collected} - {required} : {collected}";
-
                         if (numberRequired == numberCollected)
                         {
                             ChangeMaterial(gameObject, 1);
@@ -154,14 +152,11 @@ namespace Com.MachineApps.PrepareAndDeploy
                         }
                         else
                         {
-                            //grandScoreText.text = "floor";
                             audioSource1.Play(); // In this instance this is audio source component of the current Box GameObject
                         }
 
                         break;
                 }
-                
-                //grandScoreText.text = $"TripleState: {selectedIsRequiredResource.ToString()}";
 
                 switch (transform.parent.name)
                 {
@@ -185,11 +180,12 @@ namespace Com.MachineApps.PrepareAndDeploy
                 audioSource1.Play(); // In this instance this is audio source component of the Floor GameObject
             }
 
-            //grandScoreText.text = $"Score: {grandScore.ToString("0")}";
-
+            var resourceObjectName = other.gameObject.name.Replace("(Clone)", "");
+            
             Destroy(other.gameObject);
 
-            ResourceInstantiator.instance.CreateResourceObjectAtRandomPosition();
+            //ResourceInstantiator.instance.CreateResourceObjectAtRandomPosition();
+            ResourceInstantiator.instance.CreateResourceObject(resourceObjectName);
         }
 
         private void ChangeMaterial(GameObject gameObjectToAffect, int matIndex)
