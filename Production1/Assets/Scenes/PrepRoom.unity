@@ -128,6 +128,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 53003661}
     m_Modifications:
+    - target: {fileID: 1601446834, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: a543a6b4254f0e74e85cb4e5b08173c8,
+        type: 3}
     - target: {fileID: 3903398650735703013, guid: 5ad5d96b3f403954cb97ffd315a85ece,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4783,7 +4788,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16724
+  m_Name: pb_Mesh16740
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4946,7 +4951,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16528
+  m_Name: pb_Mesh16538
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7217,6 +7222,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 53003661}
     m_Modifications:
+    - target: {fileID: 1601446834, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: 59f4a2e57c9ffec41b12dabfe85df7f2,
+        type: 3}
     - target: {fileID: 3903398650735703013, guid: 5ad5d96b3f403954cb97ffd315a85ece,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8785,6 +8795,7 @@ MonoBehaviour:
     type: 3}
   myPrefab6: {fileID: 5123146071052598011, guid: b2e8012c1aaea2743ab07078df36c337,
     type: 3}
+  resourcesPerBin: 1
 --- !u!4 &1063046055
 Transform:
   m_ObjectHideFlags: 0
@@ -18898,7 +18909,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16754
+  m_Name: pb_Mesh16770
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -19458,7 +19469,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16798
+  m_Name: pb_Mesh16814
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -21964,7 +21975,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16478
+  m_Name: pb_Mesh16494
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -22291,6 +22302,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 53003661}
     m_Modifications:
+    - target: {fileID: 1601446834, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: 66fbddde04863f343ab324ab75804cc1,
+        type: 3}
     - target: {fileID: 3903398650735703013, guid: 5ad5d96b3f403954cb97ffd315a85ece,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -26183,7 +26199,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16604
+  m_Name: pb_Mesh16618
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -27189,6 +27205,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 53003661}
     m_Modifications:
+    - target: {fileID: 1601446834, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: a1703bab2728e3c4caac31cc1438e082,
+        type: 3}
     - target: {fileID: 3903398650735703013, guid: 5ad5d96b3f403954cb97ffd315a85ece,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27249,8 +27270,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monitor2
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ad5d96b3f403954cb97ffd315a85ece, type: 3}
 --- !u!4 &6460924658929622846 stripped
 Transform:
