@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using Random = System.Random;
 
 namespace Com.MachineApps.PrepareAndDeploy
@@ -30,30 +31,62 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
         }
 
-        // This script will simply instantiate the Prefab when the game starts.
+        // Instantiate the Prefab when the game starts.
         void Start()
         {
             myPrefabs = new GameObject[] { myPrefab1, myPrefab2, myPrefab3, myPrefab4, myPrefab5, myPrefab6};
 
             // Disable collection box BoxColliders when initiating - prevents resource items being collected when bounced into box
-            GameObject.Find("FloorPanel").GetComponent<MeshCollider>().enabled = false;
+            //GameObject.Find("FloorPanel").GetComponent<MeshCollider>().enabled = false;
             //GameObject.Find("Box2").GetComponent<MeshCollider>().enabled = false;
             //GameObject.Find("Box3").GetComponent<BoxCollider>().enabled = false;
             //GameObject.Find("Box4").GetComponent<BoxCollider>().enabled = false;
 
+            //for (int i = 1; i <= myPrefabs.Length; i++)
+            //{
+            //    CreateResourceObjectAtRandomPosition();
+            //}
+
+
             for (int i = 1; i <= myPrefabs.Length; i++)
             {
-                CreateResourceObject();
+                //StartCoroutine(InstantiateOneResource(i));
+                InstantiateOneResource(i);
             }
 
-            GameObject.Find("FloorPanel").GetComponent<MeshCollider>().enabled = true;
+            //GameObject.Find("FloorPanel").GetComponent<MeshCollider>().enabled = true;
             //GameObject.Find("Box2").GetComponent<MeshCollider>().enabled = true;
             //GameObject.Find("Box3").GetComponent<BoxCollider>().enabled = true;
             //GameObject.Find("Box4").GetComponent<BoxCollider>().enabled = true;
 
         }
 
-        public void CreateResourceObject()
+        private void InstantiateOneResource(int i)
+        {
+            var boxName = $"ResourceBin{i}";
+
+            var box = GameObject.Find(boxName);
+
+            Debug.Log($"BoxName: {box.name}");
+
+            var XPos = box.transform.position.x;
+            var yPos = box.transform.position.y;
+            var ZPos = box.transform.position.z;
+
+            Debug.Log($"box.transform.position.x: {box.transform.position.x}");
+            Debug.Log($"box.transform.position.y: {box.transform.position.y}");
+            Debug.Log($"box.transform.position.z: {box.transform.position.z}");
+
+            var myPrefab = myPrefabs[i - 1];
+
+            Debug.Log($"myPrefab: {myPrefab.name}");
+
+            Instantiate(myPrefab, new Vector3(XPos, box.transform.position.y, box.transform.position.z), Quaternion.identity);
+
+            //yield return 50000;
+        }
+
+        public void CreateResourceObjectAtRandomPosition()
         {
             int randomPrefab = random.Next(0, myPrefabs.Length);
             float randomPosition = random.Next(-2, 2) * 0.1f;

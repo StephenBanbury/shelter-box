@@ -262,11 +262,6 @@ public class GameManager : MonoBehaviour
         BudgetMeter.text = $"{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture)}";
     }
 
-    public void IncreaseBudget(int value)
-    {
-        BudgetRemaining += value;
-    }
-
     public void ReduceBudget(int value)
     {
         Debug.Log($"Reduce budget by: {value}");

@@ -116,17 +116,13 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         ReportsManager.instance.CollectResource(reportId, myResourceId);
 
-                        // TODO
                         // Here we need to reduce the budget by the cost of the resource
 
                         var resourceCost = GameManager.instance.GetResourceCost((Resource) myResourceId);
 
-                        Debug.Log($"Resource Cost: {resourceCost}");
+                        //Debug.Log($"Resource Cost: {resourceCost}");
 
                         GameManager.instance.ReduceBudget(resourceCost);
-
-                        //GameManager.instance.UpdateBudget();
-
 
 
                         ReportsManager.instance.AssignReportsToMonitors();
@@ -193,7 +189,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             Destroy(other.gameObject);
 
-            ResourceInstantiator.instance.CreateResourceObject();
+            ResourceInstantiator.instance.CreateResourceObjectAtRandomPosition();
         }
 
         private void ChangeMaterial(GameObject gameObjectToAffect, int matIndex)
