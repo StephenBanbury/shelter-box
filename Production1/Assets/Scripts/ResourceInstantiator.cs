@@ -47,11 +47,13 @@ namespace Com.MachineApps.PrepareAndDeploy
             //    CreateResourceObjectAtRandomPosition();
             //}
 
-
-            for (int i = 1; i <= myPrefabs.Length; i++)
+            for (int z = 1; z <= 3; z++)
             {
-                //StartCoroutine(InstantiateOneResource(i));
-                InstantiateOneResource(i);
+                for (int i = 1; i <= myPrefabs.Length; i++)
+                {
+                    //StartCoroutine(InstantiateOneResource(i));
+                    InstantiateOneResource(i);
+                }
             }
 
             //GameObject.Find("FloorPanel").GetComponent<MeshCollider>().enabled = true;
