@@ -10,14 +10,14 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
         {
             var returnRecourceDictionary = new Dictionary<Resource, int>();
 
-            returnRecourceDictionary.Add(Resource.Food, 50);
-            returnRecourceDictionary.Add(Resource.Boats, 100);
-            returnRecourceDictionary.Add(Resource.FirstAidKits, 40);
-            returnRecourceDictionary.Add(Resource.Tents, 150);
-            returnRecourceDictionary.Add(Resource.Toys, 15);
-            returnRecourceDictionary.Add(Resource.Water, 45);
-            returnRecourceDictionary.Add(Resource.Clothing, 60);
-            returnRecourceDictionary.Add(Resource.Blankets, 35);
+            returnRecourceDictionary.Add(Resource.Food, 150);
+            returnRecourceDictionary.Add(Resource.Boats, 200);
+            returnRecourceDictionary.Add(Resource.FirstAidKits, 140);
+            returnRecourceDictionary.Add(Resource.Tents, 250);
+            returnRecourceDictionary.Add(Resource.Toys, 95);
+            returnRecourceDictionary.Add(Resource.Water, 135);
+            returnRecourceDictionary.Add(Resource.Clothing, 360);
+            returnRecourceDictionary.Add(Resource.Blankets, 135);
 
             return returnRecourceDictionary;
         }

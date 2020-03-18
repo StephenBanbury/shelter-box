@@ -16,16 +16,11 @@ namespace Com.MachineApps.PrepareAndDeploy
         private AudioSource audioSource1;
         private AudioSource audioSource2;
 
-        //public int grandScore;
-
         void Start()
         {
             AudioSource[] audioSources = GetComponents<AudioSource>();
             audioSource1 = audioSources[0]; // Audio source = if this is a box then it's is a beep; if it's the floor then it's a thud
             audioSource2 = audioSources[1];
-
-            //ChangeMaterial(gameObject, 0);
-            //ChangeMaterial(gameObject.transform.GetChild(0).gameObject, 0);
         }
 
         void OnTriggerEnter(Collider other)
@@ -117,13 +112,10 @@ namespace Com.MachineApps.PrepareAndDeploy
                         ReportsManager.instance.CollectResource(reportId, myResourceId);
 
                         // Here we need to reduce the budget by the cost of the resource
-
                         var resourceCost = GameManager.instance.GetResourceCost((Resource) myResourceId);
 
                         //Debug.Log($"Resource Cost: {resourceCost}");
-
                         GameManager.instance.ReduceBudget(resourceCost);
-
 
                         ReportsManager.instance.AssignReportsToMonitors();
 
@@ -147,8 +139,6 @@ namespace Com.MachineApps.PrepareAndDeploy
                             {
                                 audioSource1.Play();
                             }
-                            
-                            // TODO Destroy all existing resource objects and stop producing new ones
                         }
                         else
                         {
@@ -196,23 +186,5 @@ namespace Com.MachineApps.PrepareAndDeploy
             mats[0] = newMat;
             gameObjectToAffect.GetComponent<Renderer>().materials = mats;
         }
-
-        //private void ChangeMaterial(int matIndex)
-        //{
-        //    // Apply ShelterBox green-blue material to box and lid
-
-        //    var box = gameObject;
-        //    var boxLid = box.transform.GetChild(0).gameObject;
-
-        //    var boxMaterials = box.GetComponent<Renderer>().materials;
-        //    var mat = boxMaterials[matIndex];
-
-        //    boxMaterials[0] = mat;
-        //    box.GetComponent<Renderer>().materials = boxMaterials;
-
-        //    var boxLidMats = boxLid.GetComponent<Renderer>().materials;
-        //    boxLidMats[0] = mat;
-        //    boxLid.GetComponent<Renderer>().materials = boxLidMats;
-        //}
     }
 }

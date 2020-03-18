@@ -7,21 +7,10 @@ namespace Com.MachineApps.PrepareAndDeploy
 {
     public class ResourceManager : MonoBehaviour
     {
-        //public Text cassetteText;
         public int myResourceId;
 
         void Start()
         {
-            //if (gameObject.CompareTag("Cassette"))
-            //{
-            //    var randomResource = RandomResource();
-            //    myResourceId = (int) randomResource;
-
-            //    var displayText = Regex.Replace(randomResource.ToString(), "(\\B[A-Z])", " $1");
-            //    cassetteText.text = displayText;
-            //}
-            //else 
-            
             if (gameObject.CompareTag("Tent"))
             {
                 myResourceId = (int)Resource.Tents;

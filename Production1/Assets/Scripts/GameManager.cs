@@ -258,7 +258,6 @@ public class GameManager : MonoBehaviour
 
     public void UpdateBudgetDisplay()
     {
-        // BudgetMeter.text = $"Remaining budget: £{String.Format("0:c}", BudgetRemaining)}";
         BudgetMeter.text = $"{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture)}";
     }
 
@@ -266,7 +265,21 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"Reduce budget by: {value}");
         BudgetRemaining -= value;
-        UpdateBudgetDisplay();
+
+        // Check if budget has reached zero
+        if (BudgetRemaining > 0)
+        {
+            // If budget has not reached zero then update display
+            UpdateBudgetDisplay();
+        }
+        else
+        {
+            // If budget has reached zero then fire warning and give option to find extra funds elsewhere!
+            BudgetRemaining += value;
+            HudMessage("WARNING! This spend will take you over budget! Please find funds elsewhere.", 5);
+        }
+
+
     }
 
     public int GetResourceCost(Resource resource)
@@ -280,11 +293,16 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region Private methods
+
     private void HudMessage(string messageText, int displayTimeSeconds)
     {
         hudDisplayTime = countdown - displayTimeSeconds;
         hudText.text = messageText;
     }
+
+    #endregion
+
 }
 
 //}
