@@ -12,12 +12,12 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
             var returnReports = new List<Report>();
 
             // Mock reports for testing
-            returnReports.AddRange(MockReports());
+            returnReports.AddRange(mockReports());
 
             return returnReports;
         }
 
-        private List<Report> MockReports()
+        private List<Report> mockReports()
         {
             var returnReports = new List<Report>
             {
@@ -31,13 +31,13 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        (int) Resource.Clothing, 
+                        //(int) Resource.Clothing, 
                         (int) Resource.Food, 
                         (int) Resource.FirstAidKits, 
                         (int) Resource.Tents, 
                         (int) Resource.Toys, 
                         (int) Resource.Water,
-                        (int) Resource.Blankets
+                        //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>()
                 },
@@ -76,7 +76,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Water,
-                        (int) Resource.Blankets
+                        //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>()
                 },
@@ -90,14 +90,14 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        (int) Resource.Clothing,
+                        //(int) Resource.Clothing,
                         (int) Resource.Food,
                         (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Water,
                         (int) Resource.Boats,
-                        (int) Resource.Blankets
+                        //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>()
                 },
@@ -111,7 +111,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        (int) Resource.Clothing,
+                        //(int) Resource.Clothing,
                         (int) Resource.Food,
                         (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
@@ -152,7 +152,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Archived = false,
                     RequiredResources = new int[]
                     {
-                        (int) Resource.Clothing,
+                        //(int) Resource.Clothing,
                         //(int) Resource.Food,
                         (int) Resource.FirstAidKits,
                         (int) Resource.Tents,

@@ -13,6 +13,16 @@
         Boats = 8
     }
 
+    public enum FundRaisingEventType
+    {
+        Other = 0,
+        Exhibition = 1,
+        CoffeeMorning = 2,
+        EveningDinner = 3,
+        SponsoredEvent = 4,
+        Donation = 5
+    }
+
     public enum CheckListItem
     {
         None = 0,
