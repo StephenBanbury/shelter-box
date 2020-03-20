@@ -14,7 +14,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 audio.Play();
                 
                 GameManager.instance.BudgetRemaining = 1000;
-
+                GameManager.instance.UpdateBudgetDisplay();
             }
         }
     }

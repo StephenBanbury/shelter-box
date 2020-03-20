@@ -46,19 +46,18 @@ public class GameManager : MonoBehaviour
     public static DeploymentStatus deploymentStatus;
 
     private static bool countdownStarted;
-    private static bool timesUp;
+    private static bool outOfTime;
     private static float hudDisplayTime;
 
     private AudioSource audioSource1;
     private AudioSource audioSource2;
     private AudioSource audioSource3;
 
+    //private bool showPowerUp = false;
+    //private int showPowerUpForSeconds = 0;
+
+    
     private Scene scene;
-
-    //private GameObject collectionPoints;
-    //private GameObject checkListText;
-
-    //public GameObject ToBeContinuedUI;
 
     void Start()
     {
@@ -66,41 +65,10 @@ public class GameManager : MonoBehaviour
 
         scene = SceneManager.GetActiveScene();
 
-        
-        //if (scene.name != "Disaster")
-        //{
-        //switch (scene.name)
-        //{
-        //    case "Welcome":
-        //        //doorMessage.text = "Welcome to ShelterBox! Begin Prepare and Deploy";
-        //        HudMessage("When you've finished here please make your way to the exit.'", 10);
-        //        break;
-
-        //    case "HomeTown":
-        //        //doorMessage.text = "ShelterBox Building";
-        //        break;
-
-        //    case "PrepRoom":
-        //        //doorMessage.text = "Exit";
-        //        break;
-        //}
-
         AudioSource[] audioSources = GetComponents<AudioSource>();
         audioSource1 = audioSources[0];
         audioSource2 = audioSources[1];
         audioSource3 = audioSources[2];
-
-        //collectionPoints = GameObject.Find("CollectionPoints");
-        //checkListText = GameObject.Find("CheckListText");
-        //}
-        //else
-        //{
-        //    //timeStarted = false;
-        //    //hudText.text = "Make your way to the shop and find the button to exit this disaster area!";
-        //    HudMessage("Make your way to the shop, find the red button, and exit this disaster area!", 10);
-        //}
-
-
     }
 
     void Awake()
@@ -132,15 +100,13 @@ public class GameManager : MonoBehaviour
             float minutes = Mathf.Floor(countdown / 60);
             float seconds = countdown % 60;
 
-            //timerDisplay.text = $"{minutes:0}:{seconds:00}";
             countdownDisplay.text = $"{minutes:0}:{seconds:00}";
 
-            if (countdown <= 0 && !timesUp)
+            if (countdown <= 0 && !outOfTime)
             {
-                //timerDisplay.color = Color.black;
                 countdownDisplay.color = Color.black;
                 audioSource3.Play();
-                timesUp = true;
+                outOfTime = true;
             }
 
             if (countdown <= hudDisplayTime && hudDisplayTime != 0)
@@ -148,6 +114,21 @@ public class GameManager : MonoBehaviour
                 hudText.text = "";
                 hudDisplayTime = 0;
             }
+
+            // Budget power-up
+
+            // show budget if chance > x%
+            //var rand = Random.value * 100;
+            //if (rand > 80)
+            //{
+            //    var computer = GameObject.Find("Computer");
+            //    var screenText = computer.transform.Find("ScreenText");
+            //    //screenText.Text = "";
+            //}
+
+
+
+
         }
     }
 
@@ -188,18 +169,7 @@ public class GameManager : MonoBehaviour
                 redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
 
                 deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to the Shelter Box building and assign deployment resources.";
-                //hudText.text = $"{deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.";
                 HudMessage($"Status {deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.", 10);
-
-                //if (collectionPoints != null)
-                //{
-                //    collectionPoints.SetActive(false);
-                //}
-
-                //if (checkListText != null)
-                //{
-                //    checkListText.SetActive(false);
-                //}
 
                 break;
 
@@ -211,18 +181,7 @@ public class GameManager : MonoBehaviour
                 audioSource2.Play();
 
                 deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.";
-                //hudText.text = $"{deploymentStatus.ToString()}: Now collect your personal checklist items.";
                 HudMessage($"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.", 10);
-
-                //if (collectionPoints != null)
-                //{
-                //    collectionPoints.SetActive(true);
-                //}
-
-                //if (checkListText != null)
-                //{
-                //    checkListText.SetActive(true);
-                //}
 
                 break;
 
@@ -235,7 +194,6 @@ public class GameManager : MonoBehaviour
                 audioSource1.Play();
 
                 deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to airport!";
-                //hudText.text = $"{deploymentStatus.ToString()}: Go to airport!";
                 HudMessage($"{deploymentStatus.ToString()}: Go to airport!", 10);
 
                 break;
@@ -244,8 +202,6 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        //ToBeContinuedUI.SetActive(true);
-
         StartCoroutine(EndGameAfterDelay(10));
     }
     IEnumerator EndGameAfterDelay(int seconds)
@@ -284,8 +240,8 @@ public class GameManager : MonoBehaviour
 
     public int GetResourceCost(Resource resource)
     {
-        var budgetService = new BudgetService();
-        var resourceCost = budgetService.ResourceCosts();
+        var fundRaisingEventService = new FundRaisingEventService();
+        var resourceCost = fundRaisingEventService.ResourceCosts();
         var cost = resourceCost[resource];
 
         return cost;
@@ -304,5 +260,3 @@ public class GameManager : MonoBehaviour
     #endregion
 
 }
-
-//}

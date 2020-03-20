@@ -11,6 +11,16 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         void Start()
         {
+            //if (gameObject.CompareTag("Cassette"))
+            //{
+            //    var randomResource = RandomResource();
+            //    myResourceId = (int) randomResource;
+
+            //    var displayText = Regex.Replace(randomResource.ToString(), "(\\B[A-Z])", " $1");
+            //    cassetteText.text = displayText;
+            //}
+            //else 
+
             if (gameObject.CompareTag("Tent"))
             {
                 myResourceId = (int)Resource.Tents;

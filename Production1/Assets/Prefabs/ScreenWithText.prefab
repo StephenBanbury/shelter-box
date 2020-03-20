@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6614799121315984505}
   - component: {fileID: 6614799121315984506}
   m_Layer: 5
-  m_Name: CassetteCanvas
+  m_Name: ScreenCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 8271894184361631502}
   m_Layer: 0
   m_Name: ScreenWithText
-  m_TagString: Cassette
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 6614799123028505888}
   - component: {fileID: 6614799123028505889}
   m_Layer: 5
-  m_Name: CassetteText
+  m_Name: ScreenText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4589786009806834674}
   - component: {fileID: -7220169151879557590}
   - component: {fileID: -5607365028772977911}
+  - component: {fileID: 4484372922629909586}
   m_Layer: 0
   m_Name: RABBIT
   m_TagString: Toy
@@ -142,3 +143,16 @@ MonoBehaviour:
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
+--- !u!114 &4484372922629909586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632189569177846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f94bb9f3dd3caea4b9fde2b8dae3f2f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myResourceId: 0

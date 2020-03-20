@@ -33,7 +33,14 @@ namespace Com.MachineApps.PrepareAndDeploy
         // Instantiate the Prefab when the game starts.
         void Start()
         {
-            myPrefabs = new GameObject[] { myPrefab1, myPrefab2, myPrefab3, myPrefab4, myPrefab5, myPrefab6};
+            myPrefabs = new GameObject[] { myPrefab1, myPrefab2, myPrefab3, myPrefab4, myPrefab5, myPrefab6 };
+
+            //InstantiateOneResource(1);
+            //InstantiateOneResource(2);
+            //InstantiateOneResource(3);
+            //InstantiateOneResource(4);
+            //InstantiateOneResource(5);
+            //InstantiateOneResource(6);
 
             for (int z = 1; z <= resourcesPerBin; z++)
             {
@@ -46,13 +53,11 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public void CreateResourceObject(string resourceObjectName)
         {
-            Debug.Log($"Replace resourceObjectName: {resourceObjectName}");
+            Debug.Log($"Creating resource {resourceObjectName}");
 
             for (int i = 1; i <= myPrefabs.Length; i++)
             {
-                Debug.Log($"myPrefabs name: {myPrefabs[i - 1].name}");
-
-                if (myPrefabs[i-1].name == resourceObjectName)
+                if (myPrefabs[i - 1].name == resourceObjectName)
                 {
                     InstantiateOneResource(i);
                 }
@@ -74,10 +79,12 @@ namespace Com.MachineApps.PrepareAndDeploy
             var box = GameObject.Find(boxName);
 
             var xPos = box.transform.position.x;
-            var yPos = box.transform.position.y + 0.5f;
+            var yPos = box.transform.position.y + 1f;
             var zPos = box.transform.position.z;
 
             var myPrefab = myPrefabs[i - 1];
+
+            Debug.Log($"Instantiating {myPrefab.name} into {boxName}");
 
             Instantiate(myPrefab, new Vector3(xPos, yPos, zPos), Quaternion.identity);
         }

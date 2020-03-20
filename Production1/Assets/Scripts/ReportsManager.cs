@@ -48,7 +48,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         private DateTime startDateTime = DateTime.UtcNow;
         private DateTime reviewDateTime;
-        private int updateReportsInterval = 15;
+        private int updateInterval = 15;
 
         private bool rotateReports = false; 
 
@@ -73,7 +73,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         {
             Debug.Log("ReportManager Start");
 
-            reviewDateTime = startDateTime.AddSeconds(updateReportsInterval);
+            reviewDateTime = startDateTime.AddSeconds(updateInterval);
 
             List<int> randomReportIndexes = new List<int>();
 
@@ -108,7 +108,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                 AssignReportsToMonitors();
 
-                reviewDateTime = DateTime.UtcNow.AddSeconds(updateReportsInterval);
+                reviewDateTime = DateTime.UtcNow.AddSeconds(updateInterval);
             }
         }
         
