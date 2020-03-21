@@ -2292,7 +2292,7 @@ MonoBehaviour:
   hudCountdownDisplay: {fileID: 103451648}
   countdownDisplay: {fileID: 1335831542}
   hudText: {fileID: 1937320801}
-  timeAllowed: 7
+  timeAllowed: 5
   BudgetRemaining: 1000
   BudgetMeter: {fileID: 646704088}
 --- !u!114 &187238236
@@ -2322,7 +2322,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ComputerText: {fileID: 503237092}
-  BudgetReportId0: 0
 --- !u!82 &187238238
 AudioSource:
   m_ObjectHideFlags: 0

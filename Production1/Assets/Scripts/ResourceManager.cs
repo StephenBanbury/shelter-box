@@ -47,6 +47,11 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
         }
 
+        public void TestGrabbed()
+        {
+            Debug.Log($"I've been grabbed!{gameObject.name}");
+        }
+
         private Resource RandomResource()
         {
             Array values = Enum.GetValues(typeof(Resource));
