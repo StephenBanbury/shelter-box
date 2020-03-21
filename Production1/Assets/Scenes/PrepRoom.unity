@@ -2309,6 +2309,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkListText: {fileID: 0}
   debugInfoText: {fileID: 0}
+--- !u!114 &187238237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187238234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 991b4e5b24129fe4c8b17d518720783d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ComputerText: {fileID: 503237092}
+  BudgetReportId0: 0
 --- !u!82 &187238238
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4142,6 +4156,18 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &503237092 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6614799123028505889, guid: c22fe370e72d82049897d4bc9307a5c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 4427564193187964143}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &513877538
 GameObject:
   m_ObjectHideFlags: 0

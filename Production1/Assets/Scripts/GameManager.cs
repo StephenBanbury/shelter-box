@@ -1,11 +1,15 @@
 ﻿
+using System;
 using System.Collections;
+using System.Data.Odbc;
 using System.Globalization;
+using Com.MachineApps.PrepareAndDeploy;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using Com.MachineApps.PrepareAndDeploy.Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 //namespace Com.MachineApps.PrepareAndDeploy
 //{
@@ -34,9 +38,9 @@ public class GameManager : MonoBehaviour
     //[SerializeField]
     public Text hudText;
 
-    [Tooltip("Time allowed for game countdown")]
+    [Tooltip("Minutes allowed for game countdown")]
     //[SerializeField]
-    public int timeAllowed = 7;
+    public int timeAllowed = 5;
 
     public int BudgetRemaining = 1000;
 
@@ -44,6 +48,8 @@ public class GameManager : MonoBehaviour
 
     public static float countdown;
     public static DeploymentStatus deploymentStatus;
+
+    private bool updatingFundRaisingEvent;
 
     private static bool countdownStarted;
     private static bool outOfTime;
@@ -91,7 +97,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (countdownStarted)
         {
@@ -102,6 +108,8 @@ public class GameManager : MonoBehaviour
 
             countdownDisplay.text = $"{minutes:0}:{seconds:00}";
 
+            CountdownEvent(seconds, 10);
+            
             if (countdown <= 0 && !outOfTime)
             {
                 countdownDisplay.color = Color.black;
@@ -114,21 +122,21 @@ public class GameManager : MonoBehaviour
                 hudText.text = "";
                 hudDisplayTime = 0;
             }
+        }
+    }
 
-            // Budget power-up
+    private void CountdownEvent(float seconds, int regularity)
+    {
+        //Debug.Log($"updatingFundRaisingEvent { updatingFundRaisingEvent } { Math.Floor(seconds) % 10 }");
 
-            // show budget if chance > x%
-            //var rand = Random.value * 100;
-            //if (rand > 80)
-            //{
-            //    var computer = GameObject.Find("Computer");
-            //    var screenText = computer.transform.Find("ScreenText");
-            //    //screenText.Text = "";
-            //}
-
-
-
-
+        if (Math.Floor(seconds) % regularity == 0 && !updatingFundRaisingEvent)
+        {
+            FundRaisingEventManager.instance.NextEvent();
+            updatingFundRaisingEvent = true;
+        }
+        else if (Math.Floor(seconds) % 10 > 0)
+        {
+            updatingFundRaisingEvent = false;
         }
     }
 
