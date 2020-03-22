@@ -13,6 +13,7 @@ using UnityEngine.UIElements;
 
 //namespace Com.MachineApps.PrepareAndDeploy
 //{
+
 public class GameManager : MonoBehaviour
 {
     // static instance of the GM can be accessed from anywhere
@@ -64,6 +65,8 @@ public class GameManager : MonoBehaviour
 
     
     private Scene scene;
+
+
 
     void Start()
     {
