@@ -42,6 +42,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myResourceId: 0
+  countdownDisplay: {fileID: 7413463833583148462}
+  countdown: 10
 --- !u!114 &3697209468461087468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,17 +87,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3547291764589447049}
-  m_LocalRotation: {x: 0.34914446, y: 0, z: 0, w: 0.9370689}
-  m_LocalPosition: {x: 0, y: 0, z: 1.84}
+  m_LocalRotation: {x: 0.40440652, y: -0, z: -0.000000007450581, w: 0.91457933}
+  m_LocalPosition: {x: 0, y: 0, z: 2.02}
   m_LocalScale: {x: 14.590987, y: 8.7545185, z: 1.997221}
   m_Children:
   - {fileID: 5546102279849669300}
   m_Father: {fileID: 2237023041771124571}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 40.870003, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 47.708004, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.09, y: 4.45}
+  m_AnchoredPosition: {x: -0.09, y: 3.12}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1226193199879742481

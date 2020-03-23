@@ -61,6 +61,8 @@ namespace Com.MachineApps.PrepareAndDeploy
             if (gameObject.name != "Floor")
             {
                 // Then get collection of resource IDs from indexed report
+                
+                Debug.Log($"{other.gameObject.name} collected!!");
 
                 switch (transform.parent.name)
                 {
@@ -77,8 +79,6 @@ namespace Com.MachineApps.PrepareAndDeploy
                         reportId = ReportsManager.instance.reportId3;
                         break;
                 }
-
-                //Debug.Log("Collected!");
 
                 var resourceManager = other.gameObject.GetComponent<ResourceManager>();
                 var myResourceId = resourceManager.myResourceId;
@@ -169,7 +169,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
             else
             { 
-                //Debug.Log("Hit floor!!");
+                Debug.Log($"{other.gameObject.name} hit floor!!");
                 audioSource1.Play(); // In this instance this is audio source component of the Floor GameObject
             }
 
