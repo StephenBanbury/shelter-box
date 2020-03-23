@@ -47,7 +47,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
         }
 
-        public void TestGrabbed()
+        public void Grabbed()
         {
             Debug.Log($"I've been grabbed!{gameObject.name}");
         }
