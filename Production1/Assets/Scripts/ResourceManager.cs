@@ -14,8 +14,8 @@ namespace Com.MachineApps.PrepareAndDeploy
         //[SerializeField]
         public Text countdownDisplay;
 
-        public float countdown;
-        private bool countdownStarted;
+        public float grabbedCountdown;
+        private bool grabbedCountdownStarted;
         private bool updatingEvent;
 
         void Start()
@@ -59,16 +59,25 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         void FixedUpdate()
         {
-            if (countdownStarted)
+            if (grabbedCountdownStarted)
             {
-                countdown -= Time.deltaTime;
-                CountdownEvent(1);
+                grabbedCountdown -= Time.deltaTime;
+                float seconds = grabbedCountdown % 60;
+                countdownDisplay.text = $"{seconds:00}";
+                
+                if (grabbedCountdown <= 0)
+                {
+                    grabbedCountdown = 10;
+                    var resourceObjectName = gameObject.gameObject.name.Replace("(Clone)", "");
+                    Destroy(gameObject);
+                    ResourceInstantiator.instance.CreateResourceObject(resourceObjectName);
+                }
             }
         }
 
         public void Grabbed(bool grabState)
         {
-            Debug.Log($"I've been grabbed!{gameObject.name}");
+            Debug.Log($"I've been grabbed: {gameObject.name}");
 
             var resourceTextObject = gameObject.GetComponentInChildren<Text>();
             if (resourceTextObject != null)
@@ -76,35 +85,35 @@ namespace Com.MachineApps.PrepareAndDeploy
                 if (grabState)
                 {
                     resourceTextObject.text ="Gotcha!";
-                    countdown = 10;
-                    countdownStarted = true;
+                    grabbedCountdown = 10;
+                    grabbedCountdownStarted = true;
                 }
                 else
                 {
                     resourceTextObject.text = "Info";
-                    countdownStarted = false;
+                    grabbedCountdownStarted = false;
                 }
             }
         }
 
-        private void CountdownEvent(int regularity)
-        {
-            //Debug.Log($"updatingFundRaisingEvent { updatingFundRaisingEvent } { Math.Floor(seconds) % 10 }");
+        //private void CountdownEvent(int regularity)
+        //{
+        //    //Debug.Log($"updatingFundRaisingEvent { updatingFundRaisingEvent } { Math.Floor(seconds) % 10 }");
 
-            //float minutes = Mathf.Floor(countdown / 60);
-            float seconds = countdown % 60;
-            countdownDisplay.text = $"{seconds:00}";
+        //    //float minutes = Mathf.Floor(countdown / 60);
+        //    float seconds = grabbedCountdown % 60;
+        //    countdownDisplay.text = $"{seconds:00}";
 
-            if (Math.Floor(seconds) % regularity == 0 && !updatingEvent)
-            {
-                FundRaisingEventManager.instance.NextEvent();
-                updatingEvent = true;
-            }
-            else if (Math.Floor(seconds) % 10 > 0)
-            {
-                updatingEvent = false;
-            }
-        }
+        //    if (Math.Floor(seconds) % regularity == 0 && !updatingEvent)
+        //    {
+        //        FundRaisingEventManager.instance.NextEvent();
+        //        updatingEvent = true;
+        //    }
+        //    else if (Math.Floor(seconds) % 10 > 0)
+        //    {
+        //        updatingEvent = false;
+        //    }
+        //}
 
         private Resource RandomResource()
         {
