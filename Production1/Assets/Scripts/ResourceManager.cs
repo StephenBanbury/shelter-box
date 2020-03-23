@@ -1,6 +1,7 @@
 ﻿using System;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = System.Random;
 
 namespace Com.MachineApps.PrepareAndDeploy
@@ -50,6 +51,14 @@ namespace Com.MachineApps.PrepareAndDeploy
         public void Grabbed()
         {
             Debug.Log($"I've been grabbed!{gameObject.name}");
+
+            var resourceTextObject = gameObject.GetComponentInChildren<Text>();
+
+            if (resourceTextObject != null)
+            {
+                resourceTextObject.text = "Gotcha!";
+            }
+
         }
 
         private Resource RandomResource()

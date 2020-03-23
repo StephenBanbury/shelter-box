@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 1397300557399613457}
   - component: {fileID: 8761191033518984405}
   m_Layer: 5
-  m_Name: CassetteCanvas
+  m_Name: TextNoBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -331,7 +331,7 @@ PrefabInstance:
     - target: {fileID: 8157442898216154149, guid: 15838b8e81981044b8601e1142fad8ac,
         type: 3}
       propertyPath: m_Name
-      value: CassetteWithText
+      value: TextWithBackground
       objectReference: {fileID: 0}
     - target: {fileID: 8157442898216154149, guid: 15838b8e81981044b8601e1142fad8ac,
         type: 3}
