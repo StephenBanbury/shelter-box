@@ -43,7 +43,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myResourceId: 0
   countdownDisplay: {fileID: 7413463833583148462}
-  countdown: 10
+  initialCountdownStart: 10
 --- !u!114 &3697209468461087468
 MonoBehaviour:
   m_ObjectHideFlags: 0

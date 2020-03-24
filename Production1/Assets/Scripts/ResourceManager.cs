@@ -10,26 +10,16 @@ namespace Com.MachineApps.PrepareAndDeploy
     {
         public int myResourceId;
 
-        [Tooltip("Resource grabb countdown timer text")]
+        [Tooltip("Resource grabber countdown timer text")]
+
         //[SerializeField]
         public Text countdownDisplay;
 
-        public float grabbedCountdown;
-        private bool grabbedCountdownStarted;
-        private bool updatingEvent;
+        private float countdown;
+        private bool countdownStarted;
 
         void Start()
         {
-            //if (gameObject.CompareTag("Cassette"))
-            //{
-            //    var randomResource = RandomResource();
-            //    myResourceId = (int) randomResource;
-
-            //    var displayText = Regex.Replace(randomResource.ToString(), "(\\B[A-Z])", " $1");
-            //    cassetteText.text = displayText;
-            //}
-            //else 
-
             if (gameObject.CompareTag("Tent"))
             {
                 myResourceId = (int)Resource.Tents;
@@ -54,20 +44,20 @@ namespace Com.MachineApps.PrepareAndDeploy
             {
                 myResourceId = (int)Resource.Toys;
             }
-        }
 
+            countdown = GameManager.instance.initialResourceObjectCountdown;
+        }
 
         void FixedUpdate()
         {
-            if (grabbedCountdownStarted)
+            if (countdownStarted)
             {
-                grabbedCountdown -= Time.deltaTime;
-                float seconds = grabbedCountdown % 60;
+                countdown -= Time.deltaTime;
+                float seconds = countdown % 60;
                 countdownDisplay.text = $"{seconds:00}";
                 
-                if (grabbedCountdown <= 0)
+                if (countdown <= 0)
                 {
-                    grabbedCountdown = 10;
                     var resourceObjectName = gameObject.gameObject.name.Replace("(Clone)", "");
                     Destroy(gameObject);
                     ResourceInstantiator.instance.CreateResourceObject(resourceObjectName);
@@ -77,51 +67,32 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public void Grabbed(bool grabState)
         {
-            Debug.Log($"I've been grabbed: {gameObject.name}");
+            //Debug.Log($"I've been grabbed: {gameObject.name}");
 
             var resourceTextObject = gameObject.GetComponentInChildren<Text>();
             if (resourceTextObject != null)
             {
                 if (grabState)
                 {
-                    resourceTextObject.text ="Gotcha!";
-                    grabbedCountdown = 10;
-                    grabbedCountdownStarted = true;
+                    //resourceTextObject.text ="Gotcha!";
+                    countdown = GameManager.instance.initialResourceObjectCountdown;
+                    countdownStarted = true;
                 }
                 else
                 {
-                    resourceTextObject.text = "Info";
-                    grabbedCountdownStarted = false;
+                    //resourceTextObject.text = "Info";
+                    countdownStarted = false;
                 }
             }
         }
 
-        //private void CountdownEvent(int regularity)
+        //private Resource RandomResource()
         //{
-        //    //Debug.Log($"updatingFundRaisingEvent { updatingFundRaisingEvent } { Math.Floor(seconds) % 10 }");
-
-        //    //float minutes = Mathf.Floor(countdown / 60);
-        //    float seconds = grabbedCountdown % 60;
-        //    countdownDisplay.text = $"{seconds:00}";
-
-        //    if (Math.Floor(seconds) % regularity == 0 && !updatingEvent)
-        //    {
-        //        FundRaisingEventManager.instance.NextEvent();
-        //        updatingEvent = true;
-        //    }
-        //    else if (Math.Floor(seconds) % 10 > 0)
-        //    {
-        //        updatingEvent = false;
-        //    }
+        //    Array values = Enum.GetValues(typeof(Resource));
+        //    Random random = new Random();
+        //    Resource randomValue = (Resource)values.GetValue(random.Next(1, values.Length - 1));
+        //    return randomValue;
         //}
-
-        private Resource RandomResource()
-        {
-            Array values = Enum.GetValues(typeof(Resource));
-            Random random = new Random();
-            Resource randomValue = (Resource)values.GetValue(random.Next(1, values.Length - 1));
-            return randomValue;
-        }
 
     }
 

@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myResourceId: 0
   countdownDisplay: {fileID: 3340525005495113468}
-  countdown: 10
+  initialCountdownStart: 10
 --- !u!114 &-2501382497281450183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myResourceId: 0
   countdownDisplay: {fileID: 3340525005495113468}
-  countdown: 10
+  initialCountdownStart: 0
 --- !u!1001 &5351137676329259203
 PrefabInstance:
   m_ObjectHideFlags: 0

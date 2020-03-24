@@ -11,9 +11,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-//namespace Com.MachineApps.PrepareAndDeploy
-//{
-
 public class GameManager : MonoBehaviour
 {
     // static instance of the GM can be accessed from anywhere
@@ -49,6 +46,9 @@ public class GameManager : MonoBehaviour
 
     public static float countdown;
     public static DeploymentStatus deploymentStatus;
+
+    [Tooltip("Initial countdown setting for resource objects (seconds)")]
+    public float initialResourceObjectCountdown;
 
     private bool updatingFundRaisingEvent;
 
@@ -134,6 +134,7 @@ public class GameManager : MonoBehaviour
 
         if (Math.Floor(seconds) % regularity == 0 && !updatingFundRaisingEvent)
         {
+            initialResourceObjectCountdown -= 0.3f;
             FundRaisingEventManager.instance.NextEvent();
             updatingFundRaisingEvent = true;
         }

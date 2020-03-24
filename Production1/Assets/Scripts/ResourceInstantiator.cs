@@ -79,7 +79,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             var box = GameObject.Find(boxName);
 
             var xPos = box.transform.position.x;
-            var yPos = box.transform.position.y + 1f;
+            var yPos = box.transform.position.y + 0.5f;
             var zPos = box.transform.position.z;
 
             var myPrefab = myPrefabs[i - 1];
