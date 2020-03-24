@@ -128,7 +128,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myResourceId: 0
   countdownDisplay: {fileID: 3340525005495113468}
-  initialCountdownStart: 10
 --- !u!114 &-2501382497281450183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +221,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Info
+  m_Text: 
 --- !u!1 &6192382039241688447
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +336,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myResourceId: 0
   countdownDisplay: {fileID: 3340525005495113468}
-  initialCountdownStart: 0
 --- !u!1001 &5351137676329259203
 PrefabInstance:
   m_ObjectHideFlags: 0

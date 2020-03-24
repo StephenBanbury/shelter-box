@@ -46,6 +46,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
 
             countdown = GameManager.instance.initialResourceObjectCountdown;
+            gameObject.GetComponentInChildren<Text>().text = "";
         }
 
         void FixedUpdate()
@@ -69,21 +70,17 @@ namespace Com.MachineApps.PrepareAndDeploy
         {
             //Debug.Log($"I've been grabbed: {gameObject.name}");
 
-            var resourceTextObject = gameObject.GetComponentInChildren<Text>();
-            if (resourceTextObject != null)
+            if (grabState)
             {
-                if (grabState)
-                {
-                    //resourceTextObject.text ="Gotcha!";
-                    countdown = GameManager.instance.initialResourceObjectCountdown;
-                    countdownStarted = true;
-                }
-                else
-                {
-                    //resourceTextObject.text = "Info";
-                    countdownStarted = false;
-                }
+                countdown = GameManager.instance.initialResourceObjectCountdown;
+                countdownStarted = true;
             }
+            else
+            {
+                countdownDisplay.text = "";
+                countdownStarted = false;
+            }
+            
         }
 
         //private Resource RandomResource()

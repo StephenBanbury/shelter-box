@@ -175,7 +175,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Info
+  m_Text: 
 --- !u!1 &1287985329996721845
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,7 +304,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myResourceId: 0
   countdownDisplay: {fileID: 1105177362}
-  initialCountdownStart: 10
 --- !u!114 &193489962473271695
 MonoBehaviour:
   m_ObjectHideFlags: 0

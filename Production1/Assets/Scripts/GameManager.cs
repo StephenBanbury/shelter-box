@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("Initial countdown setting for resource objects (seconds)")]
     public float initialResourceObjectCountdown;
 
+    private bool updatingResourceCountdown;
     private bool updatingFundRaisingEvent;
 
     private static bool countdownStarted;
@@ -62,7 +64,6 @@ public class GameManager : MonoBehaviour
 
     //private bool showPowerUp = false;
     //private int showPowerUpForSeconds = 0;
-
     
     private Scene scene;
 
@@ -109,39 +110,68 @@ public class GameManager : MonoBehaviour
             float minutes = Mathf.Floor(countdown / 60);
             float seconds = countdown % 60;
 
-            countdownDisplay.text = $"{minutes:0}:{seconds:00}";
+            // TODO remove timer display - Debugging only
+            hudCountdownDisplay.text = $"{minutes:0}:{seconds:00}";
 
-            CountdownEvent(seconds, 10);
+            ReduceResourceCountdownStart(seconds, 10, 0.3f);
+            FundraisingCountdownEvent(seconds, 5);
             
-            if (countdown <= 0 && !outOfTime)
-            {
-                countdownDisplay.color = Color.black;
-                audioSource3.Play();
-                outOfTime = true;
-            }
+            //if (countdown <= 0 && !outOfTime)
+            //{
+            //    countdownDisplay.color = Color.black;
+            //    audioSource3.Play();
+            //    outOfTime = true;
+            //}
 
-            if (countdown <= hudDisplayTime && hudDisplayTime != 0)
-            {
-                hudText.text = "";
-                hudDisplayTime = 0;
-            }
+            //if (countdown <= hudDisplayTime && hudDisplayTime != 0)
+            //{
+            //    hudText.text = "";
+            //    hudDisplayTime = 0;
+            //}
         }
     }
 
-    private void CountdownEvent(float seconds, int regularity)
+    private void ReduceResourceCountdownStart(float seconds, int regularity, float reduction)
     {
-        //Debug.Log($"updatingFundRaisingEvent { updatingFundRaisingEvent } { Math.Floor(seconds) % 10 }");
+        // Reduce countdown start for resources before timeout when grabbed
+        if (Math.Floor(seconds) % regularity == 0 && !updatingResourceCountdown)
+        {
+            initialResourceObjectCountdown -= reduction;
+            updatingResourceCountdown = true;
+        }
+        else if (Math.Floor(seconds) % regularity > 0)
+        {
+            updatingResourceCountdown = false;
+        }
+    }
+
+    private void FundraisingCountdownEvent(float seconds, int regularity)
+    {
+        //Debug.Log($"updatingFundRaisingEvent { updatingFundRaisingEvent } { Math.Floor(seconds) % regularity }");
+
 
         if (Math.Floor(seconds) % regularity == 0 && !updatingFundRaisingEvent)
         {
-            initialResourceObjectCountdown -= 0.3f;
-            FundRaisingEventManager.instance.NextEvent();
+            // Chance of showing next fund-raising event
+
+            // % 50 percent chance
+            var rand = Random.value;
+            bool showNextEvent = rand > 0.5;
+
+            Debug.Log($"Random: {rand}");
+
+            if (showNextEvent)
+            {
+                Debug.Log($"Update FundRaising Event");
+                FundRaisingEventManager.instance.NextEvent();
+            }
             updatingFundRaisingEvent = true;
         }
-        else if (Math.Floor(seconds) % 10 > 0)
+        else if (Math.Floor(seconds) % regularity > 0)
         {
             updatingFundRaisingEvent = false;
         }
+
     }
 
     public void StartCountdown()
