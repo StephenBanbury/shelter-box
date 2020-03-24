@@ -158,11 +158,11 @@ public class GameManager : MonoBehaviour
             var rand = Random.value;
             bool showNextEvent = rand > 0.5;
 
-            Debug.Log($"Random: {rand}");
+            //Debug.Log($"Random: {rand}");
 
             if (showNextEvent)
             {
-                Debug.Log($"Update FundRaising Event");
+                //Debug.Log($"Update FundRaising Event");
                 FundRaisingEventManager.instance.NextEvent();
             }
             updatingFundRaisingEvent = true;
