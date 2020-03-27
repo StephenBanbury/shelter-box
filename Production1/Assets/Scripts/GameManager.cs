@@ -195,52 +195,52 @@ public class GameManager : MonoBehaviour
         return deploymentStatus;
     }
 
-    public void UpdateDeploymentStatus(int alterStatusBy)
-    {
-        deploymentStatus = deploymentStatus + alterStatusBy;
-        //deploymentStatusText.text = $"Deployment status: {Regex.Replace((deploymentStatus).ToString(), "(\\B[A-Z])", " $1")}";
+    //public void UpdateDeploymentStatus(int alterStatusBy)
+    //{
+    //    deploymentStatus = deploymentStatus + alterStatusBy;
+    //    //deploymentStatusText.text = $"Deployment status: {Regex.Replace((deploymentStatus).ToString(), "(\\B[A-Z])", " $1")}";
 
-        var redLight = GameObject.Find("TrafficLightRed");
-        var amberLight = GameObject.Find("TrafficLightAmber");
-        var greenLight = GameObject.Find("TrafficLightGreen");
+    //    var redLight = GameObject.Find("TrafficLightRed");
+    //    var amberLight = GameObject.Find("TrafficLightAmber");
+    //    var greenLight = GameObject.Find("TrafficLightGreen");
 
-        switch (deploymentStatus)
-        {
-            case DeploymentStatus.Red:
+    //    switch (deploymentStatus)
+    //    {
+    //        case DeploymentStatus.Red:
 
-                redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
+    //            redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
 
-                deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to the Shelter Box building and assign deployment resources.";
-                HudMessage($"Status {deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.", 10);
+    //            deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to the Shelter Box building and assign deployment resources.";
+    //            HudMessage($"Status {deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.", 10);
 
-                break;
+    //            break;
 
-            case DeploymentStatus.Amber:
+    //        case DeploymentStatus.Amber:
 
-                redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
-                amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
+    //            redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
+    //            amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
 
-                audioSource2.Play();
+    //            audioSource2.Play();
 
-                deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.";
-                HudMessage($"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.", 10);
+    //            deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.";
+    //            HudMessage($"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.", 10);
 
-                break;
+    //            break;
 
-            case DeploymentStatus.Green:
+    //        case DeploymentStatus.Green:
 
-                redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
-                amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
-                greenLight.GetComponent<Renderer>().material.color = new Color(0, 110, 10, 255);
+    //            redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
+    //            amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
+    //            greenLight.GetComponent<Renderer>().material.color = new Color(0, 110, 10, 255);
 
-                audioSource1.Play();
+    //            audioSource1.Play();
 
-                deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to airport!";
-                HudMessage($"{deploymentStatus.ToString()}: Go to airport!", 10);
+    //            deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to airport!";
+    //            HudMessage($"{deploymentStatus.ToString()}: Go to airport!", 10);
 
-                break;
-        }
-    }
+    //            break;
+    //    }
+    //}
 
     public void GameOver()
     {

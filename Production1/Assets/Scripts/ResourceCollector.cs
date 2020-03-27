@@ -15,14 +15,16 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         private AudioSource audioSource1;
         private AudioSource audioSource2;
+        private AudioSource audioSource3;
 
         void Start()
         {
             AudioSource[] audioSources = GetComponents<AudioSource>();
             audioSource1 = audioSources[0]; // Audio source = if this is a box then it's is a beep; if it's the floor then it's a thud
-            if (audioSources.Length == 2)
+            if (audioSources.Length > 1)
             {
                 audioSource2 = audioSources[1];
+                audioSource3 = audioSources[2];
             }
         }
 
@@ -122,8 +124,6 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         ReportsManager.instance.AssignReportsToMonitors();
 
-                        infoMessage =
-                            $"Thanks for the {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
 
                         // Have all resources been collected?
                         var numberRequired = ReportsManager.instance.RequiredResources(reportId).Length;
@@ -131,20 +131,22 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         if (numberRequired == numberCollected)
                         {
-                            ChangeMaterial(gameObject, 1);
-                            ChangeMaterial(gameObject.transform.GetChild(0).gameObject, 1);
+                            //ChangeMaterial(gameObject, 1);
+                            //ChangeMaterial(gameObject.transform.GetChild(0).gameObject, 1);
 
-                            GameManager.instance.UpdateDeploymentStatus(1);
+                            Debug.Log($"All resources collected for reportId {reportId}");
+                            
+                            infoMessage = "You have collected everything!";
+                            
+                            ReportsManager.instance.PlayCongratulationsVideo(reportId);
 
-                            GrandScoreText.text = "Congratulations! You have collected everything required!";
-
-                            if (GameManager.instance.GetDeploymentStatus() != DeploymentStatus.Green)
-                            {
-                                audioSource1.Play();
-                            }
+                            audioSource3.Play();
                         }
                         else
                         {
+                            infoMessage =
+                                $"Thanks for the {Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
+
                             audioSource1.Play(); // In this instance this is audio source component of the current Box GameObject
                         }
 

@@ -33,7 +33,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         {
             // Here we need to ensure the respective text is updated to display the static variables in order for them to appear to user as we move scenes
             UpdateCheckListText();
-            GameManager.instance.UpdateDeploymentStatus(0);
+            //GameManager.instance.UpdateDeploymentStatus(0);
         }
 
         public void UpdateCollectedList(CheckListItem item)
@@ -67,7 +67,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             if (numItems == collectedItems)
             {
-                GameManager.instance.UpdateDeploymentStatus(1);
+                //GameManager.instance.UpdateDeploymentStatus(1);
             }
         }
     }
