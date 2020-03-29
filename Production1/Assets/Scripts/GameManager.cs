@@ -1,7 +1,5 @@
 ﻿
 using System;
-using System.Collections;
-using System.Data.Odbc;
 using System.Globalization;
 using Com.MachineApps.PrepareAndDeploy;
 using Com.MachineApps.PrepareAndDeploy.Enums;
@@ -9,7 +7,6 @@ using Com.MachineApps.PrepareAndDeploy.Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -17,21 +14,21 @@ public class GameManager : MonoBehaviour
     // static instance of the GM can be accessed from anywhere
     public static GameManager instance;
 
-    [Tooltip("Message on the exit door")]
+    //[Tooltip("Message on the exit door")]
     //[SerializeField]
-    public Text doorMessage;
+    //public Text doorMessage;
 
-    [Tooltip("Current deployment status message text")]
+    //[Tooltip("Current deployment status message text")]
     //[SerializeField]
-    public Text deploymentStatusText;
+    //public Text deploymentStatusText;
 
     [Tooltip("Heads-up display countdown timer text")]
     //[SerializeField]
     public Text hudCountdownDisplay;
 
-    [Tooltip("Countdown timer text")]
+    //[Tooltip("Countdown timer text")]
     //[SerializeField]
-    public Text countdownDisplay;
+    //public Text countdownDisplay;
 
     [Tooltip("Heads-up display text")]
     //[SerializeField]
@@ -55,7 +52,7 @@ public class GameManager : MonoBehaviour
     private bool updatingFundRaisingEvent;
 
     private static bool countdownStarted;
-    private static bool outOfTime;
+    //private static bool outOfTime;
     private static float hudDisplayTime;
 
     private AudioSource audioSource1;
@@ -115,7 +112,7 @@ public class GameManager : MonoBehaviour
 
             ReduceResourceCountdownStart(seconds, 10, 0.3f);
             FundraisingCountdownEvent(seconds, 5);
-            
+
             //if (countdown <= 0 && !outOfTime)
             //{
             //    countdownDisplay.color = Color.black;
@@ -123,11 +120,11 @@ public class GameManager : MonoBehaviour
             //    outOfTime = true;
             //}
 
-            //if (countdown <= hudDisplayTime && hudDisplayTime != 0)
-            //{
-            //    hudText.text = "";
-            //    hudDisplayTime = 0;
-            //}
+            if (countdown <= hudDisplayTime && hudDisplayTime != 0)
+            {
+                hudText.text = "";
+                hudDisplayTime = 0;
+            }
         }
     }
 
@@ -242,15 +239,16 @@ public class GameManager : MonoBehaviour
     //    }
     //}
 
-    public void GameOver()
-    {
-        StartCoroutine(EndGameAfterDelay(10));
-    }
-    IEnumerator EndGameAfterDelay(int seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        Application.Quit();
-    }
+    //public void GameOver()
+    //{
+    //    StartCoroutine(EndGameAfterDelay(10));
+    //}
+
+    //IEnumerator EndGameAfterDelay(int seconds)
+    //{
+    //    yield return new WaitForSeconds(seconds);
+    //    Application.Quit();
+    //}
 
     #region Budget
 
@@ -265,19 +263,24 @@ public class GameManager : MonoBehaviour
         BudgetRemaining -= value;
 
         // Check if budget has reached zero
-        if (BudgetRemaining > 0)
-        {
-            // If budget has not reached zero then update display
-            UpdateBudgetDisplay();
-        }
-        else
-        {
-            // If budget has reached zero then fire warning and give option to find extra funds elsewhere!
-            BudgetRemaining += value;
-            HudMessage("WARNING! This spend will take you over budget! Please find funds elsewhere.", 5);
-        }
+        //if (BudgetRemaining > 0)
+        //{
+        //    // If budget has not reached zero then update display
+        UpdateBudgetDisplay();
+        //}
+        //else
+        //{
+        //    // If budget has reached zero then fire warning and give option to find extra funds elsewhere!
+        //    BudgetRemaining += value;
+        //    HudMessage("WARNING! This spend will take you over budget! Please find funds elsewhere.", 5);
+        //}
+    }
 
-
+    public void IncreaseBudget(int value)
+    {
+        Debug.Log($"Increase budget by: {value}");
+        BudgetRemaining += value;
+        UpdateBudgetDisplay();
     }
 
     public int GetResourceCost(Resource resource)
@@ -289,15 +292,16 @@ public class GameManager : MonoBehaviour
         return cost;
     }
 
-    #endregion
-
-    #region Private methods
-
-    private void HudMessage(string messageText, int displayTimeSeconds)
+    public void HudMessage(string messageText, int displayTimeSeconds)
     {
         hudDisplayTime = countdown - displayTimeSeconds;
         hudText.text = messageText;
     }
+
+    #endregion
+
+    #region Private methods
+
 
     #endregion
 

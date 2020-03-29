@@ -65,7 +65,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         public VideoPlayer video4;
 
         private List<Report> usedReports = new List<Report>();
-        private List<int> usedReportIds = new List<int>();
+        //private List<int> usedReportIds = new List<int>();
         private DateTime startDateTime = DateTime.UtcNow;
         private DateTime reviewDateTime;
         private int updateInterval = 15;
@@ -105,8 +105,9 @@ namespace Com.MachineApps.PrepareAndDeploy
                 if (!randomReportIndexes.Contains(randomIndex))
                 {
                     randomReportIndexes.Add((randomIndex));
-                    usedReports.Add(reports.FirstOrDefault(r => r.Id == randomIndex));
-                    usedReportIds.Add(randomIndex);
+                    var usedReport = reports.FirstOrDefault(r => r.Id == randomIndex);
+                    usedReports.Add(usedReport);
+                    //usedReportIds.Add(randomIndex);
                 }
             }
 
@@ -155,132 +156,9 @@ namespace Com.MachineApps.PrepareAndDeploy
             monitor4cText.text = ResourceListText(reportId3);
         }
 
-        public void ReplaceReport(int reportId)
-        {
-            //var newReport =
-            //    reports.FirstOrDefault(r => !usedReports.Select(u => u.Id)
-            //        .Contains(r.Id));
-
-            var newReport = reports.FirstOrDefault(r => r.Id != reportId);
-
-            if (newReport != null)
-            {
-                usedReports.Add(newReport);
-
-                var newReportId = newReport.Id;
-
-                if (reportId0 == reportId)
-                {
-                    reportId0 = newReportId;
-                }
-                else if (reportId1 == reportId)
-                {
-                    reportId1 = newReportId;
-                }
-                else if (reportId2 == reportId)
-                {
-                    reportId2 = newReportId;
-                }
-                else if (reportId3 == reportId)
-                {
-                    reportId3 = newReportId;
-                }
-            }
-            else
-            {
-                // TODO shut down monitor
-            }
-
-            AssignReportsToMonitors();
-        }
-
         public void PlayCongratulationsVideo(int reportId)
         {
-        //    Debug.Log($"reportId: {reportId}");
-        //    if (reportId == reportId0)
-        //    {
-        //        Debug.Log("reportId0");
-        //        video1.gameObject.SetActive(true);
-        //        video1.Play();
-        //    }
-        //    else if (reportId == reportId1)
-        //    {
-        //        Debug.Log("reportId1");
-        //        video2.gameObject.SetActive(true);
-        //        video2.Play();
-        //    }
-        //    else if (reportId == reportId2)
-        //    {
-        //        Debug.Log("reportId2");
-        //        video3.gameObject.SetActive(true);
-        //        video3.Play();
-        //    }
-        //    else if (reportId == reportId3)
-        //    {
-        //        Debug.Log("reportId3");
-        //        video4.gameObject.SetActive(true);
-        //        video4.Play();
-        //    }
-
-            // Coroutine here - replace report after playing some video
-
             StartCoroutine(StartCounter(reportId));
-        }
-
-        private IEnumerator StartCounter(int reportId)
-        {
-            Debug.Log($"StartCounter - reportId: {reportId}");
-            if (reportId == reportId0)
-            {
-                Debug.Log("Monitor1");
-                video1.gameObject.SetActive(true);
-                video1.Play();
-            }
-            else if (reportId == reportId1)
-            {
-                Debug.Log("Monitor2");
-                video2.gameObject.SetActive(true);
-                video2.Play();
-            }
-            else if (reportId == reportId2)
-            {
-                Debug.Log("Monitor3");
-                video3.gameObject.SetActive(true);
-                video3.Play();
-            }
-            else if (reportId == reportId3)
-            {
-                Debug.Log("Monitor4");
-                video4.gameObject.SetActive(true);
-                video4.Play();
-            }
-
-            //var countDown = 10f;
-            //for (int i = 0; i < 10000; i++)
-            //{
-            //    while (countDown >= 0)
-            //    {
-            //        Debug.Log(i++);
-            //        countDown -= Time.smoothDeltaTime;
-            //        yield return null;
-            //    }
-            //}
-
-            yield return new WaitForSeconds(5);
-
-            Debug.Log($"Finished  - ReplaceReport");
-
-            video1.Stop();
-            video2.Stop();
-            video3.Stop();
-            video4.Stop();
-
-            video1.gameObject.SetActive(false);
-            video2.gameObject.SetActive(false);
-            video3.gameObject.SetActive(false);
-            video4.gameObject.SetActive(false);
-
-            ReplaceReport(reportId);
         }
 
         public void CollectResource(int reportId, int resourceId)
@@ -318,6 +196,108 @@ namespace Com.MachineApps.PrepareAndDeploy
             return response;
         }
 
+        private IEnumerator StartCounter(int reportId)
+        {
+            Debug.Log($"StartCounter - reportId: {reportId}");
+
+            if (reportId == reportId0)
+            {
+                Debug.Log("Monitor1");
+                video1.gameObject.SetActive(true);
+                video1.Play();
+            }
+            else if (reportId == reportId1)
+            {
+                Debug.Log("Monitor2");
+                video2.gameObject.SetActive(true);
+                video2.Play();
+            }
+            else if (reportId == reportId2)
+            {
+                Debug.Log("Monitor3");
+                video3.gameObject.SetActive(true);
+                video3.Play();
+            }
+            else if (reportId == reportId3)
+            {
+                Debug.Log("Monitor4");
+                video4.gameObject.SetActive(true);
+                video4.Play();
+            }
+
+            yield return new WaitForSeconds(5);
+
+            Debug.Log($"Finished  - ReplaceReport");
+
+
+            monitor1aText.CrossFadeAlpha(0f, 1f, false);
+            monitor2aText.CrossFadeAlpha(0f, 1f, false);
+            monitor3aText.CrossFadeAlpha(0f, 1f, false);
+            monitor4aText.CrossFadeAlpha(0f, 1f, false);
+
+            video1.Stop();
+            video2.Stop();
+            video3.Stop();
+            video4.Stop();
+
+            video1.gameObject.SetActive(false);
+            video2.gameObject.SetActive(false);
+            video3.gameObject.SetActive(false);
+            video4.gameObject.SetActive(false);
+
+            ReplaceReport(reportId);
+
+            monitor1aText.CrossFadeAlpha(1f, 1f, false);
+            monitor2aText.CrossFadeAlpha(1f, 1f, false);
+            monitor3aText.CrossFadeAlpha(1f, 1f, false);
+            monitor4aText.CrossFadeAlpha(1f, 1f, false);
+
+        }
+
+        private void ReplaceReport(int reportId)
+        {
+            foreach (var usedReport in usedReports)
+            {
+                Debug.Log($"usedReportId: {usedReport.Id}");
+            }
+            
+            foreach (var report in reports)
+            {
+                Debug.Log($"reportId: {report.Id}");
+            }
+
+            var newReport =
+                reports.FirstOrDefault(r => !usedReports.Select(u => u.Id).Contains(r.Id));
+
+            if (newReport != null)
+            {
+                var newReportId = newReport.Id;
+                usedReports.Add(newReport);
+
+                if (reportId0 == reportId)
+                {
+                    reportId0 = newReportId;
+                }
+                else if (reportId1 == reportId)
+                {
+                    reportId1 = newReportId;
+                }
+                else if (reportId2 == reportId)
+                {
+                    reportId2 = newReportId;
+                }
+                else if (reportId3 == reportId)
+                {
+                    reportId3 = newReportId;
+                }
+            }
+            else
+            {
+                // TODO shut down monitor
+            }
+
+            AssignReportsToMonitors();
+        }
 
         private string ResourceListText(int reportId)
         {

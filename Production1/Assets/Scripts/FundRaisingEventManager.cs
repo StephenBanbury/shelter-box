@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Com.MachineApps.PrepareAndDeploy.Models;
 using Com.MachineApps.PrepareAndDeploy.Services;
@@ -15,9 +16,14 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         //[SerializeField]
         public Text computerText;
-        private int currentIndex = -1;
+        public static int currentIndex = -1;
 
         private FundRaisingEventService fundRaisingEventService = new FundRaisingEventService();
+
+        //public int EstimatedFundsRaised()
+        //{
+        //    return fundRaisingEvents[currentIndex].EstimatedFundsRaised;
+        //}
 
         void Awake()
         {
@@ -53,7 +59,41 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             //Debug.Log($"Event Title: {currentEvent.Title}");
 
-            computerText.text = currentEvent.Title + "\r" + currentEvent.SubTitle;
+            computerText.text = currentEvent.Title + "\r\n" + currentEvent.SubTitle;
         }
+
+        //void OnTriggerEnter(Collider other)
+        //{
+        //    if (other.CompareTag("Hand"))
+        //    {
+        //        Debug.Log($"Event selected: {currentIndex}");
+
+        //        var audio = GetComponent<AudioSource>();
+        //        audio.Play();
+
+        //        StartCoroutine(AwaitFundingEventResults());
+
+        //        // TODO pseudo random value
+        //        var amountMade = fundRaisingEvents[currentIndex].EstimatedFundsRaised;
+
+        //        var budgetRemaining = GameManager.instance.BudgetRemaining;
+
+        //        audio.Play(); // TODO different sound
+
+        //        GameManager.instance.IncreaseBudget(amountMade);
+        //        GameManager.instance.UpdateBudgetDisplay();
+
+        //        GameManager.instance.HudMessage($"You made £{amountMade}!", 4);
+        //    }
+        //}
+
+        //private IEnumerator AwaitFundingEventResults()
+        //{
+        //    var fundRaisingEvent = fundRaisingEvents[currentIndex];
+
+        //    GameManager.instance.HudMessage($"You selected {fundRaisingEvent.Title}", 4);
+
+        //    yield return new WaitForSeconds(5);
+        //}
     }
 }
