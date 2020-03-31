@@ -20,11 +20,6 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         private FundRaisingEventService fundRaisingEventService = new FundRaisingEventService();
 
-        //public int EstimatedFundsRaised()
-        //{
-        //    return fundRaisingEvents[currentIndex].EstimatedFundsRaised;
-        //}
-
         void Awake()
         {
             if (instance == null)
@@ -61,39 +56,5 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             computerText.text = currentEvent.Title + "\r\n" + currentEvent.SubTitle;
         }
-
-        //void OnTriggerEnter(Collider other)
-        //{
-        //    if (other.CompareTag("Hand"))
-        //    {
-        //        Debug.Log($"Event selected: {currentIndex}");
-
-        //        var audio = GetComponent<AudioSource>();
-        //        audio.Play();
-
-        //        StartCoroutine(AwaitFundingEventResults());
-
-        //        // TODO pseudo random value
-        //        var amountMade = fundRaisingEvents[currentIndex].EstimatedFundsRaised;
-
-        //        var budgetRemaining = GameManager.instance.BudgetRemaining;
-
-        //        audio.Play(); // TODO different sound
-
-        //        GameManager.instance.IncreaseBudget(amountMade);
-        //        GameManager.instance.UpdateBudgetDisplay();
-
-        //        GameManager.instance.HudMessage($"You made £{amountMade}!", 4);
-        //    }
-        //}
-
-        //private IEnumerator AwaitFundingEventResults()
-        //{
-        //    var fundRaisingEvent = fundRaisingEvents[currentIndex];
-
-        //    GameManager.instance.HudMessage($"You selected {fundRaisingEvent.Title}", 4);
-
-        //    yield return new WaitForSeconds(5);
-        //}
     }
 }

@@ -142,35 +142,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void FundraisingCountdownEvent(float seconds, int regularity)
-    {
-        //Debug.Log($"updatingFundRaisingEvent { updatingFundRaisingEvent } { Math.Floor(seconds) % regularity }");
-
-
-        if (Math.Floor(seconds) % regularity == 0 && !updatingFundRaisingEvent)
-        {
-            // Chance of showing next fund-raising event
-
-            // % 50 percent chance
-            var rand = Random.value;
-            bool showNextEvent = rand > 0.5;
-
-            //Debug.Log($"Random: {rand}");
-
-            if (showNextEvent)
-            {
-                //Debug.Log($"Update FundRaising Event");
-                FundRaisingEventManager.instance.NextEvent();
-            }
-            updatingFundRaisingEvent = true;
-        }
-        else if (Math.Floor(seconds) % regularity > 0)
-        {
-            updatingFundRaisingEvent = false;
-        }
-
-    }
-
     public void StartCountdown()
     {
         countdown = (timeAllowed * 60);
@@ -190,6 +161,12 @@ public class GameManager : MonoBehaviour
     public DeploymentStatus GetDeploymentStatus()
     {
         return deploymentStatus;
+    }
+
+    public void HudMessage(string messageText, int displayTimeSeconds)
+    {
+        hudDisplayTime = countdown - displayTimeSeconds;
+        hudText.text = messageText;
     }
 
     //public void UpdateDeploymentStatus(int alterStatusBy)
@@ -252,6 +229,35 @@ public class GameManager : MonoBehaviour
 
     #region Budget
 
+    private void FundraisingCountdownEvent(float seconds, int regularity)
+    {
+        //Debug.Log($"updatingFundRaisingEvent { updatingFundRaisingEvent } { Math.Floor(seconds) % regularity }");
+
+
+        if (Math.Floor(seconds) % regularity == 0 && !updatingFundRaisingEvent)
+        {
+            // Chance of showing next fund-raising event
+
+            // % 50 percent chance
+            var rand = Random.value;
+            bool showNextEvent = rand > 0.5;
+
+            //Debug.Log($"Random: {rand}");
+
+            if (showNextEvent)
+            {
+                //Debug.Log($"Update FundRaising Event");
+                FundRaisingEventManager.instance.NextEvent();
+            }
+            updatingFundRaisingEvent = true;
+        }
+        else if (Math.Floor(seconds) % regularity > 0)
+        {
+            updatingFundRaisingEvent = false;
+        }
+
+    }
+
     public void UpdateBudgetDisplay()
     {
         BudgetMeter.text = $"{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture)}";
@@ -261,19 +267,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"Reduce budget by: {value}");
         BudgetRemaining -= value;
-
-        // Check if budget has reached zero
-        //if (BudgetRemaining > 0)
-        //{
-        //    // If budget has not reached zero then update display
         UpdateBudgetDisplay();
-        //}
-        //else
-        //{
-        //    // If budget has reached zero then fire warning and give option to find extra funds elsewhere!
-        //    BudgetRemaining += value;
-        //    HudMessage("WARNING! This spend will take you over budget! Please find funds elsewhere.", 5);
-        //}
     }
 
     public void IncreaseBudget(int value)
@@ -290,12 +284,6 @@ public class GameManager : MonoBehaviour
         var cost = resourceCost[resource];
 
         return cost;
-    }
-
-    public void HudMessage(string messageText, int displayTimeSeconds)
-    {
-        hudDisplayTime = countdown - displayTimeSeconds;
-        hudText.text = messageText;
     }
 
     #endregion

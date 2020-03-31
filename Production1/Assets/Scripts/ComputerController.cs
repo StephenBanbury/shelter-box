@@ -16,7 +16,6 @@ namespace Com.MachineApps.PrepareAndDeploy
         {
             if (other.CompareTag("Hand"))
             {
-
                 StartCoroutine(AwaitFundingEventResults());
             }
         }
@@ -42,7 +41,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             audio1.Play();
 
 
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(10);
 
             //var budgetRemaining = GameManager.instance.BudgetRemaining;
 

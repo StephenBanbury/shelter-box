@@ -11,7 +11,6 @@ namespace Com.MachineApps.PrepareAndDeploy
         public int myResourceId;
 
         [Tooltip("Resource grabber countdown timer text")]
-
         //[SerializeField]
         public Text countdownDisplay;
 
@@ -74,6 +73,8 @@ namespace Com.MachineApps.PrepareAndDeploy
             {
                 countdown = GameManager.instance.initialResourceObjectCountdown;
                 countdownStarted = true;
+
+                var resourceCost = GameManager.instance.GetResourceCost((Resource)myResourceId);
             }
             else
             {

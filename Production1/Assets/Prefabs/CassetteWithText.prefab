@@ -59,6 +59,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -142,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myResourceId: 0
+  countdownDisplay: {fileID: 0}
 --- !u!1 &8157442898933636706
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +319,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Earthquake - Nepal - 2015 \r\nOn 25.4.2015 The Nepal earthquake killed
-    nearly 9,000 people and injured nearly 22,000. It occurred at 11:56 Nepal Standard
-    Time with a magnitude of 7.8M. \r\nAid Sent: 69 boxes, 497 Tents, 2734 Shelter
-    Kits, 13279 tarpaulins 3607 locally built shelters 9 school boxes\r"
+  m_Text: "\xA3 Price"

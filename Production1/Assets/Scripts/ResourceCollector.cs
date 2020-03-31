@@ -17,6 +17,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         private AudioSource audioSource2;
         private AudioSource audioSource3;
 
+        private bool noMoneyLeft;
         void Start()
         {
             AudioSource[] audioSources = GetComponents<AudioSource>();
@@ -91,7 +92,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 {
                     // Resource not required
                     case TripleState.One:
-                        
+
                         //Debug.Log("Resource not required");
 
                         infoMessage =
@@ -101,7 +102,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                     // Resource already collected
                     case TripleState.Two:
-                        
+
                         //Debug.Log("Resource already collected");
 
                         infoMessage =
@@ -118,10 +119,17 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         // Here we need to reduce the budget by the cost of the resource
                         var resourceCost = GameManager.instance.GetResourceCost((Resource) myResourceId);
+                        var budgetRemaining = GameManager.instance.BudgetRemaining;
+
+                        if (budgetRemaining - resourceCost <= 0)
+                        {
+                            // Let user now they need more funds
+                            Debug.Log("Budget all used up!");
+                            noMoneyLeft = true;
+                        }
 
                         //Debug.Log($"Resource Cost: {resourceCost}");
                         GameManager.instance.ReduceBudget(resourceCost);
-
                         ReportsManager.instance.AssignReportsToMonitors();
 
 
@@ -135,9 +143,9 @@ namespace Com.MachineApps.PrepareAndDeploy
                             //ChangeMaterial(gameObject.transform.GetChild(0).gameObject, 1);
 
                             Debug.Log($"All resources collected for reportId {reportId}");
-                            
-                            infoMessage = "You have collected everything!";
-                            
+
+                            infoMessage = "Congratulations! You have collected everything.";
+
                             ReportsManager.instance.PlayCongratulationsVideo(reportId);
 
                             audioSource3.Play();
@@ -145,9 +153,17 @@ namespace Com.MachineApps.PrepareAndDeploy
                         else
                         {
                             infoMessage =
-                                $"Thanks for the {Regex.Replace(((Resource)myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
+                                $"Thanks for the {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
 
-                            audioSource1.Play(); // In this instance this is audio source component of the current Box GameObject
+                            audioSource1
+                                .Play(); // In this instance this is audio source component of the current Box GameObject
+                        }
+
+                        if (noMoneyLeft)
+                        {
+                            GameManager.instance.HudMessage(
+                                "You have used your entire budget! Stage a fundraising event to increase your available funds.",
+                                10);
                         }
 
                         break;
@@ -179,7 +195,6 @@ namespace Com.MachineApps.PrepareAndDeploy
             
             Destroy(other.gameObject);
 
-            //ResourceInstantiator.instance.CreateResourceObjectAtRandomPosition();
             ResourceInstantiator.instance.CreateResourceObject(resourceObjectName);
         }
 
