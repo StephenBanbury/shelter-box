@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,11 +15,15 @@ namespace Com.MachineApps.PrepareAndDeploy
         //[SerializeField]
         public Text countdownDisplay;
 
+        public Canvas PriceTag;
+
         private float countdown;
         private bool countdownStarted;
 
         void Start()
         {
+            Debug.Log("ResourceManager Start()");
+
             if (gameObject.CompareTag("Tent"))
             {
                 myResourceId = (int)Resource.Tents;
@@ -44,8 +49,24 @@ namespace Com.MachineApps.PrepareAndDeploy
                 myResourceId = (int)Resource.Toys;
             }
 
-            countdown = GameManager.instance.initialResourceObjectCountdown;
-            gameObject.GetComponentInChildren<Text>().text = "";
+
+            var priceText = gameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "PriceText");
+           // var resourceManager = newGameObject.GetComponent<ResourceManager>();
+
+           if (myResourceId != 0)
+           {
+               //Debug.Log($"resourceManager resource: {gameObject.tag}");
+               //Debug.Log($"resourceManager.myResourceId: {myResourceId}");
+
+               var resourceCost = GameManager.instance.GetResourceCost((Resource) myResourceId);
+
+               priceText.text = $"£{resourceCost.ToString()}";
+           }
+
+           countdown = GameManager.instance.initialResourceObjectCountdown;
+
+           var countdownText = gameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "CountdownText");
+           countdownText.text = "";
         }
 
         void FixedUpdate()
@@ -74,12 +95,16 @@ namespace Com.MachineApps.PrepareAndDeploy
                 countdown = GameManager.instance.initialResourceObjectCountdown;
                 countdownStarted = true;
 
-                var resourceCost = GameManager.instance.GetResourceCost((Resource)myResourceId);
+                //var resourceCost = GameManager.instance.GetResourceCost((Resource)myResourceId);
+
+                PriceTag.gameObject.SetActive(false);
             }
             else
             {
                 countdownDisplay.text = "";
                 countdownStarted = false;
+
+                //PriceTag.gameObject.SetActive(true);
             }
             
         }

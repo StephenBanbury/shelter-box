@@ -65,7 +65,6 @@ namespace Com.MachineApps.PrepareAndDeploy
         public VideoPlayer video4;
 
         private List<Report> usedReports = new List<Report>();
-        //private List<int> usedReportIds = new List<int>();
         private DateTime startDateTime = DateTime.UtcNow;
         private DateTime reviewDateTime;
         private int updateInterval = 15;

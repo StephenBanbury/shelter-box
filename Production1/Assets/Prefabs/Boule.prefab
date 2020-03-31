@@ -304,6 +304,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myResourceId: 0
   countdownDisplay: {fileID: 1105177362}
+  PriceTag: {fileID: 4883359290825109496}
 --- !u!114 &193489962473271695
 MonoBehaviour:
   m_ObjectHideFlags: 0

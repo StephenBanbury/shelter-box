@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using Random = System.Random;
 using System.Linq;
 using Com.MachineApps.PrepareAndDeploy.Enums;
+using Com.MachineApps.PrepareAndDeploy.Services;
 
 namespace Com.MachineApps.PrepareAndDeploy
 {
@@ -37,13 +38,6 @@ namespace Com.MachineApps.PrepareAndDeploy
         {
             myPrefabs = new GameObject[] { myPrefab1, myPrefab2, myPrefab3, myPrefab4, myPrefab5, myPrefab6 };
 
-            //InstantiateOneResource(1);
-            //InstantiateOneResource(2);
-            //InstantiateOneResource(3);
-            //InstantiateOneResource(4);
-            //InstantiateOneResource(5);
-            //InstantiateOneResource(6);
-
             for (int z = 1; z <= resourcesPerBin; z++)
             {
                 for (int i = 1; i <= myPrefabs.Length; i++)
@@ -66,15 +60,6 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
         }
 
-        //public void CreateResourceObjectAtRandomPosition()
-        //{
-        //    int randomPrefab = random.Next(0, myPrefabs.Length);
-        //    float randomPosition = random.Next(-2, 2) * 0.1f;
-
-        //    var myPrefab = myPrefabs[randomPrefab];
-        //    Instantiate(myPrefab, new Vector3(0.08f + randomPosition, 3.5f, 1.4f + randomPosition), Quaternion.identity);
-        //}
-
         private void InstantiateOneResource(int i)
         {
             var boxName = $"ResourceBin{i}";
@@ -89,12 +74,6 @@ namespace Com.MachineApps.PrepareAndDeploy
             Debug.Log($"Instantiating {myPrefab.name} into {boxName}");
 
             var newGameObject= Instantiate(myPrefab, new Vector3(xPos, yPos, zPos), Quaternion.identity);
-
-            var priceText = newGameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "PriceText");
-
-            var resourceCost = "100"; //GameManager.instance.GetResourceCost((Resource) myPrefab;
-
-            priceText.text = $"£{resourceCost.ToString()}";
         }
     }
 }
