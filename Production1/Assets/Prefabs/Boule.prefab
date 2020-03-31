@@ -27,7 +27,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705044773}
   m_LocalRotation: {x: 0.40068972, y: -0, z: -0, w: 0.91621387}
-  m_LocalPosition: {x: 0, y: 0, z: 0.1234}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1082}
   m_LocalScale: {x: 0.5, y: 0.3, z: 0.068441115}
   m_Children:
   - {fileID: 1105177361}
@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 47.243004, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.1037}
+  m_AnchoredPosition: {x: 0, y: 0.0897}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &705044777
@@ -175,7 +175,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 10
 --- !u!1 &1287985329996721845
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,17 +570,17 @@ PrefabInstance:
     - target: {fileID: 8157442899432671999, guid: 15838b8e81981044b8601e1142fad8ac,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.002
       objectReference: {fileID: 0}
     - target: {fileID: 8157442899432671999, guid: 15838b8e81981044b8601e1142fad8ac,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.44352487
+      value: 0.321
       objectReference: {fileID: 0}
     - target: {fileID: 8157442899432671999, guid: 15838b8e81981044b8601e1142fad8ac,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.3538214
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 8157442899432671999, guid: 15838b8e81981044b8601e1142fad8ac,
         type: 3}
@@ -625,17 +625,17 @@ PrefabInstance:
     - target: {fileID: 8157442899432671999, guid: 15838b8e81981044b8601e1142fad8ac,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.13461567
+      value: 0.10220022
       objectReference: {fileID: 0}
     - target: {fileID: 8157442899432671999, guid: 15838b8e81981044b8601e1142fad8ac,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.3796
       objectReference: {fileID: 0}
     - target: {fileID: 8157442899432671999, guid: 15838b8e81981044b8601e1142fad8ac,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.64591676
+      value: 0.49038
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8157442898216154151, guid: 15838b8e81981044b8601e1142fad8ac, type: 3}
