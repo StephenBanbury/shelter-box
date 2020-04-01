@@ -11,24 +11,11 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    // static instance of the GM can be accessed from anywhere
     public static GameManager instance;
-
-    //[Tooltip("Message on the exit door")]
-    //[SerializeField]
-    //public Text doorMessage;
-
-    //[Tooltip("Current deployment status message text")]
-    //[SerializeField]
-    //public Text deploymentStatusText;
 
     [Tooltip("Heads-up display countdown timer text")]
     //[SerializeField]
     public Text hudCountdownDisplay;
-
-    //[Tooltip("Countdown timer text")]
-    //[SerializeField]
-    //public Text countdownDisplay;
 
     [Tooltip("Heads-up display text")]
     //[SerializeField]
@@ -52,19 +39,13 @@ public class GameManager : MonoBehaviour
     private bool updatingFundRaisingEvent;
 
     private static bool countdownStarted;
-    //private static bool outOfTime;
     private static float hudDisplayTime;
 
     private AudioSource audioSource1;
     private AudioSource audioSource2;
     private AudioSource audioSource3;
-
-    //private bool showPowerUp = false;
-    //private int showPowerUpForSeconds = 0;
     
     private Scene scene;
-
-
 
     void Start()
     {
@@ -112,13 +93,6 @@ public class GameManager : MonoBehaviour
 
             ReduceResourceCountdownStart(seconds, 10, 0.3f);
             FundraisingCountdownEvent(seconds, 5);
-
-            //if (countdown <= 0 && !outOfTime)
-            //{
-            //    countdownDisplay.color = Color.black;
-            //    audioSource3.Play();
-            //    outOfTime = true;
-            //}
 
             if (countdown <= hudDisplayTime && hudDisplayTime != 0)
             {
@@ -231,22 +205,15 @@ public class GameManager : MonoBehaviour
 
     private void FundraisingCountdownEvent(float seconds, int regularity)
     {
-        //Debug.Log($"updatingFundRaisingEvent { updatingFundRaisingEvent } { Math.Floor(seconds) % regularity }");
-
-
         if (Math.Floor(seconds) % regularity == 0 && !updatingFundRaisingEvent)
         {
             // Chance of showing next fund-raising event
-
             // % 50 percent chance
             var rand = Random.value;
             bool showNextEvent = rand > 0.5;
 
-            //Debug.Log($"Random: {rand}");
-
             if (showNextEvent)
             {
-                //Debug.Log($"Update FundRaising Event");
                 FundRaisingEventManager.instance.NextEvent();
             }
             updatingFundRaisingEvent = true;

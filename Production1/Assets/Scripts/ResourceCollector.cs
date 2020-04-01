@@ -124,7 +124,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                         if (budgetRemaining - resourceCost <= 0)
                         {
                             // Let user now they need more funds
-                            Debug.Log("Budget all used up!");
+                            Debug.Log("Budget has been used up!");
                             noMoneyLeft = true;
                         }
 
@@ -195,7 +195,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             
             Destroy(other.gameObject);
 
-            ResourceInstantiator.instance.CreateResourceObject(resourceObjectName);
+            ResourceInstantiator.instance.CreateResourceObject(resourceObjectName, true);
         }
 
         private void ChangeMaterial(GameObject gameObjectToAffect, int matIndex)

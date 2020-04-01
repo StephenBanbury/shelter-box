@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Com.MachineApps.PrepareAndDeploy.Models;
 using UnityEngine;
 
@@ -10,11 +9,12 @@ namespace Com.MachineApps.PrepareAndDeploy
         //private List<FundRaisingEvent> fundRaisingEvents;
         private FundRaisingEvent fundRaisingEvent;
         private int currentIndex;
+        private bool processingFundingEvent = false;
         public AudioSource audio1;
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Hand"))
+            if (other.CompareTag("Hand") && !processingFundingEvent)
             {
                 StartCoroutine(AwaitFundingEventResults());
             }
@@ -22,28 +22,19 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         private IEnumerator AwaitFundingEventResults()
         {
+            processingFundingEvent = true;
+
             currentIndex = FundRaisingEventManager.currentIndex;
 
-            Debug.Log($"Event selected: {currentIndex}");
-
             var fundRaisingEvents = FundRaisingEventManager.fundRaisingEvents;
-
-            Debug.Log($"fundRaisingEvents: {fundRaisingEvents.Count}");
-
             fundRaisingEvent = fundRaisingEvents[currentIndex];
-            Debug.Log($"fundRaisingEvent: {fundRaisingEvent.Title}");
 
             GameManager.instance.HudMessage($"You selected {fundRaisingEvent.Title}", 4);
-            Debug.Log($"You selected {fundRaisingEvent.Title}");
-
 
             audio1 = GetComponent<AudioSource>();
             audio1.Play();
-
-
+            
             yield return new WaitForSeconds(10);
-
-            //var budgetRemaining = GameManager.instance.BudgetRemaining;
 
             audio1.Play(); // TODO different sound
 
@@ -54,6 +45,8 @@ namespace Com.MachineApps.PrepareAndDeploy
             GameManager.instance.UpdateBudgetDisplay();
 
             GameManager.instance.HudMessage($"You made £{amountMade}!", 4);
+
+            processingFundingEvent = false;
         }
     }
 }

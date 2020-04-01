@@ -244,7 +244,11 @@ namespace Com.MachineApps.PrepareAndDeploy
             video3.gameObject.SetActive(false);
             video4.gameObject.SetActive(false);
 
+            // Replace existing report with a new unused one.
             ReplaceReport(reportId);
+
+            // TODO consider closing down monitor, maybe dramatically!
+
 
             monitor1aText.CrossFadeAlpha(1f, 1f, false);
             monitor2aText.CrossFadeAlpha(1f, 1f, false);

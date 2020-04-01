@@ -49,24 +49,18 @@ namespace Com.MachineApps.PrepareAndDeploy
                 myResourceId = (int)Resource.Toys;
             }
 
-
             var priceText = gameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "PriceText");
-           // var resourceManager = newGameObject.GetComponent<ResourceManager>();
 
            if (myResourceId != 0)
            {
-               //Debug.Log($"resourceManager resource: {gameObject.tag}");
-               //Debug.Log($"resourceManager.myResourceId: {myResourceId}");
-
                var resourceCost = GameManager.instance.GetResourceCost((Resource) myResourceId);
-
                priceText.text = $"£{resourceCost.ToString()}";
            }
 
-           countdown = GameManager.instance.initialResourceObjectCountdown;
+            //var countdownText = gameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "CountdownText");
+            countdownDisplay.text = "";
 
-           var countdownText = gameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "CountdownText");
-           countdownText.text = "";
+           countdown = GameManager.instance.initialResourceObjectCountdown;
         }
 
         void FixedUpdate()
@@ -79,9 +73,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 
                 if (countdown <= 0)
                 {
-                    var resourceObjectName = gameObject.gameObject.name.Replace("(Clone)", "");
-                    Destroy(gameObject);
-                    ResourceInstantiator.instance.CreateResourceObject(resourceObjectName);
+                    ResetResourceObject(true);
                 }
             }
         }
@@ -89,34 +81,33 @@ namespace Com.MachineApps.PrepareAndDeploy
         public void Grabbed(bool grabState)
         {
             //Debug.Log($"I've been grabbed: {gameObject.name}");
-
             if (grabState)
             {
-                countdown = GameManager.instance.initialResourceObjectCountdown;
-                countdownStarted = true;
-
-                //var resourceCost = GameManager.instance.GetResourceCost((Resource)myResourceId);
-
-                PriceTag.gameObject.SetActive(false);
+                if (GameManager.instance.BudgetRemaining <= 0)
+                {
+                    GameManager.instance.HudMessage("You do not have any funds left!", 3);
+                    ResetResourceObject(false);
+                }
+                else
+                {
+                    countdown = GameManager.instance.initialResourceObjectCountdown;
+                    countdownStarted = true;
+                    PriceTag.gameObject.SetActive(false);
+                }
             }
             else
             {
                 countdownDisplay.text = "";
                 countdownStarted = false;
-
-                //PriceTag.gameObject.SetActive(true);
             }
-            
         }
 
-        //private Resource RandomResource()
-        //{
-        //    Array values = Enum.GetValues(typeof(Resource));
-        //    Random random = new Random();
-        //    Resource randomValue = (Resource)values.GetValue(random.Next(1, values.Length - 1));
-        //    return randomValue;
-        //}
-
+        private void ResetResourceObject(bool dropFromHeight)
+        {
+            var resourceObjectName = gameObject.gameObject.name.Replace("(Clone)", "");
+            Destroy(gameObject);
+            ResourceInstantiator.instance.CreateResourceObject(resourceObjectName, dropFromHeight);
+        }
     }
 
 }

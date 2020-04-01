@@ -12,15 +12,22 @@ namespace Com.MachineApps.PrepareAndDeploy
         /// </summary>
         public override void GrabBegin(OVRGrabber hand, Collider grabPoint)
         {
-            m_grabbedBy = hand;
-            m_grabbedCollider = grabPoint;
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            if (GameManager.instance.BudgetRemaining <= 0)
+            {
+                GameManager.instance.HudMessage("You do not have any funds left!", 3);
+            }
+            else
+            {
+                m_grabbedBy = hand;
+                m_grabbedCollider = grabPoint;
+                gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
-            //Debug.Log($"GrabEvent: {gameObject.name} grabbed by {hand.name}");
-            //grabbedObject = grabPoint.gameObject;
+                //Debug.Log($"GrabEvent: {gameObject.name} grabbed by {hand.name}");
+                //grabbedObject = grabPoint.gameObject;
 
-            var resourceManager = gameObject.GetComponent<ResourceManager>();
-            resourceManager.Grabbed(true);
+                var resourceManager = gameObject.GetComponent<ResourceManager>();
+                resourceManager.Grabbed(true);
+            }
         }
 
         /// <summary>
@@ -38,11 +45,5 @@ namespace Com.MachineApps.PrepareAndDeploy
             var resourceManager = gameObject.GetComponent<ResourceManager>();
             resourceManager.Grabbed(false);
         }
-
-        void GrabEvent(OVRGrabber hand, Collider grabPoint)
-        {
         }
-
-
-    }
 }

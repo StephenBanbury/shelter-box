@@ -42,31 +42,31 @@ namespace Com.MachineApps.PrepareAndDeploy
             {
                 for (int i = 1; i <= myPrefabs.Length; i++)
                 {
-                    InstantiateOneResource(i);
+                    InstantiateOneResource(i, true);
                 }
             }
         }
 
-        public void CreateResourceObject(string resourceObjectName)
+        public void CreateResourceObject(string resourceObjectName, bool dropFromHeight)
         {
-            Debug.Log($"Creating resource {resourceObjectName}");
+            //Debug.Log($"Creating resource {resourceObjectName}");
 
             for (int i = 1; i <= myPrefabs.Length; i++)
             {
                 if (myPrefabs[i - 1].name == resourceObjectName)
                 {
-                    InstantiateOneResource(i);
+                    InstantiateOneResource(i, dropFromHeight);
                 }
             }
         }
 
-        private void InstantiateOneResource(int i)
+        private void InstantiateOneResource(int i, bool dropFromHeight)
         {
             var boxName = $"ResourceBin{i}";
             var box = GameObject.Find(boxName);
 
             var xPos = box.transform.position.x;
-            var yPos = box.transform.position.y + 0.5f;
+            var yPos = box.transform.position.y + (dropFromHeight ? 0.5f : 0);
             var zPos = box.transform.position.z;
 
             var myPrefab = myPrefabs[i - 1];
