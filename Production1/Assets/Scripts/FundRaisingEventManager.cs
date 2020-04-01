@@ -18,7 +18,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         public Text computerText;
         public static int currentIndex = -1;
 
-        private FundRaisingEventService fundRaisingEventService = new FundRaisingEventService();
+        private readonly FundRaisingEventService fundRaisingEventService = new FundRaisingEventService();
 
         void Awake()
         {
@@ -37,6 +37,8 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         void Start()
         {
+            Debug.Log("FundRaisingEventManager Start()");
+
             NextEvent();
         }
 
@@ -46,7 +48,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             var rand = Random.value;
 
             var selected = (int) (numEvents * rand);
-            //Debug.Log($"New event id: {selected}");
+            Debug.Log($"New event id: {selected}");
 
             currentIndex = selected - 1;
 

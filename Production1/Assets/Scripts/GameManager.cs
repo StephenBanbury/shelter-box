@@ -5,6 +5,7 @@ using Com.MachineApps.PrepareAndDeploy;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using Com.MachineApps.PrepareAndDeploy.Services;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -49,14 +50,16 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        StartCountdown();
-
         scene = SceneManager.GetActiveScene();
 
         AudioSource[] audioSources = GetComponents<AudioSource>();
         audioSource1 = audioSources[0];
         audioSource2 = audioSources[1];
         audioSource3 = audioSources[2];
+
+        StartCountdown();
+
+        UpdateBudgetDisplay();
     }
 
     void Awake()
@@ -119,7 +122,7 @@ public class GameManager : MonoBehaviour
     public void StartCountdown()
     {
         countdown = (timeAllowed * 60);
-        countdownStarted = true;
+        countdownStarted = false;
     }
 
     public string CurrentScene()

@@ -146,7 +146,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                             infoMessage = "Congratulations! You have collected everything.";
 
-                            ReportsManager.instance.PlayCongratulationsVideo(reportId);
+                            ReportsManager.instance.DisasterScenarioDeployed(reportId);
 
                             audioSource3.Play();
                         }
@@ -155,8 +155,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                             infoMessage =
                                 $"Thanks for the {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
 
-                            audioSource1
-                                .Play(); // In this instance this is audio source component of the current Box GameObject
+                            audioSource1.Play(); // In this instance this is audio source component of the current Box GameObject
                         }
 
                         if (noMoneyLeft)

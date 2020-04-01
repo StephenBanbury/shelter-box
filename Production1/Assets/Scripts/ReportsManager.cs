@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text.RegularExpressions;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using Com.MachineApps.PrepareAndDeploy.Models;
@@ -18,39 +19,33 @@ namespace Com.MachineApps.PrepareAndDeploy
         public static ReportsManager instance;
         public static List<Report> reports;
 
+        public GameObject monitor1;
+        public GameObject monitor2;
+        public GameObject monitor3;
+        public GameObject monitor4;
+
         //[SerializeField]
         public Text monitor1aText;
-
         //[SerializeField]
         public Text monitor2aText;
-
         //[SerializeField]
         public Text monitor3aText;
-
         //[SerializeField]
         public Text monitor4aText;
-
         //[SerializeField]
         public Text monitor1bText;
-
         //[SerializeField]
         public Text monitor2bText;
-
         //[SerializeField]
         public Text monitor3bText;
-
         //[SerializeField]
         public Text monitor4bText;
-
         //[SerializeField]
         public Text monitor1cText;
-
         //[SerializeField]
         public Text monitor2cText;
-
         //[SerializeField]
         public Text monitor3cText;
-
         //[SerializeField]
         public Text monitor4cText;
 
@@ -70,6 +65,8 @@ namespace Com.MachineApps.PrepareAndDeploy
         private int updateInterval = 15;
 
         private bool rotateReports = false;
+
+        private Animation anim;
 
         private ReportService reportService = new ReportService();
 
@@ -155,9 +152,9 @@ namespace Com.MachineApps.PrepareAndDeploy
             monitor4cText.text = ResourceListText(reportId3);
         }
 
-        public void PlayCongratulationsVideo(int reportId)
+        public void DisasterScenarioDeployed(int reportId)
         {
-            StartCoroutine(StartCounter(reportId));
+            StartCoroutine(DeployedRoutine(reportId));
         }
 
         public void CollectResource(int reportId, int resourceId)
@@ -195,44 +192,44 @@ namespace Com.MachineApps.PrepareAndDeploy
             return response;
         }
 
-        private IEnumerator StartCounter(int reportId)
+        private IEnumerator DeployedRoutine(int reportId)
         {
             Debug.Log($"StartCounter - reportId: {reportId}");
 
+            string monitor = "";
+
             if (reportId == reportId0)
             {
-                Debug.Log("Monitor1");
+                monitor = "monitor1";
                 video1.gameObject.SetActive(true);
                 video1.Play();
             }
             else if (reportId == reportId1)
             {
-                Debug.Log("Monitor2");
+                monitor = "monitor2";
                 video2.gameObject.SetActive(true);
                 video2.Play();
             }
             else if (reportId == reportId2)
             {
-                Debug.Log("Monitor3");
+                monitor = "monitor3";
                 video3.gameObject.SetActive(true);
                 video3.Play();
             }
             else if (reportId == reportId3)
             {
-                Debug.Log("Monitor4");
+                monitor = "monitor4";
                 video4.gameObject.SetActive(true);
                 video4.Play();
             }
 
             yield return new WaitForSeconds(5);
+            
 
-            Debug.Log($"Finished  - ReplaceReport");
-
-
-            monitor1aText.CrossFadeAlpha(0f, 1f, false);
-            monitor2aText.CrossFadeAlpha(0f, 1f, false);
-            monitor3aText.CrossFadeAlpha(0f, 1f, false);
-            monitor4aText.CrossFadeAlpha(0f, 1f, false);
+            //monitor1aText.CrossFadeAlpha(0f, 1f, false);
+            //monitor2aText.CrossFadeAlpha(0f, 1f, false);
+            //monitor3aText.CrossFadeAlpha(0f, 1f, false);
+            //monitor4aText.CrossFadeAlpha(0f, 1f, false);
 
             video1.Stop();
             video2.Stop();
@@ -244,16 +241,24 @@ namespace Com.MachineApps.PrepareAndDeploy
             video3.gameObject.SetActive(false);
             video4.gameObject.SetActive(false);
 
+            // TODO either
             // Replace existing report with a new unused one.
-            ReplaceReport(reportId);
+            // ReplaceReport(reportId);
 
             // TODO consider closing down monitor, maybe dramatically!
 
+            Debug.Log($"Monitor: {monitor}");
 
-            monitor1aText.CrossFadeAlpha(1f, 1f, false);
-            monitor2aText.CrossFadeAlpha(1f, 1f, false);
-            monitor3aText.CrossFadeAlpha(1f, 1f, false);
-            monitor4aText.CrossFadeAlpha(1f, 1f, false);
+            //anim = monitor1.GetComponent<Animator>();
+            //anim.Play("Monitor1Flip");
+
+            AnimateMonitor.instance.CloseMonitor(monitor, true);
+
+
+            //monitor1aText.CrossFadeAlpha(1f, 1f, false);
+            //monitor2aText.CrossFadeAlpha(1f, 1f, false);
+            //monitor3aText.CrossFadeAlpha(1f, 1f, false);
+            //monitor4aText.CrossFadeAlpha(1f, 1f, false);
 
         }
 

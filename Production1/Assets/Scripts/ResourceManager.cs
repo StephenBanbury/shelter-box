@@ -51,16 +51,16 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             var priceText = gameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "PriceText");
 
-           if (myResourceId != 0)
-           {
-               var resourceCost = GameManager.instance.GetResourceCost((Resource) myResourceId);
-               priceText.text = $"£{resourceCost.ToString()}";
-           }
+            if (myResourceId != 0)
+            {
+                var resourceCost = GameManager.instance.GetResourceCost((Resource)myResourceId);
+                priceText.text = $"£{resourceCost.ToString()}";
 
-            //var countdownText = gameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "CountdownText");
-            countdownDisplay.text = "";
+                //var countdownText = gameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "CountdownText");
+                countdownDisplay.text = "";
+            }
 
-           countdown = GameManager.instance.initialResourceObjectCountdown;
+            countdown = GameManager.instance.initialResourceObjectCountdown;
         }
 
         void FixedUpdate()
