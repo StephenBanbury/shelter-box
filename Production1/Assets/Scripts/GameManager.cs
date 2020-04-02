@@ -56,17 +56,7 @@ public class GameManager : MonoBehaviour
         audioSource1 = audioSources[0];
         audioSource2 = audioSources[1];
         audioSource3 = audioSources[2];
-
-        AnimateMonitor.instance.ActivateMonitor("monitor1", "open");
-        AnimateMonitor.instance.ActivateMonitor("monitor2", "open");
-        AnimateMonitor.instance.ActivateMonitor("monitor3", "open");
-        AnimateMonitor.instance.ActivateMonitor("monitor4", "open");
-
-        //AnimateMonitor.instance.ActivateMonitor("monitor1", "close");
-        //AnimateMonitor.instance.ActivateMonitor("monitor2", "close");
-        //AnimateMonitor.instance.ActivateMonitor("monitor3", "close");
-        //AnimateMonitor.instance.ActivateMonitor("monitor4", "close");
-
+        
         StartCountdown();
 
         UpdateBudgetDisplay();
