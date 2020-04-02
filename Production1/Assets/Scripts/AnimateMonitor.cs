@@ -25,23 +25,46 @@ namespace Com.MachineApps.PrepareAndDeploy
             DontDestroyOnLoad(gameObject);
         }
 
-        public void CloseMonitor(string monitor, bool close)
+        public void ActivateMonitor(string monitor, string action)
         {
-            switch (monitor)
+            if (action == "close")
             {
-                case "monitor1":
-                    monitor1.SetBool("closeMonitor", close);
-                    break;
-                case "monitor2":
-                    monitor2.SetBool("closeMonitor", close);
-                    break;
-                case "monitor3":
-                    monitor3.SetBool("closeMonitor", close);
-                    break;
-                case "monitor4":
-                    monitor4.SetBool("closeMonitor", close);
-                    break;
+                switch (monitor)
+                {
+                    case "monitor1":
+                        monitor1.SetBool("closeMonitor", true);
+                        break;
+                    case "monitor2":
+                        monitor2.SetBool("closeMonitor", true);
+                        break;
+                    case "monitor3":
+                        monitor3.SetBool("closeMonitor", true);
+                        break;
+                    case "monitor4":
+                        monitor4.SetBool("closeMonitor", true);
+                        break;
+                }
             }
+
+            if (action == "open")
+            {
+                switch (monitor)
+                {
+                    case "monitor1":
+                        monitor1.SetBool("openMonitor", true);
+                        break;
+                    case "monitor2":
+                        monitor2.SetBool("openMonitor", true);
+                        break;
+                    case "monitor3":
+                        monitor3.SetBool("openMonitor", true);
+                        break;
+                    case "monitor4":
+                        monitor4.SetBool("openMonitor", true);
+                        break;
+                }
+            }
+
         }
     }
 }

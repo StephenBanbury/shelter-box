@@ -242,7 +242,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             // ReplaceReport(reportId);
 
             // TODO or...
-            AnimateMonitor.instance.CloseMonitor(monitor, true);
+            AnimateMonitor.instance.ActivateMonitor(monitor, "close");
 
         }
 
