@@ -11,7 +11,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         public Text BoxMessage2Text;
         public Text BoxMessage3Text;
         public Text BoxMessage4Text;
-        public Text GrandScoreText;
+        //public Text GrandScoreText;
 
         private AudioSource audioSource1;
         private AudioSource audioSource2;

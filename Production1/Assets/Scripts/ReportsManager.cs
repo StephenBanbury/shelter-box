@@ -224,12 +224,6 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
 
             yield return new WaitForSeconds(5);
-            
-
-            //monitor1aText.CrossFadeAlpha(0f, 1f, false);
-            //monitor2aText.CrossFadeAlpha(0f, 1f, false);
-            //monitor3aText.CrossFadeAlpha(0f, 1f, false);
-            //monitor4aText.CrossFadeAlpha(0f, 1f, false);
 
             video1.Stop();
             video2.Stop();
@@ -241,24 +235,14 @@ namespace Com.MachineApps.PrepareAndDeploy
             video3.gameObject.SetActive(false);
             video4.gameObject.SetActive(false);
 
-            // TODO either
+            Debug.Log($"Monitor: {monitor}");
+
+            // TODO either...
             // Replace existing report with a new unused one.
             // ReplaceReport(reportId);
 
-            // TODO consider closing down monitor, maybe dramatically!
-
-            Debug.Log($"Monitor: {monitor}");
-
-            //anim = monitor1.GetComponent<Animator>();
-            //anim.Play("Monitor1Flip");
-
+            // TODO or...
             AnimateMonitor.instance.CloseMonitor(monitor, true);
-
-
-            //monitor1aText.CrossFadeAlpha(1f, 1f, false);
-            //monitor2aText.CrossFadeAlpha(1f, 1f, false);
-            //monitor3aText.CrossFadeAlpha(1f, 1f, false);
-            //monitor4aText.CrossFadeAlpha(1f, 1f, false);
 
         }
 
