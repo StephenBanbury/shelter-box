@@ -15,6 +15,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             if (GameManager.instance.BudgetRemaining <= 0)
             {
                 GameManager.instance.HudMessage("You do not have any funds left!", 3);
+                OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);
             }
             else
             {
@@ -23,10 +24,12 @@ namespace Com.MachineApps.PrepareAndDeploy
                 gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
                 //Debug.Log($"GrabEvent: {gameObject.name} grabbed by {hand.name}");
-                //grabbedObject = grabPoint.gameObject;
 
                 var resourceManager = gameObject.GetComponent<ResourceManager>();
                 resourceManager.Grabbed(true);
+
+                VibrationManager.instance.TriggerVibration(40, 2, 255, OVRInput.Controller.RTouch);
+
             }
         }
 

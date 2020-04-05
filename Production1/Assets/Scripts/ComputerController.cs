@@ -67,7 +67,9 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             audio1 = GetComponent<AudioSource>();
             audio1.Play();
-            
+
+            VibrationManager.instance.TriggerVibration(audio1.clip, OVRInput.Controller.RTouch);
+
             yield return new WaitForSeconds(10);
 
             audio1.Play(); // TODO different sound
