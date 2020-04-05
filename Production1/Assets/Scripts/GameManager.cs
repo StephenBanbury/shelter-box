@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     private bool updatingResourceCountdown;
     private bool updatingFundRaisingEvent;
 
-    private static bool countdownStarted;
+    public static bool countdownStarted;
     private static float hudDisplayTime;
 
     private AudioSource audioSource1;
@@ -95,8 +95,9 @@ public class GameManager : MonoBehaviour
             hudCountdownDisplay.text = $"{minutes:0}:{seconds:00}";
 
             ReduceResourceCountdownStart(seconds, 10, 0.3f);
+            
             FundraisingCountdownEvent(seconds, 5);
-
+            
             if (countdown <= hudDisplayTime && hudDisplayTime != 0)
             {
                 hudText.text = "";
@@ -122,7 +123,7 @@ public class GameManager : MonoBehaviour
     public void StartCountdown()
     {
         countdown = (timeAllowed * 60);
-        countdownStarted = false;
+        countdownStarted = true;
     }
 
     public string CurrentScene()
@@ -213,12 +214,15 @@ public class GameManager : MonoBehaviour
             // Chance of showing next fund-raising event
             // % 50 percent chance
             var rand = Random.value;
-            bool showNextEvent = rand > 0.5;
+            //bool showNextEvent = rand > 0.5;
+
+            bool showNextEvent = true;
 
             if (showNextEvent)
             {
                 FundRaisingEventManager.instance.NextEvent();
             }
+
             updatingFundRaisingEvent = true;
         }
         else if (Math.Floor(seconds) % regularity > 0)

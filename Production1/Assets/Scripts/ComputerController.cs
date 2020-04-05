@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using Com.MachineApps.PrepareAndDeploy.Models;
 using UnityEngine;
 
@@ -8,60 +9,30 @@ namespace Com.MachineApps.PrepareAndDeploy
     {
         public AudioSource audio1;
 
-        //private List<FundRaisingEvent> fundRaisingEvents;
         private FundRaisingEvent fundRaisingEvent;
-        private int currentIndex;
         private bool processingFundingEvent = false;
-
-        private Vector3 handTransform;
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Hand") && !processingFundingEvent)
+            var used = FundRaisingEventManager.instance.numberOfEventsUsed;
+            var allowed = FundRaisingEventManager.instance.numberOfEventsAllowed;
+
+            Debug.Log($"numberOfEventsAllowed: {allowed}, numberOfEventsUsed: {used}");
+
+            if (other.CompareTag("Hand") && !processingFundingEvent && used <= allowed)
             {
-                // Prevent hand moving any further until hand comes back out again.
-                //var parent = other.GetComponentInParent<Rigidbody>();
-
-                //handTransform = parent.position;
-
-                //Debug.Log($"Hand Vector3: {handTransform}");
-
                 StartCoroutine(AwaitFundingEventResults());
             }
         }
-
-        //void OnTriggerStay(Collider other)
-        //{
-        //    //if (other.attachedRigidbody)
-        //    //{
-        //    //    other.attachedRigidbody.AddForce(Vector3.up * 10);
-        //    //}
-
-        //    Debug.Log("OnTriggerStay");
-
-        //    if (other.CompareTag("Hand")) // && processingFundingEvent)
-        //    {
-
-        //        var parent = other.GetComponentInParent<Rigidbody>();
-               
-        //        Debug.Log($"handTransform: {parent.position}");
-
-        //        parent.position = handTransform;
-
-
-        //        Debug.Log($"new handTransform: {parent.position}");
-        //    }
-
-        //}
 
         private IEnumerator AwaitFundingEventResults()
         {
             processingFundingEvent = true;
 
-            currentIndex = FundRaisingEventManager.currentIndex;
-
             var fundRaisingEvents = FundRaisingEventManager.fundRaisingEvents;
-            fundRaisingEvent = fundRaisingEvents[currentIndex];
+            var currentEventId = FundRaisingEventManager.instance.CurrentEventId();
+
+            fundRaisingEvent = fundRaisingEvents.FirstOrDefault(e => e.Id == currentEventId);
 
             GameManager.instance.HudMessage($"You selected {fundRaisingEvent.Title}", 4);
 
@@ -72,10 +43,12 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             yield return new WaitForSeconds(10);
 
+            FundRaisingEventManager.instance.MarkEventAsUsed(currentEventId);
+
             audio1.Play(); // TODO different sound
 
             // TODO pseudo random value
-            var amountMade = fundRaisingEvents[currentIndex].EstimatedFundsRaised;
+            var amountMade = fundRaisingEvent.EstimatedFundsRaised;
 
             GameManager.instance.IncreaseBudget(amountMade);
             GameManager.instance.UpdateBudgetDisplay();
