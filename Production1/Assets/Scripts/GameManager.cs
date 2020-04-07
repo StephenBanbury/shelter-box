@@ -15,37 +15,35 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [Tooltip("Heads-up display countdown timer text")]
-    //[SerializeField]
-    public Text hudCountdownDisplay;
+    [SerializeField] private Text hudCountdownDisplay;
 
     [Tooltip("Heads-up display text")]
-    //[SerializeField]
-    public Text hudText;
+    [SerializeField] private Text hudText;
 
     [Tooltip("Minutes allowed for game countdown")]
-    //[SerializeField]
-    public int timeAllowed = 5;
+    [SerializeField] private int timeAllowed = 5;
 
-    public int BudgetRemaining = 1000;
-
-    public Text BudgetMeter;
-
-    public static float countdown;
-    public static DeploymentStatus deploymentStatus;
+    [Tooltip("Personalised message displayed in control room")]
+    [SerializeField] private Text personalMessage;
 
     [Tooltip("Initial countdown setting for resource objects (seconds)")]
     public float initialResourceObjectCountdown;
 
+    public int BudgetRemaining = 1000;
+    public Text BudgetMeter;
+    private static float countdown;
+    public static DeploymentStatus deploymentStatus;
+    public static bool countdownStarted;
+
+    public string playerName = "Stephen";
+
+    private static float hudDisplayTime;
     private bool updatingResourceCountdown;
     private bool updatingFundRaisingEvent;
-
-    public static bool countdownStarted;
-    private static float hudDisplayTime;
 
     private AudioSource audioSource1;
     private AudioSource audioSource2;
     private AudioSource audioSource3;
-    
     private Scene scene;
 
     void Start()
@@ -56,7 +54,9 @@ public class GameManager : MonoBehaviour
         audioSource1 = audioSources[0];
         audioSource2 = audioSources[1];
         audioSource3 = audioSources[2];
-        
+
+        PersonalMessage($"Welcome {playerName}. \r\nThank you for your assistance.");
+
         StartCountdown();
 
         UpdateBudgetDisplay();
@@ -106,20 +106,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void ReduceResourceCountdownStart(float seconds, int regularity, float reduction)
-    {
-        // Reduce countdown start for resources before timeout when grabbed
-        if (Math.Floor(seconds) % regularity == 0 && !updatingResourceCountdown)
-        {
-            initialResourceObjectCountdown -= reduction;
-            updatingResourceCountdown = true;
-        }
-        else if (Math.Floor(seconds) % regularity > 0)
-        {
-            updatingResourceCountdown = false;
-        }
-    }
-
     public void StartCountdown()
     {
         countdown = (timeAllowed * 60);
@@ -145,6 +131,11 @@ public class GameManager : MonoBehaviour
     {
         hudDisplayTime = countdown - displayTimeSeconds;
         hudText.text = messageText;
+    }
+
+    public void PersonalMessage(string message)
+    {
+        personalMessage.text = message;
     }
 
     //public void UpdateDeploymentStatus(int alterStatusBy)
@@ -206,6 +197,20 @@ public class GameManager : MonoBehaviour
     //}
 
     #region Budget
+
+    private void ReduceResourceCountdownStart(float seconds, int regularity, float reduction)
+    {
+        // Reduce countdown start for resources before timeout when grabbed
+        if (Math.Floor(seconds) % regularity == 0 && !updatingResourceCountdown)
+        {
+            initialResourceObjectCountdown -= reduction;
+            updatingResourceCountdown = true;
+        }
+        else if (Math.Floor(seconds) % regularity > 0)
+        {
+            updatingResourceCountdown = false;
+        }
+    }
 
     private void FundraisingCountdownEvent(float seconds, int regularity)
     {
