@@ -54,9 +54,7 @@ public class GameManager : MonoBehaviour
         audioSource1 = audioSources[0];
         audioSource2 = audioSources[1];
         audioSource3 = audioSources[2];
-
-        PersonalMessage($"Welcome {playerName}. \r\nThank you for your assistance.");
-
+        
         StartCountdown();
 
         UpdateBudgetDisplay();
@@ -133,8 +131,9 @@ public class GameManager : MonoBehaviour
         hudText.text = messageText;
     }
 
-    public void PersonalMessage(string message)
+    public void PersonalMessage(string playerName)
     {
+        var message = $"Welcome {playerName}. \r\nThank you for your assistance.";
         personalMessage.text = message;
     }
 

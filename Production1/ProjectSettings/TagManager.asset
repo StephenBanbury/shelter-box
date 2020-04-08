@@ -17,6 +17,8 @@ TagManager:
   - WindArea
   - Water
   - PriceTag
+  - VRGazeInteractable
+  - PlayerName
   layers:
   - Default
   - TransparentFX

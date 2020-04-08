@@ -144,6 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myResourceId: 0
   countdownDisplay: {fileID: 0}
+  PriceTag: {fileID: 0}
 --- !u!1 &8157442898933636706
 GameObject:
   m_ObjectHideFlags: 0
