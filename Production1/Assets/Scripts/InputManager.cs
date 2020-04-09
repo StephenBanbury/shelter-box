@@ -15,10 +15,13 @@ namespace Com.MachineApps.PrepareAndDeploy
             if (playerName != string.Empty)
             {
                 var kb = GameObject.Find("FormKeyboard-L1");
+                var slate = GameObject.Find("Slate");
+                Destroy(slate);
                 Destroy(kb);
 
                 GameManager.instance.PersonalMessage(playerName);
 
+                AnimationManager.instance.OpenEntranceDoor("open");
             }
         }
     }

@@ -2,7 +2,7 @@
 
 namespace Com.MachineApps.PrepareAndDeploy
 {
-    public class AnimateMonitor : MonoBehaviour
+    public class AnimationManager : MonoBehaviour
     {
         [SerializeField] private Animator monitor1;
         [SerializeField] private Animator monitor2;
@@ -11,7 +11,9 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         [SerializeField] private Animator monitorText;
 
-        public static AnimateMonitor instance;
+        [SerializeField] private Animator entranceDoor;
+
+        public static AnimationManager instance;
 
         void Awake()
         {
@@ -25,6 +27,11 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
 
             DontDestroyOnLoad(gameObject);
+        }
+
+        public void OpenEntranceDoor(string action)
+        {
+                entranceDoor.SetBool(action, true);
         }
 
         public void ActivateMonitor(string monitor, string action)

@@ -26,8 +26,12 @@ public class GameManager : MonoBehaviour
     [Tooltip("Personalised message displayed in control room")]
     [SerializeField] private Text personalMessage;
 
+    [SerializeField] private GameObject hudCanvas;
+
     [Tooltip("Initial countdown setting for resource objects (seconds)")]
     public float initialResourceObjectCountdown;
+
+    [SerializeField] private GameObject entrance;
 
     public int BudgetRemaining = 1000;
     public Text BudgetMeter;
@@ -54,6 +58,8 @@ public class GameManager : MonoBehaviour
         audioSource1 = audioSources[0];
         audioSource2 = audioSources[1];
         audioSource3 = audioSources[2];
+
+        HudOnOff(false);
         
         StartCountdown();
 
@@ -129,6 +135,11 @@ public class GameManager : MonoBehaviour
     {
         hudDisplayTime = countdown - displayTimeSeconds;
         hudText.text = messageText;
+    }
+
+    public void HudOnOff(bool on)
+    {
+        hudCanvas.SetActive(on);
     }
 
     public void PersonalMessage(string playerName)
