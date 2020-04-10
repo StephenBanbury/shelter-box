@@ -13,6 +13,8 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         [SerializeField] private Animator entranceDoor;
 
+        [SerializeField] private Animator centrePerimeter;
+
         public static AnimationManager instance;
 
         void Awake()
@@ -32,6 +34,12 @@ namespace Com.MachineApps.PrepareAndDeploy
         public void OpenEntranceDoor(string action)
         {
                 entranceDoor.SetBool(action, true);
+        }
+
+        public void RaiseCentrePartition(string action)
+        {
+            Debug.Log("RaiseCentrePartition");
+            centrePerimeter.SetBool(action, true);
         }
 
         public void ActivateMonitor(string monitor, string action)
