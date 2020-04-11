@@ -46,23 +46,24 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public void ActivateMonitor(string monitor, string action)
         {
-            Debug.Log($"Activate {monitor}: {action}");
 
             if (action == "open")
             {
                 switch (monitor)
                 {
                     case "monitor1":
+                        Debug.Log($"Activate {monitor}: {action}");
                         //monitor1.SetBool("closeMonitor", false);
                         monitor1.SetBool("openMonitor", true);
                         //monitorTextFade.SetBool("text1FadeOut", false);
-                        monitorTextFade.SetBool("text1FadeIn", true);
+                        //monitorTextFade.SetBool("text1FadeIn", true);
                         break;
                     case "monitor2":
-                        monitor2.SetBool("closeMonitor", false);
+                        Debug.Log($"Activate {monitor}: {action}");
+                        //monitor2.SetBool("closeMonitor", false);
                         monitor2.SetBool("openMonitor", true);
-                        monitorTextFade.SetBool("text2FadeOut", false);
-                        monitorTextFade.SetBool("text2FadeIn", true);
+                        //monitorTextFade.SetBool("text2FadeOut", false);
+                        //monitorTextFade.SetBool("text2FadeIn", true);
                         break;
                     case "monitor3":
                         monitor3.SetBool("closeMonitor", false);
@@ -83,16 +84,18 @@ namespace Com.MachineApps.PrepareAndDeploy
                 switch (monitor)
                 {
                     case "monitor1":
-                        monitorTextFade.SetBool("text1FadeIn", false);
+                        Debug.Log($"Activate {monitor}: {action}");
+                        //monitorTextFade.SetBool("text1FadeIn", false);
+                        //monitorTextFade.SetBool("text1FadeOut", true);
                         monitor1.SetBool("openMonitor", false);
                         //monitor1.SetBool("closeMonitor", true);
-                        //monitorTextFade.SetBool("text1FadeOut", true);
                         break;
                     case "monitor2":
+                        Debug.Log($"Activate {monitor}: {action}");
+                        //monitorTextFade.SetBool("text2FadeIn", false);
+                        //monitorTextFade.SetBool("text2FadeOut", true);
                         monitor2.SetBool("openMonitor", false);
-                        monitor2.SetBool("closeMonitor", true);
-                        monitorTextFade.SetBool("text2FadeIn", false);
-                        monitorTextFade.SetBool("text2FadeOut", true);
+                        //monitor2.SetBool("closeMonitor", true);
                         break;
                     case "monitor3":
                         monitor3.SetBool("openMonitor", false);
