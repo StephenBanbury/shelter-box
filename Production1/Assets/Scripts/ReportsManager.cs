@@ -242,8 +242,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             // ReplaceReport(reportId);
 
             // TODO or...
-            AnimationManager.instance.ActivateMonitor(monitor, "close");
-            //AnimationManager.instance.FadeMonitorText(false);
+            AnimationManager.instance.ActivateMonitor(monitor, false);
 
         }
 

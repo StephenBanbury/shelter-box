@@ -15,21 +15,18 @@ namespace Com.MachineApps.PrepareAndDeploy
                 {
                     Debug.Log("Inside Action Zone");
 
-                    AnimationManager.instance.ActivateMonitor("monitor1", "open");
-                    AnimationManager.instance.ActivateMonitor("monitor2", "open");
-                    AnimationManager.instance.ActivateMonitor("monitor3", "open");
-                    AnimationManager.instance.ActivateMonitor("monitor4", "open");
-
-                    //AnimateMonitor.instance.FadeMonitorText(true);
+                    AnimationManager.instance.ActivateMonitor("monitor1", true);
+                    AnimationManager.instance.ActivateMonitor("monitor2", true);
+                    AnimationManager.instance.ActivateMonitor("monitor3", true);
+                    AnimationManager.instance.ActivateMonitor("monitor4", true);
 
                     GameManager.instance.HudOnOff(true);
                 }
-            }else if (gameObject.name == "EntranceActionZone")
-            {
-                Debug.Log("Inside Entrance EntranceActionZone");
-
-                //AnimationManager.instance.RaiseCentrePartition("raise");
             }
+            //}else if (gameObject.name == "EntranceActionZone")
+            //{
+            //    Debug.Log("Inside Entrance EntranceActionZone");
+            //    AnimationManager.instance.RaiseCentrePartition(true);
         }
         void OnTriggerExit(Collider other)
         {
@@ -39,22 +36,19 @@ namespace Com.MachineApps.PrepareAndDeploy
                 {
                     Debug.Log("Outside Action Zone");
 
-                    AnimationManager.instance.ActivateMonitor("monitor1", "close");
-                    AnimationManager.instance.ActivateMonitor("monitor2", "close");
-                    AnimationManager.instance.ActivateMonitor("monitor3", "close");
-                    AnimationManager.instance.ActivateMonitor("monitor4", "close");
-
-                    //AnimateMonitor.instance.FadeMonitorText(false);
+                    AnimationManager.instance.ActivateMonitor("monitor1", false);
+                    AnimationManager.instance.ActivateMonitor("monitor2", false);
+                    AnimationManager.instance.ActivateMonitor("monitor3", false);
+                    AnimationManager.instance.ActivateMonitor("monitor4", false);
 
                     GameManager.instance.HudOnOff(false);
                 }
             }
-            else if (gameObject.name == "EntranceActionZone")
-            {
-                Debug.Log("Outside Entrance EntranceActionZone");
-
-                //AnimationManager.instance.RaiseCentrePartition("lower");
-            }
+            //else if (gameObject.name == "EntranceActionZone")
+            //{
+            //    Debug.Log("Outside Entrance EntranceActionZone");
+            //    AnimationManager.instance.RaiseCentrePartition(false);
+            //}
         }
     }
 }

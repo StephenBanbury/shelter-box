@@ -21,7 +21,8 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                 GameManager.instance.PersonalMessage(playerName);
 
-                AnimationManager.instance.OpenEntranceDoor("open");
+                //AnimationManager.instance.OpenEntranceDoor("open");
+                AnimationManager.instance.RaiseCentrePartition(true);
             }
         }
     }

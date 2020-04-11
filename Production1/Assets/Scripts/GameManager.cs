@@ -61,10 +61,10 @@ public class GameManager : MonoBehaviour
 
         HudOnOff(false);
 
-        AnimationManager.instance.ActivateMonitor("monitor1", "close");
-        AnimationManager.instance.ActivateMonitor("monitor2", "close");
-        AnimationManager.instance.ActivateMonitor("monitor3", "close");
-        AnimationManager.instance.ActivateMonitor("monitor4", "close");
+        AnimationManager.instance.ActivateMonitor("monitor1", false);
+        AnimationManager.instance.ActivateMonitor("monitor2", false);
+        AnimationManager.instance.ActivateMonitor("monitor3", false);
+        AnimationManager.instance.ActivateMonitor("monitor4", false);
 
         StartCountdown();
 
