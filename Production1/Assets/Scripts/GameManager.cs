@@ -60,7 +60,12 @@ public class GameManager : MonoBehaviour
         audioSource3 = audioSources[2];
 
         HudOnOff(false);
-        
+
+        AnimationManager.instance.ActivateMonitor("monitor1", "close");
+        //AnimationManager.instance.ActivateMonitor("monitor2", "close");
+        //AnimationManager.instance.ActivateMonitor("monitor3", "close");
+        //AnimationManager.instance.ActivateMonitor("monitor4", "close");
+
         StartCountdown();
 
         UpdateBudgetDisplay();

@@ -243,7 +243,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             // TODO or...
             AnimationManager.instance.ActivateMonitor(monitor, "close");
-            AnimationManager.instance.FadeMonitorText(false);
+            //AnimationManager.instance.FadeMonitorText(false);
 
         }
 
