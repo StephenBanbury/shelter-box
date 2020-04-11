@@ -84,8 +84,8 @@ namespace Com.MachineApps.PrepareAndDeploy
                 {
                     case "monitor1":
                         monitorTextFade.SetBool("text1FadeIn", false);
-                        //monitor1.SetBool("openMonitor", false);
-                        monitor1.SetBool("closeMonitor", true);
+                        monitor1.SetBool("openMonitor", false);
+                        //monitor1.SetBool("closeMonitor", true);
                         //monitorTextFade.SetBool("text1FadeOut", true);
                         break;
                     case "monitor2":
