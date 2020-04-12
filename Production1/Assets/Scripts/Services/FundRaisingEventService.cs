@@ -71,7 +71,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 {
                     Id = 4,
                     FundRaisingEventType = FundRaisingEventType.EveningDinner,
-                    Title = "London Triathlon 2020",
+                    Title = "London Triathlon",
                     SubTitle = "Sponsored competitors take part in London Triathlon",
                     Text = "Sponsored competitors take part in London Triathlon",
                     EventDate = DateTime.Parse("23/05/2020"),

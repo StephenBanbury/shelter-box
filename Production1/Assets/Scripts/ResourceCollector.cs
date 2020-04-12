@@ -123,14 +123,14 @@ namespace Com.MachineApps.PrepareAndDeploy
                         //Debug.Log($"Resource Cost: {resourceCost}");
                         GameManager.instance.ReduceBudget(resourceCost);
 
-                        var budgetRemaining = GameManager.instance.BudgetRemaining;
+                        //var budgetRemaining = GameManager.instance.BudgetRemaining;
 
-                        if (budgetRemaining <= 0)
-                        {
-                            // Let user now they need more funds
-                            Debug.Log("Budget has been used up!");
-                            noMoneyLeft = true;
-                        }
+                        //if (budgetRemaining <= 0)
+                        //{
+                        //    // Let user now they need more funds
+                        //    Debug.Log("Budget has been used up!");
+                        //    noMoneyLeft = true;
+                        //}
 
                         ReportsManager.instance.AssignReportsToMonitors();
 
@@ -159,13 +159,13 @@ namespace Com.MachineApps.PrepareAndDeploy
                             audioSource1.Play(); // In this instance this is audio source component of the current Box GameObject
                         }
 
-                        if (noMoneyLeft)
-                        {
-                            GameManager.instance.HudMessage(
-                                $"I'm sorry, {currentPlayer.PlayerName}, there is no money left! Why not stage a fundraising event to increase your available funds.",
-                                10);
-                            GameManager.instance.PlayAudio("noMoneyLeft");
-                        }
+                        //if (noMoneyLeft)
+                        //{
+                        //    GameManager.instance.HudMessage(
+                        //        $"I'm sorry, {currentPlayer.PlayerName}, there is no money left! Why not stage a fundraising event to increase your available funds.",
+                        //        10);
+                        //    GameManager.instance.PlayAudio("noMoneyLeft");
+                        //}
 
                         break;
                 }

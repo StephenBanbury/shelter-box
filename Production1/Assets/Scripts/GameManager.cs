@@ -277,7 +277,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateBudgetDisplay()
     {
-        BudgetMeter.text = $"{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture)}";
+        BudgetMeter.text = $"{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "")}";
     }
 
     public void ReduceBudget(int value)

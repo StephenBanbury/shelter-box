@@ -17,7 +17,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             var used = FundRaisingEventManager.instance.numberOfEventsUsed;
             var allowed = FundRaisingEventManager.instance.numberOfEventsAllowed;
 
-            Debug.Log($"numberOfEventsAllowed: {allowed}, numberOfEventsUsed: {used}");
+            //Debug.Log($"numberOfEventsAllowed: {allowed}, numberOfEventsUsed: {used}");
 
             if (other.CompareTag("Hand") && !processingFundingEvent && used <= allowed)
             {

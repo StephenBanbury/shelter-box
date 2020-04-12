@@ -16,7 +16,6 @@ namespace Com.MachineApps.PrepareAndDeploy
             Debug.Log($"GrabEvent: {gameObject.name} grabbed by {hand.name}");
 
             var currentPlayer = PlayerManager.instance.GetCurrentPlayer();
-
             var resourceManager = gameObject.GetComponent<ResourceManager>();
             var myResourceId = resourceManager.myResourceId;
             var resourceCost = GameManager.instance.GetResourceCost((Resource)myResourceId);
@@ -28,7 +27,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 GameManager.instance.PlayAudio("notEnoughMoneyLeft");
                 OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);
             }
-            else if (budgetRemaining <= 0)
+            else if (budgetRemaining <= 0) // Shouldn't get to this point
             {
                 GameManager.instance.HudMessage($"I'm sorry, {currentPlayer.PlayerName}, there is not enough money left!", 3);
                 OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Com.MachineApps.PrepareAndDeploy.Models;
 using Com.MachineApps.PrepareAndDeploy.Services;
@@ -63,8 +64,12 @@ namespace Com.MachineApps.PrepareAndDeploy
         public FundRaisingEvent NextEvent()
         {
             var currentEvent = GetRandomEvent();
-            computerText.text = currentEvent.Title + "\r\n" + currentEvent.SubTitle;
-            currentEventId = currentEvent.Id;
+            computerText.text = currentEvent.Title + "\n\n" +
+                                currentEvent.SubTitle + "\n\n" +
+                                "Estimated funds raised: " + currentEvent.EstimatedFundsRaised.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "") + "\n\n" +
+                                "Number of possible events remaining: " + (numberOfEventsAllowed - numberOfEventsUsed);
+
+                                currentEventId = currentEvent.Id;
             return currentEvent;
         }
 
