@@ -17,57 +17,43 @@ namespace Com.MachineApps.PrepareAndDeploy
     public class ReportsManager : MonoBehaviour
     {
         public static ReportsManager instance;
+
+        [SerializeField] private GameObject monitor1;
+        [SerializeField] private GameObject monitor2;
+        [SerializeField] private GameObject monitor3;
+        [SerializeField] private GameObject monitor4;
+
+        [SerializeField] private Text monitor1aText;
+        [SerializeField] private Text monitor2aText;
+        [SerializeField] private Text monitor3aText;
+        [SerializeField] private Text monitor4aText;
+        [SerializeField] private Text monitor1bText;
+        [SerializeField] private Text monitor2bText;
+        [SerializeField] private Text monitor3bText;
+        [SerializeField] private Text monitor4bText;
+        [SerializeField] private Text monitor1cText;
+        [SerializeField] private Text monitor2cText;
+        [SerializeField] private Text monitor3cText;
+        [SerializeField] private Text monitor4cText;
+
+        [SerializeField] private VideoPlayer video1;
+        [SerializeField] private VideoPlayer video2;
+        [SerializeField] private VideoPlayer video3;
+        [SerializeField] private VideoPlayer video4;
+
         public static List<Report> reports;
-
-        public GameObject monitor1;
-        public GameObject monitor2;
-        public GameObject monitor3;
-        public GameObject monitor4;
-
-        //[SerializeField]
-        public Text monitor1aText;
-        //[SerializeField]
-        public Text monitor2aText;
-        //[SerializeField]
-        public Text monitor3aText;
-        //[SerializeField]
-        public Text monitor4aText;
-        //[SerializeField]
-        public Text monitor1bText;
-        //[SerializeField]
-        public Text monitor2bText;
-        //[SerializeField]
-        public Text monitor3bText;
-        //[SerializeField]
-        public Text monitor4bText;
-        //[SerializeField]
-        public Text monitor1cText;
-        //[SerializeField]
-        public Text monitor2cText;
-        //[SerializeField]
-        public Text monitor3cText;
-        //[SerializeField]
-        public Text monitor4cText;
 
         public int reportId0 = 0;
         public int reportId1 = 1;
         public int reportId2 = 2;
         public int reportId3 = 3;
 
-        public VideoPlayer video1;
-        public VideoPlayer video2;
-        public VideoPlayer video3;
-        public VideoPlayer video4;
-
         private List<Report> usedReports = new List<Report>();
         private DateTime startDateTime = DateTime.UtcNow;
         private DateTime reviewDateTime;
         private int updateInterval = 15;
-
         private bool rotateReports = false;
-
         private Animation anim;
-
         private ReportService reportService = new ReportService();
 
         void Awake()

@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     public static DeploymentStatus deploymentStatus;
     public static bool countdownStarted;
 
-    public string playerName = "Stephen";
+    public string playerName;
 
     private static float hudDisplayTime;
     private bool updatingResourceCountdown;

@@ -48,8 +48,8 @@ namespace Com.MachineApps.PrepareAndDeploy
         void DetectHitOrMiss(Collider other)
         {
             string infoMessage = "";
-
             int reportId = 0;
+            var currentPlayer = PlayerManager.instance.GetCurrentPlayer();
 
             // Get suitable resources list from report object
             // First get report index of report currently associated with hit box
@@ -106,7 +106,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                         //Debug.Log("Resource already collected");
 
                         infoMessage =
-                            $"You have already collected {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
+                            $"{currentPlayer.PlayerName}, you have already collected {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
                         audioSource2.Play();
                         break;
 
@@ -144,7 +144,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                             Debug.Log($"All resources collected for reportId {reportId}");
 
-                            infoMessage = "Congratulations! You have collected everything.";
+                            infoMessage = $"Congratulations {currentPlayer.PlayerName}! You have collected everything!";
 
                             ReportsManager.instance.DisasterScenarioDeployed(reportId);
 
@@ -161,7 +161,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                         if (noMoneyLeft)
                         {
                             GameManager.instance.HudMessage(
-                                "You have used your entire budget! Stage a fundraising event to increase your available funds.",
+                                $"{currentPlayer.PlayerName}, you have used your entire budget! Stage a fundraising event to increase your available funds.",
                                 10);
                         }
 

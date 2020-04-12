@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Oculus.Platform.Samples.VrHoops;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Com.MachineApps.PrepareAndDeploy
@@ -18,6 +19,10 @@ namespace Com.MachineApps.PrepareAndDeploy
                 var slate = GameObject.Find("Slate");
                 Destroy(slate);
                 Destroy(kb);
+
+                var newPlayer = PlayerManager.instance.NewPlayer(playerName);
+
+                Debug.Log($"Player: {newPlayer.PlayerName}, ID: {newPlayer.PlayerId}, Score: {newPlayer.CurrentScore}, Hi Score: {newPlayer.HighScore}.");
 
                 GameManager.instance.PersonalMessage(playerName);
 

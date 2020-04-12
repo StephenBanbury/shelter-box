@@ -2513,14 +2513,14 @@ MonoBehaviour:
   monitor2cText: {fileID: 954730758}
   monitor3cText: {fileID: 229509424}
   monitor4cText: {fileID: 651554229}
-  reportId0: 0
-  reportId1: 1
-  reportId2: 2
-  reportId3: 3
   video1: {fileID: 2106364842}
   video2: {fileID: 1653390935}
   video3: {fileID: 1829980808}
   video4: {fileID: 162296540}
+  reportId0: 0
+  reportId1: 1
+  reportId2: 2
+  reportId3: 3
 --- !u!81 &187238240
 AudioListener:
   m_ObjectHideFlags: 0
@@ -5912,6 +5912,49 @@ PrefabInstance:
       objectReference: {fileID: 128735268}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d3a7330a4e71da48b79d084da9da3dd, type: 3}
+--- !u!1 &532159142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 532159144}
+  - component: {fileID: 532159143}
+  m_Layer: 0
+  m_Name: PlayerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &532159143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532159142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85060c1f9967d5045a7f86269f04b631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &532159144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532159142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.4589744, y: 3.106513, z: -4.4144597}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &544434865
 Mesh:
   m_ObjectHideFlags: 0
@@ -27867,7 +27910,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1910980958
 Transform:
   m_ObjectHideFlags: 0
