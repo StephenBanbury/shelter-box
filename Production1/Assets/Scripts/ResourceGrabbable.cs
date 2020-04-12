@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Com.MachineApps.PrepareAndDeploy.Enums;
+using UnityEngine;
 
 namespace Com.MachineApps.PrepareAndDeploy
 {
@@ -12,9 +13,24 @@ namespace Com.MachineApps.PrepareAndDeploy
         /// </summary>
         public override void GrabBegin(OVRGrabber hand, Collider grabPoint)
         {
-            if (GameManager.instance.BudgetRemaining <= 0)
+            Debug.Log($"GrabEvent: {gameObject.name} grabbed by {hand.name}");
+
+            var currentPlayer = PlayerManager.instance.GetCurrentPlayer();
+
+            var resourceManager = gameObject.GetComponent<ResourceManager>();
+            var myResourceId = resourceManager.myResourceId;
+            var resourceCost = GameManager.instance.GetResourceCost((Resource)myResourceId);
+            var budgetRemaining = GameManager.instance.BudgetRemaining;
+
+            if (budgetRemaining - resourceCost < 0)
             {
-                GameManager.instance.HudMessage("You do not have any funds left!", 3);
+                GameManager.instance.HudMessage($"I'm sorry, {currentPlayer.PlayerName}, there is not enough money left to deploy this item! Why not stage a fund-raising event to increase your available funds.", 3);
+                GameManager.instance.PlayAudio("notEnoughMoneyLeft");
+                OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);
+            }
+            else if (budgetRemaining <= 0)
+            {
+                GameManager.instance.HudMessage($"I'm sorry, {currentPlayer.PlayerName}, there is not enough money left!", 3);
                 OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);
             }
             else
@@ -23,13 +39,9 @@ namespace Com.MachineApps.PrepareAndDeploy
                 m_grabbedCollider = grabPoint;
                 gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
-                //Debug.Log($"GrabEvent: {gameObject.name} grabbed by {hand.name}");
-
-                var resourceManager = gameObject.GetComponent<ResourceManager>();
                 resourceManager.Grabbed(true);
 
                 VibrationManager.instance.TriggerVibration(40, 2, 255, OVRInput.Controller.RTouch);
-
             }
         }
 

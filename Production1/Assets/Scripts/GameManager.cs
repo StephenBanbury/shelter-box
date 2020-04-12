@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("Initial countdown setting for resource objects (seconds)")]
     public float initialResourceObjectCountdown;
 
-    [SerializeField] private GameObject entrance;
+    //[SerializeField] private GameObject entrance;
 
     public int BudgetRemaining = 1000;
     public Text BudgetMeter;
@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
     private AudioSource gong;
     private AudioSource noMoneyLeft;
     private AudioSource successfulDeployment;
+    private AudioSource notEnoughMoneyLeft;
     private Scene scene;
 
     void Start()
@@ -57,11 +58,13 @@ public class GameManager : MonoBehaviour
         scene = SceneManager.GetActiveScene();
 
         AudioSource[] audioSources = GetComponents<AudioSource>();
+
         horn = audioSources[0];
         squelchbeep = audioSources[1];
         gong = audioSources[2];
         noMoneyLeft = audioSources[3];
-        successfulDeployment = audioSources[4];
+        notEnoughMoneyLeft = audioSources[4];
+        successfulDeployment = audioSources[5];
 
         HudOnOff(false);
 
@@ -144,6 +147,9 @@ public class GameManager : MonoBehaviour
     {
         switch (audioFile)
         {
+            case "notEnoughMoneyLeft":
+                notEnoughMoneyLeft.Play();
+                break;
             case "noMoneyLeft":
                 noMoneyLeft.Play();
                 break;
