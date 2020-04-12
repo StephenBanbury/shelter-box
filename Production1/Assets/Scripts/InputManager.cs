@@ -15,7 +15,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             if (playerName != string.Empty)
             {
-                var kb = GameObject.Find("FormKeyboard-L1");
+                var kb = GameObject.Find("InputKeyboard");
                 var slate = GameObject.Find("Slate");
                 Destroy(slate);
                 Destroy(kb);

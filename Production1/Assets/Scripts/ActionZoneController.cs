@@ -36,10 +36,10 @@ namespace Com.MachineApps.PrepareAndDeploy
                 {
                     Debug.Log("Outside Action Zone");
 
-                    AnimationManager.instance.ActivateMonitor("monitor1", false);
-                    AnimationManager.instance.ActivateMonitor("monitor2", false);
-                    AnimationManager.instance.ActivateMonitor("monitor3", false);
-                    AnimationManager.instance.ActivateMonitor("monitor4", false);
+                    //AnimationManager.instance.ActivateMonitor("monitor1", false);
+                    //AnimationManager.instance.ActivateMonitor("monitor2", false);
+                    //AnimationManager.instance.ActivateMonitor("monitor3", false);
+                    //AnimationManager.instance.ActivateMonitor("monitor4", false);
 
                     GameManager.instance.HudOnOff(false);
                 }

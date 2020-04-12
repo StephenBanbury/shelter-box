@@ -54,7 +54,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             // Get suitable resources list from report object
             // First get report index of report currently associated with hit box
 
-            //Debug.Log($"transform.parent.name: {transform.parent.name}");
+            Debug.Log($"transform.parent.name: {transform.parent.name}");
 
             BoxMessage1Text.text = "";
             BoxMessage2Text.text = "";
@@ -119,19 +119,20 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         // Here we need to reduce the budget by the cost of the resource
                         var resourceCost = GameManager.instance.GetResourceCost((Resource) myResourceId);
+
+                        //Debug.Log($"Resource Cost: {resourceCost}");
+                        GameManager.instance.ReduceBudget(resourceCost);
+
                         var budgetRemaining = GameManager.instance.BudgetRemaining;
 
-                        if (budgetRemaining - resourceCost <= 0)
+                        if (budgetRemaining <= 0)
                         {
                             // Let user now they need more funds
                             Debug.Log("Budget has been used up!");
                             noMoneyLeft = true;
                         }
 
-                        //Debug.Log($"Resource Cost: {resourceCost}");
-                        GameManager.instance.ReduceBudget(resourceCost);
                         ReportsManager.instance.AssignReportsToMonitors();
-
 
                         // Have all resources been collected?
                         var numberRequired = ReportsManager.instance.RequiredResources(reportId).Length;
@@ -144,11 +145,11 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                             Debug.Log($"All resources collected for reportId {reportId}");
 
-                            infoMessage = $"Congratulations {currentPlayer.PlayerName}! You have collected everything!";
+                            infoMessage = $"Thank you so much, {currentPlayer.PlayerName}! This deployment has been a success!";
 
                             ReportsManager.instance.DisasterScenarioDeployed(reportId);
 
-                            audioSource3.Play();
+                            GameManager.instance.PlayAudio("successfulDeployment");
                         }
                         else
                         {
@@ -161,8 +162,9 @@ namespace Com.MachineApps.PrepareAndDeploy
                         if (noMoneyLeft)
                         {
                             GameManager.instance.HudMessage(
-                                $"{currentPlayer.PlayerName}, you have used your entire budget! Stage a fundraising event to increase your available funds.",
+                                $"I'm sorry, {currentPlayer.PlayerName}, there is no money left! Why not stage a fundraising event to increase your available funds.",
                                 10);
+                            GameManager.instance.PlayAudio("noMoneyLeft");
                         }
 
                         break;

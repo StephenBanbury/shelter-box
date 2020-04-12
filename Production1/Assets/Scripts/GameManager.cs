@@ -45,9 +45,11 @@ public class GameManager : MonoBehaviour
     private bool updatingResourceCountdown;
     private bool updatingFundRaisingEvent;
 
-    private AudioSource audioSource1;
-    private AudioSource audioSource2;
-    private AudioSource audioSource3;
+    private AudioSource horn;
+    private AudioSource squelchbeep;
+    private AudioSource gong;
+    private AudioSource noMoneyLeft;
+    private AudioSource successfulDeployment;
     private Scene scene;
 
     void Start()
@@ -55,9 +57,11 @@ public class GameManager : MonoBehaviour
         scene = SceneManager.GetActiveScene();
 
         AudioSource[] audioSources = GetComponents<AudioSource>();
-        audioSource1 = audioSources[0];
-        audioSource2 = audioSources[1];
-        audioSource3 = audioSources[2];
+        horn = audioSources[0];
+        squelchbeep = audioSources[1];
+        gong = audioSources[2];
+        noMoneyLeft = audioSources[3];
+        successfulDeployment = audioSources[4];
 
         HudOnOff(false);
 
@@ -134,6 +138,19 @@ public class GameManager : MonoBehaviour
     public DeploymentStatus GetDeploymentStatus()
     {
         return deploymentStatus;
+    }
+
+    public void PlayAudio(string audioFile)
+    {
+        switch (audioFile)
+        {
+            case "noMoneyLeft":
+                noMoneyLeft.Play();
+                break;
+            case "successfulDeployment":
+                successfulDeployment.Play();
+                break;
+        }
     }
 
     public void HudMessage(string messageText, int displayTimeSeconds)
