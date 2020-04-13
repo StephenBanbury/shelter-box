@@ -48,7 +48,13 @@ namespace Com.MachineApps.PrepareAndDeploy
             audio1.Play(); // TODO different sound
 
             // TODO pseudo random value
-            var amountMade = fundRaisingEvent.EstimatedFundsRaised;
+            var estimated = fundRaisingEvent.EstimatedFundsRaised;
+
+            var rand = Random.Range(-estimated/3, estimated/3);
+
+            var amountMade = estimated + rand;
+
+            Debug.Log($"Estimated: {estimated}, Random: {rand}, Amount made: {amountMade}");
 
             GameManager.instance.IncreaseBudget(amountMade);
             GameManager.instance.UpdateBudgetDisplay();
