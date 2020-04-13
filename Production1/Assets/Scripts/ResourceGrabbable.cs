@@ -23,13 +23,13 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             if (budgetRemaining - resourceCost < 0)
             {
-                GameManager.instance.HudMessage($"I'm sorry, {currentPlayer.PlayerName}, there is not enough money left to deploy this item! Why not stage a fund-raising event to increase your available funds.", 3);
+                GameManager.instance.HudMessage($"I'm sorry, {currentPlayer.PlayerName}, there is not enough money left! Why not stage a fund-raising event?", 5);
                 GameManager.instance.PlayAudio("notEnoughMoneyLeft");
                 OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);
             }
             else if (budgetRemaining <= 0) // Shouldn't get to this point
             {
-                GameManager.instance.HudMessage($"I'm sorry, {currentPlayer.PlayerName}, there is not enough money left!", 3);
+                GameManager.instance.HudMessage($"I'm sorry, {currentPlayer.PlayerName}, there is not enough money left!", 5);
                 OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);
             }
             else

@@ -22,7 +22,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         {
             AudioSource[] audioSources = GetComponents<AudioSource>();
             audioSource1 = audioSources[0]; // Audio source = if this is a box then it's is a beep; if it's the floor then it's a thud
-            if (audioSources.Length > 1)
+            if (audioSources.Length > 2)
             {
                 audioSource2 = audioSources[1];
                 audioSource3 = audioSources[2];

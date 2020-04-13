@@ -59,6 +59,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         {
             usedFundRaisingEvents.Add(fundRaisingEvents.FirstOrDefault(e => e.Id == eventId));
             numberOfEventsUsed++;
+            GameManager.instance.UpdateFundingEventLives();
         }
 
         public FundRaisingEvent NextEvent()

@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Globalization;
+using Boo.Lang;
 using Com.MachineApps.PrepareAndDeploy;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using Com.MachineApps.PrepareAndDeploy.Services;
@@ -48,35 +49,11 @@ public class GameManager : MonoBehaviour
     private AudioSource horn;
     private AudioSource squelchbeep;
     private AudioSource gong;
-    private AudioSource noMoneyLeft;
     private AudioSource successfulDeployment;
     private AudioSource notEnoughMoneyLeft;
     private Scene scene;
 
-    void Start()
-    {
-        scene = SceneManager.GetActiveScene();
-
-        AudioSource[] audioSources = GetComponents<AudioSource>();
-
-        horn = audioSources[0];
-        squelchbeep = audioSources[1];
-        gong = audioSources[2];
-        noMoneyLeft = audioSources[3];
-        notEnoughMoneyLeft = audioSources[4];
-        successfulDeployment = audioSources[5];
-
-        HudOnOff(false);
-
-        AnimationManager.instance.ActivateMonitor("monitor1", false);
-        AnimationManager.instance.ActivateMonitor("monitor2", false);
-        AnimationManager.instance.ActivateMonitor("monitor3", false);
-        AnimationManager.instance.ActivateMonitor("monitor4", false);
-
-        StartCountdown();
-
-        UpdateBudgetDisplay();
-    }
+    private List<string> fundingEventLives;
 
     void Awake()
     {
@@ -96,6 +73,40 @@ public class GameManager : MonoBehaviour
 
         // don't destroy the object when changing scenes!
         DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
+    {
+        scene = SceneManager.GetActiveScene();
+
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+
+        horn = audioSources[0];
+        squelchbeep = audioSources[1];
+        gong = audioSources[2];
+        notEnoughMoneyLeft = audioSources[3];
+        successfulDeployment = audioSources[4];
+
+        fundingEventLives = new List<string>();
+        for (int i = 1; i <= FundRaisingEventManager.instance.numberOfEventsAllowed; i++)
+        {
+            fundingEventLives.Add($"Event{i}");
+        }
+
+        //Debug.Log(fundingEventLives);
+
+        HudOnOff(false);
+
+        AnimationManager.instance.ActivateMonitor("monitor1", false);
+        AnimationManager.instance.ActivateMonitor("monitor2", false);
+        AnimationManager.instance.ActivateMonitor("monitor3", false);
+        AnimationManager.instance.ActivateMonitor("monitor4", false);
+
+        StartCountdown();
+
+        UpdateBudgetDisplay();
+
+        UpdateFundingEventLives();
     }
 
     void FixedUpdate()
@@ -150,9 +161,6 @@ public class GameManager : MonoBehaviour
             case "notEnoughMoneyLeft":
                 notEnoughMoneyLeft.Play();
                 break;
-            case "noMoneyLeft":
-                noMoneyLeft.Play();
-                break;
             case "successfulDeployment":
                 successfulDeployment.Play();
                 break;
@@ -176,52 +184,23 @@ public class GameManager : MonoBehaviour
         personalMessage.text = message;
     }
 
-    //public void UpdateDeploymentStatus(int alterStatusBy)
-    //{
-    //    deploymentStatus = deploymentStatus + alterStatusBy;
-    //    //deploymentStatusText.text = $"Deployment status: {Regex.Replace((deploymentStatus).ToString(), "(\\B[A-Z])", " $1")}";
+    public void UpdateFundingEventLives()
+    {
+        var numberOfEventLivesLeft = 
+            FundRaisingEventManager.instance.numberOfEventsAllowed - FundRaisingEventManager.instance.numberOfEventsUsed;
 
-    //    var redLight = GameObject.Find("TrafficLightRed");
-    //    var amberLight = GameObject.Find("TrafficLightAmber");
-    //    var greenLight = GameObject.Find("TrafficLightGreen");
+        for (int i = 1; i <= fundingEventLives.Count; i++)
+        {
+            Debug.Log($"fundingEventLives: {fundingEventLives[i-1]}");
 
-    //    switch (deploymentStatus)
-    //    {
-    //        case DeploymentStatus.Red:
+            var lifeObject = GameObject.Find(fundingEventLives[i-1]);
+            var lifeObjectColor = i <= numberOfEventLivesLeft ? new Color(255, 0, 0, 255) : new Color(0, 110, 10, 255);
 
-    //            redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
+            lifeObject.GetComponent<Renderer>().material.color = lifeObjectColor;
+        }
 
-    //            deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to the Shelter Box building and assign deployment resources.";
-    //            HudMessage($"Status {deploymentStatus.ToString()}: Go to Shelter Box building and assign deployment resources.", 10);
+    }
 
-    //            break;
-
-    //        case DeploymentStatus.Amber:
-
-    //            redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
-    //            amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
-
-    //            audioSource2.Play();
-
-    //            deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.";
-    //            HudMessage($"Status {deploymentStatus.ToString()}: Now collect your personal checklist items.", 10);
-
-    //            break;
-
-    //        case DeploymentStatus.Green:
-
-    //            redLight.GetComponent<Renderer>().material.color = new Color(255, 0, 0, 255);
-    //            amberLight.GetComponent<Renderer>().material.color = new Color(248, 128, 0, 255);
-    //            greenLight.GetComponent<Renderer>().material.color = new Color(0, 110, 10, 255);
-
-    //            audioSource1.Play();
-
-    //            deploymentStatusText.text = $"Status {deploymentStatus.ToString()}: Go to airport!";
-    //            HudMessage($"{deploymentStatus.ToString()}: Go to airport!", 10);
-
-    //            break;
-    //    }
-    //}
 
     //public void GameOver()
     //{
@@ -277,7 +256,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateBudgetDisplay()
     {
-        BudgetMeter.text = $"Remaining: {BudgetRemaining.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "")}";
+        BudgetMeter.text = $"Remaining\n{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "")}";
     }
 
     public void ReduceBudget(int value)

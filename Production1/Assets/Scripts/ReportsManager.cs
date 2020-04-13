@@ -89,7 +89,6 @@ namespace Com.MachineApps.PrepareAndDeploy
                     randomReportIndexes.Add((randomIndex));
                     var usedReport = reports.FirstOrDefault(r => r.Id == randomIndex);
                     usedReports.Add(usedReport);
-                    //usedReportIds.Add(randomIndex);
                 }
             }
 

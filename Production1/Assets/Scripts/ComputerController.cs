@@ -34,7 +34,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             fundRaisingEvent = fundRaisingEvents.FirstOrDefault(e => e.Id == currentEventId);
 
-            GameManager.instance.HudMessage($"You selected {fundRaisingEvent.Title}", 4);
+            GameManager.instance.HudMessage($"You selected {fundRaisingEvent.Title}", 6);
 
             audio1 = GetComponent<AudioSource>();
             audio1.Play();
@@ -59,7 +59,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             GameManager.instance.IncreaseBudget(amountMade);
             GameManager.instance.UpdateBudgetDisplay();
 
-            GameManager.instance.HudMessage($"You made £{amountMade}!", 4);
+            GameManager.instance.HudMessage($"You made £{amountMade}!", 5);
 
             processingFundingEvent = false;
         }
