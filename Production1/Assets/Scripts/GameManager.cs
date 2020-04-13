@@ -6,6 +6,7 @@ using Boo.Lang;
 using Com.MachineApps.PrepareAndDeploy;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using Com.MachineApps.PrepareAndDeploy.Services;
+using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
@@ -29,6 +30,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text personalMessage;
 
     [SerializeField] private GameObject hudCanvas;
+
+    [SerializeField] private TMP_Text startButtonText;
 
     [Tooltip("Initial countdown setting for resource objects (seconds)")]
     public float initialResourceObjectCountdown;
@@ -115,6 +118,8 @@ public class GameManager : MonoBehaviour
         UpdateBudgetDisplay();
 
         UpdateFundingEventLives();
+
+        StartButtonText("Yes!\n Ready to help");
 
         StartCoroutine(WaitForGameStart(5));
     }
@@ -203,6 +208,11 @@ public class GameManager : MonoBehaviour
     {
         var message = $"Welcome {playerName}. \r\nThank you for your assistance.";
         personalMessage.text = message;
+    }
+
+    public void StartButtonText(string text)
+    {
+        startButtonText.text = text;
     }
 
     public void UpdateFundingEventLives()
@@ -309,11 +319,10 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WaitForGameStart(int secondsDelay)
     {
-
         yield return new WaitForSeconds(secondsDelay);
 
         PlayAudio("missionStatementPart1");
-
+        AnimationManager.instance.LowerStartButton(true);
     }
 
     #endregion

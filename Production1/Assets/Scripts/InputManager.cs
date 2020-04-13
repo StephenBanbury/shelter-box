@@ -11,7 +11,9 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public void OnStart()
         {
-            Debug.Log("Start game");
+            //Debug.Log("Start game");
+            AnimationManager.instance.OpenInputKeyboard(true);
+            GameManager.instance.StartButtonText("Please enter your name");
         }
 
         public void OnKeyEnter()
@@ -31,8 +33,11 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                 GameManager.instance.PersonalMessage(playerName);
 
-                //AnimationManager.instance.OpenEntranceDoor("open");
+                GameManager.instance.StartButtonText($"Thank you {playerName}");
+
                 AnimationManager.instance.RaiseCentrePartition(true);
+                AnimationManager.instance.LowerStartButton(false);
+                AnimationManager.instance.OpenInputKeyboard(false);
 
                 GameManager.instance.PlayAudio("missionStatementPart2");
             }

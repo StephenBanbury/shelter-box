@@ -8,12 +8,15 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private Animator monitor2;
         [SerializeField] private Animator monitor3;
         [SerializeField] private Animator monitor4;
+        [SerializeField] private Animator centrePerimeter;
+        [SerializeField] private Animator startButton;
+        [SerializeField] private Animator inputKeyboard;
 
         //[SerializeField] private Animation monitor1Text;
 
-        [SerializeField] private Animator entranceDoor;
+        //[SerializeField] private Animator entranceDoor;
 
-        [SerializeField] private Animator centrePerimeter;
+
 
         public static AnimationManager instance;
 
@@ -31,15 +34,21 @@ namespace Com.MachineApps.PrepareAndDeploy
             DontDestroyOnLoad(gameObject);
         }
 
-        public void OpenEntranceDoor(string action)
-        {
-                entranceDoor.SetBool(action, true);
-        }
-
         public void RaiseCentrePartition(bool raise)
         {
             Debug.Log("RaiseCentrePartition");
             centrePerimeter.SetBool("raise", raise);
+        }
+
+        public void LowerStartButton(bool lower)
+        {
+            Debug.Log("LowerStartButton");
+            startButton.SetBool("lower", lower);
+        }
+
+        public void OpenInputKeyboard(bool open)
+        {
+            inputKeyboard.SetBool("open", open);
         }
 
         public void ActivateMonitor(string monitor, bool activate)
