@@ -9,6 +9,11 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         [SerializeField] private InputField playerNameInputField;
 
+        public void OnStart()
+        {
+            Debug.Log("Start game");
+        }
+
         public void OnKeyEnter()
         {
             var playerName = playerNameInputField.text;
@@ -28,6 +33,8 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                 //AnimationManager.instance.OpenEntranceDoor("open");
                 AnimationManager.instance.RaiseCentrePartition(true);
+
+                GameManager.instance.PlayAudio("missionStatementPart2");
             }
         }
     }

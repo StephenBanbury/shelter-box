@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Welcome.unity
-    guid: 1444547ebb979054bae0484f90260012
+    path: Assets/Scenes/PrepRoom.unity
+    guid: d54b535233194bd4a9585224da3328de
   m_configObjects: {}

@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections;
 using System.Globalization;
 using Boo.Lang;
 using Com.MachineApps.PrepareAndDeploy;
@@ -51,6 +52,10 @@ public class GameManager : MonoBehaviour
     private AudioSource gong;
     private AudioSource successfulDeployment;
     private AudioSource notEnoughMoneyLeft;
+    private AudioSource missionStatementPart1;
+    private AudioSource missionStatementPart2;
+    private AudioSource useKeyboard;
+
     private Scene scene;
 
     private List<string> fundingEventLives;
@@ -84,8 +89,11 @@ public class GameManager : MonoBehaviour
         horn = audioSources[0];
         squelchbeep = audioSources[1];
         gong = audioSources[2];
-        notEnoughMoneyLeft = audioSources[3];
-        successfulDeployment = audioSources[4];
+        missionStatementPart2 = audioSources[3];
+        notEnoughMoneyLeft = audioSources[4];
+        successfulDeployment = audioSources[6];
+        missionStatementPart1 = audioSources[5];
+        useKeyboard = audioSources[6];
 
         fundingEventLives = new List<string>();
         for (int i = 1; i <= FundRaisingEventManager.instance.numberOfEventsAllowed; i++)
@@ -107,6 +115,8 @@ public class GameManager : MonoBehaviour
         UpdateBudgetDisplay();
 
         UpdateFundingEventLives();
+
+        StartCoroutine(WaitForGameStart(5));
     }
 
     void FixedUpdate()
@@ -164,8 +174,19 @@ public class GameManager : MonoBehaviour
             case "successfulDeployment":
                 successfulDeployment.Play();
                 break;
+            case "missionStatementPart1":
+                missionStatementPart1.Play();
+                break;
+            case "missionStatementPart2":
+                missionStatementPart2.Play();
+                break;
+            case "useKeyboard":
+                useKeyboard.Play();
+                break;
         }
     }
+
+    
 
     public void HudMessage(string messageText, int displayTimeSeconds)
     {
@@ -286,6 +307,14 @@ public class GameManager : MonoBehaviour
 
     #region Private methods
 
+    private IEnumerator WaitForGameStart(int secondsDelay)
+    {
+
+        yield return new WaitForSeconds(secondsDelay);
+
+        PlayAudio("missionStatementPart1");
+
+    }
 
     #endregion
 
