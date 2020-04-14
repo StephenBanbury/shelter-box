@@ -11,12 +11,11 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private Animator centrePerimeter;
         [SerializeField] private Animator startButton;
         [SerializeField] private Animator inputKeyboard;
+        [SerializeField] private Animator fadeFireCurtain;
 
         //[SerializeField] private Animation monitor1Text;
 
         //[SerializeField] private Animator entranceDoor;
-
-
 
         public static AnimationManager instance;
 
@@ -34,20 +33,27 @@ namespace Com.MachineApps.PrepareAndDeploy
             DontDestroyOnLoad(gameObject);
         }
 
+        public void FadeFireCurtain(bool fadeOut)
+        {
+            Debug.Log($"FadeFireCurtain{fadeOut}");
+            fadeFireCurtain.SetBool("fadeOut", fadeOut);
+        }
+
         public void RaiseCentrePartition(bool raise)
         {
-            Debug.Log("RaiseCentrePartition");
+            Debug.Log($"RaiseCentrePartition{raise}");
             centrePerimeter.SetBool("raise", raise);
         }
 
         public void LowerStartButton(bool lower)
         {
-            Debug.Log("LowerStartButton");
+            Debug.Log($"LowerStartButton: {lower}");
             startButton.SetBool("lower", lower);
         }
 
         public void OpenInputKeyboard(bool open)
         {
+            Debug.Log($"OpenInputKeyboard: {open}");
             inputKeyboard.SetBool("open", open);
         }
 

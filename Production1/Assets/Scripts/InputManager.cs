@@ -1,4 +1,5 @@
-﻿using Oculus.Platform.Samples.VrHoops;
+﻿using System.Collections;
+using Oculus.Platform.Samples.VrHoops;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,11 +37,17 @@ namespace Com.MachineApps.PrepareAndDeploy
                 GameManager.instance.StartButtonText($"Thank you {playerName}");
 
                 AnimationManager.instance.RaiseCentrePartition(true);
-                AnimationManager.instance.LowerStartButton(false);
                 AnimationManager.instance.OpenInputKeyboard(false);
-
                 GameManager.instance.PlayAudio("missionStatementPart2");
+
+                StartCoroutine(RaiseButtonAfterMessageHasBeenRead(3));
             }
+        }
+
+        private IEnumerator RaiseButtonAfterMessageHasBeenRead(int secondsDelay)
+        {
+            yield return new WaitForSeconds(secondsDelay);
+            AnimationManager.instance.LowerStartButton(false);
         }
     }
 }

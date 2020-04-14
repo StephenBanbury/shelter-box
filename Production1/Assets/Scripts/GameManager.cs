@@ -319,9 +319,12 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WaitForGameStart(int secondsDelay)
     {
-        yield return new WaitForSeconds(secondsDelay);
 
+
+        yield return new WaitForSeconds(secondsDelay);
+        ;
         PlayAudio("missionStatementPart1");
+        AnimationManager.instance.FadeFireCurtain(true);
         AnimationManager.instance.LowerStartButton(true);
     }
 
