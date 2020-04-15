@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     //[SerializeField] private GameObject entrance;
 
     public int BudgetRemaining = 1000;
-    public Text BudgetMeter;
+    public TMP_Text BudgetMeter;
     private static float countdown;
     public static DeploymentStatus deploymentStatus;
     public static bool countdownStarted;
@@ -225,7 +225,7 @@ public class GameManager : MonoBehaviour
             Debug.Log($"fundingEventLives: {fundingEventLives[i-1]}");
 
             var lifeObject = GameObject.Find(fundingEventLives[i-1]);
-            var lifeObjectColor = i <= numberOfEventLivesLeft ? new Color(255, 0, 0, 255) : new Color(0, 110, 10, 255);
+            var lifeObjectColor = i <= numberOfEventLivesLeft ? new Color(13, 245, 191, 255) : new Color(195, 21, 5, 255);
 
             lifeObject.GetComponent<Renderer>().material.color = lifeObjectColor;
         }
@@ -322,7 +322,7 @@ public class GameManager : MonoBehaviour
 
 
         yield return new WaitForSeconds(secondsDelay);
-        ;
+        
         PlayAudio("missionStatementPart1");
         AnimationManager.instance.FadeFireCurtain(true);
         AnimationManager.instance.LowerStartButton(true);
