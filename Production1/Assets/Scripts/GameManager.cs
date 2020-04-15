@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
     private AudioSource missionStatementPart1;
     private AudioSource missionStatementPart2;
     private AudioSource useKeyboard;
+    private AudioSource backgroundNoise1;
 
     private Scene scene;
 
@@ -96,7 +97,8 @@ public class GameManager : MonoBehaviour
         notEnoughMoneyLeft = audioSources[4];
         successfulDeployment = audioSources[6];
         missionStatementPart1 = audioSources[5];
-        useKeyboard = audioSources[6];
+        useKeyboard = audioSources[7];
+        backgroundNoise1 = audioSources[8];
 
         fundingEventLives = new List<string>();
         for (int i = 1; i <= FundRaisingEventManager.instance.numberOfEventsAllowed; i++)
@@ -188,6 +190,11 @@ public class GameManager : MonoBehaviour
             case "useKeyboard":
                 useKeyboard.Play();
                 break;
+            case "backgroundNoise1":
+                backgroundNoise1.loop = true;
+                backgroundNoise1.volume = 0.2f;
+                backgroundNoise1.Play();
+                break;
         }
     }
 
@@ -225,7 +232,7 @@ public class GameManager : MonoBehaviour
             Debug.Log($"fundingEventLives: {fundingEventLives[i-1]}");
 
             var lifeObject = GameObject.Find(fundingEventLives[i-1]);
-            var lifeObjectColor = i <= numberOfEventLivesLeft ? new Color(13, 245, 191, 255) : new Color(195, 21, 5, 255);
+            var lifeObjectColor = i <= numberOfEventLivesLeft ? new Color(255, 0, 0, 255) : new Color(190, 205, 207, 255);
 
             lifeObject.GetComponent<Renderer>().material.color = lifeObjectColor;
         }
@@ -319,7 +326,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WaitForGameStart(int secondsDelay)
     {
-
+        //PlayAudio("backgroundNoise1");
 
         yield return new WaitForSeconds(secondsDelay);
         
