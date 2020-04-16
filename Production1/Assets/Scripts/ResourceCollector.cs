@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using Com.MachineApps.PrepareAndDeploy.Enums;
+using Com.MachineApps.PrepareAndDeploy.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -88,12 +89,21 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                 var selectedIsRequiredResource = ReportsManager.instance.SelectedResourceIsRequired(reportId, myResourceId);
 
+
+                ScoreType scoreType = ScoreType.Unassigned;
+                var scoreService = new ScoreService();
+                int scoreValue;
+
                 switch (selectedIsRequiredResource)
                 {
                     // Resource not required
                     case TripleState.One:
 
                         //Debug.Log("Resource not required");
+
+                        scoreType = ScoreType.Unassigned;
+                        scoreValue = scoreService.GetScoreValue(scoreType);
+                        GameManager.instance.UpdateScore(scoreValue);
 
                         infoMessage =
                             $"{Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")} not required";
@@ -104,6 +114,10 @@ namespace Com.MachineApps.PrepareAndDeploy
                     case TripleState.Two:
 
                         //Debug.Log("Resource already collected");
+
+                        scoreType = ScoreType.ItemAlreadyAssigned;
+                        scoreValue = scoreService.GetScoreValue(scoreType);
+                        GameManager.instance.UpdateScore(scoreValue);
 
                         infoMessage =
                             $"{currentPlayer.PlayerName}, you have already collected {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
@@ -123,14 +137,9 @@ namespace Com.MachineApps.PrepareAndDeploy
                         //Debug.Log($"Resource Cost: {resourceCost}");
                         GameManager.instance.ReduceBudget(resourceCost);
 
-                        //var budgetRemaining = GameManager.instance.BudgetRemaining;
-
-                        //if (budgetRemaining <= 0)
-                        //{
-                        //    // Let user now they need more funds
-                        //    Debug.Log("Budget has been used up!");
-                        //    noMoneyLeft = true;
-                        //}
+                        scoreType = ScoreType.ItemAssigned;
+                        scoreValue = scoreService.GetScoreValue(scoreType);
+                        GameManager.instance.UpdateScore(scoreValue);
 
                         ReportsManager.instance.AssignReportsToMonitors();
 
@@ -142,6 +151,10 @@ namespace Com.MachineApps.PrepareAndDeploy
                         {
                             //ChangeMaterial(gameObject, 1);
                             //ChangeMaterial(gameObject.transform.GetChild(0).gameObject, 1);
+
+                            scoreType = ScoreType.DeploymentCompleted;
+                            scoreValue = scoreService.GetScoreValue(scoreType);
+                            GameManager.instance.UpdateScore(scoreValue);
 
                             Debug.Log($"All resources collected for reportId {reportId}");
 
@@ -158,14 +171,6 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                             audioSource1.Play(); // In this instance this is audio source component of the current Box GameObject
                         }
-
-                        //if (noMoneyLeft)
-                        //{
-                        //    GameManager.instance.HudMessage(
-                        //        $"I'm sorry, {currentPlayer.PlayerName}, there is no money left! Why not stage a fundraising event to increase your available funds.",
-                        //        10);
-                        //    GameManager.instance.PlayAudio("noMoneyLeft");
-                        //}
 
                         break;
                 }

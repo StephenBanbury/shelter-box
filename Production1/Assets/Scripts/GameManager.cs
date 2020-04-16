@@ -37,16 +37,17 @@ public class GameManager : MonoBehaviour
     public float initialResourceObjectCountdown;
 
     //[SerializeField] private GameObject entrance;
-
     public int BudgetRemaining = 1000;
     public TMP_Text BudgetMeter;
-    private static float countdown;
-    public static DeploymentStatus deploymentStatus;
+    public TMP_Text ScoreMeter;
+
+    // static DeploymentStatus deploymentStatus;
     public static bool countdownStarted;
 
     public string playerName;
 
     private static float hudDisplayTime;
+    private static float countdown;
     private bool updatingResourceCountdown;
     private bool updatingFundRaisingEvent;
 
@@ -61,8 +62,10 @@ public class GameManager : MonoBehaviour
     private AudioSource backgroundNoise1;
 
     private Scene scene;
-
+    
     private List<string> fundingEventLives;
+
+    private int score = 0;
 
     void Awake()
     {
@@ -149,7 +152,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+    
     public void StartCountdown()
     {
         countdown = (timeAllowed * 60);
@@ -166,10 +169,10 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    public DeploymentStatus GetDeploymentStatus()
-    {
-        return deploymentStatus;
-    }
+    //public DeploymentStatus GetDeploymentStatus()
+    //{
+    //    return deploymentStatus;
+    //}
 
     public void PlayAudio(string audioFile)
     {
@@ -309,6 +312,18 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Increase budget by: {value}");
         BudgetRemaining += value;
         UpdateBudgetDisplay();
+    }
+
+    private void UpdateScoreDisplay()
+    {
+        ScoreMeter.text = score.ToString();
+    }
+
+    public void UpdateScore(int value)
+    {
+        Debug.Log($"Update score by: {value}");
+        score += value;
+        UpdateScoreDisplay();
     }
 
     public int GetResourceCost(Resource resource)

@@ -20,22 +20,13 @@
         CoffeeMorning = 2,
         EveningDinner = 3,
         SponsoredEvent = 4,
-        Donation = 5
+        Donation = 5,
+        Festival = 6,
+        TrainingEvent = 7,
+        Conference = 8
     }
 
-    public enum CheckListItem
-    {
-        None = 0,
-        Passport = 1,
-        Visa = 2,
-        Vaccinations = 3,
-        FirstAidKit = 4,
-        MobilePhone = 5,
-        BatteryCharger = 6,
-        SunBlock = 7
-    }
-
-    public enum DeploymentStatus
+    public enum FundLevel
     {
         Red = 0,
         Amber = 1, 
@@ -47,5 +38,20 @@
         One = 1,
         Two = 2,
         Three = 3
+    }
+
+    public enum ScoreType
+    {
+        Unassigned = 0,
+        ResetScore = 1,
+        LosePoints = 2,
+        GainPoints = 3,
+        ItemAssigned = 4,
+        DeploymentCompleted = 5,
+        FundsRaised = 6,
+        ItemDropped = 7,
+        IncorrectItemAssigned = 8,
+        ItemAlreadyAssigned = 9,
+        BalanceIntoRed = 10
     }
 }

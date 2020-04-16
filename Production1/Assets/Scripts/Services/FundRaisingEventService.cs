@@ -60,7 +60,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new FundRaisingEvent
                 {
                     Id = 3,
-                    FundRaisingEventType = FundRaisingEventType.EveningDinner,
+                    FundRaisingEventType = FundRaisingEventType.SponsoredEvent,
                     Title = "Shine Event Bedruthan Hotel",
                     SubTitle = "Charity donating event",
                     Text = "Charity donating event",
@@ -70,7 +70,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new FundRaisingEvent
                 {
                     Id = 4,
-                    FundRaisingEventType = FundRaisingEventType.EveningDinner,
+                    FundRaisingEventType = FundRaisingEventType.SponsoredEvent,
                     Title = "London Triathlon",
                     SubTitle = "Sponsored competitors take part in London Triathlon",
                     Text = "Sponsored competitors take part in London Triathlon",
@@ -80,7 +80,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new FundRaisingEvent
                 {
                     Id = 5,
-                    FundRaisingEventType = FundRaisingEventType.EveningDinner,
+                    FundRaisingEventType = FundRaisingEventType.Festival,
                     Title = "WOMAD",
                     SubTitle = "Fundraising at WOMAD festival",
                     Text = "Fundraising at WOMAD festival",
@@ -90,7 +90,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new FundRaisingEvent
                 {
                     Id = 6,
-                    FundRaisingEventType = FundRaisingEventType.EveningDinner,
+                    FundRaisingEventType = FundRaisingEventType.Exhibition,
                     Title = "Hope & Strength Exhibition ",
                     SubTitle = "Display at Hope & Strength Exhibition",
                     Text = "Display at Hope & Strength Exhibition",
@@ -100,7 +100,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new FundRaisingEvent
                 {
                     Id = 7,
-                    FundRaisingEventType = FundRaisingEventType.EveningDinner,
+                    FundRaisingEventType = FundRaisingEventType.TrainingEvent,
                     Title = "Corporate Training",
                     SubTitle = "Sponsored corporate training event",
                     Text = "Sponsored corporate training event",
@@ -110,7 +110,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new FundRaisingEvent
                 {
                     Id = 8,
-                    FundRaisingEventType = FundRaisingEventType.EveningDinner,
+                    FundRaisingEventType = FundRaisingEventType.Donation,
                     Title = "Major Donors Fundraising Event",
                     SubTitle = "Major donors donate",
                     Text = "Major donors donate",
@@ -120,7 +120,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new FundRaisingEvent
                 {
                     Id = 9,
-                    FundRaisingEventType = FundRaisingEventType.EveningDinner,
+                    FundRaisingEventType = FundRaisingEventType.Donation,
                     Title = "Rotary Convention",
                     SubTitle = "Rotary International convention and fundraising event",
                     Text = "Rotary International convention and fundraising event",
@@ -130,7 +130,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new FundRaisingEvent
                 {
                     Id = 10,
-                    FundRaisingEventType = FundRaisingEventType.EveningDinner,
+                    FundRaisingEventType = FundRaisingEventType.Conference,
                     Title = "Affiliates Conference",
                     SubTitle = "Affiliates conference and fundraising event",
                     Text = "Affiliates conference and fundraising event",
@@ -140,7 +140,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new FundRaisingEvent
                 {
                     Id = 11,
-                    FundRaisingEventType = FundRaisingEventType.EveningDinner,
+                    FundRaisingEventType = FundRaisingEventType.SponsoredEvent,
                     Title = "Tent for Lent",
                     SubTitle = "Local social fundraising event",
                     Text = "Local social fundraising event",
