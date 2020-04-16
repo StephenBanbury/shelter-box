@@ -98,8 +98,8 @@ public class GameManager : MonoBehaviour
         gong = audioSources[2];
         missionStatementPart2 = audioSources[3];
         notEnoughMoneyLeft = audioSources[4];
-        successfulDeployment = audioSources[6];
         missionStatementPart1 = audioSources[5];
+        successfulDeployment = audioSources[6];
         useKeyboard = audioSources[7];
         backgroundNoise1 = audioSources[8];
 

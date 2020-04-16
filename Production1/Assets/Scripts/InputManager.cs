@@ -21,7 +21,8 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public void OnEngage()
         {
-            //Debug.Log("Start game");
+            //Debug.Log("Start game
+            GameManager.instance.PlayAudio("useKeyboard");
             AnimationManager.instance.OpenInputKeyboard(true);
             GameManager.instance.StartButtonText("Please enter your name");
         }
