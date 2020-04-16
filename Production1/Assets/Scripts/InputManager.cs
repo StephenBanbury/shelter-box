@@ -7,10 +7,19 @@ namespace Com.MachineApps.PrepareAndDeploy
 {
     public class InputManager : MonoBehaviour
     {
-
         [SerializeField] private InputField playerNameInputField;
 
-        public void OnStart()
+        public void OnPlay()
+        {
+            AnimationManager.instance.FadeOutPlayButton(true);
+            AnimationManager.instance.OpenFrontOuterWall(true);
+            AnimationManager.instance.FadeFireCurtain(true);
+            AnimationManager.instance.LowerStartButton(true);
+
+            GameManager.instance.PlayAudio("missionStatementPart1");
+        }
+
+        public void OnEngage()
         {
             //Debug.Log("Start game");
             AnimationManager.instance.OpenInputKeyboard(true);

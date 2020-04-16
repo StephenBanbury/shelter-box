@@ -50,7 +50,7 @@
         DeploymentCompleted = 5,
         FundsRaised = 6,
         ItemDropped = 7,
-        IncorrectItemAssigned = 8,
+        ItemNotRequired = 8,
         ItemAlreadyAssigned = 9,
         BalanceIntoRed = 10
     }

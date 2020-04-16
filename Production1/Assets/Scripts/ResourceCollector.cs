@@ -101,7 +101,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         //Debug.Log("Resource not required");
 
-                        scoreType = ScoreType.Unassigned;
+                        scoreType = ScoreType.ItemNotRequired;
                         scoreValue = scoreService.GetScoreValue(scoreType);
                         GameManager.instance.UpdateScore(scoreValue);
 

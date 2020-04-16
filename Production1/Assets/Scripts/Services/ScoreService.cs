@@ -21,7 +21,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
             returnScoreDictionary.Add(ScoreType.ItemAssigned, 200);
             returnScoreDictionary.Add(ScoreType.DeploymentCompleted, 1000);
             returnScoreDictionary.Add(ScoreType.ItemDropped, -50);
-            returnScoreDictionary.Add(ScoreType.IncorrectItemAssigned, -50);
+            returnScoreDictionary.Add(ScoreType.ItemNotRequired, -50);
             returnScoreDictionary.Add(ScoreType.ItemAlreadyAssigned, -50);
             returnScoreDictionary.Add(ScoreType.BalanceIntoRed, -100);
 

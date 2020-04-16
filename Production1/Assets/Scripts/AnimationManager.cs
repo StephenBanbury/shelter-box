@@ -12,6 +12,8 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private Animator startButton;
         [SerializeField] private Animator inputKeyboard;
         [SerializeField] private Animator fadeFireCurtain;
+        [SerializeField] private Animator openFrontOuterWall;
+        [SerializeField] private Animator fadeOutPlayButton;
 
         //[SerializeField] private Animation monitor1Text;
 
@@ -31,6 +33,18 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
 
             DontDestroyOnLoad(gameObject);
+        }
+
+        public void FadeOutPlayButton(bool fadeOut)
+        {
+            Debug.Log($"FadeOutPlayButton{fadeOut}");
+            fadeOutPlayButton.SetBool("fadeOut", fadeOut);
+        }
+
+        public void OpenFrontOuterWall(bool open)
+        {
+            Debug.Log($"OpenFrontOuterWall{open}");
+            openFrontOuterWall.SetBool("open", open);
         }
 
         public void FadeFireCurtain(bool fadeOut)

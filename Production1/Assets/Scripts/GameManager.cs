@@ -124,9 +124,7 @@ public class GameManager : MonoBehaviour
 
         UpdateFundingEventLives();
 
-        StartButtonText("Yes!\n Ready to help");
-
-        StartCoroutine(WaitForGameStart(5));
+        //StartCoroutine(WaitForGameStart(5));
     }
 
     void FixedUpdate()
@@ -345,9 +343,9 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(secondsDelay);
         
-        PlayAudio("missionStatementPart1");
-        AnimationManager.instance.FadeFireCurtain(true);
-        AnimationManager.instance.LowerStartButton(true);
+        //PlayAudio("missionStatementPart1");
+        //AnimationManager.instance.FadeFireCurtain(true);
+        //AnimationManager.instance.LowerStartButton(true);
     }
 
     #endregion
