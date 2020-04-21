@@ -45,7 +45,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Mr and Mrs Simpson invite friends around for morning chat over a cup of coffee",
                     Text = "There will be games and newspapers",
                     EventDate = DateTime.Parse("01/04/2020"),
-                    EstimatedFundsRaised = 250
+                    EstimatedFundsRaised = 450
                 },
                 new FundRaisingEvent
                 {
@@ -55,7 +55,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Evening Dinner in a quaint country cottage",
                     Text = "Mr and Mrs Church will lavish their guests with Mr Churches special pasta bake!",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 450,
+                    EstimatedFundsRaised = 850,
                 },
                 new FundRaisingEvent
                 {
@@ -65,7 +65,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Charity donating event",
                     Text = "Charity donating event",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 2500,
+                    EstimatedFundsRaised = 3500,
                 },
                 new FundRaisingEvent
                 {
@@ -75,7 +75,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Sponsored competitors take part in London Triathlon",
                     Text = "Sponsored competitors take part in London Triathlon",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 2000,
+                    EstimatedFundsRaised = 4500,
                 },
                 new FundRaisingEvent
                 {
@@ -85,7 +85,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Fundraising at WOMAD festival",
                     Text = "Fundraising at WOMAD festival",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 2000,
+                    EstimatedFundsRaised = 4000,
                 },
                 new FundRaisingEvent
                 {
@@ -95,7 +95,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Display at Hope & Strength Exhibition",
                     Text = "Display at Hope & Strength Exhibition",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 900,
+                    EstimatedFundsRaised = 1400,
                 },
                 new FundRaisingEvent
                 {
@@ -105,7 +105,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Sponsored corporate training event",
                     Text = "Sponsored corporate training event",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 2100,
+                    EstimatedFundsRaised = 3100,
                 },
                 new FundRaisingEvent
                 {
@@ -115,7 +115,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Major donors donate",
                     Text = "Major donors donate",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 5000,
+                    EstimatedFundsRaised = 5600,
                 },
                 new FundRaisingEvent
                 {
@@ -125,7 +125,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Rotary International convention and fundraising event",
                     Text = "Rotary International convention and fundraising event",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 2500,
+                    EstimatedFundsRaised = 3500,
                 },
                 new FundRaisingEvent
                 {
@@ -145,7 +145,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Local social fundraising event",
                     Text = "Local social fundraising event",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 900,
+                    EstimatedFundsRaised = 1600,
                 }
 
             };

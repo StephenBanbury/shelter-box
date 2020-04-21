@@ -21,11 +21,16 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             if (other.CompareTag("Hand") && !processingFundingEvent && used <= allowed)
             {
-                StartCoroutine(AwaitFundingEventResults());
+                StartCoroutine(AwaitFundingEventResults(7));
             }
         }
 
-        private IEnumerator AwaitFundingEventResults()
+        private void ShowMessageOnScreen(string message)
+        {
+
+        }
+
+        private IEnumerator AwaitFundingEventResults(int waitFor)
         {
             processingFundingEvent = true;
 
@@ -41,7 +46,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             VibrationManager.instance.TriggerVibration(audio1.clip, OVRInput.Controller.RTouch);
 
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(waitFor);
 
             FundRaisingEventManager.instance.MarkEventAsUsed(currentEventId);
 
