@@ -67,7 +67,8 @@ namespace Com.MachineApps.PrepareAndDeploy
             var currentEvent = GetRandomEvent();
             computerText.text = currentEvent.Title + "\n\n" +
                                 currentEvent.SubTitle + "\n\n" +
-                                "Estimated funds raised: " + currentEvent.EstimatedFundsRaised.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "") + "\n\n" +
+                                //"Estimated funds raised: " + currentEvent.EstimatedFundsRaised.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "") + "\n\n" +
+                                "Estimated funds raised: £" + currentEvent.EstimatedFundsRaised.ToString().Replace(".00", "") + "\n\n" +
                                 "Number of possible events remaining: " + (numberOfEventsAllowed - numberOfEventsUsed);
 
                                 currentEventId = currentEvent.Id;

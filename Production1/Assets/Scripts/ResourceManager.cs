@@ -83,7 +83,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             //Debug.Log($"I've been grabbed: {gameObject.name}");
             if (grabState)
             {
-                if (GameManager.instance.BudgetRemaining <= 0)
+                if (GameManager.instance.BudgetRemaining() <= 0)
                 {
                     GameManager.instance.HudMessage("You do not have any funds left!", 3);
                     ResetResourceObject(false);

@@ -2,13 +2,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using Com.MachineApps.PrepareAndDeploy;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using Com.MachineApps.PrepareAndDeploy.Services;
 using TMPro;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -19,25 +17,21 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("Heads-up display countdown timer text")]
     [SerializeField] private Text hudCountdownDisplay;
-
     [Tooltip("Heads-up display text")]
     [SerializeField] private Text hudText;
-
     [Tooltip("Minutes allowed for game countdown")]
     [SerializeField] private int timeAllowed = 5;
-
     [Tooltip("Personalised message displayed in control room")]
     [SerializeField] private Text personalMessage;
-
     [SerializeField] private GameObject hudCanvas;
-
     [SerializeField] private TMP_Text startButtonText;
+    [SerializeField] private int startingBudget = 1000;
 
     [Tooltip("Initial countdown setting for resource objects (seconds)")]
     public float initialResourceObjectCountdown;
 
     //[SerializeField] private GameObject entrance;
-    public int BudgetRemaining = 1000;
+
     public TMP_Text BudgetMeter;
     public TMP_Text ScoreMeter;
 
@@ -62,7 +56,8 @@ public class GameManager : MonoBehaviour
     private AudioSource backgroundNoise1;
 
     private Scene scene;
-    
+
+    private int remainingBudget;
     private List<string> fundingEventLives;
 
     private int score = 0;
@@ -90,6 +85,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         scene = SceneManager.GetActiveScene();
+
+        remainingBudget = startingBudget;
 
         AudioSource[] audioSources = GetComponents<AudioSource>();
 
@@ -150,7 +147,12 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    
+
+    public int BudgetRemaining()
+    {
+        return remainingBudget;
+    }
+
     public void StartCountdown()
     {
         countdown = (timeAllowed * 60);
@@ -166,11 +168,6 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
-
-    //public DeploymentStatus GetDeploymentStatus()
-    //{
-    //    return deploymentStatus;
-    //}
 
     public void PlayAudio(string audioFile)
     {
@@ -195,6 +192,9 @@ public class GameManager : MonoBehaviour
                 backgroundNoise1.loop = true;
                 backgroundNoise1.volume = 0.2f;
                 backgroundNoise1.Play();
+                break;
+            case "horn":
+                horn.Play();
                 break;
         }
     }
@@ -237,20 +237,7 @@ public class GameManager : MonoBehaviour
 
             lifeObject.GetComponent<Renderer>().material.color = lifeObjectColor;
         }
-
     }
-
-
-    //public void GameOver()
-    //{
-    //    StartCoroutine(EndGameAfterDelay(10));
-    //}
-
-    //IEnumerator EndGameAfterDelay(int seconds)
-    //{
-    //    yield return new WaitForSeconds(seconds);
-    //    Application.Quit();
-    //}
 
     #region Budget
 
@@ -293,30 +280,36 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void UpdateBudgetDisplay()
-    {
-        BudgetMeter.text = $"Remaining\n{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "")}";
-    }
-
     public void ReduceBudget(int value)
     {
         Debug.Log($"Reduce budget by: {value}");
-        BudgetRemaining -= value;
+        remainingBudget -= value;
         UpdateBudgetDisplay();
     }
 
     public void IncreaseBudget(int value)
     {
         Debug.Log($"Increase budget by: {value}");
-        BudgetRemaining += value;
+        remainingBudget += value;
         UpdateBudgetDisplay();
     }
 
-    private void UpdateScoreDisplay()
+    public void UpdateBudgetDisplay()
     {
-        ScoreMeter.text = score.ToString();
-    }
+        // TODO try to get CultureInfo.CurrentCulture to work - on Android build £ becomes something else!
+        //BudgetMeter.text = $"{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "")}";
+        BudgetMeter.text = $"£{remainingBudget.ToString().Replace(".00", "")}";
 
+        var percentRemaining = (float)((float)remainingBudget / (float)startingBudget) * 100;
+        
+        if (percentRemaining <= 10)
+        {
+            StartCoroutine(BudgetWarning(3));
+        }
+
+        IndicateBudget(percentRemaining);
+    }
+    
     public void UpdateScore(int value)
     {
         Debug.Log($"Update score by: {value}");
@@ -336,6 +329,42 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Private methods
+
+    private void IndicateBudget(float percentRemaining)
+    {
+        for (var i = 1; i <= 5; i++)
+        {
+            var colour = new Color(0, 0, 0, 0);
+
+            // colour indicator light if within budget remaining
+            if (percentRemaining >= i * 16.7)
+            {
+                colour = new Color(255, 0, 0, 255);
+            }
+            GameObject.Find($"BudgetLife{i}").GetComponent<Renderer>().material.color = colour;
+        }
+    }
+
+    private IEnumerator BudgetWarning(int secondsDelay)
+    {
+        LightUpAllBudgetLights();
+        PlayAudio("horn");
+        yield return new WaitForSeconds(secondsDelay);
+    }
+
+    private void LightUpAllBudgetLights()
+    {
+        var colour = new Color(255, 0, 0, 255);
+        for (var i = 1; i <= 5; i++)
+        {
+            GameObject.Find($"BudgetLife{i}").GetComponent<Renderer>().material.color = colour;
+        }
+    }
+
+    private void UpdateScoreDisplay()
+    {
+        ScoreMeter.text = score.ToString();
+    }
 
     private IEnumerator WaitForGameStart(int secondsDelay)
     {

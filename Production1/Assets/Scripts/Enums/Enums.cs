@@ -26,13 +26,6 @@
         Conference = 8
     }
 
-    public enum FundLevel
-    {
-        Red = 0,
-        Amber = 1, 
-        Green = 2
-    }
-
     public enum TripleState
     {
         One = 1,

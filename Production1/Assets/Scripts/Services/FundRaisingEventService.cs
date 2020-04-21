@@ -21,14 +21,14 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
         {
             var returnRecourceDictionary = new Dictionary<Resource, int>();
 
-            returnRecourceDictionary.Add(Resource.Food, 150);
-            returnRecourceDictionary.Add(Resource.Boats, 200);
-            returnRecourceDictionary.Add(Resource.FirstAidKits, 140);
-            returnRecourceDictionary.Add(Resource.Tents, 250);
-            returnRecourceDictionary.Add(Resource.Toys, 95);
-            returnRecourceDictionary.Add(Resource.Water, 135);
-            returnRecourceDictionary.Add(Resource.Clothing, 360);
-            returnRecourceDictionary.Add(Resource.Blankets, 135);
+            returnRecourceDictionary.Add(Resource.Food, 1500);
+            returnRecourceDictionary.Add(Resource.Boats, 2000);
+            returnRecourceDictionary.Add(Resource.FirstAidKits, 1300);
+            returnRecourceDictionary.Add(Resource.Tents, 2500);
+            returnRecourceDictionary.Add(Resource.Toys, 950);
+            returnRecourceDictionary.Add(Resource.Water, 1350);
+            returnRecourceDictionary.Add(Resource.Clothing, 2200);
+            returnRecourceDictionary.Add(Resource.Blankets, 1350);
 
             return returnRecourceDictionary;
         }
@@ -45,7 +45,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Mr and Mrs Simpson invite friends around for morning chat over a cup of coffee",
                     Text = "There will be games and newspapers",
                     EventDate = DateTime.Parse("01/04/2020"),
-                    EstimatedFundsRaised = 100
+                    EstimatedFundsRaised = 250
                 },
                 new FundRaisingEvent
                 {
@@ -55,7 +55,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Evening Dinner in a quaint country cottage",
                     Text = "Mr and Mrs Church will lavish their guests with Mr Churches special pasta bake!",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 150,
+                    EstimatedFundsRaised = 450,
                 },
                 new FundRaisingEvent
                 {
@@ -65,7 +65,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Charity donating event",
                     Text = "Charity donating event",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 250,
+                    EstimatedFundsRaised = 2500,
                 },
                 new FundRaisingEvent
                 {
@@ -75,7 +75,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Sponsored competitors take part in London Triathlon",
                     Text = "Sponsored competitors take part in London Triathlon",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 200,
+                    EstimatedFundsRaised = 2000,
                 },
                 new FundRaisingEvent
                 {
@@ -85,7 +85,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Fundraising at WOMAD festival",
                     Text = "Fundraising at WOMAD festival",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 200,
+                    EstimatedFundsRaised = 2000,
                 },
                 new FundRaisingEvent
                 {
@@ -95,7 +95,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Display at Hope & Strength Exhibition",
                     Text = "Display at Hope & Strength Exhibition",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 230,
+                    EstimatedFundsRaised = 900,
                 },
                 new FundRaisingEvent
                 {
@@ -105,7 +105,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Sponsored corporate training event",
                     Text = "Sponsored corporate training event",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 210,
+                    EstimatedFundsRaised = 2100,
                 },
                 new FundRaisingEvent
                 {
@@ -115,7 +115,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Major donors donate",
                     Text = "Major donors donate",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 300,
+                    EstimatedFundsRaised = 5000,
                 },
                 new FundRaisingEvent
                 {
@@ -125,7 +125,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Rotary International convention and fundraising event",
                     Text = "Rotary International convention and fundraising event",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 250,
+                    EstimatedFundsRaised = 2500,
                 },
                 new FundRaisingEvent
                 {
@@ -135,7 +135,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Affiliates conference and fundraising event",
                     Text = "Affiliates conference and fundraising event",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 210,
+                    EstimatedFundsRaised = 2100,
                 },
                 new FundRaisingEvent
                 {
@@ -145,7 +145,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Local social fundraising event",
                     Text = "Local social fundraising event",
                     EventDate = DateTime.Parse("23/05/2020"),
-                    EstimatedFundsRaised = 90,
+                    EstimatedFundsRaised = 900,
                 }
 
             };

@@ -19,7 +19,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             var resourceManager = gameObject.GetComponent<ResourceManager>();
             var myResourceId = resourceManager.myResourceId;
             var resourceCost = GameManager.instance.GetResourceCost((Resource)myResourceId);
-            var budgetRemaining = GameManager.instance.BudgetRemaining;
+            var budgetRemaining = GameManager.instance.BudgetRemaining();
 
             if (budgetRemaining - resourceCost < 0)
             {
