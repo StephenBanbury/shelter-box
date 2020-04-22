@@ -49,11 +49,11 @@ namespace Com.MachineApps.PrepareAndDeploy
         void DetectHitOrMiss(Collider other)
         {
             string infoMessage = "";
-            int reportId = 0;
+            int operationId = 0;
             var currentPlayer = PlayerManager.instance.GetCurrentPlayer();
 
-            // Get suitable resources list from report object
-            // First get report index of report currently associated with hit box
+            // Get suitable resources list from operation object
+            // First get operation index of operation currently associated with hit box
 
             Debug.Log($"transform.parent.name: {transform.parent.name}");
 
@@ -64,30 +64,30 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             if (gameObject.name != "Floor")
             {
-                // Then get collection of resource IDs from indexed report
+                // Then get collection of resource IDs from indexed operation
                 
                 Debug.Log($"{other.gameObject.name} collected!!");
 
                 switch (transform.parent.name)
                 {
                     case "Box1":
-                        reportId = ReportsManager.instance.reportId0;
+                        operationId = OperationsManager.instance.operationId0;
                         break;
                     case "Box2":
-                        reportId = ReportsManager.instance.reportId1;
+                        operationId = OperationsManager.instance.operationId1;
                         break;
                     case "Box3":
-                        reportId = ReportsManager.instance.reportId2;
+                        operationId = OperationsManager.instance.operationId2;
                         break;
                     case "Box4":
-                        reportId = ReportsManager.instance.reportId3;
+                        operationId = OperationsManager.instance.operationId3;
                         break;
                 }
 
                 var resourceManager = other.gameObject.GetComponent<ResourceManager>();
                 var myResourceId = resourceManager.myResourceId;
 
-                var selectedIsRequiredResource = ReportsManager.instance.SelectedResourceIsRequired(reportId, myResourceId);
+                var selectedIsRequiredResource = OperationsManager.instance.SelectedResourceIsRequired(operationId, myResourceId);
 
 
                 ScoreType scoreType = ScoreType.Unassigned;
@@ -129,7 +129,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         //Debug.Log("Resource is required");
 
-                        ReportsManager.instance.CollectResource(reportId, myResourceId);
+                        OperationsManager.instance.CollectResource(operationId, myResourceId);
 
                         // Here we need to reduce the budget by the cost of the resource
                         var resourceCost = GameManager.instance.GetResourceCost((Resource) myResourceId);
@@ -141,11 +141,12 @@ namespace Com.MachineApps.PrepareAndDeploy
                         scoreValue = scoreService.GetScoreValue(scoreType);
                         GameManager.instance.UpdateScore(scoreValue);
 
-                        ReportsManager.instance.AssignReportsToMonitors();
+                        OperationsManager.instance.AssignOperationsToMonitors();
+                        OperationsManager.instance.ShowOperationsStatus();
 
                         // Have all resources been collected?
-                        var numberRequired = ReportsManager.instance.RequiredResources(reportId).Length;
-                        var numberCollected = ReportsManager.instance.CollectedResources(reportId).Length;
+                        var numberRequired = OperationsManager.instance.RequiredResources(operationId).Length;
+                        var numberCollected = OperationsManager.instance.CollectedResources(operationId).Length;
 
                         if (numberRequired == numberCollected)
                         {
@@ -156,11 +157,11 @@ namespace Com.MachineApps.PrepareAndDeploy
                             scoreValue = scoreService.GetScoreValue(scoreType);
                             GameManager.instance.UpdateScore(scoreValue);
 
-                            Debug.Log($"All resources collected for reportId {reportId}");
+                            Debug.Log($"All resources collected for operationId {operationId}");
 
                             infoMessage = $"Thank you so much, {currentPlayer.PlayerName}! This deployment has been a success!";
 
-                            ReportsManager.instance.DisasterScenarioDeployed(reportId);
+                            OperationsManager.instance.DisasterScenarioDeployed(operationId);
 
                             GameManager.instance.PlayAudio("successfulDeployment");
                         }

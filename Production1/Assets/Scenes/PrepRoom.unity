@@ -2757,7 +2757,7 @@ MonoBehaviour:
   video2: {fileID: 1653390935}
   video3: {fileID: 1829980808}
   video4: {fileID: 162296540}
-  updateInterval: 60
+  updateInterval: 15
   rotateReports: 1
   reportId0: 0
   reportId1: 1

@@ -156,7 +156,7 @@ AnimatorStateTransition:
     m_ConditionEvent: closeMonitor
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 6352201476629592699}
+  m_DstState: {fileID: 0}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -181,7 +181,7 @@ AnimatorStateTransition:
     m_ConditionEvent: closeMonitor
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 6352201476629592699}
+  m_DstState: {fileID: 0}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0

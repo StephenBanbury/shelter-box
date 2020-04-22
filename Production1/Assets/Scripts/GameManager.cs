@@ -111,10 +111,12 @@ public class GameManager : MonoBehaviour
 
         HudOnOff(false);
 
-        AnimationManager.instance.ActivateMonitor("monitor1", false);
-        AnimationManager.instance.ActivateMonitor("monitor2", false);
-        AnimationManager.instance.ActivateMonitor("monitor3", false);
-        AnimationManager.instance.ActivateMonitor("monitor4", false);
+        const bool activateMonitors = false;
+
+        AnimationManager.instance.ActivateMonitor("monitor1", activateMonitors);
+        AnimationManager.instance.ActivateMonitor("monitor2", activateMonitors);
+        AnimationManager.instance.ActivateMonitor("monitor3", activateMonitors);
+        AnimationManager.instance.ActivateMonitor("monitor4", activateMonitors);
         AnimationManager.instance.BoxesThruFloor(false);
 
         StartCountdown();
@@ -235,8 +237,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 1; i <= fundingEventLives.Count; i++)
         {
-            Debug.Log($"fundingEventLives: {fundingEventLives[i-1]}");
-
+            //Debug.Log($"fundingEventLives: {fundingEventLives[i-1]}");
             var lifeObject = GameObject.Find(fundingEventLives[i-1]);
             var lifeObjectColor = i <= numberOfEventLivesLeft ? new Color(255, 0, 0, 255) : new Color(190, 205, 207, 255);
 

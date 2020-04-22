@@ -4,7 +4,7 @@ using Com.MachineApps.PrepareAndDeploy.Enums;
 
 namespace Com.MachineApps.PrepareAndDeploy.Models
 {
-    public class Report
+    public class Operation
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -14,6 +14,6 @@ namespace Com.MachineApps.PrepareAndDeploy.Models
         public bool Archived { get; set; }
         public int[] RequiredResources { get; set; }
         public List<int> CollectedResources { get; set; }
-        public DisasterStatus DisasterStatus { get; set; }
+        public OperationStatus OperationStatus { get; set; }
     }
 }

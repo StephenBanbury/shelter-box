@@ -83,7 +83,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                         .Contains(e.Id));
 
             var rand = Random.value;
-            int ix = (int) (eventsToSelectFrom.Count() * rand) - 1;
+            int ix = (int) (eventsToSelectFrom.Count() * rand);
 
             return fundRaisingEvents[ix];
         }

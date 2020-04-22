@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Com.MachineApps.PrepareAndDeploy.Models;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -30,7 +31,9 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public PlayerModel NewPlayer(string playerName)
         {
-            var id = new Guid();
+            var guidHelper = new GuidHelper();
+
+            var id = GuidHelper.GetUniqueID();
 
             var newPlayer = new PlayerModel
             {

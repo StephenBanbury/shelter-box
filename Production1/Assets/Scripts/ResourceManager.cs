@@ -22,7 +22,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         void Start()
         {
-            Debug.Log("ResourceManager Start()");
+            Debug.Log($"ResourceManager Start: {gameObject.tag}");
 
             if (gameObject.CompareTag("Tent"))
             {

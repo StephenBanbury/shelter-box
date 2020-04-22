@@ -33,7 +33,7 @@
         Three = 3
     }
 
-    public enum DisasterStatus
+    public enum OperationStatus
     {
         None = 0,
         Success = 1,

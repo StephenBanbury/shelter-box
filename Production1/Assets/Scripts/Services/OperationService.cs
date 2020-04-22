@@ -5,23 +5,23 @@ using Com.MachineApps.PrepareAndDeploy.Models;
 
 namespace Com.MachineApps.PrepareAndDeploy.Services
 {
-    public class ReportService
+    public class OperationService
     {
-        public List<Report> GetReports()
+        public List<Operation> GetOperations()
         {
-            var returnReports = new List<Report>();
+            var returnOperations = new List<Operation>();
 
-            // Mock reports for testing
-            returnReports.AddRange(mockReports());
+            // Mock ops for testing
+            returnOperations.AddRange(mockOperations());
 
-            return returnReports;
+            return returnOperations;
         }
 
-        private List<Report> mockReports()
+        private List<Operation> mockOperations()
         {
-            var returnReports = new List<Report>
+            var returnOperations = new List<Operation>
             {
-                new Report
+                new Operation
                 {
                     Id = 1,
                     Title = "Hurricane!",
@@ -39,9 +39,10 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         (int) Resource.Water,
                         //(int) Resource.Blankets
                     },
-                    CollectedResources = new List<int>()
+                    CollectedResources = new List<int>(),
+                    OperationStatus = OperationStatus.None
                 },
-                new Report
+                new Operation
                 {
                     Id = 2,
                     Title = "Drought!",
@@ -58,9 +59,10 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         (int) Resource.Toys,
                         (int) Resource.Water
                     },
-                    CollectedResources = new List<int>()
+                    CollectedResources = new List<int>(),
+                    OperationStatus = OperationStatus.None
                 },
-                new Report
+                new Operation
                 {
                     Id = 3,
                     Title = "Civil unrest!",
@@ -78,9 +80,10 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         (int) Resource.Water,
                         //(int) Resource.Blankets
                     },
-                    CollectedResources = new List<int>()
+                    CollectedResources = new List<int>(),
+                    OperationStatus = OperationStatus.None
                 },
-                new Report
+                new Operation
                 {
                     Id = 4,
                     Title = "Flooding!",
@@ -99,9 +102,10 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         (int) Resource.Boats,
                         //(int) Resource.Blankets
                     },
-                    CollectedResources = new List<int>()
+                    CollectedResources = new List<int>(),
+                    OperationStatus = OperationStatus.None
                 },
-                new Report
+                new Operation
                 {
                     Id = 5,
                     Title = "Tsunami!",
@@ -120,9 +124,10 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         (int) Resource.Boats,
                         //(int) Resource.Blankets
                     },
-                    CollectedResources = new List<int>()
+                    CollectedResources = new List<int>(),
+                    OperationStatus = OperationStatus.None
                 },
-                new Report
+                new Operation
                 {
                     Id = 6,
                     Title = "Earthquake!",
@@ -140,9 +145,10 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         (int) Resource.Water,
                         //(int) Resource.Blankets
                     },
-                    CollectedResources = new List<int>()
+                    CollectedResources = new List<int>(),
+                    OperationStatus = OperationStatus.None
                 },
-                new Report
+                new Operation
                 {
                     Id = 7,
                     Title = "Volcano!",
@@ -160,11 +166,12 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         (int) Resource.Water,
                         //(int) Resource.Blankets
                     },
-                    CollectedResources = new List<int>()
+                    CollectedResources = new List<int>(),
+                    OperationStatus = OperationStatus.None
                 }
             };
 
-            return returnReports;
+            return returnOperations;
         }
     }
 
