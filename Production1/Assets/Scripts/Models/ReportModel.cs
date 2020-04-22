@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Com.MachineApps.PrepareAndDeploy.Enums;
 
 namespace Com.MachineApps.PrepareAndDeploy.Models
 {
@@ -13,5 +14,6 @@ namespace Com.MachineApps.PrepareAndDeploy.Models
         public bool Archived { get; set; }
         public int[] RequiredResources { get; set; }
         public List<int> CollectedResources { get; set; }
+        public DisasterStatus DisasterStatus { get; set; }
     }
 }

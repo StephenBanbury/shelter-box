@@ -7,6 +7,7 @@ using Com.MachineApps.PrepareAndDeploy.Enums;
 using Com.MachineApps.PrepareAndDeploy.Models;
 using Com.MachineApps.PrepareAndDeploy.Services;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using Random = UnityEngine.Random;
@@ -85,8 +86,8 @@ namespace Com.MachineApps.PrepareAndDeploy
                 if (!usedIndexes.Contains(randomIndex))
                 {
                     usedIndexes.Add(randomIndex);
-                    //var usedReport = reports.FirstOrDefault(r => r.Id == randomIndex);
-                    //usedReports.Add(usedReport);
+                    var report = reports.FirstOrDefault(r => r.Id == randomIndex);
+                    report.DisasterStatus = DisasterStatus.Pending;
                 }
             }
 
@@ -142,10 +143,22 @@ namespace Com.MachineApps.PrepareAndDeploy
             monitor2cText.text = ResourceListText(reportId1);
             monitor3cText.text = ResourceListText(reportId2);
             monitor4cText.text = ResourceListText(reportId3);
+
+            // Debug text
+            string debugList = "";
+            foreach (var report in reports) //.Where(r => usedIndexes.Contains(r.Id)))
+            {
+                debugList +=  $"({report.Title.Replace("!","")} ({report.DisasterStatus.ToString()}) \n";
+            }
+
+            GameManager.instance.DebugText(debugList);
         }
 
         public void DisasterScenarioDeployed(int reportId)
         {
+            var thisReport = reports.FirstOrDefault(r => r.Id == reportId);
+            thisReport.DisasterStatus = DisasterStatus.Success;
+
             StartCoroutine(DeployedRoutine(reportId));
         }
 
@@ -202,21 +215,33 @@ namespace Com.MachineApps.PrepareAndDeploy
             var newReportIndex = RandomReportIndex();
             var randomMonitor = (int) (4 * Random.value);
 
+            Report report;
+
             switch (randomMonitor)
             {
                 case 1:
+                    report = reports.FirstOrDefault(r => r.Id == reportId0);
+                    report.DisasterStatus = DisasterStatus.Fail;
                     reportId0 = newReportIndex;
                     break;
                 case 2:
+                    report = reports.FirstOrDefault(r => r.Id == reportId1);
+                    report.DisasterStatus = DisasterStatus.Fail;
                     reportId1 = newReportIndex;
                     break;
                 case 3:
+                    report = reports.FirstOrDefault(r => r.Id == reportId2);
+                    report.DisasterStatus = DisasterStatus.Fail;
                     reportId2 = newReportIndex;
                     break;
-                case 4:
+                    report = reports.FirstOrDefault(r => r.Id == reportId3);
+                    report.DisasterStatus = DisasterStatus.Fail;
                     reportId3 = newReportIndex;
                     break;
             }
+
+            report = reports.FirstOrDefault(r => r.Id == newReportIndex);
+            report.DisasterStatus = DisasterStatus.Pending;
 
             Debug.Log($"Monitor {randomMonitor} - report replaced with {newReportIndex}");
             //usedIndexes.Add(newReportIndex);

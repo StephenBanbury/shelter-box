@@ -33,6 +33,14 @@
         Three = 3
     }
 
+    public enum DisasterStatus
+    {
+        None = 0,
+        Success = 1,
+        Fail = 2,
+        Pending = 3
+    }
+
     public enum ScoreType
     {
         Unassigned = 0,

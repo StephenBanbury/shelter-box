@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject hudCanvas;
     [SerializeField] private TMP_Text startButtonText;
     [SerializeField] private int startingBudget = 1000;
+    [SerializeField] private Text debugText;
 
     [Tooltip("Initial countdown setting for resource objects (seconds)")]
     public float initialResourceObjectCountdown;
@@ -147,6 +148,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void GameOver()
+    {
+        Debug.Log("GAME OVER!");
+
+    }
+
     public int BudgetRemaining()
     {
         return remainingBudget;
@@ -235,6 +242,11 @@ public class GameManager : MonoBehaviour
 
             lifeObject.GetComponent<Renderer>().material.color = lifeObjectColor;
         }
+    }
+
+    public void DebugText(string text)
+    {
+        debugText.text = text;
     }
 
     #region Budget
