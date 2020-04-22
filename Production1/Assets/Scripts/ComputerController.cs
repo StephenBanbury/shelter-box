@@ -49,25 +49,26 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             VibrationManager.instance.TriggerVibration(audio1.clip, OVRInput.Controller.RTouch);
 
+            FundRaisingEventManager.instance.MarkEventAsUsed(currentEventId);
+
+            // Time delay
             yield return new WaitForSeconds(waitFor);
 
-            FundRaisingEventManager.instance.MarkEventAsUsed(currentEventId);
+            //FundRaisingEventManager.instance.MarkEventAsUsed(currentEventId);
 
             audio1.Play(); // TODO different sound
 
-            // TODO pseudo random value
+            // Amount raised = estimated +/- 30%
             var estimated = fundRaisingEvent.EstimatedFundsRaised;
-
             var rand = Random.Range(-estimated/3, estimated/3);
 
-            var amountMade = estimated + rand;
+            var amountRaised = estimated + rand;
 
-            Debug.Log($"Estimated: {estimated}, Random: {rand}, Amount made: {amountMade}");
+            Debug.Log($"Estimated: {estimated}, Random: {rand}, Amount made: {amountRaised}");
 
-            GameManager.instance.IncreaseBudget(amountMade);
+            GameManager.instance.IncreaseBudget(amountRaised);
             GameManager.instance.UpdateBudgetDisplay();
-
-            GameManager.instance.HudMessage($"You made £{amountMade}!", 5);
+            GameManager.instance.HudMessage($"You made £{amountRaised}!", 5);
 
             processingFundingEvent = false;
         }

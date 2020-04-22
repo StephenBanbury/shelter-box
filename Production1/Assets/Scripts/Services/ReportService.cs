@@ -74,7 +74,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         (int) Resource.Food,
                         (int) Resource.FirstAidKits,
                         (int) Resource.Tents,
-                        (int) Resource.Toys,
+                        //(int) Resource.Toys,
                         (int) Resource.Water,
                         //(int) Resource.Blankets
                     },
@@ -162,7 +162,6 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     },
                     CollectedResources = new List<int>()
                 }
-
             };
 
             return returnReports;

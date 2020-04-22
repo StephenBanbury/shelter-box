@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Permissions;
 using System.Text.RegularExpressions;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using Com.MachineApps.PrepareAndDeploy.Models;
@@ -10,7 +9,7 @@ using Com.MachineApps.PrepareAndDeploy.Services;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 namespace Com.MachineApps.PrepareAndDeploy
 {
@@ -41,6 +40,9 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private VideoPlayer video3;
         [SerializeField] private VideoPlayer video4;
 
+        [SerializeField] private int updateInterval = 60;
+        [SerializeField] private bool rotateReports = true;
+
         public static List<Report> reports;
 
         public int reportId0 = 0;
@@ -48,13 +50,11 @@ namespace Com.MachineApps.PrepareAndDeploy
         public int reportId2 = 2;
         public int reportId3 = 3;
 
-        private List<Report> usedReports = new List<Report>();
         private DateTime startDateTime = DateTime.UtcNow;
         private DateTime reviewDateTime;
-        private int updateInterval = 15;
-        private bool rotateReports = false;
-        private Animation anim;
         private ReportService reportService = new ReportService();
+        //private List<Report> usedReports = new List<Report>();
+        private List<int> usedIndexes = new List<int>();
 
         void Awake()
         {
@@ -77,43 +77,50 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             reviewDateTime = startDateTime.AddSeconds(updateInterval);
 
-            List<int> randomReportIndexes = new List<int>();
-
             // Randomize reports at start
-            while (randomReportIndexes.Count < 4)
+            while (usedIndexes.Count < 4)
             {
-                Random random = new Random();
-                int randomIndex = random.Next(0, reports.Count);
-                if (!randomReportIndexes.Contains(randomIndex))
+                int randomIndex = RandomReportIndex();
+                
+                if (!usedIndexes.Contains(randomIndex))
                 {
-                    randomReportIndexes.Add((randomIndex));
-                    var usedReport = reports.FirstOrDefault(r => r.Id == randomIndex);
-                    usedReports.Add(usedReport);
+                    usedIndexes.Add(randomIndex);
+                    //var usedReport = reports.FirstOrDefault(r => r.Id == randomIndex);
+                    //usedReports.Add(usedReport);
                 }
             }
 
-            reportId0 = randomReportIndexes[0];
-            reportId1 = randomReportIndexes[1];
-            reportId2 = randomReportIndexes[2];
-            reportId3 = randomReportIndexes[3];
+            reportId0 = usedIndexes[0];
+            reportId1 = usedIndexes[1];
+            reportId2 = usedIndexes[2];
+            reportId3 = usedIndexes[3];
 
             AssignReportsToMonitors();
         }
 
-        void Update()
+        void FixedUpdate()
         {
             // Only rotate reports if rotateReports = true
+            //if (DateTime.UtcNow >= reviewDateTime && rotateReports)
+            //{
+            //    reportId0 = reportId0 < reports.Count - 1 ? reportId0 + 1 : 0;
+            //    reportId1 = reportId1 < reports.Count - 1 ? reportId1 + 1 : 0;
+            //    reportId2 = reportId2 < reports.Count - 1 ? reportId2 + 1 : 0;
+            //    reportId3 = reportId3 < reports.Count - 1 ? reportId3 + 1 : 0;
+
+            //    AssignReportsToMonitors();
+
+            //    reviewDateTime = DateTime.UtcNow.AddSeconds(updateInterval);
+            //}
+
+            // Select random report and replace it with a new report
             if (DateTime.UtcNow >= reviewDateTime && rotateReports)
             {
-                reportId0 = reportId0 < reports.Count - 1 ? reportId0 + 1 : 0;
-                reportId1 = reportId1 < reports.Count - 1 ? reportId1 + 1 : 0;
-                reportId2 = reportId2 < reports.Count - 1 ? reportId2 + 1 : 0;
-                reportId3 = reportId3 < reports.Count - 1 ? reportId3 + 1 : 0;
-
+                ReplaceReport();
                 AssignReportsToMonitors();
-
                 reviewDateTime = DateTime.UtcNow.AddSeconds(updateInterval);
             }
+
         }
 
         public void AssignReportsToMonitors()
@@ -177,6 +184,44 @@ namespace Com.MachineApps.PrepareAndDeploy
             return response;
         }
 
+        private int RandomReportIndex()
+        {
+            var randomIndex = (int) (reports.Count * Random.value);
+
+            // use random index if not used before, otherwise recursively generate a new one
+            var returnValue = !usedIndexes.Contains(randomIndex)
+                ? randomIndex
+                : RandomReportIndex();
+
+            Debug.Log($"randomIndex: {returnValue}");
+            return returnValue;
+        }
+
+        private void ReplaceReport()
+        {
+            var newReportIndex = RandomReportIndex();
+            var randomMonitor = (int) (4 * Random.value);
+
+            switch (randomMonitor)
+            {
+                case 1:
+                    reportId0 = newReportIndex;
+                    break;
+                case 2:
+                    reportId1 = newReportIndex;
+                    break;
+                case 3:
+                    reportId2 = newReportIndex;
+                    break;
+                case 4:
+                    reportId3 = newReportIndex;
+                    break;
+            }
+
+            Debug.Log($"Monitor {randomMonitor} - report replaced with {newReportIndex}");
+            //usedIndexes.Add(newReportIndex);
+        }
+
         private IEnumerator DeployedRoutine(int reportId)
         {
             Debug.Log($"StartCounter - reportId: {reportId}");
@@ -215,11 +260,6 @@ namespace Com.MachineApps.PrepareAndDeploy
             video3.Stop();
             video4.Stop();
 
-            video1.gameObject.SetActive(false);
-            video2.gameObject.SetActive(false);
-            video3.gameObject.SetActive(false);
-            video4.gameObject.SetActive(false);
-
             Debug.Log($"Monitor: {monitor}");
 
             // TODO either...
@@ -229,51 +269,10 @@ namespace Com.MachineApps.PrepareAndDeploy
             // TODO or...
             AnimationManager.instance.ActivateMonitor(monitor, false);
 
-        }
-
-        private void ReplaceReport(int reportId)
-        {
-            foreach (var usedReport in usedReports)
-            {
-                Debug.Log($"usedReportId: {usedReport.Id}");
-            }
-            
-            foreach (var report in reports)
-            {
-                Debug.Log($"reportId: {report.Id}");
-            }
-
-            var newReport =
-                reports.FirstOrDefault(r => !usedReports.Select(u => u.Id).Contains(r.Id));
-
-            if (newReport != null)
-            {
-                var newReportId = newReport.Id;
-                usedReports.Add(newReport);
-
-                if (reportId0 == reportId)
-                {
-                    reportId0 = newReportId;
-                }
-                else if (reportId1 == reportId)
-                {
-                    reportId1 = newReportId;
-                }
-                else if (reportId2 == reportId)
-                {
-                    reportId2 = newReportId;
-                }
-                else if (reportId3 == reportId)
-                {
-                    reportId3 = newReportId;
-                }
-            }
-            else
-            {
-                // TODO shut down monitor
-            }
-
-            AssignReportsToMonitors();
+            video1.gameObject.SetActive(false);
+            video2.gameObject.SetActive(false);
+            video3.gameObject.SetActive(false);
+            video4.gameObject.SetActive(false);
         }
 
         private string ResourceListText(int reportId)

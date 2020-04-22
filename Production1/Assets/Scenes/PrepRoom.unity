@@ -1092,7 +1092,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17032
+  m_Name: pb_Mesh17034
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2756,6 +2756,8 @@ MonoBehaviour:
   video2: {fileID: 1653390935}
   video3: {fileID: 1829980808}
   video4: {fileID: 162296540}
+  updateInterval: 5
+  rotateReports: 1
   reportId0: 0
   reportId1: 1
   reportId2: 2
@@ -5437,7 +5439,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16912
+  m_Name: pb_Mesh16914
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -20491,8 +20493,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1817868472}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.186, y: -0.854, z: 2.159}
-  m_LocalScale: {x: 9.794463, y: 2.2998958, z: 8.905669}
+  m_LocalPosition: {x: -0.186, y: -0.854, z: 1.922}
+  m_LocalScale: {x: 9.794463, y: 2.2998958, z: 9.373706}
   m_Children: []
   m_Father: {fileID: 1108092402}
   m_RootOrder: 1
@@ -20948,7 +20950,6 @@ MonoBehaviour:
   openFrontOuterWall: {fileID: 839027822}
   fadeOutPlayButton: {fileID: 2145298585}
   boxesThruFloor: {fileID: 1842563460}
-  raiseFireCurtain: {fileID: 860414286}
 --- !u!4 &1823750168
 Transform:
   m_ObjectHideFlags: 0
