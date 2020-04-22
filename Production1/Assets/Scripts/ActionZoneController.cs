@@ -20,6 +20,8 @@ namespace Com.MachineApps.PrepareAndDeploy
                     AnimationManager.instance.ActivateMonitor("monitor3", true);
                     AnimationManager.instance.ActivateMonitor("monitor4", true);
 
+                    AnimationManager.instance.BoxesThruFloor(true);
+
                     GameManager.instance.HudOnOff(true);
                 }
             }

@@ -14,6 +14,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private Animator fadeFireCurtain;
         [SerializeField] private Animator openFrontOuterWall;
         [SerializeField] private Animator fadeOutPlayButton;
+        [SerializeField] private Animator boxesThruFloor;
 
         //[SerializeField] private Animation monitor1Text;
 
@@ -35,27 +36,33 @@ namespace Com.MachineApps.PrepareAndDeploy
             DontDestroyOnLoad(gameObject);
         }
 
+        public void BoxesThruFloor(bool up)
+        {
+            Debug.Log($"BoxesThruFloor: {up}");
+            boxesThruFloor.SetBool("up", up);
+        }
+
         public void FadeOutPlayButton(bool fadeOut)
         {
-            Debug.Log($"FadeOutPlayButton{fadeOut}");
+            Debug.Log($"FadeOutPlayButton: {fadeOut}");
             fadeOutPlayButton.SetBool("fadeOut", fadeOut);
         }
 
-        public void OpenFrontOuterWall(bool open)
-        {
-            Debug.Log($"OpenFrontOuterWall{open}");
-            openFrontOuterWall.SetBool("open", open);
-        }
+        //public void OpenFrontOuterWall(bool open)
+        //{
+        //    Debug.Log($"OpenFrontOuterWall: {open}");
+        //    openFrontOuterWall.SetBool("open", open);
+        //}
 
         public void FadeFireCurtain(bool fadeOut)
         {
-            Debug.Log($"FadeFireCurtain{fadeOut}");
+            Debug.Log($"FadeFireCurtain: {fadeOut}");
             fadeFireCurtain.SetBool("fadeOut", fadeOut);
         }
 
         public void RaiseCentrePartition(bool raise)
         {
-            Debug.Log($"RaiseCentrePartition{raise}");
+            Debug.Log($"RaiseCentrePartition: {raise}");
             centrePerimeter.SetBool("raise", raise);
         }
 

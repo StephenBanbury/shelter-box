@@ -114,14 +114,13 @@ public class GameManager : MonoBehaviour
         AnimationManager.instance.ActivateMonitor("monitor2", false);
         AnimationManager.instance.ActivateMonitor("monitor3", false);
         AnimationManager.instance.ActivateMonitor("monitor4", false);
+        AnimationManager.instance.BoxesThruFloor(false);
 
         StartCountdown();
 
         UpdateBudgetDisplay();
 
         UpdateFundingEventLives();
-
-        //StartCoroutine(WaitForGameStart(5));
     }
 
     void FixedUpdate()
@@ -199,7 +198,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
 
     public void HudMessage(string messageText, int displayTimeSeconds)
     {

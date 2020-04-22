@@ -12,7 +12,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         public void OnPlay()
         {
             AnimationManager.instance.FadeOutPlayButton(true);
-            AnimationManager.instance.OpenFrontOuterWall(true);
+            //AnimationManager.instance.OpenFrontOuterWall(true);
             AnimationManager.instance.FadeFireCurtain(true);
             AnimationManager.instance.LowerStartButton(true);
 
@@ -49,6 +49,9 @@ namespace Com.MachineApps.PrepareAndDeploy
                 AnimationManager.instance.RaiseCentrePartition(true);
                 AnimationManager.instance.OpenInputKeyboard(false);
                 GameManager.instance.PlayAudio("missionStatementPart2");
+
+                var fireCurtain = GameObject.Find("FireCurtain");
+                fireCurtain.SetActive(false);
 
                 StartCoroutine(RaiseButtonAfterMessageHasBeenRead(3));
             }

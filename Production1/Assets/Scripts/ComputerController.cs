@@ -2,6 +2,7 @@
 using System.Linq;
 using Com.MachineApps.PrepareAndDeploy.Models;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Com.MachineApps.PrepareAndDeploy
 {
@@ -27,7 +28,8 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         private void ShowMessageOnScreen(string message)
         {
-
+            var screenText = GameObject.Find("ScreenText");
+            screenText.GetComponent<Text>().text = message;
         }
 
         private IEnumerator AwaitFundingEventResults(int waitFor)
@@ -40,6 +42,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             fundRaisingEvent = fundRaisingEvents.FirstOrDefault(e => e.Id == currentEventId);
 
             GameManager.instance.HudMessage($"You selected {fundRaisingEvent.Title}", 6);
+            ShowMessageOnScreen($"You selected {fundRaisingEvent.Title}");
 
             audio1 = GetComponent<AudioSource>();
             audio1.Play();
