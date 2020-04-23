@@ -26,7 +26,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject hudCanvas;
     [SerializeField] private TMP_Text startButtonText;
     [SerializeField] private int startingBudget = 1000;
-    [SerializeField] private Text debugText;
+    [SerializeField] private Text pendingOpsText;
+    [SerializeField] private Text successfulOpsText;
+    [SerializeField] private Text failedOpsText;
 
     [Tooltip("Initial countdown setting for resource objects (seconds)")]
     public float initialResourceObjectCountdown;
@@ -245,9 +247,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void DebugText(string text)
+    public void OpsStatusText(string pending, string success, string failed)
     {
-        debugText.text = text;
+        pendingOpsText.text = pending;
+        successfulOpsText.text = success;
+        failedOpsText.text = failed;
     }
 
     #region Budget

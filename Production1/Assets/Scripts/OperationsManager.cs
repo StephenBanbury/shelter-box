@@ -177,12 +177,32 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public void ShowOperationsStatus()
         {
-            string debugList = "";
-            foreach (var operation in operations.OrderBy(r => r.Title)) //.Where(r => usedIndexes.Contains(r.Id)))
+            string pendingList = "";
+            string successList = "";
+            string failedList = "";
+
+            foreach (var operation in operations
+                .Where(o => o.OperationStatus == OperationStatus.Pending)
+                .OrderBy(r => r.Title))
             {
-                debugList += $"{operation.Title.Replace("!", "")} ({operation.OperationStatus.ToString()}) \n";
+                pendingList += $"{operation.Title.Replace("!", "")}\n";
             }
-            GameManager.instance.DebugText(debugList);
+
+            foreach (var operation in operations
+                .Where(o => o.OperationStatus == OperationStatus.Success)
+                .OrderBy(r => r.Title))
+            {
+                successList += $"{operation.Title.Replace("!", "")}\n";
+            }
+
+            foreach (var operation in operations
+                .Where(o => o.OperationStatus == OperationStatus.Fail)
+                .OrderBy(r => r.Title))
+            {
+                failedList += $"{operation.Title.Replace("!", "")}\n";
+            }
+
+            GameManager.instance.OpsStatusText(pendingList, successList, failedList);
         }
 
         public void DisasterScenarioDeployed(int operationId)
