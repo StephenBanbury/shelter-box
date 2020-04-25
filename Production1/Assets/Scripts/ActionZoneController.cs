@@ -23,6 +23,8 @@ namespace Com.MachineApps.PrepareAndDeploy
                     AnimationManager.instance.BoxesThruFloor(true);
 
                     GameManager.instance.HudOnOff(true);
+
+                    OperationsManager.instance.RotateOperations(true);
                 }
             }
             //}else if (gameObject.name == "EntranceActionZone")
@@ -43,7 +45,11 @@ namespace Com.MachineApps.PrepareAndDeploy
                     //AnimationManager.instance.ActivateMonitor("monitor3", false);
                     //AnimationManager.instance.ActivateMonitor("monitor4", false);
 
+                    AnimationManager.instance.BoxesThruFloor(false);
+
                     GameManager.instance.HudOnOff(false);
+
+                    OperationsManager.instance.RotateOperations(false);
                 }
             }
             //else if (gameObject.name == "EntranceActionZone")

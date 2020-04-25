@@ -41,7 +41,6 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private VideoPlayer video4;
 
         [SerializeField] private int updateInterval = 60;
-        [SerializeField] private bool rotateOperations = true;
 
         public static List<Operation> operations;
 
@@ -56,6 +55,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         //private List<Operation> usedOperations = new List<Operation>();
         private List<int> usedIndexes = new List<int>();
         private bool updatingMonitorReplacement;
+        private bool rotateOperations;
 
         void Awake()
         {
@@ -100,6 +100,8 @@ namespace Com.MachineApps.PrepareAndDeploy
             operationId2 = usedIndexes[2];
             operationId3 = usedIndexes[3];
 
+            rotateOperations = false;
+
             ShowOperationsStatus();
 
             AssignOperationsToMonitors();
@@ -136,6 +138,11 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         }
 
+        public void RotateOperations(bool rotate)
+        {
+            rotateOperations = rotate;
+        }
+
         public void AssignOperationsToMonitors()
         {
             Debug.Log($"operationId0: {operationId0}");
@@ -145,22 +152,12 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             // Heading
 
-            //monitor1aText.text = operations[operationId0].Title;
-            //monitor2aText.text = operations[operationId1].Title;
-            //monitor3aText.text = operations[operationId2].Title;
-            //monitor4aText.text = operations[operationId3].Title;
-
             monitor1aText.text = operations.FirstOrDefault(o => o.Id == operationId0).Title;
             monitor2aText.text = operations.FirstOrDefault(o => o.Id == operationId1).Title;
             monitor3aText.text = operations.FirstOrDefault(o => o.Id == operationId2).Title;
             monitor4aText.text = operations.FirstOrDefault(o => o.Id == operationId3).Title;
 
             // Subheading
-
-            //monitor1bText.text = operations[operationId0].SubTitle;
-            //monitor2bText.text = operations[operationId1].SubTitle;
-            //monitor3bText.text = operations[operationId2].SubTitle;
-            //monitor4bText.text = operations[operationId3].SubTitle;
 
             monitor1bText.text = operations.FirstOrDefault(o => o.Id == operationId0).SubTitle;
             monitor2bText.text = operations.FirstOrDefault(o => o.Id == operationId1).SubTitle;
@@ -172,7 +169,6 @@ namespace Com.MachineApps.PrepareAndDeploy
             monitor2cText.text = ResourceListText(operationId1);
             monitor3cText.text = ResourceListText(operationId2);
             monitor4cText.text = ResourceListText(operationId3);
-
         }
 
         public void ShowOperationsStatus()
