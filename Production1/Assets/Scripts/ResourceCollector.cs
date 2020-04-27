@@ -14,20 +14,20 @@ namespace Com.MachineApps.PrepareAndDeploy
         public Text BoxMessage4Text;
         //public Text GrandScoreText;
 
-        private AudioSource audioSource1;
-        private AudioSource audioSource2;
-        private AudioSource audioSource3;
+        [SerializeField] private AudioSource floorAudio;
+        [SerializeField] private AudioSource requiredAudio;
+        [SerializeField] private AudioSource notRequiredAudio;
 
         private bool noMoneyLeft;
         void Start()
         {
-            AudioSource[] audioSources = GetComponents<AudioSource>();
-            audioSource1 = audioSources[0]; // Audio source = if this is a box then it's is a beep; if it's the floor then it's a thud
-            if (audioSources.Length > 2)
-            {
-                audioSource2 = audioSources[1];
-                audioSource3 = audioSources[2];
-            }
+            //AudioSource[] audioSources = GetComponents<AudioSource>();
+            //floorAudio = audioSources[0]; // Audio source = if this is a box then it's is a beep; if it's the floor then it's a thud
+            //if (audioSources.Length > 2)
+            //{
+            //    //requiredAudio = audioSources[1];
+            //    //audioSource3 = audioSources[2];
+            //}
         }
 
         void OnTriggerEnter(Collider other)
@@ -55,7 +55,6 @@ namespace Com.MachineApps.PrepareAndDeploy
             // Get suitable resources list from operation object
             // First get operation index of operation currently associated with hit box
 
-            Debug.Log($"transform.parent.name: {transform.parent.name}");
 
             BoxMessage1Text.text = "";
             BoxMessage2Text.text = "";
@@ -67,6 +66,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 // Then get collection of resource IDs from indexed operation
                 
                 Debug.Log($"{other.gameObject.name} collected!!");
+                Debug.Log($"Collected by: {transform.parent.name}");
 
                 switch (transform.parent.name)
                 {
@@ -85,7 +85,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 }
 
                 var resourceManager = other.gameObject.GetComponent<ResourceManager>();
-                var myResourceId = resourceManager.myResourceId;
+                var myResourceId = resourceManager.MyResourceId;
 
                 var selectedIsRequiredResource = OperationsManager.instance.SelectedResourceIsRequired(operationId, myResourceId);
 
@@ -99,7 +99,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                     // Resource not required
                     case TripleState.One:
 
-                        //Debug.Log("Resource not required");
+                        Debug.Log("Resource not required");
 
                         scoreType = ScoreType.ItemNotRequired;
                         scoreValue = scoreService.GetScoreValue(scoreType);
@@ -107,13 +107,13 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         infoMessage =
                             $"{Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")} not required";
-                        audioSource2.Play();
+                        notRequiredAudio.Play();
                         break;
 
                     // Resource already collected
                     case TripleState.Two:
 
-                        //Debug.Log("Resource already collected");
+                        Debug.Log("Resource already collected");
 
                         scoreType = ScoreType.ItemAlreadyAssigned;
                         scoreValue = scoreService.GetScoreValue(scoreType);
@@ -121,13 +121,13 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         infoMessage =
                             $"{currentPlayer.PlayerName}, you have already collected {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
-                        audioSource2.Play();
+                        notRequiredAudio.Play();
                         break;
 
                     // Resource is required
                     case TripleState.Three:
 
-                        //Debug.Log("Resource is required");
+                        Debug.Log($"Resource {myResourceId} is required for operationId {operationId}");
 
                         OperationsManager.instance.CollectResource(operationId, myResourceId);
 
@@ -147,6 +147,8 @@ namespace Com.MachineApps.PrepareAndDeploy
                         // Have all resources been collected?
                         var numberRequired = OperationsManager.instance.RequiredResources(operationId).Length;
                         var numberCollected = OperationsManager.instance.CollectedResources(operationId).Length;
+
+                        Debug.Log($"numberRequired: {numberRequired}; numberCollected: {numberCollected}");
 
                         if (numberRequired == numberCollected)
                         {
@@ -170,7 +172,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                             infoMessage =
                                 $"Thanks for the {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
 
-                            audioSource1.Play(); // In this instance this is audio source component of the current Box GameObject
+                            requiredAudio.Play(); // In this instance this is audio source component of the current Box GameObject
                         }
 
                         break;
@@ -195,7 +197,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             else
             { 
                 Debug.Log($"{other.gameObject.name} hit floor!!");
-                audioSource1.Play(); // In this instance this is audio source component of the Floor GameObject
+                floorAudio.Play(); // In this instance this is audio source component of the Floor GameObject
             }
 
             var resourceObjectName = other.gameObject.name.Replace("(Clone)", "");

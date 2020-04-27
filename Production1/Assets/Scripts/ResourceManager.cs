@@ -9,20 +9,21 @@ namespace Com.MachineApps.PrepareAndDeploy
 {
     public class ResourceManager : MonoBehaviour
     {
-        public int myResourceId;
 
         [Tooltip("Resource grabber countdown timer text")]
-        //[SerializeField]
-        public Text countdownDisplay;
+        [SerializeField]
+        private Text countdownDisplay;
+        [SerializeField]
+        private Canvas priceTag;
 
-        public Canvas PriceTag;
-
+        private int myResourceId = 0;
         private float countdown;
         private bool countdownStarted;
 
+        public int MyResourceId => myResourceId;
+
         void Start()
         {
-            Debug.Log($"ResourceManager Start: {gameObject.tag}");
 
             if (gameObject.CompareTag("Tent"))
             {
@@ -49,18 +50,20 @@ namespace Com.MachineApps.PrepareAndDeploy
                 myResourceId = (int)Resource.Toys;
             }
 
-            var priceText = gameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "PriceText");
-
             if (myResourceId != 0)
             {
+                Debug.Log($"ResourceManager Start - Name/Tag: {gameObject.name}/{gameObject.tag}");
+
+                var priceText = gameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "PriceText");
+
                 var resourceCost = GameManager.instance.GetResourceCost((Resource)myResourceId);
                 priceText.text = $"£{resourceCost.ToString()}";
 
                 //var countdownText = gameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "CountdownText");
                 countdownDisplay.text = "";
+                countdown = GameManager.instance.initialResourceObjectCountdown;
             }
 
-            countdown = GameManager.instance.initialResourceObjectCountdown;
         }
 
         void FixedUpdate()
@@ -92,7 +95,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 {
                     countdown = GameManager.instance.initialResourceObjectCountdown;
                     countdownStarted = true;
-                    PriceTag.gameObject.SetActive(false);
+                    priceTag.gameObject.SetActive(false);
                 }
             }
             else

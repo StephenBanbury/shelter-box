@@ -15,5 +15,6 @@ namespace Com.MachineApps.PrepareAndDeploy.Models
         public int[] RequiredResources { get; set; }
         public List<int> CollectedResources { get; set; }
         public OperationStatus OperationStatus { get; set; }
+        public string MovieTitle { get; set; }
     }
 }

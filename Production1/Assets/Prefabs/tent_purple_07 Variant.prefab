@@ -41,9 +41,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94bb9f3dd3caea4b9fde2b8dae3f2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myResourceId: 0
   countdownDisplay: {fileID: 7413463833583148462}
-  PriceTag: {fileID: 1221432479466821077}
+  priceTag: {fileID: 1221432479466821077}
 --- !u!114 &3697209468461087468
 MonoBehaviour:
   m_ObjectHideFlags: 0

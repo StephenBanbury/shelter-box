@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Com.MachineApps.PrepareAndDeploy.Services
 {
-    public class ScoreService : MonoBehaviour
+    public class ScoreService
     {
         public int GetScoreValue(ScoreType scoreType)
         {

@@ -125,6 +125,8 @@ namespace Com.MachineApps.PrepareAndDeploy
             // Select random operation and replace it with a new operation
             if (DateTime.UtcNow >= reviewDateTime && rotateOperations && !updatingMonitorReplacement)
             {
+                Debug.Log("Updating Monitor Replacement");
+
                 updatingMonitorReplacement = true;
                 ReplaceOperation();
                 AssignOperationsToMonitors();
@@ -138,17 +140,17 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         }
 
-        public void RotateOperations(bool rotate)
+        public void SetRotateOperations(bool rotate)
         {
             rotateOperations = rotate;
         }
 
         public void AssignOperationsToMonitors()
         {
-            Debug.Log($"operationId0: {operationId0}");
-            Debug.Log($"operationId1: {operationId1}");
-            Debug.Log($"operationId2: {operationId2}");
-            Debug.Log($"operationId3: {operationId3}");
+            //Debug.Log($"operationId0: {operationId0}");
+            //Debug.Log($"operationId1: {operationId1}");
+            //Debug.Log($"operationId2: {operationId2}");
+            //Debug.Log($"operationId3: {operationId3}");
 
             // Heading
 
@@ -203,26 +205,28 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public void DisasterScenarioDeployed(int operationId)
         {
-            var thisOperation = operations.FirstOrDefault(r => r.Id == operationId);
-            thisOperation.OperationStatus = OperationStatus.Success;
+            var op = operations.FirstOrDefault(o => o.Id == operationId);
+            op.OperationStatus = OperationStatus.Success;
 
             StartCoroutine(DeployedRoutine(operationId));
         }
 
         public void CollectResource(int operationId, int resourceId)
         {
-            operations[operationId].CollectedResources.Add(resourceId);
+            var op = operations.FirstOrDefault(o => o.Id == operationId);
+            op?.CollectedResources.Add(resourceId);
         }
 
         public int[] RequiredResources(int operationId)
         {
-            return operations[operationId].RequiredResources;
+            var op = operations.FirstOrDefault(o => o.Id == operationId);
+            return op?.RequiredResources;
         }
 
         public int[] CollectedResources(int operationId)
         {
-            var operation = operations[operationId];
-            return operation.CollectedResources.ToArray();
+            var op = operations.FirstOrDefault(o => o.Id == operationId);
+            return op?.CollectedResources.ToArray();
         }
 
         public TripleState SelectedResourceIsRequired(int operationId, int resourceId)
@@ -259,36 +263,38 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         private void ReplaceOperation()
         {
+            Debug.Log("ReplaceOperation");
+
             var newIndex = RandomOperationIndex();
             var randomMonitor = (int) (4 * Random.value);
 
-            Operation operation;
+            Operation op;
 
             switch (randomMonitor)
             {
                 case 1:
-                    operation = operations.FirstOrDefault(r => r.Id == operationId0);
-                    operation.OperationStatus = OperationStatus.Fail;
+                    op = operations.FirstOrDefault(r => r.Id == operationId0);
+                    op.OperationStatus = OperationStatus.Fail;
                     operationId0 = newIndex;
                     break;
                 case 2:
-                    operation = operations.FirstOrDefault(r => r.Id == operationId1);
-                    operation.OperationStatus = OperationStatus.Fail;
+                    op = operations.FirstOrDefault(r => r.Id == operationId1);
+                    op.OperationStatus = OperationStatus.Fail;
                     operationId1 = newIndex;
                     break;
                 case 3:
-                    operation = operations.FirstOrDefault(r => r.Id == operationId2);
-                    operation.OperationStatus = OperationStatus.Fail;
+                    op = operations.FirstOrDefault(r => r.Id == operationId2);
+                    op.OperationStatus = OperationStatus.Fail;
                     operationId2 = newIndex;
                     break;
-                    operation = operations.FirstOrDefault(r => r.Id == operationId3);
-                    operation.OperationStatus = OperationStatus.Fail;
+                    op = operations.FirstOrDefault(r => r.Id == operationId3);
+                    op.OperationStatus = OperationStatus.Fail;
                     operationId3 = newIndex;
                     break;
             }
 
-            operation = operations.FirstOrDefault(r => r.Id == newIndex);
-            operation.OperationStatus = OperationStatus.Pending;
+            op = operations.FirstOrDefault(r => r.Id == newIndex);
+            op.OperationStatus = OperationStatus.Pending;
 
             Debug.Log($"Monitor {randomMonitor} - operation replaced with {newIndex}");
             //usedIndexes.Add(newIndex);

@@ -142,9 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94bb9f3dd3caea4b9fde2b8dae3f2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myResourceId: 0
   countdownDisplay: {fileID: 0}
-  PriceTag: {fileID: 0}
+  priceTag: {fileID: 0}
 --- !u!1 &8157442898933636706
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +303,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0.013663791, b: 0.8962264, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

@@ -9,12 +9,12 @@ namespace Com.MachineApps.PrepareAndDeploy
 {
     public class ResourceInstantiator : MonoBehaviour
     {
-        public GameObject myPrefab1;
-        public GameObject myPrefab2;
-        public GameObject myPrefab3;
-        public GameObject myPrefab4;
-        public GameObject myPrefab5;
-        public GameObject myPrefab6;
+        [SerializeField] private GameObject myPrefab1;
+        [SerializeField] private GameObject myPrefab2;
+        [SerializeField] private GameObject myPrefab3;
+        [SerializeField] private GameObject myPrefab4;
+        [SerializeField] private GameObject myPrefab5;
+        [SerializeField] private GameObject myPrefab6;
 
         public int resourcesPerBin = 1;
 

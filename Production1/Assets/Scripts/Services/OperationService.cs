@@ -24,9 +24,9 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new Operation
                 {
                     Id = 1,
-                    Title = "Hurricane!",
-                    SubTitle = "Thousands of homes destroyed",
-                    Text = "Hundreds of families affected",
+                    Title = "Bahamas - Hurricane",
+                    SubTitle = "Hurricain Dorian - many homes destroyed",
+                    Text = "",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
                     RequiredResources = new int[]
@@ -40,12 +40,13 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>(),
-                    OperationStatus = OperationStatus.None
+                    OperationStatus = OperationStatus.None,
+                    MovieTitle = "Bahamas_HurricainDorian_2019.mp4"
                 },
                 new Operation
                 {
                     Id = 2,
-                    Title = "Drought!",
+                    Title = "Drought",
                     SubTitle = "Water supplies depleted and crops failing",
                     Text = "UN declares it a Humanitarian Crisis",
                     ReportDate = DateTime.UtcNow,
@@ -60,14 +61,15 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         (int) Resource.Water
                     },
                     CollectedResources = new List<int>(),
-                    OperationStatus = OperationStatus.None
+                    OperationStatus = OperationStatus.None,
+                    MovieTitle = ""
                 },
                 new Operation
                 {
                     Id = 3,
-                    Title = "Civil unrest!",
-                    SubTitle = "Whole villages forced to leave homes",
-                    Text = "It's not known how many have found safety'",
+                    Title = "BurkinaFaso - Conflict",
+                    SubTitle = "Displacement of people",
+                    Text = "",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
                     RequiredResources = new int[]
@@ -81,14 +83,15 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>(),
-                    OperationStatus = OperationStatus.None
+                    OperationStatus = OperationStatus.None,
+                    MovieTitle = "BurkinaFaso_Conflict_2020.mp4"
                 },
                 new Operation
                 {
                     Id = 4,
-                    Title = "Flooding!",
-                    SubTitle = "Widespread displacement of people",
-                    Text = "Neighbouring countries say they can provide limited assistance",
+                    Title = "Bangladesh - Flood",
+                    SubTitle = "Widespread displacement",
+                    Text = "",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
                     RequiredResources = new int[]
@@ -99,16 +102,17 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Water,
-                        (int) Resource.Boats,
+                        //(int) Resource.Boats,
                         //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>(),
-                    OperationStatus = OperationStatus.None
+                    OperationStatus = OperationStatus.None,
+                    MovieTitle = "Bangladesh_Flood_2019.mp4"
                 },
                 new Operation
                 {
                     Id = 5,
-                    Title = "Tsunami!",
+                    Title = "Tsunami",
                     SubTitle = "As many as 2000 people affected",
                     Text = "Rescue is underway",
                     ReportDate = DateTime.UtcNow,
@@ -125,12 +129,13 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>(),
-                    OperationStatus = OperationStatus.None
+                    OperationStatus = OperationStatus.None,
+                    MovieTitle = ""
                 },
                 new Operation
                 {
                     Id = 6,
-                    Title = "Earthquake!",
+                    Title = "Peru - Earthquake",
                     SubTitle = "Five villages evacuated",
                     Text = "Hundreds of people unaccounted for",
                     ReportDate = DateTime.UtcNow,
@@ -146,14 +151,15 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>(),
-                    OperationStatus = OperationStatus.None
+                    OperationStatus = OperationStatus.None,
+                    MovieTitle = ""
                 },
                 new Operation
                 {
                     Id = 7,
-                    Title = "Volcano!",
-                    SubTitle = "East side of island evacuated",
-                    Text = "Thousands of people in search of shelter",
+                    Title = "Auckland - Volcano",
+                    SubTitle = "Assessment team has arrived",
+                    Text = "",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
                     RequiredResources = new int[]
@@ -167,7 +173,96 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         //(int) Resource.Blankets
                     },
                     CollectedResources = new List<int>(),
-                    OperationStatus = OperationStatus.None
+                    OperationStatus = OperationStatus.None,
+                    MovieTitle = ""
+                },
+                new Operation
+                {
+                    Id = 8,
+                    Title = "Malawi - Flooding",
+                    SubTitle = "Assessment team has arrived",
+                    Text = "",
+                    ReportDate = DateTime.UtcNow,
+                    Archived = false,
+                    RequiredResources = new int[]
+                    {
+                        (int) Resource.Clothing,
+                        //(int) Resource.Food,
+                        (int) Resource.FirstAidKits,
+                        (int) Resource.Tents,
+                        //(int) Resource.Toys,
+                        (int) Resource.Water,
+                        //(int) Resource.Blankets
+                    },
+                    CollectedResources = new List<int>(),
+                    OperationStatus = OperationStatus.None,
+                    MovieTitle = ""
+                },
+                new Operation
+                {
+                    Id = 9,
+                    Title = "Syria - Conflict",
+                    SubTitle = "Shelter, aid and winter clothing provided near Idlib",
+                    Text = "",
+                    ReportDate = DateTime.UtcNow,
+                    Archived = false,
+                    RequiredResources = new int[]
+                    {
+                        (int) Resource.Clothing,
+                        (int) Resource.Food,
+                        (int) Resource.FirstAidKits,
+                        (int) Resource.Tents,
+                        (int) Resource.Toys,
+                        (int) Resource.Water,
+                        //(int) Resource.Blankets
+                    },
+                    CollectedResources = new List<int>(),
+                    OperationStatus = OperationStatus.None,
+                    MovieTitle = ""
+                },
+                new Operation
+                {
+                    Id = 10,
+                    Title = "Somaliland - Drought",
+                    SubTitle = "Over 4,468 households helped to date",
+                    Text = "",
+                    ReportDate = DateTime.UtcNow,
+                    Archived = false,
+                    RequiredResources = new int[]
+                    {
+                        (int) Resource.Clothing,
+                        (int) Resource.Food,
+                        (int) Resource.FirstAidKits,
+                        (int) Resource.Tents,
+                        (int) Resource.Toys,
+                        (int) Resource.Water,
+                        //(int) Resource.Blankets
+                    },
+                    CollectedResources = new List<int>(),
+                    OperationStatus = OperationStatus.None,
+                    MovieTitle = ""
+                },
+                new Operation
+                {
+                    Id = 11,
+                    Title = "Lake Chad Basin - Nigeria, Niger, Chad & Cameroon",
+                    SubTitle = "5th year of assistance through partners, ACTED & IEDA",
+                    Text = "",
+                    ReportDate = DateTime.UtcNow,
+                    Archived = false,
+                    RequiredResources = new int[]
+                    {
+                        (int) Resource.Clothing,
+                        (int) Resource.Food,
+                        (int) Resource.FirstAidKits,
+                        (int) Resource.Tents,
+                        (int) Resource.Toys,
+                        (int) Resource.Water,
+                        //(int) Resource.Blankets
+                    },
+                    CollectedResources = new List<int>(),
+                    OperationStatus = OperationStatus.None,
+                    MovieTitle = ""
                 }
             };
 

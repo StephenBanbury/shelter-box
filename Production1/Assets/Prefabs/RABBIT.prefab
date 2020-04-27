@@ -126,9 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94bb9f3dd3caea4b9fde2b8dae3f2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myResourceId: 0
   countdownDisplay: {fileID: 3340525005495113468}
-  PriceTag: {fileID: 425341848054110702}
+  priceTag: {fileID: 425341848054110702}
 --- !u!114 &-2501382497281450183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,9 +257,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94bb9f3dd3caea4b9fde2b8dae3f2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myResourceId: 0
   countdownDisplay: {fileID: 0}
-  PriceTag: {fileID: 0}
+  priceTag: {fileID: 0}
 --- !u!1 &5097250036076950410
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,9 +449,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f94bb9f3dd3caea4b9fde2b8dae3f2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myResourceId: 0
   countdownDisplay: {fileID: 3340525005495113468}
-  PriceTag: {fileID: 0}
+  priceTag: {fileID: 0}
 --- !u!1001 &5351137676329259203
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             var currentPlayer = PlayerManager.instance.GetCurrentPlayer();
             var resourceManager = gameObject.GetComponent<ResourceManager>();
-            var myResourceId = resourceManager.myResourceId;
+            var myResourceId = resourceManager.MyResourceId;
             var resourceCost = GameManager.instance.GetResourceCost((Resource)myResourceId);
             var budgetRemaining = GameManager.instance.BudgetRemaining();
 

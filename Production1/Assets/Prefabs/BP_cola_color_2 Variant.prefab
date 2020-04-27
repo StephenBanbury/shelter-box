@@ -382,6 +382,11 @@ PrefabInstance:
       propertyPath: PriceTag
       value: 
       objectReference: {fileID: 4960276068777819875}
+    - target: {fileID: 2358138272023428148, guid: 28aeb2a4fbfc23e4690286e16e6a332b,
+        type: 3}
+      propertyPath: priceTag
+      value: 
+      objectReference: {fileID: 4960276068777819875}
     m_RemovedComponents:
     - {fileID: 270017144554752298, guid: 28aeb2a4fbfc23e4690286e16e6a332b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 28aeb2a4fbfc23e4690286e16e6a332b, type: 3}

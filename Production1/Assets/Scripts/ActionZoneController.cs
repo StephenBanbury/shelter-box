@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Com.MachineApps.PrepareAndDeploy;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Com.MachineApps.PrepareAndDeploy
 {
@@ -24,7 +21,10 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                     GameManager.instance.HudOnOff(true);
 
-                    OperationsManager.instance.RotateOperations(true);
+                    //OperationsManager.instance.SetRotateOperations(true);
+
+                    var currentOps = GameObject.Find("CurrentOperations");
+                    currentOps.GetComponent<CanvasGroup>().alpha = 1f;
                 }
             }
             //}else if (gameObject.name == "EntranceActionZone")
@@ -49,7 +49,10 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                     GameManager.instance.HudOnOff(false);
 
-                    OperationsManager.instance.RotateOperations(false);
+                    OperationsManager.instance.SetRotateOperations(false);
+
+                    var currentOps = GameObject.Find("CurrentOperations");
+                    currentOps.GetComponent<CanvasGroup>().alpha = 0;
                 }
             }
             //else if (gameObject.name == "EntranceActionZone")

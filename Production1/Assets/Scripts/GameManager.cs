@@ -121,6 +121,11 @@ public class GameManager : MonoBehaviour
         AnimationManager.instance.ActivateMonitor("monitor4", activateMonitors);
         AnimationManager.instance.BoxesThruFloor(false);
 
+        var currentOps = GameObject.Find("CurrentOperations");
+        currentOps.GetComponent<CanvasGroup>().alpha = 0;
+
+        OperationsManager.instance.SetRotateOperations(false);
+
         StartCountdown();
 
         UpdateBudgetDisplay();
