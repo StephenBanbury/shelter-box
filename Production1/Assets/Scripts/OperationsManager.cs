@@ -42,12 +42,12 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         [SerializeField] private int updateInterval = 60;
 
-        public static List<Operation> operations;
+        private int operationId0 = 0;
+        private int operationId1 = 1;
+        private int operationId2 = 2;
+        private int operationId3 = 3;
 
-        public int operationId0 = 0;
-        public int operationId1 = 1;
-        public int operationId2 = 2;
-        public int operationId3 = 3;
+        private static List<Operation> operations;
 
         private DateTime startDateTime = DateTime.UtcNow;
         private DateTime reviewDateTime;
@@ -56,6 +56,29 @@ namespace Com.MachineApps.PrepareAndDeploy
         private List<int> usedIndexes = new List<int>();
         private bool updatingMonitorReplacement;
         private bool rotateOperations;
+
+        public int OperationId(int id)
+        {
+            int operationId = 0;
+
+            switch (id)
+            {
+                case 0:
+                    operationId = operationId0;
+                    break;
+                case 1:
+                    operationId = operationId1;
+                    break;
+                case 2:
+                    operationId = operationId2;
+                    break;
+                case 3:
+                    operationId = operationId3;
+                    break;
+            }
+
+            return operationId;
+        }
 
         void Awake()
         {
@@ -220,7 +243,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         public int[] RequiredResources(int operationId)
         {
             var op = operations.FirstOrDefault(o => o.Id == operationId);
-            return op?.RequiredResources;
+            return op?.RequiredResources.ToArray();
         }
 
         public int[] CollectedResources(int operationId)
@@ -355,11 +378,18 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         private string ResourceListText(int operationId)
         {
-            //var requiredResources = operations[operationId].RequiredResources;
-            //var collectedResources = operations[operationId].CollectedResources;
+            List<int> requiredResources = new List<int>();
+            List<int> collectedResources = new List<int>();
 
-            var requiredResources = operations.FirstOrDefault(o => o.Id == operationId).RequiredResources;
-            var collectedResources = operations.FirstOrDefault(o => o.Id == operationId).CollectedResources;
+            var op = operations.FirstOrDefault(o => o.Id == operationId);
+
+            if (op != null)
+            {
+
+                requiredResources = op.RequiredResources;
+                collectedResources = op.CollectedResources;
+            }
+
 
             var resourceText = "";
             foreach (var requiredResource in requiredResources)

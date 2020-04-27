@@ -12,7 +12,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Models
         public string Text { get; set; }
         public DateTime ReportDate { get; set; }
         public bool Archived { get; set; }
-        public int[] RequiredResources { get; set; }
+        public List<int> RequiredResources { get; set; }
         public List<int> CollectedResources { get; set; }
         public OperationStatus OperationStatus { get; set; }
         public string MovieTitle { get; set; }

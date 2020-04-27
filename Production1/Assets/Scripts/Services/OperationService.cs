@@ -29,7 +29,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[]
+                    RequiredResources = new List<int>()
                     {
                         //(int) Resource.Clothing, 
                         (int) Resource.Food, 
@@ -51,7 +51,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "UN declares it a Humanitarian Crisis",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[]
+                    RequiredResources = new List<int>()
                     {
                         //(int) Resource.Clothing,
                         (int) Resource.Food,
@@ -72,7 +72,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[]
+                    RequiredResources = new List<int>()
                     {
                         //(int) Resource.Clothing,
                         (int) Resource.Food,
@@ -94,7 +94,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[]
+                    RequiredResources = new List<int>()
                     {
                         //(int) Resource.Clothing,
                         (int) Resource.Food,
@@ -117,7 +117,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "Rescue is underway",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[]
+                    RequiredResources = new List<int>()
                     {
                         //(int) Resource.Clothing,
                         (int) Resource.Food,
@@ -140,7 +140,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "Hundreds of people unaccounted for",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[]
+                    RequiredResources = new List<int>()
                     {
                         //(int) Resource.Clothing,
                         (int) Resource.Food,
@@ -162,7 +162,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[]
+                    RequiredResources = new List<int>()
                     {
                         //(int) Resource.Clothing,
                         //(int) Resource.Food,
@@ -184,7 +184,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[]
+                    RequiredResources = new List<int>()
                     {
                         (int) Resource.Clothing,
                         //(int) Resource.Food,
@@ -206,7 +206,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[]
+                    RequiredResources = new List<int>()
                     {
                         (int) Resource.Clothing,
                         (int) Resource.Food,
@@ -228,7 +228,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[]
+                    RequiredResources = new List<int>()
                     {
                         (int) Resource.Clothing,
                         (int) Resource.Food,
@@ -250,7 +250,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "",
                     ReportDate = DateTime.UtcNow,
                     Archived = false,
-                    RequiredResources = new int[]
+                    RequiredResources = new List<int>()
                     {
                         (int) Resource.Clothing,
                         (int) Resource.Food,
