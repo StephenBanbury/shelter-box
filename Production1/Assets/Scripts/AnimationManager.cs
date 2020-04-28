@@ -84,16 +84,16 @@ namespace Com.MachineApps.PrepareAndDeploy
             
             switch (monitor)
             {
-                case "monitor1":
+                case "Monitor1":
                     monitor1.SetBool("openMonitor", activate);
                     break;
-                case "monitor2":
+                case "Monitor2":
                     monitor2.SetBool("openMonitor", activate);
                     break;
-                case "monitor3":
+                case "Monitor3":
                     monitor3.SetBool("openMonitor", activate);
                     break;
-                case "monitor4":
+                case "Monitor4":
                     monitor4.SetBool("openMonitor", activate);
                     break;
             }

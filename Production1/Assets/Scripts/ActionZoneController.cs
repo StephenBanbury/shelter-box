@@ -12,10 +12,10 @@ namespace Com.MachineApps.PrepareAndDeploy
                 {
                     Debug.Log("Inside Action Zone");
 
-                    AnimationManager.instance.ActivateMonitor("monitor1", true);
-                    AnimationManager.instance.ActivateMonitor("monitor2", true);
-                    AnimationManager.instance.ActivateMonitor("monitor3", true);
-                    AnimationManager.instance.ActivateMonitor("monitor4", true);
+                    AnimationManager.instance.ActivateMonitor("Monitor1", true);
+                    AnimationManager.instance.ActivateMonitor("Monitor2", true);
+                    AnimationManager.instance.ActivateMonitor("Monitor3", true);
+                    AnimationManager.instance.ActivateMonitor("Monitor4", true);
 
                     AnimationManager.instance.BoxesThruFloor(true);
 

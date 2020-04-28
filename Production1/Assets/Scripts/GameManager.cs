@@ -17,18 +17,31 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("Heads-up display countdown timer text")]
     [SerializeField] private Text hudCountdownDisplay;
+    //[Tooltip("Heads-up display text")]
+    //[SerializeField] private Text hudText;
     [Tooltip("Heads-up display text")]
+    [SerializeField] private GameObject hudCanvas;
+    [SerializeField] private TMP_Text hudTextMesh;
     [SerializeField] private Text hudText;
     [Tooltip("Minutes allowed for game countdown")]
     [SerializeField] private int timeAllowed = 5;
     [Tooltip("Personalised message displayed in control room")]
     [SerializeField] private Text personalMessage;
-    [SerializeField] private GameObject hudCanvas;
     [SerializeField] private TMP_Text startButtonText;
     [SerializeField] private int startingBudget = 1000;
     [SerializeField] private Text pendingOpsText;
     [SerializeField] private Text successfulOpsText;
     [SerializeField] private Text failedOpsText;
+
+    [SerializeField] private AudioSource lowFundsWarning;
+    [SerializeField] private AudioSource squelchbeep;
+    [SerializeField] private AudioSource gong;
+    [SerializeField] private AudioSource successfulDeployment;
+    [SerializeField] private AudioSource notEnoughMoneyLeft;
+    [SerializeField] private AudioSource missionStatementPart1;
+    [SerializeField] private AudioSource missionStatementPart2;
+    [SerializeField] private AudioSource useKeyboard;
+    [SerializeField] private AudioSource backgroundNoise1;
 
     [Tooltip("Initial countdown setting for resource objects (seconds)")]
     public float initialResourceObjectCountdown;
@@ -41,22 +54,11 @@ public class GameManager : MonoBehaviour
     // static DeploymentStatus deploymentStatus;
     public static bool countdownStarted;
 
-    public string playerName;
 
     private static float hudDisplayTime;
     private static float countdown;
     private bool updatingResourceCountdown;
     private bool updatingFundRaisingEvent;
-
-    private AudioSource horn;
-    private AudioSource squelchbeep;
-    private AudioSource gong;
-    private AudioSource successfulDeployment;
-    private AudioSource notEnoughMoneyLeft;
-    private AudioSource missionStatementPart1;
-    private AudioSource missionStatementPart2;
-    private AudioSource useKeyboard;
-    private AudioSource backgroundNoise1;
 
     private Scene scene;
 
@@ -88,20 +90,19 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         scene = SceneManager.GetActiveScene();
-
         remainingBudget = startingBudget;
 
-        AudioSource[] audioSources = GetComponents<AudioSource>();
+        //AudioSource[] audioSources = GetComponents<AudioSource>();
 
-        horn = audioSources[0];
-        squelchbeep = audioSources[1];
-        gong = audioSources[2];
-        missionStatementPart2 = audioSources[3];
-        notEnoughMoneyLeft = audioSources[4];
-        missionStatementPart1 = audioSources[5];
-        successfulDeployment = audioSources[6];
-        useKeyboard = audioSources[7];
-        backgroundNoise1 = audioSources[8];
+        //budgetLow = audioSources[0];
+        //squelchbeep = audioSources[1];
+        //gong = audioSources[2];
+        //missionStatementPart2 = audioSources[3];
+        //notEnoughMoneyLeft = audioSources[4];
+        //missionStatementPart1 = audioSources[5];
+        //successfulDeployment = audioSources[6];
+        //useKeyboard = audioSources[7];
+        //backgroundNoise1 = audioSources[8];
 
         fundingEventLives = new List<string>();
         for (int i = 1; i <= FundRaisingEventManager.instance.numberOfEventsAllowed; i++)
@@ -115,14 +116,14 @@ public class GameManager : MonoBehaviour
 
         const bool activateMonitors = false;
 
-        AnimationManager.instance.ActivateMonitor("monitor1", activateMonitors);
-        AnimationManager.instance.ActivateMonitor("monitor2", activateMonitors);
-        AnimationManager.instance.ActivateMonitor("monitor3", activateMonitors);
-        AnimationManager.instance.ActivateMonitor("monitor4", activateMonitors);
+        AnimationManager.instance.ActivateMonitor("Monitor1", activateMonitors);
+        AnimationManager.instance.ActivateMonitor("Monitor2", activateMonitors);
+        AnimationManager.instance.ActivateMonitor("Monitor3", activateMonitors);
+        AnimationManager.instance.ActivateMonitor("Monitor4", activateMonitors);
         AnimationManager.instance.BoxesThruFloor(false);
 
-        var currentOps = GameObject.Find("CurrentOperations");
-        currentOps.GetComponent<CanvasGroup>().alpha = 0;
+        var currentOpsDisplay = GameObject.Find("CurrentOperations");
+        currentOpsDisplay.GetComponent<CanvasGroup>().alpha = 0;
 
         OperationsManager.instance.SetRotateOperations(false);
 
@@ -208,12 +209,11 @@ public class GameManager : MonoBehaviour
                 backgroundNoise1.volume = 0.2f;
                 backgroundNoise1.Play();
                 break;
-            case "horn":
-                horn.Play();
+            case "lowFundsWarning":
+                lowFundsWarning.Play();
                 break;
         }
     }
-
 
     public void HudMessage(string messageText, int displayTimeSeconds)
     {
@@ -324,7 +324,9 @@ public class GameManager : MonoBehaviour
         
         if (percentRemaining <= 10)
         {
-            StartCoroutine(BudgetWarning(3));
+            PlayAudio("lowFundsWarning");
+            //StartCoroutine(BudgetWarning(3));
+            HudMessage("WARNING: Low funds!!", 4);
         }
 
         IndicateBudget(percentRemaining);
@@ -365,21 +367,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator BudgetWarning(int secondsDelay)
-    {
-        LightUpAllBudgetLights();
-        PlayAudio("horn");
-        yield return new WaitForSeconds(secondsDelay);
-    }
+    //private IEnumerator BudgetWarning(int secondsDelay)
+    //{
+    //    //LightUpAllBudgetLights();
+    //    PlayAudio("lowFundsWarning");
+    //    yield return new WaitForSeconds(secondsDelay);
+    //}
 
-    private void LightUpAllBudgetLights()
-    {
-        var colour = new Color(255, 0, 0, 255);
-        for (var i = 1; i <= 5; i++)
-        {
-            GameObject.Find($"BudgetLife{i}").GetComponent<Renderer>().material.color = colour;
-        }
-    }
+    //private void LightUpAllBudgetLights()
+    //{
+    //    var colour = new Color(255, 0, 0, 255);
+    //    for (var i = 1; i <= 5; i++)
+    //    {
+    //        GameObject.Find($"BudgetLife{i}").GetComponent<Renderer>().material.color = colour;
+    //    }
+    //}
 
     private void UpdateScoreDisplay()
     {

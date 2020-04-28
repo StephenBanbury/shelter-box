@@ -39,7 +39,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
             else if (gameObject.CompareTag("FirstAidKit"))
             {
-                myResourceId = (int)Resource.FirstAidKits;
+                myResourceId = (int)Resource.FirstAid;
             }
             else if (gameObject.CompareTag("Boat"))
             {

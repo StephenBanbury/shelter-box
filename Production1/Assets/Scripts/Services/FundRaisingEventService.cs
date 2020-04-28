@@ -21,13 +21,13 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
         {
             var returnRecourceDictionary = new Dictionary<Resource, int>();
 
-            returnRecourceDictionary.Add(Resource.Food, 1500);
-            returnRecourceDictionary.Add(Resource.Boats, 2000);
-            returnRecourceDictionary.Add(Resource.FirstAidKits, 1300);
-            returnRecourceDictionary.Add(Resource.Tents, 2500);
-            returnRecourceDictionary.Add(Resource.Toys, 950);
-            returnRecourceDictionary.Add(Resource.Water, 1350);
-            returnRecourceDictionary.Add(Resource.Clothing, 2200);
+            returnRecourceDictionary.Add(Resource.Food, 1300);
+            returnRecourceDictionary.Add(Resource.Boats, 1800);
+            returnRecourceDictionary.Add(Resource.FirstAid, 1300);
+            returnRecourceDictionary.Add(Resource.Tents, 2000);
+            returnRecourceDictionary.Add(Resource.Toys, 550);
+            returnRecourceDictionary.Add(Resource.Water, 1150);
+            returnRecourceDictionary.Add(Resource.Clothing, 2000);
             returnRecourceDictionary.Add(Resource.Blankets, 1350);
 
             return returnRecourceDictionary;

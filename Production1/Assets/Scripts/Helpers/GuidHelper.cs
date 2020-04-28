@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Com.MachineApps.PrepareAndDeploy
 {
-    public class GuidHelper : MonoBehaviour
+    public class GuidHelper
     {
         public static string GetUniqueID()
         {

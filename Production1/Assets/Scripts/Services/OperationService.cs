@@ -33,7 +33,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     {
                         //(int) Resource.Clothing, 
                         (int) Resource.Food, 
-                        (int) Resource.FirstAidKits, 
+                        (int) Resource.FirstAid, 
                         (int) Resource.Tents, 
                         (int) Resource.Toys, 
                         (int) Resource.Water,
@@ -55,7 +55,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     {
                         //(int) Resource.Clothing,
                         (int) Resource.Food,
-                        (int) Resource.FirstAidKits,
+                        (int) Resource.FirstAid,
                         //(int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Water
@@ -76,7 +76,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     {
                         //(int) Resource.Clothing,
                         (int) Resource.Food,
-                        (int) Resource.FirstAidKits,
+                        (int) Resource.FirstAid,
                         (int) Resource.Tents,
                         //(int) Resource.Toys,
                         (int) Resource.Water,
@@ -98,7 +98,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     {
                         //(int) Resource.Clothing,
                         (int) Resource.Food,
-                        (int) Resource.FirstAidKits,
+                        (int) Resource.FirstAid,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Water,
@@ -121,7 +121,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     {
                         //(int) Resource.Clothing,
                         (int) Resource.Food,
-                        (int) Resource.FirstAidKits,
+                        (int) Resource.FirstAid,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         //(int) Resource.Water,
@@ -144,7 +144,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     {
                         //(int) Resource.Clothing,
                         (int) Resource.Food,
-                        (int) Resource.FirstAidKits,
+                        (int) Resource.FirstAid,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Water,
@@ -166,7 +166,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     {
                         //(int) Resource.Clothing,
                         //(int) Resource.Food,
-                        (int) Resource.FirstAidKits,
+                        (int) Resource.FirstAid,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Water,
@@ -186,9 +186,9 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Archived = false,
                     RequiredResources = new List<int>()
                     {
-                        (int) Resource.Clothing,
-                        //(int) Resource.Food,
-                        (int) Resource.FirstAidKits,
+                        //(int) Resource.Clothing,
+                        (int) Resource.Food,
+                        (int) Resource.FirstAid,
                         (int) Resource.Tents,
                         //(int) Resource.Toys,
                         (int) Resource.Water,
@@ -208,9 +208,9 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Archived = false,
                     RequiredResources = new List<int>()
                     {
-                        (int) Resource.Clothing,
+                        //(int) Resource.Clothing,
                         (int) Resource.Food,
-                        (int) Resource.FirstAidKits,
+                        (int) Resource.FirstAid,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Water,
@@ -230,10 +230,10 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Archived = false,
                     RequiredResources = new List<int>()
                     {
-                        (int) Resource.Clothing,
+                        //(int) Resource.Clothing,
                         (int) Resource.Food,
-                        (int) Resource.FirstAidKits,
-                        (int) Resource.Tents,
+                        //(int) Resource.FirstAid,
+                        //(int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Water,
                         //(int) Resource.Blankets
@@ -252,9 +252,9 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Archived = false,
                     RequiredResources = new List<int>()
                     {
-                        (int) Resource.Clothing,
+                        //(int) Resource.Clothing,
                         (int) Resource.Food,
-                        (int) Resource.FirstAidKits,
+                        (int) Resource.FirstAid,
                         (int) Resource.Tents,
                         (int) Resource.Toys,
                         (int) Resource.Water,

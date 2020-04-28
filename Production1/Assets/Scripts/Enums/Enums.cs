@@ -7,7 +7,7 @@
         Water = 2,
         Clothing = 3,
         Tents = 4,
-        FirstAidKits = 5,
+        FirstAid = 5,
         Toys = 6,
         Blankets = 7,
         Boats = 8

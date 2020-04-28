@@ -17,19 +17,21 @@ namespace Com.MachineApps.PrepareAndDeploy
     {
         public static OperationsManager instance;
 
-        [SerializeField] private GameObject monitor1;
-        [SerializeField] private GameObject monitor2;
-        [SerializeField] private GameObject monitor3;
-        [SerializeField] private GameObject monitor4;
+        //[SerializeField] private GameObject monitor1;
+        //[SerializeField] private GameObject monitor2;
+        //[SerializeField] private GameObject monitor3;
+        //[SerializeField] private GameObject monitor4;
 
         [SerializeField] private Text monitor1aText;
         [SerializeField] private Text monitor2aText;
         [SerializeField] private Text monitor3aText;
         [SerializeField] private Text monitor4aText;
+
         [SerializeField] private Text monitor1bText;
         [SerializeField] private Text monitor2bText;
         [SerializeField] private Text monitor3bText;
         [SerializeField] private Text monitor4bText;
+
         [SerializeField] private Text monitor1cText;
         [SerializeField] private Text monitor2cText;
         [SerializeField] private Text monitor3cText;
@@ -86,7 +88,11 @@ namespace Com.MachineApps.PrepareAndDeploy
             {
                 instance = this;
                 operations = operationService.GetOperations();
-                ShowOperationsStatus();
+
+                // Dubugging
+                var debugHelper = new DebugHelper();
+                debugHelper.EnumerateOperations(operations, "OperationsManager");
+
             }
             else if (instance != this)
             {
@@ -175,6 +181,13 @@ namespace Com.MachineApps.PrepareAndDeploy
             //Debug.Log($"operationId2: {operationId2}");
             //Debug.Log($"operationId3: {operationId3}");
 
+            // Debugging
+            var debugHelper = new DebugHelper();
+            debugHelper.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId0), "AssignOperationsToMonitors");
+            debugHelper.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId1), "AssignOperationsToMonitors");
+            debugHelper.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId2), "AssignOperationsToMonitors");
+            debugHelper.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId3), "AssignOperationsToMonitors");
+
             // Heading
 
             monitor1aText.text = operations.FirstOrDefault(o => o.Id == operationId0).Title;
@@ -206,21 +219,21 @@ namespace Com.MachineApps.PrepareAndDeploy
                 .Where(o => o.OperationStatus == OperationStatus.Pending)
                 .OrderBy(r => r.Title))
             {
-                pendingList += $"{operation.Title.Replace("!", "")}\n";
+                pendingList += $"{operation.Title.Replace("!", "")}\n\n";
             }
 
             foreach (var operation in operations
                 .Where(o => o.OperationStatus == OperationStatus.Success)
                 .OrderBy(r => r.Title))
             {
-                successList += $"{operation.Title.Replace("!", "")}\n";
+                successList += $"{operation.Title.Replace("!", "")}\n\n";
             }
 
             foreach (var operation in operations
                 .Where(o => o.OperationStatus == OperationStatus.Fail)
                 .OrderBy(r => r.Title))
             {
-                failedList += $"{operation.Title.Replace("!", "")}\n";
+                failedList += $"{operation.Title.Replace("!", "")}\n\n";
             }
 
             GameManager.instance.OpsStatusText(pendingList, successList, failedList);
@@ -325,31 +338,34 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         private IEnumerator DeployedRoutine(int operationId)
         {
-            Debug.Log($"StartCounter - operationId: {operationId}");
-
+            string spotLight = "";
             string monitor = "";
 
             if (operationId == operationId0)
             {
-                monitor = "monitor1";
+                monitor = "Monitor1";
+                spotLight = "SpotLight1";
                 video1.gameObject.SetActive(true);
                 video1.Play();
             }
             else if (operationId == operationId1)
             {
-                monitor = "monitor2";
+                monitor = "Monitor2";
+                spotLight = "SpotLight2";
                 video2.gameObject.SetActive(true);
                 video2.Play();
             }
             else if (operationId == operationId2)
             {
-                monitor = "monitor3";
+                monitor = "Monitor3";
+                spotLight = "SpotLight3";
                 video3.gameObject.SetActive(true);
                 video3.Play();
             }
             else if (operationId == operationId3)
             {
-                monitor = "monitor4";
+                monitor = "Monitor4";
+                spotLight = "SpotLight4";
                 video4.gameObject.SetActive(true);
                 video4.Play();
             }
@@ -361,14 +377,9 @@ namespace Com.MachineApps.PrepareAndDeploy
             video3.Stop();
             video4.Stop();
 
-            Debug.Log($"Monitor: {monitor}");
-
-            // TODO either...
-            // Replace existing operation with a new unused one.
-            // ReplaceOperation(operationId);
-
-            // TODO or...
             AnimationManager.instance.ActivateMonitor(monitor, false);
+
+            GameObject.Find(spotLight).SetActive(false);
 
             video1.gameObject.SetActive(false);
             video2.gameObject.SetActive(false);

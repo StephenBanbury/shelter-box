@@ -101,8 +101,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         Debug.Log("Resource not required");
 
-                        scoreType = ScoreType.ItemNotRequired;
-                        scoreValue = scoreService.GetScoreValue(scoreType);
+                        scoreValue = scoreService.GetScoreValue(ScoreType.ItemNotRequired);
                         GameManager.instance.UpdateScore(scoreValue);
 
                         infoMessage =
@@ -115,8 +114,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         Debug.Log("Resource already collected");
 
-                        scoreType = ScoreType.ItemAlreadyAssigned;
-                        scoreValue = scoreService.GetScoreValue(scoreType);
+                        scoreValue = scoreService.GetScoreValue(ScoreType.ItemAlreadyAssigned);
                         GameManager.instance.UpdateScore(scoreValue);
 
                         infoMessage =
@@ -137,35 +135,34 @@ namespace Com.MachineApps.PrepareAndDeploy
                         //Debug.Log($"Resource Cost: {resourceCost}");
                         GameManager.instance.ReduceBudget(resourceCost);
 
-                        scoreType = ScoreType.ItemAssigned;
-                        scoreValue = scoreService.GetScoreValue(scoreType);
+                        scoreValue = scoreService.GetScoreValue(ScoreType.ItemAssigned);
                         GameManager.instance.UpdateScore(scoreValue);
 
                         OperationsManager.instance.AssignOperationsToMonitors();
-                        OperationsManager.instance.ShowOperationsStatus();
 
                         // Have all resources been collected?
                         var numberRequired = OperationsManager.instance.RequiredResources(operationId).Length;
                         var numberCollected = OperationsManager.instance.CollectedResources(operationId).Length;
 
-                        Debug.Log($"numberRequired: {numberRequired}; numberCollected: {numberCollected}");
+                        //Debug.Log($"numberRequired: {numberRequired}; numberCollected: {numberCollected}");
 
                         if (numberRequired == numberCollected)
                         {
                             //ChangeMaterial(gameObject, 1);
                             //ChangeMaterial(gameObject.transform.GetChild(0).gameObject, 1);
 
-                            scoreType = ScoreType.DeploymentCompleted;
-                            scoreValue = scoreService.GetScoreValue(scoreType);
+                            scoreValue = scoreService.GetScoreValue(ScoreType.DeploymentCompleted);
                             GameManager.instance.UpdateScore(scoreValue);
 
                             Debug.Log($"All resources collected for operationId {operationId}");
 
-                            infoMessage = $"Thank you so much, {currentPlayer.PlayerName}! This deployment has been a success!";
+                            //infoMessage = $"Thank you so much, {currentPlayer.PlayerName}! This deployment has been a success!";
 
                             OperationsManager.instance.DisasterScenarioDeployed(operationId);
 
                             GameManager.instance.PlayAudio("successfulDeployment");
+
+                            OperationsManager.instance.ShowOperationsStatus();
                         }
                         else
                         {
