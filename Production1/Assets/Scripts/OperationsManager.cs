@@ -264,16 +264,26 @@ namespace Com.MachineApps.PrepareAndDeploy
             return response;
         }
 
+        //private int RandomOperationIndex()
+        //{
+        //    var randomIndex = (int) (operations.Count * Random.value) + 1;
+
+        //    // use random index if not used before, otherwise recursively generate a new one
+        //    var returnValue = !usedIndexes.Contains(randomIndex)
+        //        ? randomIndex
+        //        : RandomOperationIndex();
+
+        //    return returnValue;
+        //}
+
         private int RandomOperationIndex()
         {
-            var randomIndex = (int) (operations.Count * Random.value) + 1;
+            var unusedOps = operations.Where(o => o.OperationStatus == OperationStatus.None).ToList();
+            if (!unusedOps.Any()) return 0;
 
-            // use random index if not used before, otherwise recursively generate a new one
-            var returnValue = !usedIndexes.Contains(randomIndex)
-                ? randomIndex
-                : RandomOperationIndex();
-
-            return returnValue;
+            var randomPosition = (int) (unusedOps.Count * Random.value);
+            var randomIndex = unusedOps[randomPosition].Id;
+            return randomIndex;
         }
 
         private void ReplaceOperation()
@@ -282,40 +292,44 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             var newIndex = RandomOperationIndex();
             var randomMonitor = (int) (4 * Random.value) + 1;
-            
-            Operation op;
 
-            switch (randomMonitor)
+            if (newIndex != 0)
             {
-                case 1:
-                    op = operations.FirstOrDefault(r => r.Id == operationId0);
-                    op.OperationStatus = OperationStatus.Fail;
-                    operationId0 = newIndex;
-                    break;
-                case 2:
-                    op = operations.FirstOrDefault(r => r.Id == operationId1);
-                    op.OperationStatus = OperationStatus.Fail;
-                    operationId1 = newIndex;
-                    break;
-                case 3:
-                    op = operations.FirstOrDefault(r => r.Id == operationId2);
-                    op.OperationStatus = OperationStatus.Fail;
-                    operationId2 = newIndex;
-                    break;
-                case 4:
-                    op = operations.FirstOrDefault(r => r.Id == operationId3);
-                    op.OperationStatus = OperationStatus.Fail;
-                    operationId3 = newIndex;
-                    break;
+                Operation op;
+
+                switch (randomMonitor)
+                {
+                    case 1:
+                        op = operations.FirstOrDefault(r => r.Id == operationId0);
+                        op.OperationStatus = OperationStatus.Fail;
+                        operationId0 = newIndex;
+                        break;
+                    case 2:
+                        op = operations.FirstOrDefault(r => r.Id == operationId1);
+                        op.OperationStatus = OperationStatus.Fail;
+                        operationId1 = newIndex;
+                        break;
+                    case 3:
+                        op = operations.FirstOrDefault(r => r.Id == operationId2);
+                        op.OperationStatus = OperationStatus.Fail;
+                        operationId2 = newIndex;
+                        break;
+                    case 4:
+                        op = operations.FirstOrDefault(r => r.Id == operationId3);
+                        op.OperationStatus = OperationStatus.Fail;
+                        operationId3 = newIndex;
+                        break;
+                }
+
+                op = operations.FirstOrDefault(r => r.Id == newIndex);
+                op.OperationStatus = OperationStatus.Pending;
+                usedIndexes.Add(newIndex);
+
+                Debug.Log($"Monitor {randomMonitor} - operation replaced with {newIndex}");
+
+                DebugHelper.instance.EnumerateOperationIndexes(usedIndexes, operations, "ReplaceOperation");
+
             }
-
-            op = operations.FirstOrDefault(r => r.Id == newIndex);
-            op.OperationStatus = OperationStatus.Pending;
-            usedIndexes.Add(newIndex);
-
-            Debug.Log($"Monitor {randomMonitor} - operation replaced with {newIndex}");
-            
-            DebugHelper.instance.EnumerateOperationIndexes(usedIndexes, operations, "ReplaceOperation");
         }
 
         private IEnumerator DeployedRoutine(int operationId)
