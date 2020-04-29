@@ -22,7 +22,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             if (other.CompareTag("Hand") && !processingFundingEvent && used <= allowed)
             {
-                StartCoroutine(AwaitFundingEventResults(7));
+                StartCoroutine(AwaitFundingEventResults(7, other.name));
             }
         }
 
@@ -32,7 +32,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             screenText.GetComponent<Text>().text = message;
         }
 
-        private IEnumerator AwaitFundingEventResults(int waitFor)
+        private IEnumerator AwaitFundingEventResults(int waitFor, string hand)
         {
             processingFundingEvent = true;
 
@@ -47,7 +47,9 @@ namespace Com.MachineApps.PrepareAndDeploy
             audio1 = GetComponent<AudioSource>();
             audio1.Play();
 
-            VibrationManager.instance.TriggerVibration(audio1.clip, OVRInput.Controller.RTouch);
+            VibrationManager.instance.TriggerVibration(audio1.clip, name == "LHandCollider"
+                ? OVRInput.Controller.LTouch
+                : OVRInput.Controller.RTouch);
 
             FundRaisingEventManager.instance.MarkEventAsUsed(currentEventId);
 

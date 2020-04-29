@@ -24,7 +24,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new Operation
                 {
                     Id = 1,
-                    Title = "Bahamas - Hurricane",
+                    Title = "Bahamas: Hurricane",
                     SubTitle = "Hurricain Dorian - many homes destroyed",
                     Text = "",
                     ReportDate = DateTime.UtcNow,
@@ -67,7 +67,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new Operation
                 {
                     Id = 3,
-                    Title = "BurkinaFaso - Conflict",
+                    Title = "BurkinaFaso: Conflict",
                     SubTitle = "Displacement of people",
                     Text = "",
                     ReportDate = DateTime.UtcNow,
@@ -89,7 +89,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new Operation
                 {
                     Id = 4,
-                    Title = "Bangladesh - Flood",
+                    Title = "Bangladesh: Flood",
                     SubTitle = "Widespread displacement",
                     Text = "",
                     ReportDate = DateTime.UtcNow,
@@ -135,7 +135,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new Operation
                 {
                     Id = 6,
-                    Title = "Peru - Earthquake",
+                    Title = "Peru: Earthquake",
                     SubTitle = "Five villages evacuated",
                     Text = "Hundreds of people unaccounted for",
                     ReportDate = DateTime.UtcNow,
@@ -157,7 +157,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new Operation
                 {
                     Id = 7,
-                    Title = "Auckland - Volcano",
+                    Title = "Auckland: Volcano",
                     SubTitle = "Assessment team has arrived",
                     Text = "",
                     ReportDate = DateTime.UtcNow,
@@ -179,7 +179,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new Operation
                 {
                     Id = 8,
-                    Title = "Malawi - Flooding",
+                    Title = "Malawi: Flooding",
                     SubTitle = "Assessment team has arrived",
                     Text = "",
                     ReportDate = DateTime.UtcNow,
@@ -201,7 +201,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new Operation
                 {
                     Id = 9,
-                    Title = "Syria - Conflict",
+                    Title = "Syria: Conflict",
                     SubTitle = "Shelter, aid and winter clothing provided near Idlib",
                     Text = "",
                     ReportDate = DateTime.UtcNow,
@@ -223,7 +223,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new Operation
                 {
                     Id = 10,
-                    Title = "Somaliland - Drought",
+                    Title = "Somaliland: Drought",
                     SubTitle = "Over 4,468 households helped to date",
                     Text = "",
                     ReportDate = DateTime.UtcNow,
@@ -245,7 +245,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                 new Operation
                 {
                     Id = 11,
-                    Title = "Lake Chad Basin - Nigeria, Niger, Chad & Cameroon",
+                    Title = "Lake Chad Basin: Nigeria, Niger, Chad & Cameroon",
                     SubTitle = "5th year of assistance through partners, ACTED & IEDA",
                     Text = "",
                     ReportDate = DateTime.UtcNow,

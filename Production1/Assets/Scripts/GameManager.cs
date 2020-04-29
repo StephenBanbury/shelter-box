@@ -17,12 +17,11 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("Heads-up display countdown timer text")]
     [SerializeField] private Text hudCountdownDisplay;
-    //[Tooltip("Heads-up display text")]
-    //[SerializeField] private Text hudText;
-    [Tooltip("Heads-up display text")]
+    [Tooltip("Heads-up display canvas")]
     [SerializeField] private GameObject hudCanvas;
+    [Tooltip("Heads-up display text")]
     [SerializeField] private TMP_Text hudTextMesh;
-    [SerializeField] private Text hudText;
+    [SerializeField] private GameObject scorePanel;
     [Tooltip("Minutes allowed for game countdown")]
     [SerializeField] private int timeAllowed = 5;
     [Tooltip("Personalised message displayed in control room")]
@@ -114,6 +113,8 @@ public class GameManager : MonoBehaviour
 
         HudOnOff(false);
 
+        ScorePanelOnOff(false);
+
         const bool activateMonitors = false;
 
         AnimationManager.instance.ActivateMonitor("Monitor1", activateMonitors);
@@ -148,11 +149,12 @@ public class GameManager : MonoBehaviour
 
             ReduceResourceCountdownStart(seconds, 10, 0.3f);
             
-            FundraisingCountdownEvent(seconds, 5);
+            FundraisingCountdownEvent(seconds, 8);
             
             if (countdown <= hudDisplayTime && hudDisplayTime != 0)
             {
-                hudText.text = "";
+                HudOnOff(false);
+                hudTextMesh.text = "";
                 hudDisplayTime = 0;
             }
         }
@@ -218,12 +220,18 @@ public class GameManager : MonoBehaviour
     public void HudMessage(string messageText, int displayTimeSeconds)
     {
         hudDisplayTime = countdown - displayTimeSeconds;
-        hudText.text = messageText;
+        HudOnOff(true);
+        hudTextMesh.text = messageText;
     }
 
     public void HudOnOff(bool on)
     {
         hudCanvas.SetActive(on);
+    }
+
+    public void ScorePanelOnOff(bool on)
+    {
+        scorePanel.SetActive(on);
     }
 
     public void PersonalMessage(string playerName)
@@ -246,7 +254,7 @@ public class GameManager : MonoBehaviour
         {
             //Debug.Log($"fundingEventLives: {fundingEventLives[i-1]}");
             var lifeObject = GameObject.Find(fundingEventLives[i-1]);
-            var lifeObjectColor = i <= numberOfEventLivesLeft ? new Color(255, 0, 0, 255) : new Color(190, 205, 207, 255);
+            var lifeObjectColor = i <= numberOfEventLivesLeft ? new Color(240, 255, 0, 255) : new Color(190, 205, 207, 255);
 
             lifeObject.GetComponent<Renderer>().material.color = lifeObjectColor;
         }
@@ -281,7 +289,7 @@ public class GameManager : MonoBehaviour
         {
             // Chance of showing next fund-raising event
             // % 50 percent chance
-            var rand = Random.value;
+            //var rand = Random.value;
             //bool showNextEvent = rand > 0.5;
 
             bool showNextEvent = true;
@@ -361,7 +369,7 @@ public class GameManager : MonoBehaviour
             // colour indicator light if within budget remaining
             if (percentRemaining >= i * 16.7)
             {
-                colour = new Color(255, 0, 0, 255);
+                colour = new Color(240, 255, 0, 255);
             }
             GameObject.Find($"BudgetLife{i}").GetComponent<Renderer>().material.color = colour;
         }

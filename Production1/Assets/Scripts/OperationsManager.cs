@@ -90,7 +90,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 operations = operationService.GetOperations();
 
                 // Dubugging
-                DebugHelper.instance.EnumerateOperations(operations, "OperationsManager");
+                //DebugHelper.instance.EnumerateOperations(operations, "OperationsManager");
 
             }
             else if (instance != this)
@@ -181,10 +181,10 @@ namespace Com.MachineApps.PrepareAndDeploy
             //Debug.Log($"operationId3: {operationId3}");
 
             // Debugging
-            DebugHelper.instance.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId0), "AssignOperationsToMonitors");
-            DebugHelper.instance.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId1), "AssignOperationsToMonitors");
-            DebugHelper.instance.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId2), "AssignOperationsToMonitors");
-            DebugHelper.instance.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId3), "AssignOperationsToMonitors");
+            //DebugHelper.instance.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId0), "AssignOperationsToMonitors");
+            //DebugHelper.instance.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId1), "AssignOperationsToMonitors");
+            //DebugHelper.instance.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId2), "AssignOperationsToMonitors");
+            //DebugHelper.instance.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId3), "AssignOperationsToMonitors");
 
             // Heading
 
@@ -217,21 +217,21 @@ namespace Com.MachineApps.PrepareAndDeploy
                 .Where(o => o.OperationStatus == OperationStatus.Pending)
                 .OrderBy(r => r.Title))
             {
-                pendingList += $"{operation.Title.Replace("!", "")}\n\n";
+                pendingList += $"{operation.Title.Replace("!", "")}\n";
             }
 
             foreach (var operation in operations
                 .Where(o => o.OperationStatus == OperationStatus.Success)
                 .OrderBy(r => r.Title))
             {
-                successList += $"{operation.Title.Replace("!", "")}\n\n";
+                successList += $"{operation.Title.Replace("!", "")}\n";
             }
 
             foreach (var operation in operations
                 .Where(o => o.OperationStatus == OperationStatus.Fail)
                 .OrderBy(r => r.Title))
             {
-                failedList += $"{operation.Title.Replace("!", "")}\n\n";
+                failedList += $"{operation.Title.Replace("!", "")}\n";
             }
 
             GameManager.instance.OpsStatusText(pendingList, successList, failedList);
