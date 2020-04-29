@@ -23,14 +23,20 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             if (budgetRemaining - resourceCost < 0)
             {
-                GameManager.instance.HudMessage($"I'm sorry, {currentPlayer.PlayerName}, there is not enough money left! Why not stage a fund-raising event?", 5);
+                GameManager.instance.HudMessage($"{currentPlayer.PlayerName}, there is not enough money left!", 5);
                 GameManager.instance.PlayAudio("notEnoughMoneyLeft");
                 OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);
+                VibrationManager.instance.TriggerVibration(40, 2, 255, hand.name == "LeftHandAnchor"
+                    ? OVRInput.Controller.LTouch
+                    : OVRInput.Controller.RTouch);
+
             }
             else if (budgetRemaining <= 0) // Shouldn't get to this point
             {
                 GameManager.instance.HudMessage($"I'm sorry, {currentPlayer.PlayerName}, there is not enough money left!", 5);
-                OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);
+                OVRInput.SetControllerVibration(0.5f, 0.5f, hand.name == "LeftHandAnchor"
+                    ? OVRInput.Controller.LTouch 
+                    : OVRInput.Controller.RTouch);
             }
             else
             {
@@ -40,7 +46,9 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                 resourceManager.Grabbed(true);
 
-                VibrationManager.instance.TriggerVibration(40, 2, 255, OVRInput.Controller.RTouch);
+                VibrationManager.instance.TriggerVibration(40, 2, 255, hand.name == "LeftHandAnchor"
+                    ? OVRInput.Controller.LTouch
+                    : OVRInput.Controller.RTouch);
             }
         }
 

@@ -32,7 +32,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             screenText.GetComponent<Text>().text = message;
         }
 
-        private IEnumerator AwaitFundingEventResults(int waitFor, string hand)
+        private IEnumerator AwaitFundingEventResults(int waitFor, string handName)
         {
             processingFundingEvent = true;
 
@@ -47,7 +47,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             audio1 = GetComponent<AudioSource>();
             audio1.Play();
 
-            VibrationManager.instance.TriggerVibration(audio1.clip, name == "LHandCollider"
+            VibrationManager.instance.TriggerVibration(audio1.clip, handName == "LHandCollider"
                 ? OVRInput.Controller.LTouch
                 : OVRInput.Controller.RTouch);
 

@@ -91,7 +91,6 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                 // Dubugging
                 //DebugHelper.instance.EnumerateOperations(operations, "OperationsManager");
-
             }
             else if (instance != this)
             {
@@ -140,15 +139,13 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             if (DateTime.UtcNow >= reviewDateTime && rotateOperations && !updatingMonitorReplacement)
             {
-                Debug.Log("Updating Monitor Replacement");
-
                 updatingMonitorReplacement = true;
-                ReplaceOperation();
-                AssignOperationsToMonitors();
-                UpdateCurrentOperationsDisplay();
+                
+                StartCoroutine(WaitAndAssignNewOperation(4));
+
                 reviewDateTime = DateTime.UtcNow.AddSeconds(updateInterval);
             }
-            else //if(DateTime.UtcNow < reviewDateTime)
+            else
             {
                 updatingMonitorReplacement = false;
             }
@@ -157,6 +154,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public void SetRotateOperations(bool rotate)
         {
+            reviewDateTime = DateTime.UtcNow.AddSeconds(updateInterval);
             rotateOperations = rotate;
         }
 
@@ -264,17 +262,23 @@ namespace Com.MachineApps.PrepareAndDeploy
             return response;
         }
 
-        //private int RandomOperationIndex()
-        //{
-        //    var randomIndex = (int) (operations.Count * Random.value) + 1;
+        private IEnumerator WaitAndAssignNewOperation(int waitForSeconds)
+        {
+            var monitorNum = ReplaceOperation();
 
-        //    // use random index if not used before, otherwise recursively generate a new one
-        //    var returnValue = !usedIndexes.Contains(randomIndex)
-        //        ? randomIndex
-        //        : RandomOperationIndex();
+            if (monitorNum > 0)
+            {
+                GameManager.instance.PlayAudio("operationFailure");
+                AnimationManager.instance.ActivateMonitor($"Monitor{monitorNum}", false);
 
-        //    return returnValue;
-        //}
+                yield return new WaitForSeconds(waitForSeconds);
+
+                AssignOperationsToMonitors();
+                UpdateCurrentOperationsDisplay();
+
+                AnimationManager.instance.ActivateMonitor($"Monitor{monitorNum}", true);
+            }
+        }
 
         private int RandomOperationIndex()
         {
@@ -286,16 +290,16 @@ namespace Com.MachineApps.PrepareAndDeploy
             return randomIndex;
         }
 
-        private void ReplaceOperation()
+        private int ReplaceOperation()
         {
             Debug.Log("ReplaceOperation");
 
             var newIndex = RandomOperationIndex();
-            var randomMonitor = (int) (4 * Random.value) + 1;
 
             if (newIndex != 0)
             {
                 Operation op;
+                var randomMonitor = (int)(4 * Random.value) + 1;
 
                 switch (randomMonitor)
                 {
@@ -329,7 +333,10 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                 DebugHelper.instance.EnumerateOperationIndexes(usedIndexes, operations, "ReplaceOperation");
 
+                return randomMonitor;
             }
+
+            return 0;
         }
 
         private IEnumerator DeployedRoutine(int operationId)

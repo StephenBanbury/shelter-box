@@ -92,18 +92,6 @@ public class GameManager : MonoBehaviour
         scene = SceneManager.GetActiveScene();
         remainingBudget = startingBudget;
 
-        //AudioSource[] audioSources = GetComponents<AudioSource>();
-
-        //budgetLow = audioSources[0];
-        //squelchbeep = audioSources[1];
-        //gong = audioSources[2];
-        //missionStatementPart2 = audioSources[3];
-        //notEnoughMoneyLeft = audioSources[4];
-        //missionStatementPart1 = audioSources[5];
-        //successfulDeployment = audioSources[6];
-        //useKeyboard = audioSources[7];
-        //backgroundNoise1 = audioSources[8];
-
         fundingEventLives = new List<string>();
         for (int i = 1; i <= FundRaisingEventManager.instance.numberOfEventsAllowed; i++)
         {
@@ -112,7 +100,7 @@ public class GameManager : MonoBehaviour
 
         //Debug.Log(fundingEventLives);
 
-        const bool startupConditions = true;
+        const bool startupConditions = false;
 
         HudOnOff(startupConditions);
 
