@@ -23,10 +23,9 @@ namespace Com.MachineApps.PrepareAndDeploy
                     
                     GameManager.instance.ScorePanelOnOff(true);
 
-                    //OperationsManager.instance.SetRotateOperations(true);
+                    OperationsManager.instance.SetRotateOperations(true);
 
-                    var currentOps = GameObject.Find("CurrentOperations");
-                    currentOps.GetComponent<CanvasGroup>().alpha = 1f;
+                    GameManager.instance.CurrentOpsShowHide(true);
                 }
             }
             //}else if (gameObject.name == "EntranceActionZone")

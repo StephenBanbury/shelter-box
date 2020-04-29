@@ -127,30 +127,17 @@ namespace Com.MachineApps.PrepareAndDeploy
             operationId1 = usedIndexes[1];
             operationId2 = usedIndexes[2];
             operationId3 = usedIndexes[3];
-
-            rotateOperations = false;
-
-            ShowOperationsStatus();
+            
+            UpdateCurrentOperationsDisplay();
 
             AssignOperationsToMonitors();
         }
 
         void FixedUpdate()
         {
-            // Only rotate Operations if rotateOperations = true
-            //if (DateTime.UtcNow >= reviewDateTime && rotateOperations)
-            //{
-            //    operationId0 = operationId0 < operations.Count - 1 ? operationId0 + 1 : 0;
-            //    operationId1 = operationId1 < operations.Count - 1 ? operationId1 + 1 : 0;
-            //    operationId2 = operationId2 < operations.Count - 1 ? operationId2 + 1 : 0;
-            //    operationId3 = operationId3 < operations.Count - 1 ? operationId3 + 1 : 0;
-
-            //    AssignOperationsToMonitors();
-
-            //    reviewDateTime = DateTime.UtcNow.AddSeconds(updateInterval);
-            //}
-
             // Select random operation and replace it with a new operation
+            // Only if rotateOperations = true
+
             if (DateTime.UtcNow >= reviewDateTime && rotateOperations && !updatingMonitorReplacement)
             {
                 Debug.Log("Updating Monitor Replacement");
@@ -158,7 +145,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 updatingMonitorReplacement = true;
                 ReplaceOperation();
                 AssignOperationsToMonitors();
-                ShowOperationsStatus();
+                UpdateCurrentOperationsDisplay();
                 reviewDateTime = DateTime.UtcNow.AddSeconds(updateInterval);
             }
             else //if(DateTime.UtcNow < reviewDateTime)
@@ -175,11 +162,6 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public void AssignOperationsToMonitors()
         {
-            //Debug.Log($"operationId0: {operationId0}");
-            //Debug.Log($"operationId1: {operationId1}");
-            //Debug.Log($"operationId2: {operationId2}");
-            //Debug.Log($"operationId3: {operationId3}");
-
             // Debugging
             //DebugHelper.instance.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId0), "AssignOperationsToMonitors");
             //DebugHelper.instance.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId1), "AssignOperationsToMonitors");
@@ -207,7 +189,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             monitor4cText.text = ResourceListText(operationId3);
         }
 
-        public void ShowOperationsStatus()
+        public void UpdateCurrentOperationsDisplay()
         {
             string pendingList = "";
             string successList = "";
@@ -291,7 +273,6 @@ namespace Com.MachineApps.PrepareAndDeploy
                 ? randomIndex
                 : RandomOperationIndex();
 
-            Debug.Log($"randomIndex: {returnValue}");
             return returnValue;
         }
 
@@ -300,8 +281,8 @@ namespace Com.MachineApps.PrepareAndDeploy
             Debug.Log("ReplaceOperation");
 
             var newIndex = RandomOperationIndex();
-            var randomMonitor = (int) (4 * Random.value);
-
+            var randomMonitor = (int) (4 * Random.value) + 1;
+            
             Operation op;
 
             switch (randomMonitor)
@@ -321,6 +302,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                     op.OperationStatus = OperationStatus.Fail;
                     operationId2 = newIndex;
                     break;
+                case 4:
                     op = operations.FirstOrDefault(r => r.Id == operationId3);
                     op.OperationStatus = OperationStatus.Fail;
                     operationId3 = newIndex;
@@ -329,9 +311,11 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             op = operations.FirstOrDefault(r => r.Id == newIndex);
             op.OperationStatus = OperationStatus.Pending;
+            usedIndexes.Add(newIndex);
 
             Debug.Log($"Monitor {randomMonitor} - operation replaced with {newIndex}");
-            //usedIndexes.Add(newIndex);
+            
+            DebugHelper.instance.EnumerateOperationIndexes(usedIndexes, operations, "ReplaceOperation");
         }
 
         private IEnumerator DeployedRoutine(int operationId)
@@ -394,7 +378,6 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             if (op != null)
             {
-
                 requiredResources = op.RequiredResources;
                 collectedResources = op.CollectedResources;
             }

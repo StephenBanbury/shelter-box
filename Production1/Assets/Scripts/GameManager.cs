@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource missionStatementPart2;
     [SerializeField] private AudioSource useKeyboard;
     [SerializeField] private AudioSource backgroundNoise1;
+    [SerializeField] private AudioSource operationFailure;
 
     [Tooltip("Initial countdown setting for resource objects (seconds)")]
     public float initialResourceObjectCountdown;
@@ -111,22 +112,22 @@ public class GameManager : MonoBehaviour
 
         //Debug.Log(fundingEventLives);
 
-        HudOnOff(false);
+        const bool startupConditions = true;
 
-        ScorePanelOnOff(false);
+        HudOnOff(startupConditions);
 
-        const bool activateMonitors = false;
+        ScorePanelOnOff(startupConditions);
 
-        AnimationManager.instance.ActivateMonitor("Monitor1", activateMonitors);
-        AnimationManager.instance.ActivateMonitor("Monitor2", activateMonitors);
-        AnimationManager.instance.ActivateMonitor("Monitor3", activateMonitors);
-        AnimationManager.instance.ActivateMonitor("Monitor4", activateMonitors);
-        AnimationManager.instance.BoxesThruFloor(false);
 
-        var currentOpsDisplay = GameObject.Find("CurrentOperations");
-        currentOpsDisplay.GetComponent<CanvasGroup>().alpha = 0;
+        AnimationManager.instance.ActivateMonitor("Monitor1", startupConditions);
+        AnimationManager.instance.ActivateMonitor("Monitor2", startupConditions);
+        AnimationManager.instance.ActivateMonitor("Monitor3", startupConditions);
+        AnimationManager.instance.ActivateMonitor("Monitor4", startupConditions);
+        AnimationManager.instance.BoxesThruFloor(startupConditions);
+        
+        OperationsManager.instance.SetRotateOperations(startupConditions);
 
-        OperationsManager.instance.SetRotateOperations(false);
+        CurrentOpsShowHide(startupConditions);
 
         StartCountdown();
 
@@ -214,6 +215,9 @@ public class GameManager : MonoBehaviour
             case "lowFundsWarning":
                 lowFundsWarning.Play();
                 break;
+            case "operationFailure":
+                operationFailure.Play();
+                break;
         }
     }
 
@@ -222,6 +226,13 @@ public class GameManager : MonoBehaviour
         hudDisplayTime = countdown - displayTimeSeconds;
         HudOnOff(true);
         hudTextMesh.text = messageText;
+    }
+
+    public void CurrentOpsShowHide(bool show)
+    {
+        float alpha = show ? 1f : 0;
+        var currentOps = GameObject.Find("CurrentOperations");
+        currentOps.GetComponent<CanvasGroup>().alpha = alpha;
     }
 
     public void HudOnOff(bool on)
