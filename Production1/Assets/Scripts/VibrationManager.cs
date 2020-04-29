@@ -8,7 +8,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         // instance = singleton
         public static VibrationManager instance;
 
-        void Start()
+        void Awake()
         {
             if (instance && instance != this)
                 Destroy(this);

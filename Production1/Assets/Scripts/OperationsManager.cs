@@ -90,8 +90,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 operations = operationService.GetOperations();
 
                 // Dubugging
-                var debugHelper = new DebugHelper();
-                debugHelper.EnumerateOperations(operations, "OperationsManager");
+                DebugHelper.instance.EnumerateOperations(operations, "OperationsManager");
 
             }
             else if (instance != this)
@@ -182,11 +181,10 @@ namespace Com.MachineApps.PrepareAndDeploy
             //Debug.Log($"operationId3: {operationId3}");
 
             // Debugging
-            var debugHelper = new DebugHelper();
-            debugHelper.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId0), "AssignOperationsToMonitors");
-            debugHelper.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId1), "AssignOperationsToMonitors");
-            debugHelper.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId2), "AssignOperationsToMonitors");
-            debugHelper.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId3), "AssignOperationsToMonitors");
+            DebugHelper.instance.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId0), "AssignOperationsToMonitors");
+            DebugHelper.instance.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId1), "AssignOperationsToMonitors");
+            DebugHelper.instance.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId2), "AssignOperationsToMonitors");
+            DebugHelper.instance.EnumerateOperations(operations.FirstOrDefault(o => o.Id == operationId3), "AssignOperationsToMonitors");
 
             // Heading
 
