@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
 
         //Debug.Log(fundingEventLives);
 
-        const bool startupConditions = false;
+        const bool startupConditions = true;
 
         HudOnOff(startupConditions);
 
@@ -152,7 +152,6 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("GAME OVER!");
-
     }
 
     public int BudgetRemaining()

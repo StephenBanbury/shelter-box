@@ -120,6 +120,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 }
             }
 
+            // TODO stop using usedIndexes - it's no longer necessary now we have OperationStatus
             Debug.Log($"usedIndexes.Count = {usedIndexes.Count}");
 
             operationId0 = usedIndexes[0];
@@ -127,7 +128,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             operationId2 = usedIndexes[2];
             operationId3 = usedIndexes[3];
             
-            UpdateCurrentOperationsDisplay();
+            UpdateCurrentOperationsChart();
 
             AssignOperationsToMonitors();
         }
@@ -168,17 +169,17 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             // Heading
 
-            monitor1aText.text = operations.FirstOrDefault(o => o.Id == operationId0).Title;
-            monitor2aText.text = operations.FirstOrDefault(o => o.Id == operationId1).Title;
-            monitor3aText.text = operations.FirstOrDefault(o => o.Id == operationId2).Title;
-            monitor4aText.text = operations.FirstOrDefault(o => o.Id == operationId3).Title;
+            monitor1aText.text = operations.FirstOrDefault(o => o.Id == operationId0)?.Title;
+            monitor2aText.text = operations.FirstOrDefault(o => o.Id == operationId1)?.Title;
+            monitor3aText.text = operations.FirstOrDefault(o => o.Id == operationId2)?.Title;
+            monitor4aText.text = operations.FirstOrDefault(o => o.Id == operationId3)?.Title;
 
             // Subheading
 
-            monitor1bText.text = operations.FirstOrDefault(o => o.Id == operationId0).SubTitle;
-            monitor2bText.text = operations.FirstOrDefault(o => o.Id == operationId1).SubTitle;
-            monitor3bText.text = operations.FirstOrDefault(o => o.Id == operationId2).SubTitle;
-            monitor4bText.text = operations.FirstOrDefault(o => o.Id == operationId3).SubTitle;
+            monitor1bText.text = operations.FirstOrDefault(o => o.Id == operationId0)?.SubTitle;
+            monitor2bText.text = operations.FirstOrDefault(o => o.Id == operationId1)?.SubTitle;
+            monitor3bText.text = operations.FirstOrDefault(o => o.Id == operationId2)?.SubTitle;
+            monitor4bText.text = operations.FirstOrDefault(o => o.Id == operationId3)?.SubTitle;
 
             // Checklist
             monitor1cText.text = ResourceListText(operationId0);
@@ -187,7 +188,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             monitor4cText.text = ResourceListText(operationId3);
         }
 
-        public void UpdateCurrentOperationsDisplay()
+        public void UpdateCurrentOperationsChart()
         {
             string pendingList = "";
             string successList = "";
@@ -264,30 +265,75 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         private IEnumerator WaitAndAssignNewOperation(int waitForSeconds)
         {
+            GameManager.instance.PlayAudio("operationFailure");
+
             var monitorNum = ReplaceOperation();
 
             if (monitorNum > 0)
             {
-                GameManager.instance.PlayAudio("operationFailure");
+                // There are unused ops
                 AnimationManager.instance.ActivateMonitor($"Monitor{monitorNum}", false);
 
                 yield return new WaitForSeconds(waitForSeconds);
 
                 AssignOperationsToMonitors();
-                UpdateCurrentOperationsDisplay();
+                UpdateCurrentOperationsChart();
 
                 AnimationManager.instance.ActivateMonitor($"Monitor{monitorNum}", true);
             }
-        }
+            else
+            {
+                // There are no unused ops left
 
-        private int RandomOperationIndex()
-        {
-            var unusedOps = operations.Where(o => o.OperationStatus == OperationStatus.None).ToList();
-            if (!unusedOps.Any()) return 0;
+                // Select an operation - from operationId0 - operationId3 where value > 0
+                // We will know what the respective monitor is so we can close it down and fail the op
+                // set operationIdx to -1
 
-            var randomPosition = (int) (unusedOps.Count * Random.value);
-            var randomIndex = unusedOps[randomPosition].Id;
-            return randomIndex;
+                var remainingMonitors = new List<KeyValuePair<int, int>>();
+
+                if (operationId0 > 0) remainingMonitors.Add( new KeyValuePair<int, int>(1, operationId0));
+                if (operationId1 > 0) remainingMonitors.Add( new KeyValuePair<int, int>(2, operationId1));
+                if (operationId2 > 0) remainingMonitors.Add( new KeyValuePair<int, int>(3, operationId2));
+                if (operationId3 > 0) remainingMonitors.Add( new KeyValuePair<int, int>(4, operationId3));
+
+                Debug.Log($"Remaining monitors: {remainingMonitors.Count}");
+
+                var rand = (int)(remainingMonitors.Count * Random.value);
+                var randomMonitor = remainingMonitors[rand];
+
+                Debug.Log($"Selected monitor: {randomMonitor}");
+
+                AnimationManager.instance.ActivateMonitor($"Monitor{randomMonitor.Key}", false);
+
+                yield return new WaitForSeconds(waitForSeconds);
+
+                operations.FirstOrDefault(o => o.Id == randomMonitor.Value).OperationStatus = OperationStatus.Fail;
+
+                AssignOperationsToMonitors();
+                UpdateCurrentOperationsChart();
+
+                switch (randomMonitor.Key)
+                {
+                    case 1:
+                        operationId0 = -1;
+                        break;
+                    case 2:
+                        operationId1 = -1;
+                        break;
+                    case 3:
+                        operationId2 = -1;
+                        break;
+                    case 4:
+                        operationId3 = -1;
+                        break;
+                }
+
+                // No more monitors left = GAME OVER!
+                if (remainingMonitors.Count - 1 == 0)
+                {
+                    GameManager.instance.GameOver();
+                }
+            }
         }
 
         private int ReplaceOperation()
@@ -295,10 +341,11 @@ namespace Com.MachineApps.PrepareAndDeploy
             Debug.Log("ReplaceOperation");
 
             var newIndex = RandomOperationIndex();
-
+            
             if (newIndex != 0)
             {
                 Operation op;
+
                 var randomMonitor = (int)(4 * Random.value) + 1;
 
                 switch (randomMonitor)
@@ -336,6 +383,18 @@ namespace Com.MachineApps.PrepareAndDeploy
                 return randomMonitor;
             }
 
+            return 0;
+        }
+
+        private int RandomOperationIndex()
+        {
+            var unusedOps = operations.Where(o => o.OperationStatus == OperationStatus.None).ToList();
+            if (unusedOps.Any())
+            {
+                var randomPosition = (int) (unusedOps.Count * Random.value);
+                var randomIndex = unusedOps[randomPosition].Id;
+                return randomIndex;
+            }
             return 0;
         }
 
