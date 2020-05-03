@@ -16,12 +16,7 @@ namespace Com.MachineApps.PrepareAndDeploy
     public class OperationsManager : MonoBehaviour
     {
         public static OperationsManager instance;
-
-        //[SerializeField] private GameObject monitor1;
-        //[SerializeField] private GameObject monitor2;
-        //[SerializeField] private GameObject monitor3;
-        //[SerializeField] private GameObject monitor4;
-
+        
         [SerializeField] private Text monitor1aText;
         [SerializeField] private Text monitor2aText;
         [SerializeField] private Text monitor3aText;
@@ -44,24 +39,22 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         [SerializeField] private int updateInterval = 60;
 
+        [SerializeField] private bool replaceFailedOps;
+        [SerializeField] private bool replaceSuccessfulOps;
+
         private int operationId0 = 0;
         private int operationId1 = 1;
         private int operationId2 = 2;
         private int operationId3 = 3;
 
         private static List<Operation> operations;
-
         private DateTime startDateTime = DateTime.UtcNow;
         private DateTime reviewDateTime;
         private OperationService operationService = new OperationService();
-        //private List<Operation> usedOperations = new List<Operation>();
         private List<int> usedIndexes = new List<int>();
-        private bool updatingMonitorReplacement;
+        private bool updatingFailedOperation;
         private bool updatingSuccessfulOperation;
         private bool rotateOperations;
-
-        public bool UpdatingMonitorReplacement => updatingMonitorReplacement;
-        public bool UpdatingSuccessfulOperation => updatingSuccessfulOperation;
 
         public int OperationId(int id)
         {
@@ -145,9 +138,9 @@ namespace Com.MachineApps.PrepareAndDeploy
             if (DateTime.UtcNow >= reviewDateTime
                 && rotateOperations
                 && !updatingSuccessfulOperation
-                && !updatingMonitorReplacement)
+                && !updatingFailedOperation)
             {
-                updatingMonitorReplacement = true;
+                updatingFailedOperation = true;
 
                 StartCoroutine(WaitAndAssignNewOperation(4));
 
@@ -155,7 +148,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
             else
             {
-                updatingMonitorReplacement = false;
+                updatingFailedOperation = false;
             }
         }
 
@@ -273,7 +266,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         {
             GameManager.instance.PlayAudio("operationFailure");
 
-            var monitorNum = ReplaceOperation();
+            var monitorNum = FailAndReplaceWithRandomOperation();
 
             if (monitorNum > 0)
             {
@@ -282,14 +275,17 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                 yield return new WaitForSeconds(waitForSeconds);
 
-                AssignOperationsToMonitors();
-                UpdateCurrentOperationsChart();
+                if (replaceFailedOps)
+                {
+                    AssignOperationsToMonitors();
+                    AnimationManager.instance.ActivateMonitor($"Monitor{monitorNum}", true);
+                }
 
-                AnimationManager.instance.ActivateMonitor($"Monitor{monitorNum}", true);
+                UpdateCurrentOperationsChart();
             }
             else
             {
-                // There are no unused ops left
+                // No unused ops left
 
                 // Select an operation - from operationId0 - operationId3 where value > 0
                 // We will know what the respective monitor is so we can close it down and fail the op
@@ -342,13 +338,13 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
         }
 
-        private int ReplaceOperation()
+        private int FailAndReplaceWithRandomOperation()
         {
-            Debug.Log("ReplaceOperation");
+            Debug.Log("ReplaceRandomOperation");
 
-            var newIndex = RandomOperationIndex();
+            var newOpIndex = RandomOperationIndex();
             
-            if (newIndex != 0)
+            if (newOpIndex != 0)
             {
                 Operation op;
 
@@ -359,30 +355,33 @@ namespace Com.MachineApps.PrepareAndDeploy
                     case 1:
                         op = operations.FirstOrDefault(r => r.Id == operationId0);
                         op.OperationStatus = OperationStatus.Fail;
-                        operationId0 = newIndex;
+                        if(replaceFailedOps) operationId0 = newOpIndex;
                         break;
                     case 2:
                         op = operations.FirstOrDefault(r => r.Id == operationId1);
                         op.OperationStatus = OperationStatus.Fail;
-                        operationId1 = newIndex;
+                        if (replaceFailedOps) operationId1 = newOpIndex;
                         break;
                     case 3:
                         op = operations.FirstOrDefault(r => r.Id == operationId2);
                         op.OperationStatus = OperationStatus.Fail;
-                        operationId2 = newIndex;
+                        if (replaceFailedOps) operationId2 = newOpIndex;
                         break;
                     case 4:
                         op = operations.FirstOrDefault(r => r.Id == operationId3);
                         op.OperationStatus = OperationStatus.Fail;
-                        operationId3 = newIndex;
+                        if (replaceFailedOps) operationId3 = newOpIndex;
                         break;
                 }
 
-                op = operations.FirstOrDefault(r => r.Id == newIndex);
-                op.OperationStatus = OperationStatus.Pending;
-                usedIndexes.Add(newIndex);
+                if (replaceFailedOps)
+                {
+                    op = operations.FirstOrDefault(r => r.Id == newOpIndex);
+                    op.OperationStatus = OperationStatus.Pending;
+                    usedIndexes.Add(newOpIndex);
+                }
 
-                Debug.Log($"Monitor {randomMonitor} - operation replaced with {newIndex}");
+                Debug.Log($"Monitor {randomMonitor} - operation replaced with {newOpIndex}");
 
                 DebugHelper.instance.EnumerateOperationIndexes(usedIndexes, operations, "ReplaceOperation");
 
@@ -409,7 +408,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             // We don't want to start the routine if an operation is being failed and
             // a monitor is being refreshed, so wait until such a situation has completed
 
-            yield return new WaitUntil(() => updatingMonitorReplacement == false);
+            yield return new WaitUntil(() => updatingFailedOperation == false);
 
             
             // Flag used to prevent an operation being failed at the same time
@@ -418,12 +417,15 @@ namespace Com.MachineApps.PrepareAndDeploy
             string spotLight = "";
             string monitor = "";
 
+            var newOpIndex = RandomOperationIndex();
+
             if (operationId == operationId0)
             {
                 monitor = "Monitor1";
                 spotLight = "SpotLight1";
                 video1.gameObject.SetActive(true);
                 video1.Play();
+                if (replaceSuccessfulOps) operationId0 = newOpIndex;
             }
             else if (operationId == operationId1)
             {
@@ -431,6 +433,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 spotLight = "SpotLight2";
                 video2.gameObject.SetActive(true);
                 video2.Play();
+                if (replaceSuccessfulOps) operationId1 = newOpIndex;
             }
             else if (operationId == operationId2)
             {
@@ -438,6 +441,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 spotLight = "SpotLight3";
                 video3.gameObject.SetActive(true);
                 video3.Play();
+                if (replaceSuccessfulOps) operationId2 = newOpIndex;
             }
             else if (operationId == operationId3)
             {
@@ -445,6 +449,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 spotLight = "SpotLight4";
                 video4.gameObject.SetActive(true);
                 video4.Play();
+                if (replaceSuccessfulOps) operationId3 = newOpIndex;
             }
 
             yield return new WaitForSeconds(5);
@@ -462,6 +467,14 @@ namespace Com.MachineApps.PrepareAndDeploy
             video2.gameObject.SetActive(false);
             video3.gameObject.SetActive(false);
             video4.gameObject.SetActive(false);
+
+            if (replaceSuccessfulOps)
+            {
+                yield return new WaitForSeconds(3);
+                usedIndexes.Add(newOpIndex);
+                AssignOperationsToMonitors();
+                AnimationManager.instance.ActivateMonitor(monitor, true);
+            }
 
             updatingSuccessfulOperation = false;
         }

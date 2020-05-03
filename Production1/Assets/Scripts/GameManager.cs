@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource backgroundNoise1;
     [SerializeField] private AudioSource operationFailure;
 
+    [SerializeField] private bool debugStartSettings;
+
     [Tooltip("Initial countdown setting for resource objects (seconds)")]
     public float initialResourceObjectCountdown;
 
@@ -92,36 +94,29 @@ public class GameManager : MonoBehaviour
         scene = SceneManager.GetActiveScene();
         remainingBudget = startingBudget;
 
-        fundingEventLives = new List<string>();
-        for (int i = 1; i <= FundRaisingEventManager.instance.NumberOfEventsAllowed; i++)
-        {
-            fundingEventLives.Add($"Event{i}");
-        }
-
         //Debug.Log(fundingEventLives);
 
-        const bool startupConditions = false;
+        HudOnOff(debugStartSettings);
 
-        HudOnOff(startupConditions);
-
-        ScorePanelOnOff(startupConditions);
-
-
-        AnimationManager.instance.ActivateMonitor("Monitor1", startupConditions);
-        AnimationManager.instance.ActivateMonitor("Monitor2", startupConditions);
-        AnimationManager.instance.ActivateMonitor("Monitor3", startupConditions);
-        AnimationManager.instance.ActivateMonitor("Monitor4", startupConditions);
-        AnimationManager.instance.BoxesThruFloor(startupConditions);
+        ScorePanelOnOff(debugStartSettings);
         
-        OperationsManager.instance.SetRotateOperations(startupConditions);
+        InitialiseFundingEventLives();
 
-        CurrentOpsChartShowHide(startupConditions);
+        AnimationManager.instance.ActivateMonitor("Monitor1", debugStartSettings);
+        AnimationManager.instance.ActivateMonitor("Monitor2", debugStartSettings);
+        AnimationManager.instance.ActivateMonitor("Monitor3", debugStartSettings);
+        AnimationManager.instance.ActivateMonitor("Monitor4", debugStartSettings);
+        AnimationManager.instance.BoxesThruFloor(debugStartSettings);
+        
+        OperationsManager.instance.SetRotateOperations(debugStartSettings);
+
+        CurrentOpsChartShowHide(debugStartSettings);
 
         StartCountdown();
 
         UpdateBudgetDisplay();
 
-        UpdateFundingEventLives();
+        //UpdateFundingEventLives();
     }
 
     void FixedUpdate()
@@ -248,13 +243,19 @@ public class GameManager : MonoBehaviour
         var numberOfEventLivesLeft = 
             FundRaisingEventManager.instance.NumberOfEventsAllowed - FundRaisingEventManager.instance.NumberOfEventsUsed;
 
+        //Debug.Log($"fundingEventLives count: {fundingEventLives.Count}");
+
         for (int i = 1; i <= fundingEventLives.Count; i++)
         {
-            //Debug.Log($"fundingEventLives: {fundingEventLives[i-1]}");
-            var lifeObject = GameObject.Find(fundingEventLives[i-1]);
             var lifeObjectColor = i <= numberOfEventLivesLeft ? new Color(240, 255, 0, 255) : new Color(190, 205, 207, 255);
 
-            lifeObject.GetComponent<Renderer>().material.color = lifeObjectColor;
+            var lifeObjectName = fundingEventLives[i - 1];
+            Debug.Log($"lifeObjectName: {lifeObjectName}");
+            var lifeObject = GameObject.Find(lifeObjectName);
+
+
+            var renderer = lifeObject.GetComponent<Renderer>();
+            renderer.material.color = lifeObjectColor;
         }
     }
 
@@ -357,6 +358,16 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Private methods
+
+
+    private void InitialiseFundingEventLives()
+    {
+        fundingEventLives = new List<string>();
+        for (int i = 1; i <= FundRaisingEventManager.instance.NumberOfEventsAllowed; i++)
+        {
+            fundingEventLives.Add($"Event{i}");
+        }
+    }
 
     private void IndicateBudget(float percentRemaining)
     {

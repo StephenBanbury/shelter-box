@@ -23,6 +23,8 @@ namespace Com.MachineApps.PrepareAndDeploy
                     
                     GameManager.instance.ScorePanelOnOff(true);
 
+                    GameManager.instance.UpdateFundingEventLives();
+
                     OperationsManager.instance.SetRotateOperations(true);
 
                     GameManager.instance.CurrentOpsChartShowHide(true);
