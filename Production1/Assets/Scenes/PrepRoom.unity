@@ -2972,7 +2972,7 @@ MonoBehaviour:
   useKeyboard: {fileID: 187238247}
   backgroundNoise1: {fileID: 187238248}
   operationFailure: {fileID: 187238249}
-  initialResourceObjectCountdown: 10
+  initialResourceObjectCountdown: 20
   BudgetMeter: {fileID: 1758485705}
   ScoreMeter: {fileID: 578019819}
 --- !u!82 &187238236
@@ -3085,7 +3085,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   computerText: {fileID: 503237092}
   numberOfEventsAllowed: 6
-  numberOfEventsUsed: 0
 --- !u!82 &187238238
 AudioSource:
   m_ObjectHideFlags: 0

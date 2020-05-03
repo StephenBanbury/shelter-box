@@ -15,8 +15,8 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         void OnTriggerEnter(Collider other)
         {
-            var used = FundRaisingEventManager.instance.numberOfEventsUsed;
-            var allowed = FundRaisingEventManager.instance.numberOfEventsAllowed;
+            var used = FundRaisingEventManager.instance.NumberOfEventsUsed;
+            var allowed = FundRaisingEventManager.instance.NumberOfEventsAllowed;
 
             //Debug.Log($"numberOfEventsAllowed: {allowed}, numberOfEventsUsed: {used}");
 

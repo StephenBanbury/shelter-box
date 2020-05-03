@@ -57,7 +57,11 @@ namespace Com.MachineApps.PrepareAndDeploy
         //private List<Operation> usedOperations = new List<Operation>();
         private List<int> usedIndexes = new List<int>();
         private bool updatingMonitorReplacement;
+        private bool updatingSuccessfulOperation;
         private bool rotateOperations;
+
+        public bool UpdatingMonitorReplacement => updatingMonitorReplacement;
+        public bool UpdatingSuccessfulOperation => updatingSuccessfulOperation;
 
         public int OperationId(int id)
         {
@@ -138,10 +142,13 @@ namespace Com.MachineApps.PrepareAndDeploy
             // Select random operation and replace it with a new operation
             // Only if rotateOperations = true
 
-            if (DateTime.UtcNow >= reviewDateTime && rotateOperations && !updatingMonitorReplacement)
+            if (DateTime.UtcNow >= reviewDateTime
+                && rotateOperations
+                && !updatingSuccessfulOperation
+                && !updatingMonitorReplacement)
             {
                 updatingMonitorReplacement = true;
-                
+
                 StartCoroutine(WaitAndAssignNewOperation(4));
 
                 reviewDateTime = DateTime.UtcNow.AddSeconds(updateInterval);
@@ -150,7 +157,6 @@ namespace Com.MachineApps.PrepareAndDeploy
             {
                 updatingMonitorReplacement = false;
             }
-
         }
 
         public void SetRotateOperations(bool rotate)
@@ -218,12 +224,12 @@ namespace Com.MachineApps.PrepareAndDeploy
             GameManager.instance.OpsStatusText(pendingList, successList, failedList);
         }
 
-        public void DisasterScenarioDeployed(int operationId)
+        public void OperationSuccessfullyDeployed(int operationId)
         {
             var op = operations.FirstOrDefault(o => o.Id == operationId);
             op.OperationStatus = OperationStatus.Success;
 
-            StartCoroutine(DeployedRoutine(operationId));
+            StartCoroutine(SuccessfullyDeployedRoutine(operationId));
         }
 
         public void CollectResource(int operationId, int resourceId)
@@ -307,7 +313,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                 yield return new WaitForSeconds(waitForSeconds);
 
-                operations.FirstOrDefault(o => o.Id == randomMonitor.Value).OperationStatus = OperationStatus.Fail;
+                operations.First(o => o.Id == randomMonitor.Value).OperationStatus = OperationStatus.Fail;
 
                 AssignOperationsToMonitors();
                 UpdateCurrentOperationsChart();
@@ -398,8 +404,17 @@ namespace Com.MachineApps.PrepareAndDeploy
             return 0;
         }
 
-        private IEnumerator DeployedRoutine(int operationId)
+        private IEnumerator SuccessfullyDeployedRoutine(int operationId)
         {
+            // We don't want to start the routine if an operation is being failed and
+            // a monitor is being refreshed, so wait until such a situation has completed
+
+            yield return new WaitUntil(() => updatingMonitorReplacement == false);
+
+            
+            // Flag used to prevent an operation being failed at the same time
+            updatingSuccessfulOperation = true;
+
             string spotLight = "";
             string monitor = "";
 
@@ -447,6 +462,8 @@ namespace Com.MachineApps.PrepareAndDeploy
             video2.gameObject.SetActive(false);
             video3.gameObject.SetActive(false);
             video4.gameObject.SetActive(false);
+
+            updatingSuccessfulOperation = false;
         }
 
         private string ResourceListText(int operationId)

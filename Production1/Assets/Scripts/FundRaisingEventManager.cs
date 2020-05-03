@@ -16,17 +16,18 @@ namespace Com.MachineApps.PrepareAndDeploy
         public static FundRaisingEventManager instance;
         public static List<FundRaisingEvent> fundRaisingEvents;
 
-
         [Tooltip("Maximum number of fundraising events allowed")]
         [SerializeField] private Text computerText;
+        [SerializeField] private int numberOfEventsAllowed = 5;
 
-        public int numberOfEventsAllowed = 5;
-        public int numberOfEventsUsed;
-
+        private static int numberOfEventsUsed;
         private static int currentEventId;
 
         private readonly FundRaisingEventService fundRaisingEventService = new FundRaisingEventService();
         private List<FundRaisingEvent> usedFundRaisingEvents = new List<FundRaisingEvent>();
+
+        public int NumberOfEventsAllowed { get { return numberOfEventsAllowed; } }
+        public int NumberOfEventsUsed { get { return numberOfEventsUsed; } }
 
         void Awake()
         {

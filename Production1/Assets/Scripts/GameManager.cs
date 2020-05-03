@@ -93,14 +93,14 @@ public class GameManager : MonoBehaviour
         remainingBudget = startingBudget;
 
         fundingEventLives = new List<string>();
-        for (int i = 1; i <= FundRaisingEventManager.instance.numberOfEventsAllowed; i++)
+        for (int i = 1; i <= FundRaisingEventManager.instance.NumberOfEventsAllowed; i++)
         {
             fundingEventLives.Add($"Event{i}");
         }
 
         //Debug.Log(fundingEventLives);
 
-        const bool startupConditions = true;
+        const bool startupConditions = false;
 
         HudOnOff(startupConditions);
 
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
         
         OperationsManager.instance.SetRotateOperations(startupConditions);
 
-        CurrentOpsShowHide(startupConditions);
+        CurrentOpsChartShowHide(startupConditions);
 
         StartCountdown();
 
@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour
         hudTextMesh.text = messageText;
     }
 
-    public void CurrentOpsShowHide(bool show)
+    public void CurrentOpsChartShowHide(bool show)
     {
         float alpha = show ? 1f : 0;
         var currentOps = GameObject.Find("CurrentOperations");
@@ -246,7 +246,7 @@ public class GameManager : MonoBehaviour
     public void UpdateFundingEventLives()
     {
         var numberOfEventLivesLeft = 
-            FundRaisingEventManager.instance.numberOfEventsAllowed - FundRaisingEventManager.instance.numberOfEventsUsed;
+            FundRaisingEventManager.instance.NumberOfEventsAllowed - FundRaisingEventManager.instance.NumberOfEventsUsed;
 
         for (int i = 1; i <= fundingEventLives.Count; i++)
         {

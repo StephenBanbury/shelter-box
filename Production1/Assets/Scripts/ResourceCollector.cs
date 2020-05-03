@@ -158,7 +158,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                             //infoMessage = $"Thank you so much, {currentPlayer.PlayerName}! This deployment has been a success!";
 
-                            OperationsManager.instance.DisasterScenarioDeployed(operationId);
+                            OperationsManager.instance.OperationSuccessfullyDeployed(operationId);
 
                             GameManager.instance.PlayAudio("successfulDeployment");
 

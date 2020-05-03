@@ -25,7 +25,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                     OperationsManager.instance.SetRotateOperations(true);
 
-                    GameManager.instance.CurrentOpsShowHide(true);
+                    GameManager.instance.CurrentOpsChartShowHide(true);
                 }
             }
             //}else if (gameObject.name == "EntranceActionZone")
