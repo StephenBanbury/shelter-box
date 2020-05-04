@@ -28,6 +28,11 @@ namespace Com.MachineApps.PrepareAndDeploy
                     OperationsManager.instance.SetRotateOperations(true);
 
                     GameManager.instance.CurrentOpsChartShowHide(true);
+
+                    LightingManager.instance.BoxLightsFade(true, 4, 0, 7f);
+                    LightingManager.instance.OverheadLightsFade(true, 4, 0, 3f);
+                    LightingManager.instance.ScoreboardLightsFade(true, 4, 0, 4.5f);
+                    LightingManager.instance.ComputerLightsFade(true, 4, 0, 6.5f);
                 }
             }
             //}else if (gameObject.name == "EntranceActionZone")
@@ -58,6 +63,13 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                     //var currentOps = GameObject.Find("CurrentOperations");
                     //currentOps.GetComponent<CanvasGroup>().alpha = 0;
+
+
+                    LightingManager.instance.BoxLightsFade(false, 3, 0, 7f);
+                    LightingManager.instance.OverheadLightsFade(false, 3, 0, 3f);
+                    LightingManager.instance.ScoreboardLightsFade(false, 3, 0, 4.5f);
+                    LightingManager.instance.ComputerLightsFade(false, 3, 0, 6.5f);
+
                 }
             }
             //else if (gameObject.name == "EntranceActionZone")

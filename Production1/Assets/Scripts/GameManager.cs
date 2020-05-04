@@ -10,7 +10,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -43,6 +42,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource backgroundNoise1;
     [SerializeField] private AudioSource operationFailure;
 
+    [Tooltip("Initialises in debug mode to allow viewing of certain conditions from the IDE")]
     [SerializeField] private bool debugStartSettings;
 
     [Tooltip("Initial countdown setting for resource objects (seconds)")]
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
         StartCountdown();
 
         UpdateBudgetDisplay();
-
+        
         //UpdateFundingEventLives();
     }
 
@@ -125,22 +125,24 @@ public class GameManager : MonoBehaviour
         {
             countdown -= Time.deltaTime;
 
-            float minutes = Mathf.Floor(countdown / 60);
+            //float minutes = Mathf.Floor(countdown / 60);
             float seconds = countdown % 60;
 
             // TODO remove timer display - Debugging only
-            hudCountdownDisplay.text = $"{minutes:0}:{seconds:00}";
+            //hudCountdownDisplay.text = $"{minutes:0}:{seconds:00}";
 
-            ReduceResourceCountdownStart(seconds, 10, 0.3f);
-            
+            //ReduceResourceCountdownStart(seconds, 10, 0.3f);
+
+
+            // TODO Make into a coroutine
             FundraisingCountdownEvent(seconds, 8);
             
-            if (countdown <= hudDisplayTime && hudDisplayTime != 0)
-            {
-                HudOnOff(false);
-                hudTextMesh.text = "";
-                hudDisplayTime = 0;
-            }
+            //if (countdown <= hudDisplayTime && hudDisplayTime != 0)
+            //{
+            //    HudOnOff(false);
+            //    hudTextMesh.text = "";
+            //    hudDisplayTime = 0;
+            //}
         }
     }
 
@@ -268,20 +270,21 @@ public class GameManager : MonoBehaviour
 
     #region Budget
 
-    private void ReduceResourceCountdownStart(float seconds, int regularity, float reduction)
-    {
-        // Reduce countdown start for resources before timeout when grabbed
-        if (Math.Floor(seconds) % regularity == 0 && !updatingResourceCountdown)
-        {
-            initialResourceObjectCountdown -= reduction;
-            updatingResourceCountdown = true;
-        }
-        else if (Math.Floor(seconds) % regularity > 0)
-        {
-            updatingResourceCountdown = false;
-        }
-    }
+    //private void ReduceResourceCountdownStart(float seconds, int regularity, float reduction)
+    //{
+    //    // Reduce countdown start for resources before timeout when grabbed
+    //    if (Math.Floor(seconds) % regularity == 0 && !updatingResourceCountdown)
+    //    {
+    //        initialResourceObjectCountdown -= reduction;
+    //        updatingResourceCountdown = true;
+    //    }
+    //    else if (Math.Floor(seconds) % regularity > 0)
+    //    {
+    //        updatingResourceCountdown = false;
+    //    }
+    //}
 
+    // TODO Make into a coroutine
     private void FundraisingCountdownEvent(float seconds, int regularity)
     {
         if (Math.Floor(seconds) % regularity == 0 && !updatingFundRaisingEvent)

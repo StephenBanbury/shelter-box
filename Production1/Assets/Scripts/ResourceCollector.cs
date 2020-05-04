@@ -163,6 +163,8 @@ namespace Com.MachineApps.PrepareAndDeploy
                             GameManager.instance.PlayAudio("successfulDeployment");
 
                             OperationsManager.instance.UpdateCurrentOperationsChart();
+
+
                         }
                         else
                         {

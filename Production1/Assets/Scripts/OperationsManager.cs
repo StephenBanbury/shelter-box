@@ -37,7 +37,8 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private VideoPlayer video3;
         [SerializeField] private VideoPlayer video4;
 
-        [SerializeField] private int updateInterval = 60;
+        [Tooltip("Seconds delay between failing operations")]
+        [SerializeField] private int failedOpsInterval = 45;
 
         [SerializeField] private bool replaceFailedOps;
         [SerializeField] private bool replaceSuccessfulOps;
@@ -101,7 +102,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         {
             Debug.Log("OperationManager Start");
 
-            reviewDateTime = startDateTime.AddSeconds(updateInterval);
+            reviewDateTime = startDateTime.AddSeconds(failedOpsInterval);
 
             // Randomize Operations at start
             while (usedIndexes.Count < 4)
@@ -132,29 +133,34 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         void FixedUpdate()
         {
-            // Select random operation and replace it with a new operation
-            // Only if rotateOperations = true
+            StartCoroutine(CheckForFailedOperation());
+        }
 
+        private IEnumerator CheckForFailedOperation()
+        {
             if (DateTime.UtcNow >= reviewDateTime
                 && rotateOperations
                 && !updatingSuccessfulOperation
                 && !updatingFailedOperation)
             {
+                // Select random operation and replace it with a new operation
                 updatingFailedOperation = true;
 
                 StartCoroutine(WaitAndAssignNewOperation(4));
 
-                reviewDateTime = DateTime.UtcNow.AddSeconds(updateInterval);
+                reviewDateTime = DateTime.UtcNow.AddSeconds(failedOpsInterval);
             }
             else
             {
                 updatingFailedOperation = false;
             }
+
+            yield return  new WaitForSeconds(0.1f);
         }
 
         public void SetRotateOperations(bool rotate)
         {
-            reviewDateTime = DateTime.UtcNow.AddSeconds(updateInterval);
+            reviewDateTime = DateTime.UtcNow.AddSeconds(failedOpsInterval);
             rotateOperations = rotate;
         }
 
@@ -414,7 +420,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             // Flag used to prevent an operation being failed at the same time
             updatingSuccessfulOperation = true;
 
-            string spotLight = "";
+            //string spotLight = "";
             string monitor = "";
 
             var newOpIndex = RandomOperationIndex();
@@ -422,7 +428,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             if (operationId == operationId0)
             {
                 monitor = "Monitor1";
-                spotLight = "SpotLight1";
+                //spotLight = "BoxLight1";
                 video1.gameObject.SetActive(true);
                 video1.Play();
                 if (replaceSuccessfulOps) operationId0 = newOpIndex;
@@ -430,7 +436,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             else if (operationId == operationId1)
             {
                 monitor = "Monitor2";
-                spotLight = "SpotLight2";
+                //spotLight = "BoxLight2";
                 video2.gameObject.SetActive(true);
                 video2.Play();
                 if (replaceSuccessfulOps) operationId1 = newOpIndex;
@@ -438,7 +444,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             else if (operationId == operationId2)
             {
                 monitor = "Monitor3";
-                spotLight = "SpotLight3";
+                //spotLight = "BoxLight3";
                 video3.gameObject.SetActive(true);
                 video3.Play();
                 if (replaceSuccessfulOps) operationId2 = newOpIndex;
@@ -446,7 +452,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             else if (operationId == operationId3)
             {
                 monitor = "Monitor4";
-                spotLight = "SpotLight4";
+                //spotLight = "BoxLight4";
                 video4.gameObject.SetActive(true);
                 video4.Play();
                 if (replaceSuccessfulOps) operationId3 = newOpIndex;
@@ -461,16 +467,23 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             AnimationManager.instance.ActivateMonitor(monitor, false);
 
-            GameObject.Find(spotLight).SetActive(false);
+            //GameObject.Find(spotLight).SetActive(false);
 
             video1.gameObject.SetActive(false);
             video2.gameObject.SetActive(false);
             video3.gameObject.SetActive(false);
             video4.gameObject.SetActive(false);
 
-            if (replaceSuccessfulOps)
+            // All operations used = Game Over
+            if (newOpIndex == 0)
+            {
+                GameManager.instance.GameOver();
+            } 
+            else if (replaceSuccessfulOps)
             {
                 yield return new WaitForSeconds(3);
+                var op = operations.First(o => o.Id == newOpIndex);
+                op.OperationStatus = OperationStatus.Pending;
                 usedIndexes.Add(newOpIndex);
                 AssignOperationsToMonitors();
                 AnimationManager.instance.ActivateMonitor(monitor, true);
