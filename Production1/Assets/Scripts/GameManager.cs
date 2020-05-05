@@ -14,13 +14,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [Tooltip("Heads-up display countdown timer text")]
-    [SerializeField] private Text hudCountdownDisplay;
+    //[Tooltip("Heads-up display countdown timer text")]
+    //[SerializeField] private Text hudCountdownDisplay;
     [Tooltip("Heads-up display canvas")]
     [SerializeField] private GameObject hudCanvas;
     [Tooltip("Heads-up display text")]
     [SerializeField] private TMP_Text hudTextMesh;
-    [SerializeField] private GameObject scorePanel;
     [Tooltip("Minutes allowed for game countdown")]
     [SerializeField] private int timeAllowed = 5;
     [Tooltip("Personalised message displayed in control room")]
@@ -50,8 +49,12 @@ public class GameManager : MonoBehaviour
 
     //[SerializeField] private GameObject entrance;
 
-    public TMP_Text BudgetMeter;
-    public TMP_Text ScoreMeter;
+    [SerializeField] private GameObject scorePanel;
+    [SerializeField] private GameObject budgetLives;
+
+    [SerializeField] private TMP_Text budgetMeter;
+    [SerializeField] private TMP_Text scoreMeter;
+    [SerializeField] private TMP_Text highScore;
 
     // static DeploymentStatus deploymentStatus;
     public static bool countdownStarted;
@@ -93,12 +96,15 @@ public class GameManager : MonoBehaviour
     {
         scene = SceneManager.GetActiveScene();
         remainingBudget = startingBudget;
+        highScore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
 
         //Debug.Log(fundingEventLives);
 
         HudOnOff(debugStartSettings);
 
         ScorePanelOnOff(debugStartSettings);
+
+        BudgetLivesOnOff(debugStartSettings);
         
         InitialiseFundingEventLives();
 
@@ -114,7 +120,7 @@ public class GameManager : MonoBehaviour
 
         StartCountdown();
 
-        UpdateBudgetDisplay();
+        //UpdateBudgetDisplay();
         
         //UpdateFundingEventLives();
     }
@@ -229,6 +235,11 @@ public class GameManager : MonoBehaviour
         scorePanel.SetActive(on);
     }
 
+    public void BudgetLivesOnOff(bool on)
+    {
+        budgetLives.SetActive(on);
+    }
+
     public void PersonalMessage(string playerName)
     {
         var message = $"Welcome {playerName}. \r\nThank you for your assistance.";
@@ -328,7 +339,7 @@ public class GameManager : MonoBehaviour
     {
         // TODO try to get CultureInfo.CurrentCulture to work - on Android build £ becomes something else!
         //BudgetMeter.text = $"{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "")}";
-        BudgetMeter.text = $"£{remainingBudget.ToString().Replace(".00", "")}";
+        budgetMeter.text = $"£{remainingBudget.ToString().Replace(".00", "")}";
 
         var percentRemaining = (float)((float)remainingBudget / (float)startingBudget) * 100;
         
@@ -346,6 +357,12 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"Update score by: {value}");
         score += value;
+
+        if (PlayerPrefs.GetInt("HighScore", 0) < score)
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+        }
+
         UpdateScoreDisplay();
     }
 
@@ -405,7 +422,8 @@ public class GameManager : MonoBehaviour
 
     private void UpdateScoreDisplay()
     {
-        ScoreMeter.text = score.ToString();
+        scoreMeter.text = score.ToString();
+        highScore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
     }
 
     private IEnumerator WaitForGameStart(int secondsDelay)

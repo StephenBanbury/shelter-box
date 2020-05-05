@@ -12,8 +12,8 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private Animator startButton;
         [SerializeField] private Animator inputKeyboard;
         [SerializeField] private Animator fadeFireCurtain;
-        [SerializeField] private Animator openFrontOuterWall;
         [SerializeField] private Animator fadeOutPlayButton;
+        [SerializeField] private Animator fadeOutHighScoresPanel;
         [SerializeField] private Animator boxesThruFloor;
 
         //[SerializeField] private Animation monitor1Text;
@@ -48,11 +48,11 @@ namespace Com.MachineApps.PrepareAndDeploy
             fadeOutPlayButton.SetBool("fadeOut", fadeOut);
         }
 
-        //public void OpenFrontOuterWall(bool open)
-        //{
-        //    Debug.Log($"OpenFrontOuterWall: {open}");
-        //    openFrontOuterWall.SetBool("open", open);
-        //}
+        public void FadeOutHighScoresPanel(bool fadeOut)
+        {
+            Debug.Log($"FadeOutHighScoresPanel: {fadeOut}");
+            fadeOutHighScoresPanel.SetBool("fadeOut", fadeOut);
+        }
 
         public void FadeFireCurtain(bool fadeOut)
         {

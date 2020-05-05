@@ -272,6 +272,10 @@ namespace Com.MachineApps.PrepareAndDeploy
         {
             GameManager.instance.PlayAudio("operationFailure");
 
+            var scoreService = new ScoreService();
+            var score = scoreService.GetScoreValue(ScoreType.OperationFailed);
+            GameManager.instance.UpdateScore(score);
+
             var monitorNum = FailAndReplaceWithRandomOperation();
 
             if (monitorNum > 0)
@@ -474,9 +478,15 @@ namespace Com.MachineApps.PrepareAndDeploy
             video3.gameObject.SetActive(false);
             video4.gameObject.SetActive(false);
 
+            var scoreService = new ScoreService();
+            var score = scoreService.GetScoreValue(ScoreType.OperationSuccessful);
+            GameManager.instance.UpdateScore(score);
+
             // All operations used = Game Over
             if (newOpIndex == 0)
             {
+                score = scoreService.GetScoreValue(ScoreType.GameSuccessfullyCompleted);
+                GameManager.instance.UpdateScore(score);
                 GameManager.instance.GameOver();
             } 
             else if (replaceSuccessfulOps)

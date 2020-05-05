@@ -90,7 +90,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 var selectedIsRequiredResource = OperationsManager.instance.SelectedResourceIsRequired(operationId, myResourceId);
 
 
-                ScoreType scoreType = ScoreType.Unassigned;
+                ScoreType scoreType = ScoreType.None;
                 var scoreService = new ScoreService();
                 int scoreValue;
 
@@ -151,7 +151,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                             //ChangeMaterial(gameObject, 1);
                             //ChangeMaterial(gameObject.transform.GetChild(0).gameObject, 1);
 
-                            scoreValue = scoreService.GetScoreValue(ScoreType.DeploymentCompleted);
+                            scoreValue = scoreService.GetScoreValue(ScoreType.OperationSuccessful);
                             GameManager.instance.UpdateScore(scoreValue);
 
                             Debug.Log($"All resources collected for operationId {operationId}");

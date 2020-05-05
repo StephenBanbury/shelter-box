@@ -18,15 +18,12 @@ namespace Com.MachineApps.PrepareAndDeploy
                     AnimationManager.instance.ActivateMonitor("Monitor4", true);
 
                     AnimationManager.instance.BoxesThruFloor(true);
-
-                    //GameManager.instance.HudOnOff(true);
                     
                     GameManager.instance.ScorePanelOnOff(true);
-
+                    GameManager.instance.BudgetLivesOnOff(true);
                     GameManager.instance.UpdateFundingEventLives();
-
+                    GameManager.instance.UpdateBudgetDisplay();
                     OperationsManager.instance.SetRotateOperations(true);
-
                     GameManager.instance.CurrentOpsChartShowHide(true);
 
                     LightingManager.instance.BoxLightsFade(true, 4, 0, 7f);

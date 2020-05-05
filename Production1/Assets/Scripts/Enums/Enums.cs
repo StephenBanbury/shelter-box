@@ -43,16 +43,18 @@
 
     public enum ScoreType
     {
-        Unassigned = 0,
+        None = 0,
         ResetScore = 1,
         LosePoints = 2,
         GainPoints = 3,
         ItemAssigned = 4,
-        DeploymentCompleted = 5,
+        OperationSuccessful = 5,
         FundsRaised = 6,
         ItemDropped = 7,
         ItemNotRequired = 8,
         ItemAlreadyAssigned = 9,
-        BalanceIntoRed = 10
+        BalanceIntoRed = 10,
+        GameSuccessfullyCompleted = 11,
+        OperationFailed = 12
     }
 }

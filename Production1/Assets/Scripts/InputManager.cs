@@ -12,16 +12,25 @@ namespace Com.MachineApps.PrepareAndDeploy
         public void OnPlay()
         {
             AnimationManager.instance.FadeOutPlayButton(true);
-            //AnimationManager.instance.OpenFrontOuterWall(true);
+            AnimationManager.instance.FadeOutHighScoresPanel(true);
             AnimationManager.instance.FadeFireCurtain(true);
             AnimationManager.instance.LowerStartButton(true);
 
             GameManager.instance.PlayAudio("missionStatementPart1");
+
+            StartCoroutine(WaitForInitialAnimationsAndRemoveHighScores());
+        }
+
+        private IEnumerator WaitForInitialAnimationsAndRemoveHighScores()
+        {
+            // If not removed then it obscures the 'start' button
+            yield return new WaitForSeconds(34);
+            GameObject.Find("HighscoreTable").gameObject.SetActive(false);
         }
 
         public void OnEngage()
         {
-            //Debug.Log("Start game
+            Debug.Log("OnEngage");
             GameManager.instance.PlayAudio("useKeyboard");
             AnimationManager.instance.OpenInputKeyboard(true);
             GameManager.instance.StartButtonText("Please enter your name");
