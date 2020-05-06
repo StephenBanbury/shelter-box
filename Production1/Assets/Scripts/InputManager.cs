@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Oculus.Platform.Samples.VrHoops;
 using UnityEngine;
 using UnityEngine.UI;
 

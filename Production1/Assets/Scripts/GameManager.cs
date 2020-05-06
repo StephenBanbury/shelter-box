@@ -88,8 +88,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // don't destroy the object when changing scenes!
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     void Start()
