@@ -3,7 +3,7 @@ using Com.MachineApps.PrepareAndDeploy.Enums;
 
 namespace Com.MachineApps.PrepareAndDeploy.Models
 {
-    public class PlayerModel
+    public class Player
     {
         public string PlayerId { get; set; }
         public string PlayerName { get; set; }

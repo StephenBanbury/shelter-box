@@ -15,7 +15,6 @@ namespace Com.MachineApps.PrepareAndDeploy
         {
             Debug.Log($"GrabEvent: {gameObject.name} grabbed by {hand.name}");
 
-            var currentPlayer = PlayerManager.instance.GetCurrentPlayer();
             var resourceManager = gameObject.GetComponent<ResourceManager>();
             var myResourceId = resourceManager.MyResourceId;
             var resourceCost = GameManager.instance.GetResourceCost((Resource)myResourceId);
@@ -23,7 +22,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             if (budgetRemaining - resourceCost < 0)
             {
-                GameManager.instance.HudMessage($"{currentPlayer.PlayerName}, there is not enough money left!", 5);
+                GameManager.instance.HudMessage($"There is not enough money left!", 5);
                 GameManager.instance.PlayAudio("notEnoughMoneyLeft");
                 OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch);
                 VibrationManager.instance.TriggerVibration(40, 2, 255, hand.name == "LeftHandAnchor"
@@ -33,7 +32,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
             else if (budgetRemaining <= 0) // Shouldn't get to this point
             {
-                GameManager.instance.HudMessage($"I'm sorry, {currentPlayer.PlayerName}, there is not enough money left!", 5);
+                GameManager.instance.HudMessage($"There is not enough money left!", 5);
                 OVRInput.SetControllerVibration(0.5f, 0.5f, hand.name == "LeftHandAnchor"
                     ? OVRInput.Controller.LTouch 
                     : OVRInput.Controller.RTouch);

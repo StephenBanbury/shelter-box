@@ -3358,9 +3358,11 @@ MonoBehaviour:
   initialResourceObjectCountdown: 20
   scorePanel: {fileID: 1031184759}
   budgetLives: {fileID: 785634484}
-  budgetMeter: {fileID: 112588813}
-  scoreMeter: {fileID: 472573686}
-  highScore: {fileID: 761643290}
+  budgetText: {fileID: 112588813}
+  scoreText: {fileID: 472573686}
+  highScoreText: {fileID: 761643290}
+  resetLeaderBoard: 0
+  resetAllPlayerPrefs: 0
 --- !u!82 &187238236
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6452,7 +6454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
+  m_Color: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 0.5647059}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -28538,7 +28540,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2084339932
 RectTransform:
   m_ObjectHideFlags: 0

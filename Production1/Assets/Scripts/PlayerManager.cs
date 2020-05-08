@@ -14,7 +14,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public static PlayerManager instance;
 
-        private PlayerModel currentPlayer;
+        private Player currentPlayer;
 
         void Awake()
         {
@@ -29,13 +29,19 @@ namespace Com.MachineApps.PrepareAndDeploy
             DontDestroyOnLoad(gameObject);
         }
 
-        public PlayerModel NewPlayer(string playerName)
+        public string Player
+        {
+            get => currentPlayer.PlayerName;
+            set => NewPlayer(value);
+        }
+
+        public Player NewPlayer(string playerName)
         {
             var guidHelper = new GuidHelper();
 
             var id = GuidHelper.GetUniqueID();
 
-            var newPlayer = new PlayerModel
+            var newPlayer = new Player
             {
                 PlayerId = id,
                 PlayerName = playerName,
@@ -49,7 +55,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             return currentPlayer;
         }
 
-        public PlayerModel GetCurrentPlayer()
+        public Player GetCurrentPlayer()
         {
             return currentPlayer;
         }

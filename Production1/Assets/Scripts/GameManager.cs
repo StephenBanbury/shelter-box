@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Com.MachineApps.PrepareAndDeploy;
 using Com.MachineApps.PrepareAndDeploy.Enums;
+using Com.MachineApps.PrepareAndDeploy.Models;
 using Com.MachineApps.PrepareAndDeploy.Services;
 using TMPro;
 using UnityEngine;
@@ -52,15 +53,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject scorePanel;
     [SerializeField] private GameObject budgetLives;
 
-    [SerializeField] private TMP_Text budgetMeter;
-    [SerializeField] private TMP_Text scoreMeter;
-    [SerializeField] private TMP_Text highScore;
+    [SerializeField] private TMP_Text budgetText;
+    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text highScoreText;
+    [SerializeField] private bool resetLeaderBoard;
+    [SerializeField] private bool resetAllPlayerPrefs;
 
+    
     // static DeploymentStatus deploymentStatus;
     public static bool countdownStarted;
 
-
     private static float hudDisplayTime;
+
     private static float countdown;
     private bool updatingResourceCountdown;
     private bool updatingFundRaisingEvent;
@@ -71,6 +75,9 @@ public class GameManager : MonoBehaviour
     private List<string> fundingEventLives;
 
     private int score = 0;
+    private int highScore;
+
+    private ScoreService scoreService;
 
     void Awake()
     {
@@ -89,22 +96,25 @@ public class GameManager : MonoBehaviour
         }
 
         //DontDestroyOnLoad(gameObject);
+
+        scoreService = new ScoreService();
     }
 
     void Start()
     {
         scene = SceneManager.GetActiveScene();
         remainingBudget = startingBudget;
-        highScore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
-
-        //Debug.Log(fundingEventLives);
 
         HudOnOff(debugStartSettings);
 
-        ScorePanelOnOff(debugStartSettings);
+        Resets();
 
-        BudgetLivesOnOff(debugStartSettings);
-        
+        GetHighScore();
+
+        UpdateScoreDisplay();
+
+        UpdateHighscoreDisplay();
+
         InitialiseFundingEventLives();
 
         AnimationManager.instance.ActivateMonitor("Monitor1", debugStartSettings);
@@ -115,13 +125,13 @@ public class GameManager : MonoBehaviour
         
         OperationsManager.instance.SetRotateOperations(debugStartSettings);
 
+        BudgetLivesOnOff(debugStartSettings);
+
+        ScorePanelOnOff(debugStartSettings);
+
         CurrentOpsChartShowHide(debugStartSettings);
 
         StartCountdown();
-
-        //UpdateBudgetDisplay();
-        
-        //UpdateFundingEventLives();
     }
 
     void FixedUpdate()
@@ -129,31 +139,30 @@ public class GameManager : MonoBehaviour
         if (countdownStarted)
         {
             countdown -= Time.deltaTime;
-
-            //float minutes = Mathf.Floor(countdown / 60);
-            float seconds = countdown % 60;
-
-            // TODO remove timer display - Debugging only
-            //hudCountdownDisplay.text = $"{minutes:0}:{seconds:00}";
-
-            //ReduceResourceCountdownStart(seconds, 10, 0.3f);
-
+            float seconds = countdown % 60;;
 
             // TODO Make into a coroutine
             FundraisingCountdownEvent(seconds, 8);
-            
-            //if (countdown <= hudDisplayTime && hudDisplayTime != 0)
-            //{
-            //    HudOnOff(false);
-            //    hudTextMesh.text = "";
-            //    hudDisplayTime = 0;
-            //}
+
+            if (countdown <= hudDisplayTime && hudDisplayTime != 0)
+            {
+                HudOnOff(false);
+                hudTextMesh.text = "";
+                hudDisplayTime = 0;
+            }
         }
+
+
     }
+
+    #region Public methods
 
     public void GameOver()
     {
         Debug.Log("GAME OVER!");
+        HudMessage("Game Over!", 10);
+        var playerName = PlayerManager.instance.Player;
+        scoreService.AddHighscoreEntry(score, playerName);
     }
 
     public int BudgetRemaining()
@@ -278,8 +287,6 @@ public class GameManager : MonoBehaviour
         failedOpsText.text = failed;
     }
 
-    #region Budget
-
     //private void ReduceResourceCountdownStart(float seconds, int regularity, float reduction)
     //{
     //    // Reduce countdown start for resources before timeout when grabbed
@@ -293,6 +300,71 @@ public class GameManager : MonoBehaviour
     //        updatingResourceCountdown = false;
     //    }
     //}
+
+    public void ReduceBudget(int value)
+    {
+        Debug.Log($"Reduce budget by: {value}");
+        remainingBudget -= value;
+        UpdateBudgetDisplay();
+    }
+
+    public void IncreaseBudget(int value)
+    {
+        Debug.Log($"Increase budget by: {value}");
+        remainingBudget += value;
+        UpdateBudgetDisplay();
+    }
+
+    public void UpdateBudgetDisplay()
+    {
+        // TODO try to get CultureInfo.CurrentCulture to work - on Android build £ becomes something else!
+        //BudgetMeter.text = $"{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "")}";
+        budgetText.text = $"£{remainingBudget.ToString().Replace(".00", "")}";
+
+        var percentRemaining = (float)((float)remainingBudget / (float)startingBudget) * 100;
+        
+        if (percentRemaining <= 10)
+        {
+            PlayAudio("lowFundsWarning");
+            HudMessage("WARNING: Low funds!!", 4);
+        }
+
+        IndicateBudget(percentRemaining);
+    }
+    
+    public void UpdateScore(int value)
+    {
+        Debug.Log($"Update score by: {value}");
+        score += value;
+        UpdateScoreDisplay();
+    }
+
+    public int GetResourceCost(Resource resource)
+    {
+        var fundRaisingEventService = new FundRaisingEventService();
+        var resourceCost = fundRaisingEventService.ResourceCosts();
+        var cost = resourceCost[resource];
+
+        return cost;
+    }
+
+    #endregion
+
+
+    #region Private methods
+
+    private void Resets()
+    {
+        if (resetLeaderBoard) scoreService.ResetLeaderBoard();
+        if (resetAllPlayerPrefs) PlayerPrefs.DeleteAll();
+    }
+
+    private void GetHighScore()
+    {
+        HighscoreEntry highScoreFromLeaderBoard = scoreService.GetHighScore();
+        highScore = highScoreFromLeaderBoard != null ? highScoreFromLeaderBoard.score : 0;
+        Debug.Log($"High score from leaderboard: {highScore}");
+    }
 
     // TODO Make into a coroutine
     private void FundraisingCountdownEvent(float seconds, int regularity)
@@ -319,65 +391,6 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
-    public void ReduceBudget(int value)
-    {
-        Debug.Log($"Reduce budget by: {value}");
-        remainingBudget -= value;
-        UpdateBudgetDisplay();
-    }
-
-    public void IncreaseBudget(int value)
-    {
-        Debug.Log($"Increase budget by: {value}");
-        remainingBudget += value;
-        UpdateBudgetDisplay();
-    }
-
-    public void UpdateBudgetDisplay()
-    {
-        // TODO try to get CultureInfo.CurrentCulture to work - on Android build £ becomes something else!
-        //BudgetMeter.text = $"{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "")}";
-        budgetMeter.text = $"£{remainingBudget.ToString().Replace(".00", "")}";
-
-        var percentRemaining = (float)((float)remainingBudget / (float)startingBudget) * 100;
-        
-        if (percentRemaining <= 10)
-        {
-            PlayAudio("lowFundsWarning");
-            //StartCoroutine(BudgetWarning(3));
-            HudMessage("WARNING: Low funds!!", 4);
-        }
-
-        IndicateBudget(percentRemaining);
-    }
-    
-    public void UpdateScore(int value)
-    {
-        Debug.Log($"Update score by: {value}");
-        score += value;
-
-        if (PlayerPrefs.GetInt("HighScore", 0) < score)
-        {
-            PlayerPrefs.SetInt("HighScore", score);
-        }
-
-        UpdateScoreDisplay();
-    }
-
-    public int GetResourceCost(Resource resource)
-    {
-        var fundRaisingEventService = new FundRaisingEventService();
-        var resourceCost = fundRaisingEventService.ResourceCosts();
-        var cost = resourceCost[resource];
-
-        return cost;
-    }
-
-    #endregion
-
-    #region Private methods
-
 
     private void InitialiseFundingEventLives()
     {
@@ -421,8 +434,12 @@ public class GameManager : MonoBehaviour
 
     private void UpdateScoreDisplay()
     {
-        scoreMeter.text = score.ToString();
-        highScore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
+        scoreText.text = score.ToString();
+    }
+
+    private void UpdateHighscoreDisplay()
+    {
+        highScoreText.text = highScore.ToString();
     }
 
     private IEnumerator WaitForGameStart(int secondsDelay)

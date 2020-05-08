@@ -46,7 +46,9 @@ namespace Com.MachineApps.PrepareAndDeploy
                 Destroy(slate);
                 Destroy(kb);
 
-                var newPlayer = PlayerManager.instance.NewPlayer(playerName);
+                //var newPlayer = PlayerManager.instance.NewPlayer(playerName);
+                PlayerManager.instance.Player = playerName;
+                var newPlayer = PlayerManager.instance.GetCurrentPlayer();
 
                 Debug.Log($"Player: {newPlayer.PlayerName}, ID: {newPlayer.PlayerId}, Score: {newPlayer.CurrentScore}, Hi Score: {newPlayer.HighScore}.");
 

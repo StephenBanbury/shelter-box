@@ -133,7 +133,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         void FixedUpdate()
         {
-            StartCoroutine(CheckForFailedOperation());
+            //StartCoroutine(CheckForFailedOperation());
         }
 
         private IEnumerator CheckForFailedOperation()
@@ -303,6 +303,11 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                 var remainingMonitors = new List<KeyValuePair<int, int>>();
 
+                Debug.Log($"operationId0: {operationId0}");
+                Debug.Log($"operationId1: {operationId1}");
+                Debug.Log($"operationId2: {operationId2}");
+                Debug.Log($"operationId3: {operationId3}");
+
                 if (operationId0 > 0) remainingMonitors.Add( new KeyValuePair<int, int>(1, operationId0));
                 if (operationId1 > 0) remainingMonitors.Add( new KeyValuePair<int, int>(2, operationId1));
                 if (operationId2 > 0) remainingMonitors.Add( new KeyValuePair<int, int>(3, operationId2));
@@ -310,40 +315,42 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                 Debug.Log($"Remaining monitors: {remainingMonitors.Count}");
 
-                var rand = (int)(remainingMonitors.Count * Random.value);
-                var randomMonitor = remainingMonitors[rand];
-
-                Debug.Log($"Selected monitor: {randomMonitor}");
-
-                AnimationManager.instance.ActivateMonitor($"Monitor{randomMonitor.Key}", false);
-
-                yield return new WaitForSeconds(waitForSeconds);
-
-                operations.First(o => o.Id == randomMonitor.Value).OperationStatus = OperationStatus.Fail;
-
-                AssignOperationsToMonitors();
-                UpdateCurrentOperationsChart();
-
-                switch (randomMonitor.Key)
-                {
-                    case 1:
-                        operationId0 = -1;
-                        break;
-                    case 2:
-                        operationId1 = -1;
-                        break;
-                    case 3:
-                        operationId2 = -1;
-                        break;
-                    case 4:
-                        operationId3 = -1;
-                        break;
-                }
-
                 // No more monitors left = GAME OVER!
-                if (remainingMonitors.Count - 1 == 0)
+                if (remainingMonitors.Count == 0)
                 {
                     GameManager.instance.GameOver();
+                }
+                else
+                {
+                    var rand = (int) (remainingMonitors.Count * Random.value);
+                    var randomMonitor = remainingMonitors[rand];
+
+                    Debug.Log($"Selected monitor: {randomMonitor}");
+
+                    AnimationManager.instance.ActivateMonitor($"Monitor{randomMonitor.Key}", false);
+
+                    yield return new WaitForSeconds(waitForSeconds);
+
+                    operations.First(o => o.Id == randomMonitor.Value).OperationStatus = OperationStatus.Fail;
+
+                    AssignOperationsToMonitors();
+                    UpdateCurrentOperationsChart();
+
+                    switch (randomMonitor.Key)
+                    {
+                        case 1:
+                            operationId0 = -1;
+                            break;
+                        case 2:
+                            operationId1 = -1;
+                            break;
+                        case 3:
+                            operationId2 = -1;
+                            break;
+                        case 4:
+                            operationId3 = -1;
+                            break;
+                    }
                 }
             }
         }
@@ -497,6 +504,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 usedIndexes.Add(newOpIndex);
                 AssignOperationsToMonitors();
                 AnimationManager.instance.ActivateMonitor(monitor, true);
+                OperationsManager.instance.UpdateCurrentOperationsChart();
             }
 
             updatingSuccessfulOperation = false;
