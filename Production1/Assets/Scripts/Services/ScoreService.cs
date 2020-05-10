@@ -9,6 +9,13 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
 {
     public class ScoreService
     {
+        private readonly int numberToFetch;
+
+        public ScoreService(int numberInTable = -1)
+        {
+            numberToFetch = numberInTable;
+        }
+
         public int GetScoreValue(ScoreType scoreType)
         {
             var scoreValues = ScoreValue();
@@ -38,14 +45,36 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
             string jsonString = PlayerPrefs.GetString("HighScoreTable");
             Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
 
+            if (highscores != null)
+            {
+                // Sort list by score
+                highscores = SortHighscores(highscores);
+
+                // Take top x
+                if (numberToFetch != -1)
+                {
+                    highscores.highscoreEntryList = highscores.highscoreEntryList.Take(numberToFetch).ToList();
+                }
+            }
             return highscores;
         }
 
-        public HighscoreEntry GetHighScore()
+        private Highscores SortHighscores(Highscores highscores)
         {
-            var leaderBoard = GetHighscores();
-            var highScore = leaderBoard?.highscoreEntryList.OrderByDescending(l => l.score).FirstOrDefault();
-            return highScore;
+            highscores.highscoreEntryList.Sort((x, y) => y.score.CompareTo(x.score));
+            return highscores;
+        }
+
+        public HighscoreEntry GetTopHighScore()
+        {
+            HighscoreEntry highscore = new HighscoreEntry();
+            var highscores = GetHighscores();
+            if (highscores != null)
+            {
+                highscores = SortHighscores(highscores);
+                highscore = highscores?.highscoreEntryList.FirstOrDefault();
+            }
+            return highscore;
         }
 
         public void AddHighscoreEntry(int score, string name)
@@ -58,22 +87,23 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
             // Load saved Highscores
             Highscores highscores = GetHighscores();
 
-            string json = "Not initialised";
+            //string json = "Not initialised";
 
+            // In case we don't have a list yet
             if (highscores == null)
             {
-                highscores = new Highscores();
-                highscores.highscoreEntryList = new List<HighscoreEntry>();
+                highscores = new Highscores {highscoreEntryList = new List<HighscoreEntry>()};
             }
 
             // Add new entry to Highscores
             highscores.highscoreEntryList.Add(highscoreEntry);
 
-            var highscoresSorted = highscores.highscoreEntryList.OrderByDescending(l => l.score);
+            highscores = SortHighscores(highscores);
 
+            // TODO To consider: do we want to limit the saved highscores? 
+            highscores.highscoreEntryList = highscores.highscoreEntryList.Take(numberToFetch).ToList();
 
-            highscores.highscoreEntryList = highscoresSorted.Take(10).ToList();
-            json = JsonUtility.ToJson(highscores);
+            var json = JsonUtility.ToJson(highscores);
 
             Debug.Log(json);
 
@@ -84,6 +114,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
         public void ResetLeaderBoard()
         {
             PlayerPrefs.DeleteKey("HighScoreTable");
+            GetHighscores();
         }
     }
 }

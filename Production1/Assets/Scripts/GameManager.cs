@@ -59,7 +59,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool resetLeaderBoard;
     [SerializeField] private bool resetAllPlayerPrefs;
 
-    
+    public HighscoreTable HighscoresTable = null;
+
     // static DeploymentStatus deploymentStatus;
     public static bool countdownStarted;
 
@@ -97,7 +98,7 @@ public class GameManager : MonoBehaviour
 
         //DontDestroyOnLoad(gameObject);
 
-        scoreService = new ScoreService();
+        scoreService = new ScoreService(10);
     }
 
     void Start()
@@ -157,10 +158,10 @@ public class GameManager : MonoBehaviour
 
     #region Public methods
 
-    public void GameOver()
+    public void GameOver(string reason)
     {
-        Debug.Log("GAME OVER!");
-        HudMessage("Game Over!", 10);
+        Debug.Log($"GAME OVER: {reason}");
+        HudMessage($"Game Over! - {reason}", 10);
         var playerName = PlayerManager.instance.Player;
         scoreService.AddHighscoreEntry(score, playerName);
     }
@@ -361,7 +362,7 @@ public class GameManager : MonoBehaviour
 
     private void GetHighScore()
     {
-        HighscoreEntry highScoreFromLeaderBoard = scoreService.GetHighScore();
+        HighscoreEntry highScoreFromLeaderBoard = scoreService.GetTopHighScore();
         highScore = highScoreFromLeaderBoard != null ? highScoreFromLeaderBoard.score : 0;
         Debug.Log($"High score from leaderboard: {highScore}");
     }
@@ -437,21 +438,31 @@ public class GameManager : MonoBehaviour
         scoreText.text = score.ToString();
     }
 
-    private void UpdateHighscoreDisplay()
+    public void UpdateHighscoreDisplay()
     {
         highScoreText.text = highScore.ToString();
     }
 
-    private IEnumerator WaitForGameStart(int secondsDelay)
+    public void ResetLeaderBoard()
     {
-        //PlayAudio("backgroundNoise1");
+        scoreService.ResetLeaderBoard();
 
-        yield return new WaitForSeconds(secondsDelay);
+        // TODO this is not clearing the table (just the PlayerPrefs)
+        HighscoresTable.FillHighscoresTable();
         
-        //PlayAudio("missionStatementPart1");
-        //AnimationManager.instance.FadeFireCurtain(true);
-        //AnimationManager.instance.LowerStartButton(true);
+        GameManager.instance.UpdateHighscoreDisplay();
     }
+
+    //private IEnumerator WaitForGameStart(int secondsDelay)
+    //{
+    //    //PlayAudio("backgroundNoise1");
+
+    //    yield return new WaitForSeconds(secondsDelay);
+
+    //    //PlayAudio("missionStatementPart1");
+    //    //AnimationManager.instance.FadeFireCurtain(true);
+    //    //AnimationManager.instance.LowerStartButton(true);
+    //}
 
     #endregion
 

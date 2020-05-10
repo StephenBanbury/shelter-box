@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Com.MachineApps.PrepareAndDeploy.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -65,6 +66,11 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                 StartCoroutine(RaiseButtonAfterMessageHasBeenRead(3));
             }
+        }
+
+        public void OnResetLeaderBoard()
+        {
+            GameManager.instance.ResetLeaderBoard();
         }
 
         private IEnumerator RaiseButtonAfterMessageHasBeenRead(int secondsDelay)

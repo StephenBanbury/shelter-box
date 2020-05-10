@@ -204,13 +204,13 @@ namespace Com.MachineApps.PrepareAndDeploy
             ResourceInstantiator.instance.CreateResourceObject(resourceObjectName, true);
         }
 
-        private void ChangeMaterial(GameObject gameObjectToAffect, int matIndex)
-        {
-            var mats = gameObjectToAffect.GetComponent<Renderer>().materials;
-            var newMat = mats[matIndex];
+        //private void ChangeMaterial(GameObject gameObjectToAffect, int matIndex)
+        //{
+        //    var mats = gameObjectToAffect.GetComponent<Renderer>().materials;
+        //    var newMat = mats[matIndex];
 
-            mats[0] = newMat;
-            gameObjectToAffect.GetComponent<Renderer>().materials = mats;
-        }
+        //    mats[0] = newMat;
+        //    gameObjectToAffect.GetComponent<Renderer>().materials = mats;
+        //}
     }
 }

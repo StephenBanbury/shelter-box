@@ -25,33 +25,53 @@ namespace Com.MachineApps.PrepareAndDeploy
             scoreService.AddHighscoreEntry(100, "ABC");
         }
 
-        public void Reset()
-        {
-            PlayerPrefs.DeleteKey("HighScoreTable");
-        }
+        //public void Reset()
+        //{
+        //    PlayerPrefs.DeleteKey("HighScoreTable");
+        //}
 
         private void Awake()
         {
-            scoreService = new ScoreService();
+            scoreService = new ScoreService(numberInTable: 10);
 
             //Seed();
 
+            //string jsonString = PlayerPrefs.GetString("HighScoreTable");
+            //Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+
+            //var  highscores = scoreService.GetHighscores();
+
+            //if (highscores != null)
+            //{
+            //    // Sort list by score
+            //    //highscores.highscoreEntryList.Sort((x, y) => y.score.CompareTo(x.score));
+
+            //    // Take top 10
+            //    //highscores.highscoreEntryList = highscores.highscoreEntryList.Take(10).ToList();
+
+            //    highscoreEntryTransformList = new List<Transform>();
+            //    foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
+            //    {
+            //        CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
+            //    }
+            //}
+
+            FillHighscoresTable();
+
+        }
+
+        public void FillHighscoresTable()
+        {
             entryContainer = transform.Find("highscoreEntryContainer");
             entryTemplate = entryContainer.Find("highscoreEntryTemplate");
-
             entryTemplate.gameObject.SetActive(false);
-            
-            string jsonString = PlayerPrefs.GetString("HighScoreTable");
-            Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
+
+            var highscores = scoreService.GetHighscores();
+
+            //Debug.Log($"FillHighscoresTable: {highscores?.highscoreEntryList}");
 
             if (highscores != null)
             {
-                // Sort list by score
-                highscores.highscoreEntryList.Sort((x, y) => y.score.CompareTo(x.score));
-
-                // Take top 10
-                highscores.highscoreEntryList = highscores.highscoreEntryList.Take(10).ToList();
-
                 highscoreEntryTransformList = new List<Transform>();
                 foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
                 {

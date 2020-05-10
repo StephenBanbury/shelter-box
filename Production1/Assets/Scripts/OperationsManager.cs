@@ -318,7 +318,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 // No more monitors left = GAME OVER!
                 if (remainingMonitors.Count == 0)
                 {
-                    GameManager.instance.GameOver();
+                    GameManager.instance.GameOver("Last operation failed");
                 }
                 else
                 {
@@ -489,21 +489,32 @@ namespace Com.MachineApps.PrepareAndDeploy
             var score = scoreService.GetScoreValue(ScoreType.OperationSuccessful);
             GameManager.instance.UpdateScore(score);
 
+            Debug.Log($"operationId0: {operationId0}");
+            Debug.Log($"operationId1: {operationId1}");
+            Debug.Log($"operationId2: {operationId2}");
+            Debug.Log($"operationId3: {operationId3}");
+
             // All operations used = Game Over
-            if (newOpIndex == 0)
+            if (operationId0 == 0 &&  operationId1 == 0 && operationId2 == 0 && operationId3 == 0)
             {
                 score = scoreService.GetScoreValue(ScoreType.GameSuccessfullyCompleted);
                 GameManager.instance.UpdateScore(score);
-                GameManager.instance.GameOver();
+                GameManager.instance.GameOver("Last operation successfully deployed");
             } 
             else if (replaceSuccessfulOps)
             {
                 yield return new WaitForSeconds(3);
-                var op = operations.First(o => o.Id == newOpIndex);
-                op.OperationStatus = OperationStatus.Pending;
-                usedIndexes.Add(newOpIndex);
-                AssignOperationsToMonitors();
-                AnimationManager.instance.ActivateMonitor(monitor, true);
+
+                // If we have a new operation assign it to pending and the display on monitor
+                if (newOpIndex > 0)
+                {
+                    var op = operations.First(o => o.Id == newOpIndex);
+                    op.OperationStatus = OperationStatus.Pending;
+                    usedIndexes.Add(newOpIndex); // TODO remove once sure usedIndexes not being used
+                    AssignOperationsToMonitors();
+                    AnimationManager.instance.ActivateMonitor(monitor, true);
+                }
+
                 OperationsManager.instance.UpdateCurrentOperationsChart();
             }
 
