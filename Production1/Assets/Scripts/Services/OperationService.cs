@@ -132,28 +132,28 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     OperationStatus = OperationStatus.None,
                     MovieTitle = ""
                 },
-                //new Operation
-                //{
-                //    Id = 6,
-                //    Title = "Peru: Earthquake",
-                //    SubTitle = "Five villages evacuated",
-                //    Text = "Hundreds of people unaccounted for",
-                //    ReportDate = DateTime.UtcNow,
-                //    Archived = false,
-                //    RequiredResources = new List<int>()
-                //    {
-                //        //(int) Resource.Clothing,
-                //        (int) Resource.Food,
-                //        (int) Resource.FirstAid,
-                //        (int) Resource.Tents,
-                //        (int) Resource.Toys,
-                //        (int) Resource.Water,
-                //        //(int) Resource.Blankets
-                //    },
-                //    CollectedResources = new List<int>(),
-                //    OperationStatus = OperationStatus.None,
-                //    MovieTitle = ""
-                //},
+                new Operation
+                {
+                    Id = 6,
+                    Title = "Peru: Earthquake",
+                    SubTitle = "Five villages evacuated",
+                    Text = "Hundreds of people unaccounted for",
+                    ReportDate = DateTime.UtcNow,
+                    Archived = false,
+                    RequiredResources = new List<int>()
+                    {
+                        //(int) Resource.Clothing,
+                        (int) Resource.Food,
+                        (int) Resource.FirstAid,
+                        (int) Resource.Tents,
+                        (int) Resource.Toys,
+                        (int) Resource.Water,
+                        //(int) Resource.Blankets
+                    },
+                    CollectedResources = new List<int>(),
+                    OperationStatus = OperationStatus.None,
+                    MovieTitle = ""
+                },
                 //new Operation
                 //{
                 //    Id = 7,

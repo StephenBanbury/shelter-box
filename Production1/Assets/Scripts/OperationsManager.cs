@@ -133,7 +133,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         void FixedUpdate()
         {
-            //StartCoroutine(CheckForFailedOperation());
+            StartCoroutine(CheckForFailedOperation());
         }
 
         private IEnumerator CheckForFailedOperation()
@@ -301,58 +301,63 @@ namespace Com.MachineApps.PrepareAndDeploy
                 // We will know what the respective monitor is so we can close it down and fail the op
                 // set operationIdx to -1
 
-                var remainingMonitors = new List<KeyValuePair<int, int>>();
+                var remainingMonitors = RemainingMonitors();
 
-                Debug.Log($"operationId0: {operationId0}");
-                Debug.Log($"operationId1: {operationId1}");
-                Debug.Log($"operationId2: {operationId2}");
-                Debug.Log($"operationId3: {operationId3}");
+                var rand = (int) (remainingMonitors.Count * Random.value);
+                var randomMonitor = remainingMonitors[rand];
 
-                if (operationId0 > 0) remainingMonitors.Add( new KeyValuePair<int, int>(1, operationId0));
-                if (operationId1 > 0) remainingMonitors.Add( new KeyValuePair<int, int>(2, operationId1));
-                if (operationId2 > 0) remainingMonitors.Add( new KeyValuePair<int, int>(3, operationId2));
-                if (operationId3 > 0) remainingMonitors.Add( new KeyValuePair<int, int>(4, operationId3));
+                Debug.Log($"Selected monitor: {randomMonitor}");
 
-                Debug.Log($"Remaining monitors: {remainingMonitors.Count}");
+                AnimationManager.instance.ActivateMonitor($"Monitor{randomMonitor.Key}", false);
+
+                yield return new WaitForSeconds(waitForSeconds);
+
+                operations.First(o => o.Id == randomMonitor.Value).OperationStatus = OperationStatus.Fail;
+
+                AssignOperationsToMonitors();
+                UpdateCurrentOperationsChart();
+
+                switch (randomMonitor.Key)
+                {
+                    case 1:
+                        operationId0 = -1;
+                        break;
+                    case 2:
+                        operationId1 = -1;
+                        break;
+                    case 3:
+                        operationId2 = -1;
+                        break;
+                    case 4:
+                        operationId3 = -1;
+                        break;
+                }
 
                 // No more monitors left = GAME OVER!
-                if (remainingMonitors.Count == 0)
+                if (remainingMonitors.Count - 1 == 0)
                 {
                     GameManager.instance.GameOver("Last operation failed");
                 }
-                else
-                {
-                    var rand = (int) (remainingMonitors.Count * Random.value);
-                    var randomMonitor = remainingMonitors[rand];
-
-                    Debug.Log($"Selected monitor: {randomMonitor}");
-
-                    AnimationManager.instance.ActivateMonitor($"Monitor{randomMonitor.Key}", false);
-
-                    yield return new WaitForSeconds(waitForSeconds);
-
-                    operations.First(o => o.Id == randomMonitor.Value).OperationStatus = OperationStatus.Fail;
-
-                    AssignOperationsToMonitors();
-                    UpdateCurrentOperationsChart();
-
-                    switch (randomMonitor.Key)
-                    {
-                        case 1:
-                            operationId0 = -1;
-                            break;
-                        case 2:
-                            operationId1 = -1;
-                            break;
-                        case 3:
-                            operationId2 = -1;
-                            break;
-                        case 4:
-                            operationId3 = -1;
-                            break;
-                    }
-                }
             }
+        }
+
+        private List<KeyValuePair<int, int>> RemainingMonitors()
+        {
+            var remainingMonitors = new List<KeyValuePair<int, int>>();
+
+            Debug.Log($"operationId0: {operationId0}");
+            Debug.Log($"operationId1: {operationId1}");
+            Debug.Log($"operationId2: {operationId2}");
+            Debug.Log($"operationId3: {operationId3}");
+
+            if (operationId0 > 0) remainingMonitors.Add(new KeyValuePair<int, int>(1, operationId0));
+            if (operationId1 > 0) remainingMonitors.Add(new KeyValuePair<int, int>(2, operationId1));
+            if (operationId2 > 0) remainingMonitors.Add(new KeyValuePair<int, int>(3, operationId2));
+            if (operationId3 > 0) remainingMonitors.Add(new KeyValuePair<int, int>(4, operationId3));
+
+            Debug.Log($"Remaining monitors: {remainingMonitors.Count}");
+
+            return remainingMonitors;
         }
 
         private int FailAndReplaceWithRandomOperation()
@@ -361,7 +366,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             var newOpIndex = RandomOperationIndex();
             
-            if (newOpIndex != 0)
+            if (newOpIndex > 0)
             {
                 Operation op;
 
@@ -395,7 +400,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 {
                     op = operations.FirstOrDefault(r => r.Id == newOpIndex);
                     op.OperationStatus = OperationStatus.Pending;
-                    usedIndexes.Add(newOpIndex);
+                    usedIndexes.Add(newOpIndex); // TODO remove once sure
                 }
 
                 Debug.Log($"Monitor {randomMonitor} - operation replaced with {newOpIndex}");
@@ -417,7 +422,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 var randomIndex = unusedOps[randomPosition].Id;
                 return randomIndex;
             }
-            return 0;
+            return -1;
         }
 
         private IEnumerator SuccessfullyDeployedRoutine(int operationId)
@@ -489,13 +494,10 @@ namespace Com.MachineApps.PrepareAndDeploy
             var score = scoreService.GetScoreValue(ScoreType.OperationSuccessful);
             GameManager.instance.UpdateScore(score);
 
-            Debug.Log($"operationId0: {operationId0}");
-            Debug.Log($"operationId1: {operationId1}");
-            Debug.Log($"operationId2: {operationId2}");
-            Debug.Log($"operationId3: {operationId3}");
+            var remainingMonitors = RemainingMonitors();
 
             // All operations used = Game Over
-            if (operationId0 == 0 &&  operationId1 == 0 && operationId2 == 0 && operationId3 == 0)
+            if (remainingMonitors.Count == 0)
             {
                 score = scoreService.GetScoreValue(ScoreType.GameSuccessfullyCompleted);
                 GameManager.instance.UpdateScore(score);
