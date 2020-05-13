@@ -284,6 +284,13 @@ public class GameManager : MonoBehaviour
             var renderer = lifeObject.GetComponent<Renderer>();
             renderer.material.color = lifeObjectColor;
         }
+
+        if (numberOfEventLivesLeft == 0)
+        {
+            // TODO check if enough funds to deploy any item
+            CheckForSufficientFunds();
+        }
+
     }
 
     public void OpsStatusText(string pending, string success, string failed)
@@ -344,7 +351,7 @@ public class GameManager : MonoBehaviour
 
         IndicateBudget(percentRemaining);
     }
-    
+
     public void UpdateScore(int value)
     {
         Debug.Log($"Update score by: {value}");
@@ -355,8 +362,8 @@ public class GameManager : MonoBehaviour
     public int GetResourceCost(Resource resource)
     {
         var fundRaisingEventService = new FundRaisingEventService();
-        var resourceCost = fundRaisingEventService.ResourceCosts();
-        var cost = resourceCost[resource];
+        var resourceCosts = fundRaisingEventService.ResourceCosts();
+        var cost = resourceCosts[resource];
 
         return cost;
     }
@@ -365,6 +372,29 @@ public class GameManager : MonoBehaviour
 
 
     #region Private methods
+
+    private void CheckForSufficientFunds()
+    {
+        if (remainingBudget < CheapestResourceItem())
+        {
+            GameOver("You do not have enough funds left and no way of raising money!");
+        }
+    }
+
+    private int CheapestResourceItem()
+    {
+        int lowestCost = 99999999;
+
+        var fundRaisingEventService = new FundRaisingEventService();
+        var resourceCosts = fundRaisingEventService.ResourceCosts();
+        foreach (var resourceCost in resourceCosts)
+        {
+            var cost = resourceCost.Value;
+            if (cost < lowestCost) lowestCost = cost;
+        }
+
+        return lowestCost;
+    }
 
     private void Resets()
     {

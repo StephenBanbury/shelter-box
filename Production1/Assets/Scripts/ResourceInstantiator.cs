@@ -17,11 +17,9 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private GameObject myPrefab6;
 
         public int resourcesPerBin = 1;
-
         private GameObject[] myPrefabs;
-
         public static ResourceInstantiator instance;
-        static Random random = new Random();
+
 
         void Awake()
         {

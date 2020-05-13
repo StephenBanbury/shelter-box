@@ -37,6 +37,8 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private VideoPlayer video3;
         [SerializeField] private VideoPlayer video4;
 
+        [SerializeField] private int numberOfOperations;
+
         [Tooltip("Seconds delay between failing operations")]
         [SerializeField] private int failedOpsInterval = 45;
 
@@ -86,6 +88,11 @@ namespace Com.MachineApps.PrepareAndDeploy
             {
                 instance = this;
                 operations = operationService.GetOperations();
+
+                if (numberOfOperations < operations.Count)
+                {
+                    operations = operations.Take(numberOfOperations).ToList();
+                }
 
                 // Dubugging
                 //DebugHelper.instance.EnumerateOperations(operations, "OperationsManager");
