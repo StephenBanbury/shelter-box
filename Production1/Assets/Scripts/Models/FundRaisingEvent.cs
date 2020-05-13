@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 
 namespace Com.MachineApps.PrepareAndDeploy.Models
@@ -14,5 +13,6 @@ namespace Com.MachineApps.PrepareAndDeploy.Models
         public DateTime EventDate { get; set; }
         public int EstimatedFundsRaised { get; set; }
         public int FundsRaised { get; set; }
+        public FundRaisingEventStatus FundRaisingEventStatus { get; set; }
     }
 }

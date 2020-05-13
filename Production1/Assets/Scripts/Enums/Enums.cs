@@ -26,6 +26,14 @@
         Conference = 8
     }
 
+    public enum FundRaisingEventStatus
+    {
+        Pending = 0,
+        Current = 1,
+        Completed = 2,
+        OnDisplay = 3
+    }
+
     public enum TripleState
     {
         One = 1,

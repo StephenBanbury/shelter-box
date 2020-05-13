@@ -27,9 +27,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text personalMessage;
     [SerializeField] private TMP_Text startButtonText;
     [SerializeField] private int startingBudget = 1000;
+
     [SerializeField] private Text pendingOpsText;
     [SerializeField] private Text successfulOpsText;
     [SerializeField] private Text failedOpsText;
+
+    [SerializeField] private Text pendingFundraisersText;
+    [SerializeField] private Text currentFundraiserText;
+    [SerializeField] private Text completedFundraisersText;
 
     [SerializeField] private AudioSource lowFundsWarning;
     [SerializeField] private AudioSource squelchbeep;
@@ -272,9 +277,9 @@ public class GameManager : MonoBehaviour
             var lifeObjectColor = i <= numberOfEventLivesLeft ? new Color(240, 255, 0, 255) : new Color(190, 205, 207, 255);
 
             var lifeObjectName = fundingEventLives[i - 1];
-            Debug.Log($"lifeObjectName: {lifeObjectName}");
             var lifeObject = GameObject.Find(lifeObjectName);
 
+            //Debug.Log($"lifeObjectName: {lifeObjectName}");
 
             var renderer = lifeObject.GetComponent<Renderer>();
             renderer.material.color = lifeObjectColor;
@@ -286,6 +291,13 @@ public class GameManager : MonoBehaviour
         pendingOpsText.text = pending;
         successfulOpsText.text = success;
         failedOpsText.text = failed;
+    }
+
+    public void FundraisingEventStatusText(string pending, string current, string completed)
+    {
+        pendingFundraisersText.text = pending;
+        currentFundraiserText.text = current;
+        completedFundraisersText.text = completed;
     }
 
     //private void ReduceResourceCountdownStart(float seconds, int regularity, float reduction)
@@ -381,7 +393,7 @@ public class GameManager : MonoBehaviour
 
             if (showNextEvent)
             {
-                FundRaisingEventManager.instance.NextEvent();
+                FundRaisingEventManager.instance.NextDisplayedEvent();
             }
 
             updatingFundRaisingEvent = true;

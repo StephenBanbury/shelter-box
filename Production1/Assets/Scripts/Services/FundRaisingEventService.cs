@@ -45,7 +45,8 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     SubTitle = "Mr and Mrs Simpson invite friends around for morning chat over a cup of coffee",
                     Text = "There will be games and newspapers",
                     EventDate = DateTime.Parse("01/04/2020"),
-                    EstimatedFundsRaised = 450
+                    EstimatedFundsRaised = 450,
+                    FundRaisingEventStatus = FundRaisingEventStatus.Pending
                 },
                 new FundRaisingEvent
                 {
@@ -56,6 +57,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "Mr and Mrs Church will lavish their guests with Mr Churches special pasta bake!",
                     EventDate = DateTime.Parse("23/05/2020"),
                     EstimatedFundsRaised = 850,
+                    FundRaisingEventStatus = FundRaisingEventStatus.Pending
                 },
                 new FundRaisingEvent
                 {
@@ -66,6 +68,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "Charity donating event",
                     EventDate = DateTime.Parse("23/05/2020"),
                     EstimatedFundsRaised = 3500,
+                    FundRaisingEventStatus = FundRaisingEventStatus.Pending
                 },
                 new FundRaisingEvent
                 {
@@ -76,6 +79,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "Sponsored competitors take part in London Triathlon",
                     EventDate = DateTime.Parse("23/05/2020"),
                     EstimatedFundsRaised = 4500,
+                    FundRaisingEventStatus = FundRaisingEventStatus.Pending
                 },
                 new FundRaisingEvent
                 {
@@ -86,6 +90,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "Fundraising at WOMAD festival",
                     EventDate = DateTime.Parse("23/05/2020"),
                     EstimatedFundsRaised = 4000,
+                    FundRaisingEventStatus = FundRaisingEventStatus.Pending
                 },
                 new FundRaisingEvent
                 {
@@ -96,6 +101,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "Display at Hope & Strength Exhibition",
                     EventDate = DateTime.Parse("23/05/2020"),
                     EstimatedFundsRaised = 1400,
+                    FundRaisingEventStatus = FundRaisingEventStatus.Pending
                 },
                 new FundRaisingEvent
                 {
@@ -106,6 +112,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "Sponsored corporate training event",
                     EventDate = DateTime.Parse("23/05/2020"),
                     EstimatedFundsRaised = 3100,
+                    FundRaisingEventStatus = FundRaisingEventStatus.Pending
                 },
                 new FundRaisingEvent
                 {
@@ -116,6 +123,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "Major donors donate",
                     EventDate = DateTime.Parse("23/05/2020"),
                     EstimatedFundsRaised = 5600,
+                    FundRaisingEventStatus = FundRaisingEventStatus.Pending
                 },
                 new FundRaisingEvent
                 {
@@ -126,6 +134,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "Rotary International convention and fundraising event",
                     EventDate = DateTime.Parse("23/05/2020"),
                     EstimatedFundsRaised = 3500,
+                    FundRaisingEventStatus = FundRaisingEventStatus.Pending
                 },
                 new FundRaisingEvent
                 {
@@ -136,6 +145,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "Affiliates conference and fundraising event",
                     EventDate = DateTime.Parse("23/05/2020"),
                     EstimatedFundsRaised = 2100,
+                    FundRaisingEventStatus = FundRaisingEventStatus.Pending
                 },
                 new FundRaisingEvent
                 {
@@ -146,6 +156,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     Text = "Local social fundraising event",
                     EventDate = DateTime.Parse("23/05/2020"),
                     EstimatedFundsRaised = 1600,
+                    FundRaisingEventStatus = FundRaisingEventStatus.Pending
                 }
 
             };

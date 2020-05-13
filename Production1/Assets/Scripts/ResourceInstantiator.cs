@@ -71,7 +71,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             var myPrefab = myPrefabs[i - 1];
 
-            Debug.Log($"Instantiating {myPrefab.name} into {boxName}");
+            //Debug.Log($"Instantiating {myPrefab.name} into {boxName}");
 
             var newGameObject= Instantiate(myPrefab, new Vector3(xPos, yPos, zPos), Quaternion.identity);
         }

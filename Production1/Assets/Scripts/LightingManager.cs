@@ -74,7 +74,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             var i = low;
             while (i <= high)
             {
-                Debug.Log(i);
+                //Debug.Log(i);
                 boxLight1.GetComponent<Light>().intensity = i;
                 boxLight2.GetComponent<Light>().intensity = i;
                 boxLight3.GetComponent<Light>().intensity = i;
@@ -92,7 +92,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             var i = high;
             while (i >= low)
             {
-                Debug.Log(i);
+                //Debug.Log(i);
                 boxLight1.GetComponent<Light>().intensity = i;
                 boxLight2.GetComponent<Light>().intensity = i;
                 boxLight3.GetComponent<Light>().intensity = i;
@@ -110,7 +110,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             var i = low;
             while (i <= high)
             {
-                Debug.Log(i);
+                //Debug.Log(i);
                 overheadSpot.GetComponent<Light>().intensity = i;
                 i += 1f / x;
 
@@ -125,7 +125,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             var i = high;
             while (i >= low)
             {
-                Debug.Log(i);
+                //Debug.Log(i);
                 overheadSpot.GetComponent<Light>().intensity = i;
                 i -= 1f / x;
 
@@ -140,7 +140,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             var i = low;
             while (i <= high)
             {
-                Debug.Log(i);
+                //Debug.Log(i);
                 scoreboardSpot.GetComponent<Light>().intensity = i;
                 i += 1f / x;
 
@@ -155,7 +155,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             var i = high;
             while (i >= low)
             {
-                Debug.Log(i);
+                //Debug.Log(i);
                 scoreboardSpot.GetComponent<Light>().intensity = i;
                 i -= 1f / x;
 
@@ -170,7 +170,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             var i = low;
             while (i <= high)
             {
-                Debug.Log(i);
+                //Debug.Log(i);
                 computerSpot.GetComponent<Light>().intensity = i;
                 i += 1f / x;
 
@@ -185,7 +185,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             var i = high;
             while (i >= low)
             {
-                Debug.Log(i);
+                //Debug.Log(i);
                 computerSpot.GetComponent<Light>().intensity = i;
                 i -= 1f / x;
 

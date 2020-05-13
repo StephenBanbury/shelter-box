@@ -52,7 +52,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             if (myResourceId != 0)
             {
-                Debug.Log($"ResourceManager Start - Name/Tag: {gameObject.name}/{gameObject.tag}");
+                //Debug.Log($"ResourceManager Start - Name/Tag: {gameObject.name}/{gameObject.tag}");
 
                 var priceText = gameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "PriceText");
 
