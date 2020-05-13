@@ -104,24 +104,34 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public void NextDisplayedEvent()
         {
-            var displayedEvent = fundRaisingEvents.FirstOrDefault(f => f.FundRaisingEventStatus == FundRaisingEventStatus.OnDisplay);
-            if (displayedEvent != null)
+            if (NumberOfEventsUsed < numberOfEventsAllowed)
             {
-                displayedEvent.FundRaisingEventStatus = FundRaisingEventStatus.Pending;
+                var displayedEvent =
+                    fundRaisingEvents.FirstOrDefault(f => f.FundRaisingEventStatus == FundRaisingEventStatus.OnDisplay);
+                if (displayedEvent != null)
+                {
+                    displayedEvent.FundRaisingEventStatus = FundRaisingEventStatus.Pending;
+                }
+
+                var nextDisplayedEvent = GetRandomEvent();
+
+                computerText.text = nextDisplayedEvent.Title + "\n\n" +
+                                    nextDisplayedEvent.SubTitle + "\n\n" +
+                                    //"Estimated funds raised: " + currentEvent.EstimatedFundsRaised.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "") + "\n\n" +
+                                    "Estimated funds raised: £" +
+                                    nextDisplayedEvent.EstimatedFundsRaised.ToString().Replace(".00", "") + "\n\n" +
+                                    "Number of possible events remaining: " +
+                                    (numberOfEventsAllowed - NumberOfEventsUsed);
+
+                nextDisplayedEvent.FundRaisingEventStatus = FundRaisingEventStatus.OnDisplay;
+
+
+                Debug.Log($"NextDisplayedEvent: {nextDisplayedEvent.Title} (Id={nextDisplayedEvent.Id})");
             }
-
-            var nextDisplayedEvent = GetRandomEvent();
-
-            computerText.text = nextDisplayedEvent.Title + "\n\n" +
-                                nextDisplayedEvent.SubTitle + "\n\n" +
-                                //"Estimated funds raised: " + currentEvent.EstimatedFundsRaised.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "") + "\n\n" +
-                                "Estimated funds raised: £" + nextDisplayedEvent.EstimatedFundsRaised.ToString().Replace(".00", "") + "\n\n" +
-                                "Number of possible events remaining: " + (numberOfEventsAllowed - NumberOfEventsUsed);
-            
-            nextDisplayedEvent.FundRaisingEventStatus = FundRaisingEventStatus.OnDisplay;
-
-
-            Debug.Log($"NextDisplayedEvent: {nextDisplayedEvent.Title} (Id={nextDisplayedEvent.Id})");
+            else
+            {
+                computerText.text = "Sorry - you have used up your allocation of fundraising events";
+            }
 
             //currentEventId = currentEvent.Id;
             //return currentEvent;

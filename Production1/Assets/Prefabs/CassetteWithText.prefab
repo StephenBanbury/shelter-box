@@ -143,6 +143,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownDisplay: {fileID: 0}
+  useResourceGrabCountdown: 0
+  initialResourceObjectCountdown: 20
   priceTag: {fileID: 0}
 --- !u!1 &8157442898933636706
 GameObject:

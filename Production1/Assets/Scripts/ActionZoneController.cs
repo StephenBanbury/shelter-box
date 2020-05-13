@@ -23,8 +23,11 @@ namespace Com.MachineApps.PrepareAndDeploy
                     GameManager.instance.BudgetLivesOnOff(true);
                     GameManager.instance.UpdateFundingEventLives();
                     GameManager.instance.UpdateBudgetDisplay();
-                    OperationsManager.instance.SetRotateOperations(true);
                     GameManager.instance.CurrentOpsChartShowHide(true);
+                    GameManager.instance.FundraisingEventsChartShowHide(true);
+                    GameManager.instance.ActivateExitBlocker(true);
+
+                    OperationsManager.instance.SetRotateOperations(true);
 
                     LightingManager.instance.BoxLightsFade(true, 4, 0, 7f);
                     LightingManager.instance.OverheadLightsFade(true, 4, 0, 3f);

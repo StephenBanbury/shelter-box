@@ -305,6 +305,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownDisplay: {fileID: 1945798530781787674}
+  useResourceGrabCountdown: 0
+  initialResourceObjectCountdown: 20
   priceTag: {fileID: 949610312273988826}
 --- !u!114 &4928722951271344742
 MonoBehaviour:

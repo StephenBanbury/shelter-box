@@ -508,6 +508,9 @@ namespace Com.MachineApps.PrepareAndDeploy
             {
                 score = scoreService.GetScoreValue(ScoreType.GameSuccessfullyCompleted);
                 GameManager.instance.UpdateScore(score);
+
+                yield return new WaitForSeconds(3);
+
                 GameManager.instance.GameOver("Last operation successfully deployed");
             } 
             else if (replaceSuccessfulOps)

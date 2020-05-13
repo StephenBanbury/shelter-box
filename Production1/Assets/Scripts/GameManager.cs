@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using Com.MachineApps.PrepareAndDeploy;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using Com.MachineApps.PrepareAndDeploy.Models;
@@ -49,12 +50,7 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("Initialises in debug mode to allow viewing of certain conditions from the IDE")]
     [SerializeField] private bool debugStartSettings;
-
-    [Tooltip("Initial countdown setting for resource objects (seconds)")]
-    public float initialResourceObjectCountdown;
-
-    //[SerializeField] private GameObject entrance;
-
+    
     [SerializeField] private GameObject scorePanel;
     [SerializeField] private GameObject budgetLives;
 
@@ -64,7 +60,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool resetLeaderBoard;
     [SerializeField] private bool resetAllPlayerPrefs;
 
-    public HighscoreTable HighscoresTable = null;
+    [Tooltip("Collider to block exit once within action zone")]
+    [SerializeField] private GameObject exitBlocker;
+
+    [SerializeField] private HighscoreTable HighscoresTable = null;
 
     // static DeploymentStatus deploymentStatus;
     public static bool countdownStarted;
@@ -72,7 +71,7 @@ public class GameManager : MonoBehaviour
     private static float hudDisplayTime;
 
     private static float countdown;
-    private bool updatingResourceCountdown;
+    //private bool updatingResourceCountdown;
     private bool updatingFundRaisingEvent;
 
     private Scene scene;
@@ -136,16 +135,26 @@ public class GameManager : MonoBehaviour
         ScorePanelOnOff(debugStartSettings);
 
         CurrentOpsChartShowHide(debugStartSettings);
+        FundraisingEventsChartShowHide(debugStartSettings);
+
+        ActivateExitBlocker(false);
 
         StartCountdown();
+
+        //GameOverTest("testing");
     }
 
     void FixedUpdate()
     {
+        StartCoroutine(CountdownTasks());
+    }
+
+    private IEnumerator CountdownTasks()
+    {
         if (countdownStarted)
         {
             countdown -= Time.deltaTime;
-            float seconds = countdown % 60;;
+            float seconds = countdown % 60; ;
 
             // TODO Make into a coroutine
             FundraisingCountdownEvent(seconds, 8);
@@ -158,7 +167,26 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        yield return new WaitForSeconds(0.1f);
+    }
 
+    private void GameOverTest(string reason)
+    {
+        Debug.Log($"GAME OVER: {reason}");
+
+        HudMessage($"Game Over! - {reason}", 10);
+
+        //var playerName = PlayerManager.instance.Player;
+        //scoreService.AddHighscoreEntry(score, playerName);
+
+        var highscoreTable = GameObject.Find("HighscoreTable");
+        highscoreTable.SetActive(true);
+        highscoreTable.GetComponent<CanvasGroup>().alpha = 1f;
+        var xPos = highscoreTable.transform.position.x;
+        var yPos = 2f;
+        var zPos = 2.5f;
+
+        highscoreTable.transform.position = new Vector3(xPos, yPos, zPos);
     }
 
     #region Public methods
@@ -166,9 +194,19 @@ public class GameManager : MonoBehaviour
     public void GameOver(string reason)
     {
         Debug.Log($"GAME OVER: {reason}");
+        
         HudMessage($"Game Over! - {reason}", 10);
+        
         var playerName = PlayerManager.instance.Player;
         scoreService.AddHighscoreEntry(score, playerName);
+
+        var highscoreTable = GameObject.Find("HighscoreTable");
+        highscoreTable.GetComponent<CanvasGroup>().alpha = 1f;
+        var xPos = highscoreTable.transform.position.x;
+        var yPos = 2f;
+        var zPos = 2.5f;
+
+        highscoreTable.transform.position = new Vector3(xPos, yPos, zPos);
     }
 
     public int BudgetRemaining()
@@ -185,11 +223,6 @@ public class GameManager : MonoBehaviour
     public string CurrentScene()
     {
         return scene.name;
-    }
-
-    public void LoadAppropriateScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
     }
 
     public void PlayAudio(string audioFile)
@@ -232,11 +265,23 @@ public class GameManager : MonoBehaviour
         hudTextMesh.text = messageText;
     }
 
+    public void ActivateExitBlocker(bool active)
+    {
+        exitBlocker.SetActive(active);
+    }
+
     public void CurrentOpsChartShowHide(bool show)
     {
         float alpha = show ? 1f : 0;
         var currentOps = GameObject.Find("CurrentOperations");
         currentOps.GetComponent<CanvasGroup>().alpha = alpha;
+    }
+
+    public void FundraisingEventsChartShowHide(bool show)
+    {
+        float alpha = show ? 1f : 0;
+        var fundingEvents = GameObject.Find("FundraisingEvents");
+        fundingEvents.GetComponent<CanvasGroup>().alpha = alpha;
     }
 
     public void HudOnOff(bool on)

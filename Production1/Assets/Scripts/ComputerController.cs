@@ -21,7 +21,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             //Debug.Log($"numberOfEventsAllowed: {allowed}, numberOfEventsUsed: {used}");
 
-            if (other.CompareTag("Hand") && !processingFundingEvent && used <= allowed)
+            if (other.CompareTag("Hand") && !processingFundingEvent && used < allowed)
             {
                 StartCoroutine(AwaitFundingEventResults(7, other.name));
             }

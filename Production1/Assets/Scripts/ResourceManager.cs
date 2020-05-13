@@ -1,9 +1,8 @@
-﻿using System;
+﻿using System.Collections;
 using System.Linq;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = System.Random;
 
 namespace Com.MachineApps.PrepareAndDeploy
 {
@@ -11,74 +10,81 @@ namespace Com.MachineApps.PrepareAndDeploy
     {
 
         [Tooltip("Resource grabber countdown timer text")]
-        [SerializeField]
-        private Text countdownDisplay;
-        [SerializeField]
-        private Canvas priceTag;
-
-        private int myResourceId = 0;
+        [SerializeField] private Text countdownDisplay;
+        [Tooltip("Switch on/off the use of resource grabber countdown")]
+        [SerializeField] private bool useResourceGrabCountdown;
+        [Tooltip("Initial countdown setting for resource objects (seconds)")]
+        [SerializeField] private int initialResourceObjectCountdown = 20;
+        [SerializeField] private Canvas priceTag;
         private float countdown;
         private bool countdownStarted;
 
-        public int MyResourceId => myResourceId;
+        public int MyResourceId { get; private set; } = 0;
 
         void Start()
         {
 
             if (gameObject.CompareTag("Tent"))
             {
-                myResourceId = (int)Resource.Tents;
+                MyResourceId = (int)Resource.Tents;
             }
             else if (gameObject.CompareTag("Water"))
             {
-                myResourceId = (int)Resource.Water;
+                MyResourceId = (int)Resource.Water;
             }
             else if (gameObject.CompareTag("Food"))
             {
-                myResourceId = (int)Resource.Food;
+                MyResourceId = (int)Resource.Food;
             }
             else if (gameObject.CompareTag("FirstAidKit"))
             {
-                myResourceId = (int)Resource.FirstAid;
+                MyResourceId = (int)Resource.FirstAid;
             }
             else if (gameObject.CompareTag("Boat"))
             {
-                myResourceId = (int)Resource.Boats;
+                MyResourceId = (int)Resource.Boats;
             }
             else if (gameObject.CompareTag("Toy"))
             {
-                myResourceId = (int)Resource.Toys;
+                MyResourceId = (int)Resource.Toys;
             }
 
-            if (myResourceId != 0)
+            if (MyResourceId != 0)
             {
                 //Debug.Log($"ResourceManager Start - Name/Tag: {gameObject.name}/{gameObject.tag}");
 
                 var priceText = gameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "PriceText");
 
-                var resourceCost = GameManager.instance.GetResourceCost((Resource)myResourceId);
+                var resourceCost = GameManager.instance.GetResourceCost((Resource)MyResourceId);
                 priceText.text = $"£{resourceCost.ToString()}";
 
                 //var countdownText = gameObject.GetComponentsInChildren<Text>().FirstOrDefault(x => x.name == "CountdownText");
                 countdownDisplay.text = "";
-                countdown = GameManager.instance.initialResourceObjectCountdown;
+                countdown = initialResourceObjectCountdown;
             }
 
         }
 
         void FixedUpdate()
         {
-            if (countdownStarted)
+            StartCoroutine(ResourceGrabbedCountdown());
+        }
+
+        private IEnumerator ResourceGrabbedCountdown()
+        {
+            if (countdownStarted && useResourceGrabCountdown)
             {
                 countdown -= Time.deltaTime;
                 float seconds = countdown % 60;
                 countdownDisplay.text = $"{seconds:00}";
-                
+
                 if (countdown <= 0)
                 {
                     ResetResourceObject(true);
                 }
             }
+
+            yield return new WaitForSeconds(0.1f);
         }
 
         public void Grabbed(bool grabState)
@@ -93,7 +99,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 }
                 else
                 {
-                    countdown = GameManager.instance.initialResourceObjectCountdown;
+                    countdown = initialResourceObjectCountdown;
                     countdownStarted = true;
                     priceTag.gameObject.SetActive(false);
                 }
