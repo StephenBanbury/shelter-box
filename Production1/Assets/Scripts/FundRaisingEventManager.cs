@@ -54,7 +54,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 Destroy(gameObject);
             }
 
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
 
         void Start()

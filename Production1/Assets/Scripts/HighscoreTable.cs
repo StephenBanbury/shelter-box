@@ -60,6 +60,11 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         }
 
+        //public void ResetScoreboard()
+        //{
+        //    scoreService = new ScoreService(numberInTable: 10);
+        //}
+
         public void FillHighscoresTable()
         {
             entryContainer = transform.Find("highscoreEntryContainer");

@@ -3444,7 +3444,8 @@ MonoBehaviour:
   resetLeaderBoard: 0
   resetAllPlayerPrefs: 0
   exitBlocker: {fileID: 1241424742}
-  HighscoresTable: {fileID: 1175776618}
+  highscoresTableObject: {fileID: 1175776614}
+  highscoresTable: {fileID: 1175776618}
 --- !u!82 &187238236
 AudioSource:
   m_ObjectHideFlags: 0

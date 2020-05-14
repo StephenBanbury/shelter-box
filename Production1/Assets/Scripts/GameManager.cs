@@ -63,8 +63,9 @@ public class GameManager : MonoBehaviour
     [Tooltip("Collider to block exit once within action zone")]
     [SerializeField] private GameObject exitBlocker;
 
-    [SerializeField] private HighscoreTable HighscoresTable = null;
+    [SerializeField] private GameObject highscoresTableObject;
 
+    [SerializeField] private HighscoreTable highscoresTable;
     // static DeploymentStatus deploymentStatus;
     public static bool countdownStarted;
 
@@ -140,8 +141,6 @@ public class GameManager : MonoBehaviour
         ActivateExitBlocker(false);
 
         StartCountdown();
-
-        //GameOverTest("testing");
     }
 
     void FixedUpdate()
@@ -149,47 +148,8 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CountdownTasks());
     }
 
-    private IEnumerator CountdownTasks()
-    {
-        if (countdownStarted)
-        {
-            countdown -= Time.deltaTime;
-            float seconds = countdown % 60; ;
 
-            // TODO Make into a coroutine
-            FundraisingCountdownEvent(seconds, 8);
-
-            if (countdown <= hudDisplayTime && hudDisplayTime != 0)
-            {
-                HudOnOff(false);
-                hudTextMesh.text = "";
-                hudDisplayTime = 0;
-            }
-        }
-
-        yield return new WaitForSeconds(0.1f);
-    }
-
-    private void GameOverTest(string reason)
-    {
-        Debug.Log($"GAME OVER: {reason}");
-
-        HudMessage($"Game Over! - {reason}", 10);
-
-        //var playerName = PlayerManager.instance.Player;
-        //scoreService.AddHighscoreEntry(score, playerName);
-
-        var highscoreTable = GameObject.Find("HighscoreTable");
-        highscoreTable.SetActive(true);
-        highscoreTable.GetComponent<CanvasGroup>().alpha = 1f;
-        var xPos = highscoreTable.transform.position.x;
-        var yPos = 2f;
-        var zPos = 2.5f;
-
-        highscoreTable.transform.position = new Vector3(xPos, yPos, zPos);
-    }
-
-    #region Public methods
+    #region Public Methods
 
     public void GameOver(string reason)
     {
@@ -200,13 +160,7 @@ public class GameManager : MonoBehaviour
         var playerName = PlayerManager.instance.Player;
         scoreService.AddHighscoreEntry(score, playerName);
 
-        var highscoreTable = GameObject.Find("HighscoreTable");
-        highscoreTable.GetComponent<CanvasGroup>().alpha = 1f;
-        var xPos = highscoreTable.transform.position.x;
-        var yPos = 2f;
-        var zPos = 2.5f;
-
-        highscoreTable.transform.position = new Vector3(xPos, yPos, zPos);
+        StartCoroutine(GameOver(4));
     }
 
     public int BudgetRemaining()
@@ -418,6 +372,33 @@ public class GameManager : MonoBehaviour
 
     #region Private methods
 
+    private IEnumerator CountdownTasks()
+    {
+        if (countdownStarted)
+        {
+            countdown -= Time.deltaTime;
+            float seconds = countdown % 60; ;
+
+            // TODO Make into a coroutine
+            FundraisingCountdownEvent(seconds, 8);
+
+            if (countdown <= hudDisplayTime && hudDisplayTime != 0)
+            {
+                HudOnOff(false);
+                hudTextMesh.text = "";
+                hudDisplayTime = 0;
+            }
+        }
+
+        yield return new WaitForSeconds(0.1f);
+    }
+
+    private IEnumerator GameOver(int secondsDelay)
+    {
+        yield return new WaitForSeconds(secondsDelay);
+        Initiate.Fade("WaitingRoom", Color.green, 2.0f);
+    }
+
     private void CheckForSufficientFunds()
     {
         if (remainingBudget < CheapestResourceItem())
@@ -535,7 +516,9 @@ public class GameManager : MonoBehaviour
         scoreService.ResetLeaderBoard();
 
         // TODO this is not clearing the table (just the PlayerPrefs)
-        HighscoresTable.FillHighscoresTable();
+
+        //highscoresTable.ResetScoreboard();
+        highscoresTable.FillHighscoresTable();
         
         GameManager.instance.UpdateHighscoreDisplay();
     }
