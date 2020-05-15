@@ -63,9 +63,9 @@ public class GameManager : MonoBehaviour
     [Tooltip("Collider to block exit once within action zone")]
     [SerializeField] private GameObject exitBlocker;
 
-    [SerializeField] private GameObject highscoresTableObject;
-
     [SerializeField] private HighscoreTable highscoresTable;
+    [SerializeField] private InputManager inputManager;
+
     // static DeploymentStatus deploymentStatus;
     public static bool countdownStarted;
 
@@ -111,36 +111,29 @@ public class GameManager : MonoBehaviour
         scene = SceneManager.GetActiveScene();
         remainingBudget = startingBudget;
 
-        HudOnOff(debugStartSettings);
-
         Resets();
-
         GetHighScore();
-
         UpdateScoreDisplay();
-
         UpdateHighscoreDisplay();
-
         InitialiseFundingEventLives();
 
-        AnimationManager.instance.ActivateMonitor("Monitor1", debugStartSettings);
-        AnimationManager.instance.ActivateMonitor("Monitor2", debugStartSettings);
-        AnimationManager.instance.ActivateMonitor("Monitor3", debugStartSettings);
-        AnimationManager.instance.ActivateMonitor("Monitor4", debugStartSettings);
-        AnimationManager.instance.BoxesThruFloor(debugStartSettings);
-        
-        OperationsManager.instance.SetRotateOperations(debugStartSettings);
+        AnimationManager.instance.ActivateMonitor("Monitor1", false);
+        AnimationManager.instance.ActivateMonitor("Monitor2", false);
+        AnimationManager.instance.ActivateMonitor("Monitor3", false);
+        AnimationManager.instance.ActivateMonitor("Monitor4", false);
+        AnimationManager.instance.BoxesThruFloor(false);
+        OperationsManager.instance.SetRotateOperations(false);
 
-        BudgetLivesOnOff(debugStartSettings);
-
-        ScorePanelOnOff(debugStartSettings);
-
-        CurrentOpsChartShowHide(debugStartSettings);
-        FundraisingEventsChartShowHide(debugStartSettings);
-
+        HudOnOff(false);
+        BudgetLivesOnOff(false);
+        ScorePanelOnOff(false);
+        CurrentOpsChartShowHide(false);
+        FundraisingEventsChartShowHide(false);
         ActivateExitBlocker(false);
 
         StartCountdown();
+
+        if (debugStartSettings) inputManager.EngageGame();
     }
 
     void FixedUpdate()
@@ -155,12 +148,10 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log($"GAME OVER: {reason}");
         
-        HudMessage($"Game Over! - {reason}", 10);
-        
         var playerName = PlayerManager.instance.Player;
         scoreService.AddHighscoreEntry(score, playerName);
 
-        StartCoroutine(GameOver(4));
+        StartCoroutine(GameOver(reason, 4));
     }
 
     public int BudgetRemaining()
@@ -393,9 +384,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
     }
 
-    private IEnumerator GameOver(int secondsDelay)
+    private IEnumerator GameOver(string reason, int secondsDelay)
     {
+        HudMessage($"Game Over! - {reason}", 10);
         yield return new WaitForSeconds(secondsDelay);
+        HudMessage("After wait", 5);
         Initiate.Fade("WaitingRoom", Color.green, 2.0f);
     }
 

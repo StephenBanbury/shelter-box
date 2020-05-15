@@ -3435,7 +3435,7 @@ MonoBehaviour:
   useKeyboard: {fileID: 187238247}
   backgroundNoise1: {fileID: 187238248}
   operationFailure: {fileID: 187238249}
-  debugStartSettings: 0
+  debugStartSettings: 1
   scorePanel: {fileID: 1031184759}
   budgetLives: {fileID: 785634484}
   budgetText: {fileID: 112588813}
@@ -3444,8 +3444,8 @@ MonoBehaviour:
   resetLeaderBoard: 0
   resetAllPlayerPrefs: 0
   exitBlocker: {fileID: 1241424742}
-  highscoresTableObject: {fileID: 1175776614}
   highscoresTable: {fileID: 1175776618}
+  inputManager: {fileID: 965502250}
 --- !u!82 &187238236
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3680,8 +3680,8 @@ MonoBehaviour:
   video2: {fileID: 1653390935}
   video3: {fileID: 1829980808}
   video4: {fileID: 162296540}
-  numberOfOperations: 11
-  failedOpsInterval: 30
+  numberOfOperations: 4
+  failedOpsInterval: 20
   replaceFailedOps: 1
   replaceSuccessfulOps: 1
 --- !u!81 &187238240

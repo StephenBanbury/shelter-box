@@ -21,16 +21,14 @@ namespace Com.MachineApps.PrepareAndDeploy
             StartCoroutine(WaitForInitialAnimationsAndRemoveHighScores());
         }
 
-        private IEnumerator WaitForInitialAnimationsAndRemoveHighScores()
-        {
-            // If not removed then it obscures the 'start' button
-            yield return new WaitForSeconds(34);
-            GameObject.Find("HighscoreTable").gameObject.SetActive(false);
-        }
-
         public void OnEngage()
         {
-            Debug.Log("OnEngage");
+            EngageGame();
+        }
+
+        public void EngageGame()
+        {
+            Debug.Log("EngageGame");
             GameManager.instance.PlayAudio("useKeyboard");
             AnimationManager.instance.OpenInputKeyboard(true);
             GameManager.instance.StartButtonText("Please enter your name");
@@ -71,6 +69,13 @@ namespace Com.MachineApps.PrepareAndDeploy
         public void OnResetLeaderBoard()
         {
             GameManager.instance.ResetLeaderBoard();
+        }
+
+        private IEnumerator WaitForInitialAnimationsAndRemoveHighScores()
+        {
+            // If not removed then it obscures the 'start' button
+            yield return new WaitForSeconds(34);
+            GameObject.Find("HighscoreTable").gameObject.SetActive(false);
         }
 
         private IEnumerator RaiseButtonAfterMessageHasBeenRead(int secondsDelay)
