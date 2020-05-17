@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using Com.MachineApps.PrepareAndDeploy;
 using Com.MachineApps.PrepareAndDeploy.Enums;
@@ -109,31 +110,36 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         scene = SceneManager.GetActiveScene();
-        remainingBudget = startingBudget;
+        Debug.Log($"Scene: {scene.name}");
 
-        Resets();
-        GetHighScore();
-        UpdateScoreDisplay();
-        UpdateHighscoreDisplay();
-        InitialiseFundingEventLives();
+        if (scene.name == "PrepRoom")
+        {
+            remainingBudget = startingBudget;
 
-        AnimationManager.instance.ActivateMonitor("Monitor1", false);
-        AnimationManager.instance.ActivateMonitor("Monitor2", false);
-        AnimationManager.instance.ActivateMonitor("Monitor3", false);
-        AnimationManager.instance.ActivateMonitor("Monitor4", false);
-        AnimationManager.instance.BoxesThruFloor(false);
-        OperationsManager.instance.SetRotateOperations(false);
+            Resets();
+            GetHighScore();
+            UpdateScoreDisplay();
+            UpdateHighscoreDisplay();
+            InitialiseFundingEventLives();
 
-        HudOnOff(false);
-        BudgetLivesOnOff(false);
-        ScorePanelOnOff(false);
-        CurrentOpsChartShowHide(false);
-        FundraisingEventsChartShowHide(false);
-        ActivateExitBlocker(false);
+            AnimationManager.instance.ActivateMonitor("Monitor1", false);
+            AnimationManager.instance.ActivateMonitor("Monitor2", false);
+            AnimationManager.instance.ActivateMonitor("Monitor3", false);
+            AnimationManager.instance.ActivateMonitor("Monitor4", false);
+            AnimationManager.instance.BoxesThruFloor(false);
+            OperationsManager.instance.SetRotateOperations(false);
 
-        StartCountdown();
+            HudOnOff(false);
+            BudgetLivesOnOff(false);
+            ScorePanelOnOff(false);
+            CurrentOpsChartShowHide(false);
+            FundraisingEventsChartShowHide(false);
+            ActivateExitBlocker(false);
 
-        if (debugStartSettings) inputManager.EngageGame();
+            StartCountdown();
+
+            if (debugStartSettings) inputManager.EngageGame();
+        }
     }
 
     void FixedUpdate()
@@ -257,14 +263,17 @@ public class GameManager : MonoBehaviour
 
     public void UpdateFundingEventLives()
     {
-        var numberOfEventLivesLeft = 
-            FundRaisingEventManager.instance.NumberOfEventsAllowed - FundRaisingEventManager.instance.NumberOfEventsUsed;
+        var numberOfEventLivesLeft =
+            FundRaisingEventManager.instance.NumberOfEventsAllowed -
+            FundRaisingEventManager.instance.NumberOfEventsUsed;
 
         //Debug.Log($"fundingEventLives count: {fundingEventLives.Count}");
 
         for (int i = 1; i <= fundingEventLives.Count; i++)
         {
-            var lifeObjectColor = i <= numberOfEventLivesLeft ? new Color(240, 255, 0, 255) : new Color(190, 205, 207, 255);
+            var lifeObjectColor = i <= numberOfEventLivesLeft
+                ? new Color(240, 255, 0, 255)
+                : new Color(190, 205, 207, 255);
 
             var lifeObjectName = fundingEventLives[i - 1];
             var lifeObject = GameObject.Find(lifeObjectName);
@@ -275,12 +284,8 @@ public class GameManager : MonoBehaviour
             renderer.material.color = lifeObjectColor;
         }
 
-        if (numberOfEventLivesLeft == 0)
-        {
-            // TODO check if enough funds to deploy any item
-            CheckForSufficientFunds();
-        }
-
+        // TODO check if enough funds to deploy any item
+        CheckForSufficientFunds(numberOfEventLivesLeft);
     }
 
     public void OpsStatusText(string pending, string success, string failed)
@@ -331,15 +336,11 @@ public class GameManager : MonoBehaviour
         //BudgetMeter.text = $"{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "")}";
         budgetText.text = $"£{remainingBudget.ToString().Replace(".00", "")}";
 
-        var percentRemaining = (float)((float)remainingBudget / (float)startingBudget) * 100;
-        
-        if (percentRemaining <= 10)
-        {
-            PlayAudio("lowFundsWarning");
-            HudMessage("WARNING: Low funds!!", 4);
-        }
+        var numberOfEventLivesLeft =
+            FundRaisingEventManager.instance.NumberOfEventsAllowed -
+            FundRaisingEventManager.instance.NumberOfEventsUsed;
 
-        IndicateBudget(percentRemaining);
+        CheckForSufficientFunds(numberOfEventLivesLeft);
     }
 
     public void UpdateScore(int value)
@@ -392,11 +393,38 @@ public class GameManager : MonoBehaviour
         Initiate.Fade("WaitingRoom", Color.green, 2.0f);
     }
 
-    private void CheckForSufficientFunds()
+    private void CheckForSufficientFunds(int numberOfLivesLeft)
     {
-        if (remainingBudget < CheapestResourceItem())
+        if (numberOfLivesLeft == 0) 
         {
-            GameOver("You do not have enough funds left and no way of raising money!");
+            // Not enough funds left for cheapest item required by any remaining ops and no fundraising opportunities left = Game Over
+
+            var cheapestRequiredResourceItem = CheapestRequiredResourceItem();
+
+            Debug.Log(
+                $"Number of lives left: {numberOfLivesLeft}, Remaining budget: {remainingBudget}, Cheapest required resource item: {cheapestRequiredResourceItem}");
+
+            if (remainingBudget < cheapestRequiredResourceItem)
+            {
+                Debug.Log("Not enough funds left and no way of raising money");
+                GameOver("You do not have enough funds left and no way of raising money!");
+            }
+        }
+        else
+        {
+            // Funds are low (less than threshold, based on cheapest item) but fundraising event opportunities  remain
+            var cheapestResourceItem = CheapestResourceItem();
+            var threshold = cheapestResourceItem + cheapestResourceItem / 100 * 50;
+
+            Debug.Log(
+                $"Remaining budget ({remainingBudget}) is less than threshold ({threshold})");
+
+            if (remainingBudget <= threshold)
+            {
+                Debug.Log("low funds warning");
+                PlayAudio("lowFundsWarning");
+                HudMessage("WARNING: Low funds!!", 4);
+            }
         }
     }
 
@@ -412,6 +440,30 @@ public class GameManager : MonoBehaviour
             if (cost < lowestCost) lowestCost = cost;
         }
 
+        return lowestCost;
+    }
+
+    private int CheapestRequiredResourceItem()
+    {
+        int lowestCost = 99999999;
+
+        var fundRaisingEventService = new FundRaisingEventService();
+        var resourceCosts = fundRaisingEventService.ResourceCosts();
+        
+        var opsRemaining = OperationsManager.instance.RemainingOperations;
+        foreach (var op in opsRemaining)
+        {
+            var collected = op.CollectedResources;
+            foreach (var requiredResource in op.RequiredResources)
+            {
+                if (!collected.Contains(requiredResource))
+                {
+                    var cost = resourceCosts[(Resource) requiredResource];
+                    if (cost < lowestCost) lowestCost = cost;
+                }
+            }
+        }
+        
         return lowestCost;
     }
 
@@ -463,20 +515,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void IndicateBudget(float percentRemaining)
-    {
-        for (var i = 1; i <= 5; i++)
-        {
-            var colour = new Color(0, 0, 0, 0);
+    //private void IndicateBudget(float percentRemaining)
+    //{
+    //    for (var i = 1; i <= 5; i++)
+    //    {
+    //        var colour = new Color(0, 0, 0, 0);
 
-            // colour indicator light if within budget remaining
-            if (percentRemaining >= i * 16.7)
-            {
-                colour = new Color(240, 255, 0, 255);
-            }
-            GameObject.Find($"BudgetLife{i}").GetComponent<Renderer>().material.color = colour;
-        }
-    }
+    //        // colour indicator light if within budget remaining
+    //        if (percentRemaining >= i * 16.7)
+    //        {
+    //            colour = new Color(240, 255, 0, 255);
+    //        }
+    //        GameObject.Find($"BudgetLife{i}").GetComponent<Renderer>().material.color = colour;
+    //    }
+    //}
 
     //private IEnumerator BudgetWarning(int secondsDelay)
     //{

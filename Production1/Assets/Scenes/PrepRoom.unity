@@ -3418,7 +3418,7 @@ MonoBehaviour:
   timeAllowed: 5
   personalMessage: {fileID: 1477996288}
   startButtonText: {fileID: 1876759998}
-  startingBudget: 10000
+  startingBudget: 2000
   pendingOpsText: {fileID: 310007334}
   successfulOpsText: {fileID: 941072288}
   failedOpsText: {fileID: 160916448}

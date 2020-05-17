@@ -42,6 +42,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         [Tooltip("Seconds delay between failing operations")]
         [SerializeField] private int failedOpsInterval = 45;
 
+        [SerializeField] private bool allowOpsToFail;
         [SerializeField] private bool replaceFailedOps;
         [SerializeField] private bool replaceSuccessfulOps;
 
@@ -59,11 +60,20 @@ namespace Com.MachineApps.PrepareAndDeploy
         private bool updatingSuccessfulOperation;
         private bool rotateOperations;
 
-        public int OperationId(int id)
+        public List<Operation> RemainingOperations
+        {
+            get
+            {
+                return operations.Where(o =>
+                    o.OperationStatus == OperationStatus.Pending || o.OperationStatus == OperationStatus.None).ToList();
+            }
+        }
+
+        public int OperationId(int monitorId)
         {
             int operationId = 0;
 
-            switch (id)
+            switch (monitorId)
             {
                 case 0:
                     operationId = operationId0;
@@ -140,7 +150,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         void FixedUpdate()
         {
-            StartCoroutine(CheckForFailedOperation());
+            if (allowOpsToFail) StartCoroutine(CheckForFailedOperation());
         }
 
         private IEnumerator CheckForFailedOperation()

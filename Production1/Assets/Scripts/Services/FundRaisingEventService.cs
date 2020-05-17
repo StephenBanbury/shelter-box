@@ -27,8 +27,8 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
             returnRecourceDictionary.Add(Resource.Tents, 2000);
             returnRecourceDictionary.Add(Resource.Toys, 550);
             returnRecourceDictionary.Add(Resource.Water, 1150);
-            returnRecourceDictionary.Add(Resource.Clothing, 2000);
-            returnRecourceDictionary.Add(Resource.Blankets, 1350);
+            //returnRecourceDictionary.Add(Resource.Clothing, 2000);
+            //returnRecourceDictionary.Add(Resource.Blankets, 1350);
 
             return returnRecourceDictionary;
         }

@@ -5,11 +5,11 @@
         None = 0,
         Food = 1,
         Water = 2,
-        Clothing = 3,
+        //Clothing = 3,
         Tents = 4,
         FirstAid = 5,
         Toys = 6,
-        Blankets = 7,
+        //Blankets = 7,
         Boats = 8
     }
 

@@ -80,8 +80,10 @@ namespace Com.MachineApps.PrepareAndDeploy
                 var thisEvent = fundRaisingEvents.FirstOrDefault(e => e.Id == eventId);
                 thisEvent.FundRaisingEventStatus = status;
 
-                //numberOfEventsUsed++;
-                GameManager.instance.UpdateFundingEventLives();
+                if (status != FundRaisingEventStatus.Current)
+                {
+                    GameManager.instance.UpdateFundingEventLives();
+                }
 
                 UpdateFundraisingEventsChart();
             }
