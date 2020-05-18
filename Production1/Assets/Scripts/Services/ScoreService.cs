@@ -25,16 +25,16 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
 
         private Dictionary<ScoreType, int> ScoreValue()
         {
-            var returnScoreDictionary = new Dictionary<ScoreType, int>();
-
-            returnScoreDictionary.Add(ScoreType.ItemAssigned, 200);
-            returnScoreDictionary.Add(ScoreType.OperationSuccessful, 1000);
-            returnScoreDictionary.Add(ScoreType.ItemDropped, -50);
-            returnScoreDictionary.Add(ScoreType.ItemNotRequired, -50);
-            returnScoreDictionary.Add(ScoreType.ItemAlreadyAssigned, -50);
-            returnScoreDictionary.Add(ScoreType.BalanceIntoRed, -100);
-            returnScoreDictionary.Add(ScoreType.GameSuccessfullyCompleted, 2000);
-            returnScoreDictionary.Add(ScoreType.OperationFailed, -500);
+            var returnScoreDictionary = new Dictionary<ScoreType, int>
+            {
+                {ScoreType.ItemAssigned, 200},
+                {ScoreType.OperationSuccessful, 1000},
+                {ScoreType.ItemDropped, -50},
+                {ScoreType.ItemNotRequired, -50},
+                {ScoreType.ItemAlreadyAssigned, -50},
+                {ScoreType.GameSuccessfullyCompleted, 2000},
+                {ScoreType.OperationFailed, -500}
+            };
 
             return returnScoreDictionary;
         }

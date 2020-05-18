@@ -54,8 +54,8 @@ namespace Com.MachineApps.PrepareAndDeploy
         private static List<Operation> operations;
         private DateTime startDateTime = DateTime.UtcNow;
         private DateTime reviewDateTime;
-        private OperationService operationService = new OperationService();
-        private List<int> usedIndexes = new List<int>();
+        private readonly OperationService operationService = new OperationService();
+        private readonly List<int> usedIndexes = new List<int>();
         private bool updatingFailedOperation;
         private bool updatingSuccessfulOperation;
         private bool rotateOperations;
@@ -292,6 +292,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             var scoreService = new ScoreService();
             var score = scoreService.GetScoreValue(ScoreType.OperationFailed);
             GameManager.instance.UpdateScore(score);
+            GameManager.instance.UpdateScoresRegister(ScoreType.OperationFailed);
 
             var monitorNum = FailAndReplaceWithRandomOperation();
 
@@ -510,6 +511,8 @@ namespace Com.MachineApps.PrepareAndDeploy
             var scoreService = new ScoreService();
             var score = scoreService.GetScoreValue(ScoreType.OperationSuccessful);
             GameManager.instance.UpdateScore(score);
+            GameManager.instance.UpdateScoresRegister(ScoreType.OperationSuccessful);
+            
 
             var remainingMonitors = RemainingMonitors();
 
@@ -518,6 +521,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             {
                 score = scoreService.GetScoreValue(ScoreType.GameSuccessfullyCompleted);
                 GameManager.instance.UpdateScore(score);
+                GameManager.instance.UpdateScoresRegister(ScoreType.GameSuccessfullyCompleted);
 
                 yield return new WaitForSeconds(3);
 

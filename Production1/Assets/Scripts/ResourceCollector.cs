@@ -17,19 +17,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private AudioSource floorAudio;
         [SerializeField] private AudioSource requiredAudio;
         [SerializeField] private AudioSource notRequiredAudio;
-
-        private bool noMoneyLeft;
-        void Start()
-        {
-            //AudioSource[] audioSources = GetComponents<AudioSource>();
-            //floorAudio = audioSources[0]; // Audio source = if this is a box then it's is a beep; if it's the floor then it's a thud
-            //if (audioSources.Length > 2)
-            //{
-            //    //requiredAudio = audioSources[1];
-            //    //audioSource3 = audioSources[2];
-            //}
-        }
-
+        
         void OnTriggerEnter(Collider other)
         {
             //Debug.Log($"Detected resource: {other.tag}");
@@ -61,6 +49,10 @@ namespace Com.MachineApps.PrepareAndDeploy
             BoxMessage3Text.text = "";
             BoxMessage4Text.text = "";
 
+            ScoreType scoreType = ScoreType.None;
+            var scoreService = new ScoreService();
+            int scoreValue;
+
             if (gameObject.name != "Floor")
             {
                 // Then get collection of resource IDs from indexed operation
@@ -90,9 +82,6 @@ namespace Com.MachineApps.PrepareAndDeploy
                 var selectedIsRequiredResource = OperationsManager.instance.SelectedResourceIsRequired(operationId, myResourceId);
 
 
-                ScoreType scoreType = ScoreType.None;
-                var scoreService = new ScoreService();
-                int scoreValue;
 
                 switch (selectedIsRequiredResource)
                 {
@@ -103,6 +92,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         scoreValue = scoreService.GetScoreValue(ScoreType.ItemNotRequired);
                         GameManager.instance.UpdateScore(scoreValue);
+                        GameManager.instance.UpdateScoresRegister(ScoreType.ItemNotRequired);
 
                         infoMessage =
                             $"{Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")} not required";
@@ -116,6 +106,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         scoreValue = scoreService.GetScoreValue(ScoreType.ItemAlreadyAssigned);
                         GameManager.instance.UpdateScore(scoreValue);
+                        GameManager.instance.UpdateScoresRegister(ScoreType.ItemAlreadyAssigned);
 
                         infoMessage =
                             $"{currentPlayer.PlayerName}, you have already collected {Regex.Replace(((Resource) myResourceId).ToString(), "(\\B[A-Z])", " $1")}";
@@ -137,6 +128,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         scoreValue = scoreService.GetScoreValue(ScoreType.ItemAssigned);
                         GameManager.instance.UpdateScore(scoreValue);
+                        GameManager.instance.UpdateScoresRegister(ScoreType.ItemAssigned);
 
                         OperationsManager.instance.AssignOperationsToMonitors();
 
@@ -153,6 +145,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                             scoreValue = scoreService.GetScoreValue(ScoreType.OperationSuccessful);
                             GameManager.instance.UpdateScore(scoreValue);
+                            GameManager.instance.UpdateScoresRegister(ScoreType.OperationSuccessful);
 
                             Debug.Log($"All resources collected for operationId {operationId}");
 
@@ -193,8 +186,12 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
             else
             { 
-                Debug.Log($"{other.gameObject.name} hit floor!!");
-                floorAudio.Play(); // In this instance this is audio source component of the Floor GameObject
+               //Debug.Log($"{other.gameObject.name} hit floor!!");
+                floorAudio.Play(); 
+
+                scoreValue = scoreService.GetScoreValue(ScoreType.ItemDropped);
+                GameManager.instance.UpdateScore(scoreValue);
+                GameManager.instance.UpdateScoresRegister(ScoreType.ItemDropped);
             }
 
             var resourceObjectName = other.gameObject.name.Replace("(Clone)", "");
@@ -203,14 +200,5 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             ResourceInstantiator.instance.CreateResourceObject(resourceObjectName, true);
         }
-
-        //private void ChangeMaterial(GameObject gameObjectToAffect, int matIndex)
-        //{
-        //    var mats = gameObjectToAffect.GetComponent<Renderer>().materials;
-        //    var newMat = mats[matIndex];
-
-        //    mats[0] = newMat;
-        //    gameObjectToAffect.GetComponent<Renderer>().materials = mats;
-        //}
     }
 }

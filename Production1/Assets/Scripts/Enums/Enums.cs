@@ -52,16 +52,12 @@
     public enum ScoreType
     {
         None = 0,
-        ResetScore = 1,
-        LosePoints = 2,
-        GainPoints = 3,
         ItemAssigned = 4,
         OperationSuccessful = 5,
         FundsRaised = 6,
         ItemDropped = 7,
         ItemNotRequired = 8,
         ItemAlreadyAssigned = 9,
-        BalanceIntoRed = 10,
         GameSuccessfullyCompleted = 11,
         OperationFailed = 12
     }

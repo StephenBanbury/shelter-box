@@ -86,6 +86,8 @@ public class GameManager : MonoBehaviour
 
     private ScoreService scoreService;
 
+    private ScoresRegister scoresRegister;
+
     void Awake()
     {
         // Check that it exists
@@ -158,6 +160,37 @@ public class GameManager : MonoBehaviour
         scoreService.AddHighscoreEntry(score, playerName);
 
         StartCoroutine(GameOver(reason, 4));
+    }
+    
+    public void UpdateScoresRegister(ScoreType scoreType)
+    {
+        switch (scoreType)
+        {
+            case ScoreType.ItemAssigned:
+                scoresRegister.ItemAssigned++;
+                break;
+            case ScoreType.OperationSuccessful:
+                scoresRegister.OperationSuccessful++;
+                break;
+            case ScoreType.FundsRaised:
+                scoresRegister.FundsRaised++;
+                break;
+            case ScoreType.ItemDropped:
+                scoresRegister.ItemDropped++;
+                break;
+            case ScoreType.ItemNotRequired:
+                scoresRegister.ItemNotRequired++;
+                break;
+            case ScoreType.ItemAlreadyAssigned:
+                scoresRegister.ItemAlreadyAssigned++;
+                break;
+            case ScoreType.GameSuccessfullyCompleted:
+                scoresRegister.GameSuccessfullyCompleted++;
+                break;
+            case ScoreType.OperationFailed:
+                scoresRegister.OperationFailed++;
+                break;
+        }
     }
 
     public int BudgetRemaining()
