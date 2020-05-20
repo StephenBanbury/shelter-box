@@ -18,7 +18,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             GameManager.instance.PlayAudio("missionStatementPart1");
 
-            StartCoroutine(WaitForInitialAnimationsAndRemoveHighScores());
+            StartCoroutine(WaitForInitialAnimationsAndRemoveHighScores(28));
         }
 
         public void OnEngage()
@@ -49,7 +49,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 PlayerManager.instance.Player = playerName;
                 var newPlayer = PlayerManager.instance.GetCurrentPlayer();
 
-                Debug.Log($"Player: {newPlayer.PlayerName}, ID: {newPlayer.PlayerId}, Score: {newPlayer.CurrentScore}, Hi Score: {newPlayer.HighScore}.");
+                //Debug.Log($"Player: {newPlayer.PlayerName}, ID: {newPlayer.PlayerId}, Score: {newPlayer.CurrentScore}, Hi Score: {newPlayer.HighScore}.");
 
                 GameManager.instance.PersonalMessage(playerName);
 
@@ -71,11 +71,12 @@ namespace Com.MachineApps.PrepareAndDeploy
             GameManager.instance.ResetLeaderBoard();
         }
 
-        private IEnumerator WaitForInitialAnimationsAndRemoveHighScores()
+        private IEnumerator WaitForInitialAnimationsAndRemoveHighScores(int delaySecs)
         {
             // If not removed then it obscures the 'start' button
-            yield return new WaitForSeconds(34);
-            GameObject.Find("HighscoreTable").gameObject.SetActive(false);
+            yield return new WaitForSeconds(delaySecs);
+
+            AnimationManager.instance.AnimateHighScoresPanel();
         }
 
         private IEnumerator RaiseButtonAfterMessageHasBeenRead(int secondsDelay)

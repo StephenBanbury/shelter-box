@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Com.MachineApps.PrepareAndDeploy
 {
     public class AnimationManager : MonoBehaviour
     {
+        public static AnimationManager instance;
+
         [SerializeField] private Animator monitor1;
         [SerializeField] private Animator monitor2;
         [SerializeField] private Animator monitor3;
@@ -16,11 +20,13 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private Animator fadeOutHighScoresPanel;
         [SerializeField] private Animator boxesThruFloor;
 
-        //[SerializeField] private Animation monitor1Text;
+        [SerializeField] private GameObject highscoresTable;
+        [SerializeField] private CanvasGroup highscoresCanvasGroup;
 
-        //[SerializeField] private Animator entranceDoor;
+        private bool animateHighscoreTable;
+        public float speed = 1.0f;
+        private Vector3 highScoreTableTarget = new Vector3(0, 2f, 2.5f);
 
-        public static AnimationManager instance;
 
         void Awake()
         {
@@ -34,6 +40,34 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
 
             DontDestroyOnLoad(gameObject);
+        }
+
+        private void FixedUpdate()
+        {
+            if (animateHighscoreTable)
+            {
+                StartCoroutine(MoveHighscoresTable());
+            }
+        }
+
+        private IEnumerator MoveHighscoresTable()
+        {
+            if (highscoresTable.transform.position == highScoreTableTarget)
+            {
+                Debug.Log("Highscore reached target");
+                animateHighscoreTable = false;
+            }
+
+            float step = speed * Time.deltaTime;
+            highscoresTable.transform.position =
+                Vector3.MoveTowards(highscoresTable.transform.position, highScoreTableTarget, step);
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        public void AnimateHighScoresPanel()
+        {
+            animateHighscoreTable = true;
         }
 
         public void BoxesThruFloor(bool up)

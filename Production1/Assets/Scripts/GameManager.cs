@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour
         //DontDestroyOnLoad(gameObject);
 
         scoreService = new ScoreService(10);
+        scoresRegister = new ScoresRegister();
     }
 
     void Start()
@@ -140,7 +141,11 @@ public class GameManager : MonoBehaviour
 
             StartCountdown();
 
-            if (debugStartSettings) inputManager.EngageGame();
+            if (debugStartSettings)
+            {
+                inputManager.EngageGame();
+                AnimationManager.instance.AnimateHighScoresPanel();
+            }
         }
     }
 
@@ -422,8 +427,9 @@ public class GameManager : MonoBehaviour
     {
         HudMessage($"Game Over! - {reason}", 10);
         yield return new WaitForSeconds(secondsDelay);
-        HudMessage("After wait", 5);
-        Initiate.Fade("WaitingRoom", Color.green, 2.0f);
+
+        AnimationManager.instance.FadeOutHighScoresPanel(false);
+        //Initiate.Fade("WaitingRoom", Color.green, 2.0f);
     }
 
     private void CheckForSufficientFunds(int numberOfLivesLeft)
