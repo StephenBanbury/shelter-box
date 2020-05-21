@@ -145,6 +145,7 @@ public class GameManager : MonoBehaviour
             {
                 inputManager.EngageGame();
                 AnimationManager.instance.AnimateHighScoresPanel();
+                AnimationManager.instance.FadeOutHighScoresPanel(true);
             }
         }
     }
@@ -164,7 +165,7 @@ public class GameManager : MonoBehaviour
         var playerName = PlayerManager.instance.Player;
         scoreService.AddHighscoreEntry(score, playerName);
 
-        StartCoroutine(GameOver(reason, 4));
+        StartCoroutine(GameOver(reason, 3));
     }
     
     public void UpdateScoresRegister(ScoreType scoreType)
@@ -322,7 +323,7 @@ public class GameManager : MonoBehaviour
             renderer.material.color = lifeObjectColor;
         }
 
-        // TODO check if enough funds to deploy any item
+        // Check if enough funds to deploy any required item
         CheckForSufficientFunds(numberOfEventLivesLeft);
     }
 
@@ -425,11 +426,17 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GameOver(string reason, int secondsDelay)
     {
-        HudMessage($"Game Over! - {reason}", 10);
+        HudMessage($"Game Over! - {reason}", 6);
         yield return new WaitForSeconds(secondsDelay);
 
-        AnimationManager.instance.FadeOutHighScoresPanel(false);
         //Initiate.Fade("WaitingRoom", Color.green, 2.0f);
+
+        AnimationManager.instance.FadeOutHighScoresPanel(false);
+        AnimationManager.instance.ActivateMonitor("Monitor1", false);
+        AnimationManager.instance.ActivateMonitor("Monitor2", false);
+        AnimationManager.instance.ActivateMonitor("Monitor3", false);
+        AnimationManager.instance.ActivateMonitor("Monitor4", false);
+
     }
 
     private void CheckForSufficientFunds(int numberOfLivesLeft)

@@ -128,7 +128,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                 nextDisplayedEvent.FundRaisingEventStatus = FundRaisingEventStatus.OnDisplay;
 
 
-                Debug.Log($"NextDisplayedEvent: {nextDisplayedEvent.Title} (Id={nextDisplayedEvent.Id})");
+                //Debug.Log($"NextDisplayedEvent: {nextDisplayedEvent.Title} (Id={nextDisplayedEvent.Id})");
             }
             else
             {

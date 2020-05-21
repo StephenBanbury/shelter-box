@@ -131,7 +131,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                     usedIndexes.Add(randomIndex);
                     var op = operations.FirstOrDefault(r => r.Id == randomIndex);
                     op.OperationStatus = OperationStatus.Pending;
-                    Debug.Log($"operation: {op.Title} - {op.OperationStatus}");
+                    //Debug.Log($"operation: {op.Title} - {op.OperationStatus}");
                 }
             }
 

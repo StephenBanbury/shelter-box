@@ -119,18 +119,35 @@ namespace Com.MachineApps.PrepareAndDeploy
             switch (monitor)
             {
                 case "Monitor1":
-                    monitor1.SetBool("openMonitor", activate);
+                    if (monitor1.GetBool("openMonitor") != activate)
+                    {
+                        monitor1.SetBool("openMonitor", activate);
+                    }
                     break;
                 case "Monitor2":
-                    monitor2.SetBool("openMonitor", activate);
+                    if (monitor2.GetBool("openMonitor") != activate)
+                    {
+                        monitor2.SetBool("openMonitor", activate);
+                    }
                     break;
                 case "Monitor3":
-                    monitor3.SetBool("openMonitor", activate);
+                    if (monitor3.GetBool("openMonitor") != activate)
+                    {
+                        monitor3.SetBool("openMonitor", activate);
+                    }
                     break;
                 case "Monitor4":
-                    monitor4.SetBool("openMonitor", activate);
+                    if (monitor4.GetBool("openMonitor") != activate)
+                    {
+                        monitor4.SetBool("openMonitor", activate);
+                    }
                     break;
             }
+
+            //Debug.Log($"Monitor1 activated: {monitor1.GetBool("openMonitor")}");
+            //Debug.Log($"Monitor2 activated: {monitor1.GetBool("openMonitor")}");
+            //Debug.Log($"Monitor3 activated: {monitor1.GetBool("openMonitor")}");
+            //Debug.Log($"Monitor4 activated: {monitor1.GetBool("openMonitor")}");
         }
     }
 }

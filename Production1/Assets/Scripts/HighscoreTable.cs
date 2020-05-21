@@ -25,45 +25,11 @@ namespace Com.MachineApps.PrepareAndDeploy
             scoreService.AddHighscoreEntry(100, "ABC");
         }
 
-        //public void Reset()
-        //{
-        //    PlayerPrefs.DeleteKey("HighScoreTable");
-        //}
-
         private void Awake()
         {
             scoreService = new ScoreService(numberInTable: 10);
-
-            //Seed();
-
-            //string jsonString = PlayerPrefs.GetString("HighScoreTable");
-            //Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
-
-            //var  highscores = scoreService.GetHighscores();
-
-            //if (highscores != null)
-            //{
-            //    // Sort list by score
-            //    //highscores.highscoreEntryList.Sort((x, y) => y.score.CompareTo(x.score));
-
-            //    // Take top 10
-            //    //highscores.highscoreEntryList = highscores.highscoreEntryList.Take(10).ToList();
-
-            //    highscoreEntryTransformList = new List<Transform>();
-            //    foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
-            //    {
-            //        CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
-            //    }
-            //}
-
             FillHighscoresTable();
-
         }
-
-        //public void ResetScoreboard()
-        //{
-        //    scoreService = new ScoreService(numberInTable: 10);
-        //}
 
         public void FillHighscoresTable()
         {
@@ -72,7 +38,6 @@ namespace Com.MachineApps.PrepareAndDeploy
             entryTemplate.gameObject.SetActive(false);
 
             var highscores = scoreService.GetHighscores();
-
             //Debug.Log($"FillHighscoresTable: {highscores?.highscoreEntryList}");
 
             if (highscores != null)
@@ -93,8 +58,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             entryRectTransform.anchoredPosition = new Vector2(0, -templateHeight * transformList.Count);
             entryTransform.gameObject.SetActive(true);
 
-            int rank = transformList.Count + 1;
-            string rankString;
+            t rank = transformList.Count + 1; string rankString;
             switch (rank)
             {
                 default:
@@ -144,51 +108,5 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             transformList.Add(entryTransform);
         }
-
-        //public void AddHighscoreEntry(int score, string name)
-        //{
-        //    Debug.Log($"AddHighscoreEntry: {score}, {name}");
-
-        //    // Create HighscoreEntry
-        //    HighscoreEntry highscoreEntry = new HighscoreEntry {score = score, name = name};
-
-        //    // Load saved Highscores
-        //    string jsonString = PlayerPrefs.GetString("HighScoreTable");
-        //    Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
-
-        //    string json;
-
-        //    if (highscores != null)
-        //    {
-        //        // Add new entry to Highscores
-        //        highscores.highscoreEntryList.Add(highscoreEntry);
-        //        highscores.highscoreEntryList = highscores.highscoreEntryList.Take(10).ToList();
-        //        json = JsonUtility.ToJson(highscores);
-        //    }
-        //    else
-        //    {
-        //        json = JsonUtility.ToJson(highscoreEntry);
-        //    }
-
-        //    // Save updated Highscores
-        //    //string json = JsonUtility.ToJson(highscores); 
-        //    PlayerPrefs.SetString("HighScoreTable", json);
-        //    PlayerPrefs.Save();
-        //}
-
-        /*
-         * Represents a single High Score entry
-         */
-        //private class Highscores
-        //{
-        //    public List<HighscoreEntry> highscoreEntryList;
-        //}
-
-        //[System.Serializable]
-        //private class HighscoreEntry
-        //{
-        //    public int score;
-        //    public string name;
-        //}
     }
 }
