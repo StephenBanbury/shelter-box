@@ -28,7 +28,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         private void Awake()
         {
             scoreService = new ScoreService(numberInTable: 10);
-            FillHighscoresTable();
+            //FillHighscoresTable();
         }
 
         public void FillHighscoresTable()
@@ -37,7 +37,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             entryTemplate = entryContainer.Find("highscoreEntryTemplate");
             entryTemplate.gameObject.SetActive(false);
 
-            var highscores = scoreService.GetHighscores();
+            var highscores = scoreService.GetHighscoresSorted();
             //Debug.Log($"FillHighscoresTable: {highscores?.highscoreEntryList}");
 
             if (highscores != null)
@@ -45,20 +45,20 @@ namespace Com.MachineApps.PrepareAndDeploy
                 highscoreEntryTransformList = new List<Transform>();
                 foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
                 {
-                    CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
+                    CreateHighscoreEntryTransform(highscoreEntry, entryContainer); //, highscoreEntryTransformList);
                 }
             }
         }
 
-        private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry, Transform container, List<Transform> transformList)
+        private void CreateHighscoreEntryTransform(HighscoreEntry highscoreEntry, Transform container) //, List<Transform> transformList)
         {
             float templateHeight = 0.1f;
             Transform entryTransform = Instantiate(entryTemplate, container);
             RectTransform entryRectTransform = entryTransform.GetComponent<RectTransform>();
-            entryRectTransform.anchoredPosition = new Vector2(0, -templateHeight * transformList.Count);
+            entryRectTransform.anchoredPosition = new Vector2(0, -templateHeight * highscoreEntryTransformList.Count);
             entryTransform.gameObject.SetActive(true);
 
-            int rank = transformList.Count + 1; string rankString;
+            int rank = highscoreEntryTransformList.Count + 1; string rankString;
             switch (rank)
             {
                 default:
@@ -106,7 +106,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             //}
 
-            transformList.Add(entryTransform);
+            highscoreEntryTransformList.Add(entryTransform);
         }
     }
 }

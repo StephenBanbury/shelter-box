@@ -12,7 +12,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         public void OnPlay()
         {
             AnimationManager.instance.FadeOutPlayButton(true);
-            AnimationManager.instance.FadeOutHighScoresPanel(true);
+            AnimationManager.instance.FadeOutHighScoresTable(1, true);
             AnimationManager.instance.FadeFireCurtain(true);
             AnimationManager.instance.LowerStartButton(true);
 
@@ -76,7 +76,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             // If not removed then it obscures the 'start' button
             yield return new WaitForSeconds(delaySecs);
 
-            AnimationManager.instance.AnimateHighScoresPanel();
+            AnimationManager.instance.AnimateHighScoresTable();
         }
 
         private IEnumerator RaiseButtonAfterMessageHasBeenRead(int secondsDelay)

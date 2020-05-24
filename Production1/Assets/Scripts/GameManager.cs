@@ -64,7 +64,8 @@ public class GameManager : MonoBehaviour
     [Tooltip("Collider to block exit once within action zone")]
     [SerializeField] private GameObject exitBlocker;
 
-    [SerializeField] private HighscoreTable highscoresTable;
+    [SerializeField] private HighscoreTable highscoresTable1;
+    [SerializeField] private HighscoreTable highscoresTable2;
     [SerializeField] private InputManager inputManager;
 
     // static DeploymentStatus deploymentStatus;
@@ -105,7 +106,7 @@ public class GameManager : MonoBehaviour
         }
 
         //DontDestroyOnLoad(gameObject);
-
+        
         scoreService = new ScoreService(10);
         scoresRegister = new ScoresRegister();
     }
@@ -115,42 +116,49 @@ public class GameManager : MonoBehaviour
         scene = SceneManager.GetActiveScene();
         Debug.Log($"Scene: {scene.name}");
 
-        if (scene.name == "PrepRoom")
+        remainingBudget = startingBudget;
+
+        Resets();
+        GetHighScore();
+        UpdateScoreDisplay();
+        UpdateHighscoreDisplay();
+        InitialiseFundingEventLives();
+
+        AnimationManager.instance.ActivateMonitor("Monitor1", false);
+        AnimationManager.instance.ActivateMonitor("Monitor2", false);
+        AnimationManager.instance.ActivateMonitor("Monitor3", false);
+        AnimationManager.instance.ActivateMonitor("Monitor4", false);
+        AnimationManager.instance.BoxesThruFloor(false);
+        AnimationManager.instance.FadeOutHighScoresTable(2, true);
+        OperationsManager.instance.SetRotateOperations(false);
+
+        HudOnOff(false);
+        BudgetLivesOnOff(false);
+        ScorePanelOnOff(false);
+        CurrentOpsChartShowHide(false);
+        FundraisingEventsChartShowHide(false);
+        ActivateExitBlocker(false);
+
+        StartCountdown();
+
+        if (debugStartSettings)
         {
-            remainingBudget = startingBudget;
-
-            Resets();
-            GetHighScore();
-            UpdateScoreDisplay();
-            UpdateHighscoreDisplay();
-            InitialiseFundingEventLives();
-
-            AnimationManager.instance.ActivateMonitor("Monitor1", false);
-            AnimationManager.instance.ActivateMonitor("Monitor2", false);
-            AnimationManager.instance.ActivateMonitor("Monitor3", false);
-            AnimationManager.instance.ActivateMonitor("Monitor4", false);
-            AnimationManager.instance.BoxesThruFloor(false);
-            OperationsManager.instance.SetRotateOperations(false);
-
-            HudOnOff(false);
-            BudgetLivesOnOff(false);
-            ScorePanelOnOff(false);
-            CurrentOpsChartShowHide(false);
-            FundraisingEventsChartShowHide(false);
-            ActivateExitBlocker(false);
-
-            StartCountdown();
-
-            if (debugStartSettings)
-            {
-                inputManager.EngageGame();
-                AnimationManager.instance.AnimateHighScoresPanel();
-                AnimationManager.instance.FadeOutHighScoresPanel(true);
-            }
-
-            //scoreService.TestPut();
-            scoreService.TestGet();
+            inputManager.EngageGame();
+            AnimationManager.instance.AnimateHighScoresTable();
+            AnimationManager.instance.FadeOutHighScoresTable(1, true);
         }
+
+        //scoreService.HighscoresGet();
+        scoreService.HighscoresPut();
+
+        //var t = highscoresTable2.transform;
+        ////t.position = new Vector3(0, -0.47f, 0);
+        //////Destroy(highscoreTableGameObject);
+        ////highscoreTableGameObject = new GameObject();
+        //var n = Instantiate(highscoresTable2, t);
+        //n.transform.position = new Vector3(0, 2f, 2.5f);
+
+        highscoresTable1.FillHighscoresTable();
     }
 
     void FixedUpdate()
@@ -164,10 +172,6 @@ public class GameManager : MonoBehaviour
     public void GameOver(string reason)
     {
         Debug.Log($"GAME OVER: {reason}");
-        
-        var playerName = PlayerManager.instance.Player;
-        scoreService.AddHighscoreEntry(score, playerName);
-
         StartCoroutine(GameOver(reason, 3));
     }
     
@@ -404,7 +408,32 @@ public class GameManager : MonoBehaviour
     #endregion
 
 
-    #region Private methods
+
+
+
+    #region Coroutines
+
+    private IEnumerator GameOver(string reason, int secondsDelay)
+    {
+        HudMessage($"Game Over! - {reason}", 6);
+
+
+        var playerName = PlayerManager.instance.Player;
+        scoreService.AddHighscoreEntry(score, playerName);
+
+        highscoresTable2.FillHighscoresTable();
+        AnimationManager.instance.FadeOutHighScoresTable(2, false);
+
+        yield return new WaitForSeconds(secondsDelay);
+
+        //Initiate.Fade("WaitingRoom", Color.green, 2.0f);
+
+        AnimationManager.instance.ActivateMonitor("Monitor1", false);
+        AnimationManager.instance.ActivateMonitor("Monitor2", false);
+        AnimationManager.instance.ActivateMonitor("Monitor3", false);
+        AnimationManager.instance.ActivateMonitor("Monitor4", false);
+
+    }
 
     private IEnumerator CountdownTasks()
     {
@@ -427,21 +456,34 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
     }
 
-    private IEnumerator GameOver(string reason, int secondsDelay)
-    {
-        HudMessage($"Game Over! - {reason}", 6);
-        yield return new WaitForSeconds(secondsDelay);
 
-        //Initiate.Fade("WaitingRoom", Color.green, 2.0f);
+    //private IEnumerator BudgetWarning(int secondsDelay)
+    //{
+    //    //LightUpAllBudgetLights();
+    //    PlayAudio("lowFundsWarning");
+    //    yield return new WaitForSeconds(secondsDelay);
+    //}
 
-        AnimationManager.instance.FadeOutHighScoresPanel(false);
-        AnimationManager.instance.ActivateMonitor("Monitor1", false);
-        AnimationManager.instance.ActivateMonitor("Monitor2", false);
-        AnimationManager.instance.ActivateMonitor("Monitor3", false);
-        AnimationManager.instance.ActivateMonitor("Monitor4", false);
+    //private IEnumerator WaitForGameStart(int secondsDelay)
+    //{
+    //    //PlayAudio("backgroundNoise1");
 
-    }
+    //    yield return new WaitForSeconds(secondsDelay);
 
+    //    //PlayAudio("missionStatementPart1");
+    //    //AnimationManager.instance.FadeFireCurtain(true);
+    //    //AnimationManager.instance.LowerStartButton(true);
+    //}
+
+    #endregion
+
+
+
+
+
+
+    #region Private methods
+        
     private void CheckForSufficientFunds(int numberOfLivesLeft)
     {
         if (numberOfLivesLeft == 0) 
@@ -579,13 +621,6 @@ public class GameManager : MonoBehaviour
     //    }
     //}
 
-    //private IEnumerator BudgetWarning(int secondsDelay)
-    //{
-    //    //LightUpAllBudgetLights();
-    //    PlayAudio("lowFundsWarning");
-    //    yield return new WaitForSeconds(secondsDelay);
-    //}
-
     //private void LightUpAllBudgetLights()
     //{
     //    var colour = new Color(255, 0, 0, 255);
@@ -612,21 +647,11 @@ public class GameManager : MonoBehaviour
         // TODO this is not clearing the table (just the PlayerPrefs)
 
         //highscoresTable.ResetScoreboard();
-        highscoresTable.FillHighscoresTable();
+        highscoresTable1.FillHighscoresTable();
         
         GameManager.instance.UpdateHighscoreDisplay();
     }
 
-    //private IEnumerator WaitForGameStart(int secondsDelay)
-    //{
-    //    //PlayAudio("backgroundNoise1");
-
-    //    yield return new WaitForSeconds(secondsDelay);
-
-    //    //PlayAudio("missionStatementPart1");
-    //    //AnimationManager.instance.FadeFireCurtain(true);
-    //    //AnimationManager.instance.LowerStartButton(true);
-    //}
 
     #endregion
 

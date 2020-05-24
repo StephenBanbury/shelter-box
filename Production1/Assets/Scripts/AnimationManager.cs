@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Com.MachineApps.PrepareAndDeploy
@@ -17,11 +16,11 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private Animator inputKeyboard;
         [SerializeField] private Animator fadeFireCurtain;
         [SerializeField] private Animator fadeOutPlayButton;
-        [SerializeField] private Animator fadeOutHighScoresPanel;
+        [SerializeField] private Animator fadeOutHighScoresTable1;
+        [SerializeField] private Animator fadeOutHighScoresTable2;
         [SerializeField] private Animator boxesThruFloor;
 
-        [SerializeField] private GameObject highscoresTable;
-        [SerializeField] private CanvasGroup highscoresCanvasGroup;
+        [SerializeField] private GameObject highscoresTable1;
 
         private bool animateHighscoreTable;
         public float speed = 1.0f;
@@ -52,20 +51,20 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         private IEnumerator MoveHighscoresTable()
         {
-            if (highscoresTable.transform.position == highScoreTableTarget)
+            if (highscoresTable1.transform.position == highScoreTableTarget)
             {
                 //Debug.Log("Highscore reached target");
                 animateHighscoreTable = false;
             }
 
             float step = speed * Time.deltaTime;
-            highscoresTable.transform.position =
-                Vector3.MoveTowards(highscoresTable.transform.position, highScoreTableTarget, step);
+            highscoresTable1.transform.position =
+                Vector3.MoveTowards(highscoresTable1.transform.position, highScoreTableTarget, step);
 
             yield return new WaitForSeconds(0.1f);
         }
 
-        public void AnimateHighScoresPanel()
+        public void AnimateHighScoresTable()
         {
             animateHighscoreTable = true;
         }
@@ -82,10 +81,18 @@ namespace Com.MachineApps.PrepareAndDeploy
             fadeOutPlayButton.SetBool("fadeOut", fadeOut);
         }
 
-        public void FadeOutHighScoresPanel(bool fadeOut)
+        public void FadeOutHighScoresTable(int table, bool fadeOut)
         {
-            Debug.Log($"FadeOutHighScoresPanel: {fadeOut}");
-            fadeOutHighScoresPanel.SetBool("fadeOut", fadeOut);
+            Debug.Log($"FadeOutHighScoresTable{table}: {fadeOut}");
+            switch (table)
+            {
+                case 1:
+                    fadeOutHighScoresTable1.SetBool("fadeOut", fadeOut);
+                    break;
+                case 2:
+                    fadeOutHighScoresTable2.SetBool("fadeOut", fadeOut);
+                    break;
+            }
         }
 
         public void FadeFireCurtain(bool fadeOut)

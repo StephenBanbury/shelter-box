@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Com.MachineApps.PrepareAndDeploy.Enums;
+﻿using Com.MachineApps.PrepareAndDeploy.Enums;
 using Com.MachineApps.PrepareAndDeploy.Models;
 using Proyecto26;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -42,7 +42,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
             return returnScoreDictionary;
         }
 
-        public Highscores GetHighscores()
+        public Highscores GetHighscoresSorted()
         {
             // Load saved Highscores
             string jsonString = PlayerPrefs.GetString("HighScoreTable");
@@ -71,7 +71,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
         public HighscoreEntry GetTopHighScore()
         {
             HighscoreEntry highscore = new HighscoreEntry();
-            var highscores = GetHighscores();
+            var highscores = GetHighscoresSorted();
             if (highscores != null)
             {
                 highscores = SortHighscores(highscores);
@@ -85,15 +85,15 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
             Debug.Log($"AddHighscoreEntry: {score}, {name}");
 
             // Create HighscoreEntry
-            HighscoreEntry highscoreEntry = new HighscoreEntry {score = score, name = name};
+            HighscoreEntry highscoreEntry = new HighscoreEntry { score = score, name = name };
 
             // Load saved Highscores
-            Highscores highscores = GetHighscores();
+            Highscores highscores = GetHighscoresSorted();
 
             // In case we don't have a list yet
             if (highscores == null)
             {
-                highscores = new Highscores {highscoreEntryList = new List<HighscoreEntry>()};
+                highscores = new Highscores { highscoreEntryList = new List<HighscoreEntry>() };
             }
 
             // Add new entry to Highscores
@@ -106,30 +106,33 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
 
             var json = JsonUtility.ToJson(highscores);
 
-            Debug.Log(json);
+            //Debug.Log(json);
 
+            // Save to PlayerPrefs
             PlayerPrefs.SetString("HighScoreTable", json);
             PlayerPrefs.Save();
+
+            // Save to database
+            HighscoresPut();
         }
 
         public void ResetLeaderBoard()
         {
             PlayerPrefs.DeleteKey("HighScoreTable");
-            GetHighscores();
+            GetHighscoresSorted();
         }
 
+        #region API operations
 
-
-        public void TestPut()
+        public void HighscoresPut()
         {
-            // Put is used because, according the Rest specification : -
+            // Using Put rather than Post. Rest specification : -
             // 1. If the Request-URI refers to an already existing resource – an update operation will happen, otherwise create operation should happen if Request-URI is a valid resource URI
             // 2. PUT method is idempotent. So if you send retry a request multiple times, that should be equivalent to single request modification. In this case this is good because the first, i.e. highest score will be taken if multiple exist
 
             try
             {
-                var highscores = GetHighscores();
-
+                var highscores = GetHighscoresSorted();
                 var uri = $"https://shelterbox-cbg1.firebaseio.com/";
 
                 if (highscores?.highscoreEntryList != null)
@@ -138,11 +141,12 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
 
                     foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
                     {
-                        Debug.Log($"TestPut:  {highscoreEntry.name} / {highscoreEntry.score}");
+                        if (highscoreEntry.name == "jck") highscoreEntry.name = "jack";
+                        if (highscoreEntry.name == "ill") highscoreEntry.name = "bill";
 
                         RestClient.Put(uri + $"/{ix}.json", JsonUtility.ToJson(highscoreEntry)).Then(response =>
                         {
-                            EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "OK");
+                            Debug.Log($"HighscoresPut: {highscoreEntry.name} / {highscoreEntry.score}");
                         });
 
                         ix++;
@@ -155,7 +159,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
             }
         }
 
-        public void TestGet()
+        public void HighscoresGet()
         {
             try
             {
@@ -168,12 +172,14 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                         EditorUtility.DisplayDialog("Response", $"{highscoreEntry.name}: {highscoreEntry.score}", "Ok");
                     }
                 });
-
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
+
+        #endregion
+
     }
 }
