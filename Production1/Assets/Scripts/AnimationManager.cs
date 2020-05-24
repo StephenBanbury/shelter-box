@@ -54,7 +54,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         {
             if (highscoresTable.transform.position == highScoreTableTarget)
             {
-                Debug.Log("Highscore reached target");
+                //Debug.Log("Highscore reached target");
                 animateHighscoreTable = false;
             }
 

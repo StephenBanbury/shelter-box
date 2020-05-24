@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Com.MachineApps.PrepareAndDeploy.Enums;
 using Com.MachineApps.PrepareAndDeploy.Models;
+using Proyecto26;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -87,8 +90,6 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
             // Load saved Highscores
             Highscores highscores = GetHighscores();
 
-            //string json = "Not initialised";
-
             // In case we don't have a list yet
             if (highscores == null)
             {
@@ -115,6 +116,64 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
         {
             PlayerPrefs.DeleteKey("HighScoreTable");
             GetHighscores();
+        }
+
+
+
+        public void TestPut()
+        {
+            // Put is used because, according the Rest specification : -
+            // 1. If the Request-URI refers to an already existing resource – an update operation will happen, otherwise create operation should happen if Request-URI is a valid resource URI
+            // 2. PUT method is idempotent. So if you send retry a request multiple times, that should be equivalent to single request modification. In this case this is good because the first, i.e. highest score will be taken if multiple exist
+
+            try
+            {
+                var highscores = GetHighscores();
+
+                var uri = $"https://shelterbox-cbg1.firebaseio.com/";
+
+                if (highscores?.highscoreEntryList != null)
+                {
+                    var ix = 1;
+
+                    foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
+                    {
+                        Debug.Log($"TestPut:  {highscoreEntry.name} / {highscoreEntry.score}");
+
+                        RestClient.Put(uri + $"/{ix}.json", JsonUtility.ToJson(highscoreEntry)).Then(response =>
+                        {
+                            EditorUtility.DisplayDialog("Status", response.StatusCode.ToString(), "OK");
+                        });
+
+                        ix++;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void TestGet()
+        {
+            try
+            {
+                var uri = "https://zzshelterbox-cbg1.firebaseio.com/";
+
+                RestClient.GetArray<HighscoreEntry>(uri + ".json").Then(response =>
+                {
+                    foreach (var highscoreEntry in response.Where(r => r.name != null))
+                    {
+                        EditorUtility.DisplayDialog("Response", $"{highscoreEntry.name}: {highscoreEntry.score}", "Ok");
+                    }
+                });
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

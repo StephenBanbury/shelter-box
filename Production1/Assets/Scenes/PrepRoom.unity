@@ -3441,7 +3441,7 @@ MonoBehaviour:
   budgetText: {fileID: 112588813}
   scoreText: {fileID: 472573686}
   highScoreText: {fileID: 761643290}
-  resetLeaderBoard: 1
+  resetLeaderBoard: 0
   resetAllPlayerPrefs: 0
   exitBlocker: {fileID: 1241424742}
   highscoresTable: {fileID: 1175776618}
@@ -3680,7 +3680,7 @@ MonoBehaviour:
   video2: {fileID: 1653390935}
   video3: {fileID: 1829980808}
   video4: {fileID: 162296540}
-  numberOfOperations: 4
+  numberOfOperations: 5
   failedOpsInterval: 20
   allowOpsToFail: 1
   replaceFailedOps: 1

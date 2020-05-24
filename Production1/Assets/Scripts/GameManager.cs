@@ -147,6 +147,9 @@ public class GameManager : MonoBehaviour
                 AnimationManager.instance.AnimateHighScoresPanel();
                 AnimationManager.instance.FadeOutHighScoresPanel(true);
             }
+
+            //scoreService.TestPut();
+            scoreService.TestGet();
         }
     }
 
@@ -523,7 +526,7 @@ public class GameManager : MonoBehaviour
     {
         HighscoreEntry highScoreFromLeaderBoard = scoreService.GetTopHighScore();
         highScore = highScoreFromLeaderBoard != null ? highScoreFromLeaderBoard.score : 0;
-        Debug.Log($"High score from leaderboard: {highScore}");
+        //Debug.Log($"High score from leaderboard: {highScore}");
     }
 
     // TODO Make into a coroutine

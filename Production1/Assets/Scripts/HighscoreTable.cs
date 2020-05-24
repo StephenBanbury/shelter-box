@@ -58,7 +58,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             entryRectTransform.anchoredPosition = new Vector2(0, -templateHeight * transformList.Count);
             entryTransform.gameObject.SetActive(true);
 
-            t rank = transformList.Count + 1; string rankString;
+            int rank = transformList.Count + 1; string rankString;
             switch (rank)
             {
                 default:
