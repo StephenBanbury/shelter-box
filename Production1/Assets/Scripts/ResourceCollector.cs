@@ -17,18 +17,26 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private AudioSource floorAudio;
         [SerializeField] private AudioSource requiredAudio;
         [SerializeField] private AudioSource notRequiredAudio;
-        
+
+        private bool isGameOver;
+
         void OnTriggerEnter(Collider other)
         {
             //Debug.Log($"Detected resource: {other.tag}");
 
-            if (other.CompareTag("Water") || 
-                other.CompareTag("Tent") || 
-                other.CompareTag("Food") ||
-                other.CompareTag("FirstAidKit") ||
-                other.CompareTag("Boat") ||
-                other.CompareTag("Toy")
-                )
+            if (!isGameOver)
+            {
+                isGameOver = GameManager.instance.IsGameOver;
+            }
+
+            if (!isGameOver &&
+                (other.CompareTag("Water") ||
+                 other.CompareTag("Tent") ||
+                 other.CompareTag("Food") ||
+                 other.CompareTag("FirstAidKit") ||
+                 other.CompareTag("Boat") ||
+                 other.CompareTag("Toy"))
+            )
             {
                 DetectHitOrMiss(other);
             }

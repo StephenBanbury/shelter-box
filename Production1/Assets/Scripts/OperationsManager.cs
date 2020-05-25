@@ -69,6 +69,11 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
         }
 
+        public bool AllowOpsToFail
+        {
+            set => allowOpsToFail = value;
+        }
+
         public int OperationId(int monitorId)
         {
             int operationId = 0;

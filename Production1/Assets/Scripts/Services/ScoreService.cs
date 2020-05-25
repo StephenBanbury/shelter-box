@@ -129,6 +129,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
             // Load saved Highscores
             //Highscores highscores = GetHighscoresSorted();
             var highscores = highscoresSorted;
+            Debug.Log($"highscoresSorted: {highscores}");
 
             // In case we don't have a list yet
             if (highscores == null)

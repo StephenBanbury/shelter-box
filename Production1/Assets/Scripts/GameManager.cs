@@ -9,6 +9,7 @@ using Com.MachineApps.PrepareAndDeploy.Enums;
 using Com.MachineApps.PrepareAndDeploy.Models;
 using Com.MachineApps.PrepareAndDeploy.Services;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
@@ -85,9 +86,12 @@ public class GameManager : MonoBehaviour
 
     private int score = 0;
     private int highScore;
+    private bool isGameOver;
 
     private ScoreService scoreService;
     private ScoresRegister scoresRegister;
+
+    public bool IsGameOver => isGameOver;
 
     void Awake()
     {
@@ -127,6 +131,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("AwaitHighscoresFromApiBeforeStart: after");
 
+        isGameOver = false;
         remainingBudget = startingBudget;
 
         Resets();
@@ -160,7 +165,6 @@ public class GameManager : MonoBehaviour
         }
 
         var highscores = scoreService.GetHighscoresSorted(true);
-
         highscoresTable1.FillHighscoresTable(highscores);
     }
 
@@ -419,6 +423,9 @@ public class GameManager : MonoBehaviour
     private IEnumerator GameOver(string reason, int secondsDelay)
     {
         HudMessage($"Game Over! - {reason}", 6);
+
+        isGameOver = true;
+        OperationsManager.instance.AllowOpsToFail = false;
 
         var playerName = PlayerManager.instance.Player;
         scoreService.AddHighscoreEntry(score, playerName);
