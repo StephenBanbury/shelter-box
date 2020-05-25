@@ -27,18 +27,17 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         private void Awake()
         {
-            scoreService = new ScoreService(numberInTable: 10);
+            scoreService = new ScoreService(numberInHighscoresTable: 10);
             //FillHighscoresTable();
         }
 
-        public void FillHighscoresTable()
+        public void FillHighscoresTable(Highscores highscores)
         {
             entryContainer = transform.Find("highscoreEntryContainer");
             entryTemplate = entryContainer.Find("highscoreEntryTemplate");
             entryTemplate.gameObject.SetActive(false);
 
-            var highscores = scoreService.GetHighscoresSorted();
-            //Debug.Log($"FillHighscoresTable: {highscores?.highscoreEntryList}");
+            Debug.Log($"FillHighscoresTable: {highscores.highscoreEntryList.Count}");
 
             if (highscores != null)
             {

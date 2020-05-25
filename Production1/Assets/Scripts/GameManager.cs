@@ -11,6 +11,7 @@ using Com.MachineApps.PrepareAndDeploy.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
@@ -86,7 +87,6 @@ public class GameManager : MonoBehaviour
     private int highScore;
 
     private ScoreService scoreService;
-
     private ScoresRegister scoresRegister;
 
     void Awake()
@@ -106,15 +106,26 @@ public class GameManager : MonoBehaviour
         }
 
         //DontDestroyOnLoad(gameObject);
-        
-        scoreService = new ScoreService(10);
+
+        scoreService = new ScoreService(numberInHighscoresTable: 10);
         scoresRegister = new ScoresRegister();
     }
 
     void Start()
     {
-        scene = SceneManager.GetActiveScene();
-        Debug.Log($"Scene: {scene.name}");
+        StartCoroutine(AwaitHighscoresFromApiBeforeStart());
+    }
+
+    private IEnumerator AwaitHighscoresFromApiBeforeStart()
+    {
+        // Get leaderboard from API before doing anything else
+
+        Debug.Log("AwaitHighscoresFromApiBeforeStart: before");
+        
+        yield return StartCoroutine(scoreService.GetHighscoresFromApi());
+
+
+        Debug.Log("AwaitHighscoresFromApiBeforeStart: after");
 
         remainingBudget = startingBudget;
 
@@ -148,17 +159,9 @@ public class GameManager : MonoBehaviour
             AnimationManager.instance.FadeOutHighScoresTable(1, true);
         }
 
-        //scoreService.HighscoresGet();
-        scoreService.HighscoresPut();
+        var highscores = scoreService.GetHighscoresSorted(true);
 
-        //var t = highscoresTable2.transform;
-        ////t.position = new Vector3(0, -0.47f, 0);
-        //////Destroy(highscoreTableGameObject);
-        ////highscoreTableGameObject = new GameObject();
-        //var n = Instantiate(highscoresTable2, t);
-        //n.transform.position = new Vector3(0, 2f, 2.5f);
-
-        highscoresTable1.FillHighscoresTable();
+        highscoresTable1.FillHighscoresTable(highscores);
     }
 
     void FixedUpdate()
@@ -417,11 +420,12 @@ public class GameManager : MonoBehaviour
     {
         HudMessage($"Game Over! - {reason}", 6);
 
-
         var playerName = PlayerManager.instance.Player;
         scoreService.AddHighscoreEntry(score, playerName);
 
-        highscoresTable2.FillHighscoresTable();
+        var highscores = scoreService.GetHighscoresSorted(false);
+        highscoresTable2.FillHighscoresTable(highscores);
+
         AnimationManager.instance.FadeOutHighScoresTable(2, false);
 
         yield return new WaitForSeconds(secondsDelay);
@@ -647,7 +651,7 @@ public class GameManager : MonoBehaviour
         // TODO this is not clearing the table (just the PlayerPrefs)
 
         //highscoresTable.ResetScoreboard();
-        highscoresTable1.FillHighscoresTable();
+        //highscoresTable1.FillHighscoresTable();
         
         GameManager.instance.UpdateHighscoreDisplay();
     }
