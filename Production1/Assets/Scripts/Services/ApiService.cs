@@ -57,7 +57,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     foreach (var highscoreEntry in response.Where(r => r.name != null))
                     {
                         //EditorUtility.DisplayDialog("Response", $"{highscoreEntry.name}: {highscoreEntry.score}", "Ok");
-                        Debug.Log($"HighscoresGet: {highscoreEntry.name} / {highscoreEntry.score}");
+                        //Debug.Log($"HighscoresGet: {highscoreEntry.name} / {highscoreEntry.score}");
                         highscoresEntryList.Add(highscoreEntry);
                     }
 

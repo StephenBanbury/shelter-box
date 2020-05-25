@@ -102,15 +102,6 @@ namespace Com.MachineApps.PrepareAndDeploy
             if (instance == null)
             {
                 instance = this;
-                operations = operationService.GetOperations();
-
-                if (numberOfOperations < operations.Count)
-                {
-                    operations = operations.Take(numberOfOperations).ToList();
-                }
-
-                // Dubugging
-                //DebugHelper.instance.EnumerateOperations(operations, "OperationsManager");
             }
             else if (instance != this)
             {
@@ -123,7 +114,28 @@ namespace Com.MachineApps.PrepareAndDeploy
         void Start()
         {
             Debug.Log("OperationManager Start");
+        }
 
+        void FixedUpdate()
+        {
+            if (allowOpsToFail) StartCoroutine(CheckForFailedOperation());
+        }
+
+        public void GetOperations()
+        {
+            operations = operationService.GetOperations();
+
+            if (numberOfOperations < operations.Count)
+            {
+                operations = operations.Take(numberOfOperations).ToList();
+            }
+
+            // Dubugging
+            //DebugHelper.instance.EnumerateOperations(operations, "OperationsManager");
+        }
+
+        public void Initialise()
+        {
             reviewDateTime = startDateTime.AddSeconds(failedOpsInterval);
 
             // Randomize Operations at start
@@ -147,15 +159,10 @@ namespace Com.MachineApps.PrepareAndDeploy
             operationId1 = usedIndexes[1];
             operationId2 = usedIndexes[2];
             operationId3 = usedIndexes[3];
-            
+
             UpdateCurrentOperationsChart();
 
             AssignOperationsToMonitors();
-        }
-
-        void FixedUpdate()
-        {
-            if (allowOpsToFail) StartCoroutine(CheckForFailedOperation());
         }
 
         private IEnumerator CheckForFailedOperation()

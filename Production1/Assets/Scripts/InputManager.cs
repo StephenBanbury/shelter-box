@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Com.MachineApps.PrepareAndDeploy.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +17,7 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             GameManager.instance.PlayAudio("missionStatementPart1");
 
-            StartCoroutine(WaitForInitialAnimationsAndRemoveHighScores(28));
+            //StartCoroutine(WaitForInitialAnimationsAndRemoveHighScores(28));
         }
 
         public void OnEngage()
@@ -40,10 +39,12 @@ namespace Com.MachineApps.PrepareAndDeploy
 
             if (playerName != string.Empty)
             {
-                var kb = GameObject.Find("InputKeyboard");
-                var slate = GameObject.Find("Slate");
-                Destroy(slate);
-                Destroy(kb);
+                AnimationManager.instance.OpenInputKeyboard(false);
+
+                //var kb = GameObject.Find("InputKeyboard");
+                //var slate = GameObject.Find("Slate");
+                //Destroy(slate);
+                //Destroy(kb);
 
                 //var newPlayer = PlayerManager.instance.NewPlayer(playerName);
                 PlayerManager.instance.Player = playerName;
@@ -56,14 +57,19 @@ namespace Com.MachineApps.PrepareAndDeploy
                 GameManager.instance.StartButtonText($"Thank you {playerName}");
 
                 AnimationManager.instance.RaiseCentrePartition(true);
-                AnimationManager.instance.OpenInputKeyboard(false);
                 GameManager.instance.PlayAudio("missionStatementPart2");
 
-                var fireCurtain = GameObject.Find("FireCurtain");
-                fireCurtain.SetActive(false);
+                //var fireCurtain = GameObject.Find("FireCurtain");
+                //fireCurtain.SetActive(false);
 
                 StartCoroutine(RaiseButtonAfterMessageHasBeenRead(3));
             }
+        }
+
+        public void OnPlayAgain()
+        {
+            Debug.Log("Play Again");
+            GameManager.instance.PlayAgain();
         }
 
         public void OnResetLeaderBoard()
@@ -71,13 +77,13 @@ namespace Com.MachineApps.PrepareAndDeploy
             GameManager.instance.ResetLeaderBoard();
         }
 
-        private IEnumerator WaitForInitialAnimationsAndRemoveHighScores(int delaySecs)
-        {
-            // If not removed then it obscures the 'start' button
-            yield return new WaitForSeconds(delaySecs);
+        //private IEnumerator WaitForInitialAnimationsAndRemoveHighScores(int delaySecs)
+        //{
+        //    // If not removed then it obscures the 'start' button
+        //    yield return new WaitForSeconds(delaySecs);
 
-            AnimationManager.instance.AnimateHighScoresTable();
-        }
+        //    AnimationManager.instance.AnimateHighScoresTable();
+        //}
 
         private IEnumerator RaiseButtonAfterMessageHasBeenRead(int secondsDelay)
         {

@@ -126,6 +126,10 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         Debug.Log($"Resource {myResourceId} is required for operationId {operationId}");
 
+                        scoreValue = scoreService.GetScoreValue(ScoreType.ItemAssigned);
+                        GameManager.instance.UpdateScore(scoreValue);
+                        GameManager.instance.UpdateScoresRegister(ScoreType.ItemAssigned);
+
                         OperationsManager.instance.CollectResource(operationId, myResourceId);
 
                         // Here we need to reduce the budget by the cost of the resource
@@ -133,10 +137,6 @@ namespace Com.MachineApps.PrepareAndDeploy
 
                         //Debug.Log($"Resource Cost: {resourceCost}");
                         GameManager.instance.ReduceBudget(resourceCost);
-
-                        scoreValue = scoreService.GetScoreValue(ScoreType.ItemAssigned);
-                        GameManager.instance.UpdateScore(scoreValue);
-                        GameManager.instance.UpdateScoresRegister(ScoreType.ItemAssigned);
 
                         OperationsManager.instance.AssignOperationsToMonitors();
 

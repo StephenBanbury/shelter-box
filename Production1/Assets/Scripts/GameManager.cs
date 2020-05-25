@@ -70,24 +70,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private HighscoreTable highscoresTable2;
     [SerializeField] private InputManager inputManager;
 
-    // static DeploymentStatus deploymentStatus;
-    public static bool countdownStarted;
-
-    private static float hudDisplayTime;
-
-    private static float countdown;
-    //private bool updatingResourceCountdown;
+    private bool countdownStarted;
+    private float hudDisplayTime;
+    private float countdown;
     private bool updatingFundRaisingEvent;
-
-    private Scene scene;
-
     private int remainingBudget;
     private List<string> fundingEventLives;
-
     private int score = 0;
     private int highScore;
     private bool isGameOver;
-
     private ScoreService scoreService;
     private ScoresRegister scoresRegister;
 
@@ -120,24 +111,23 @@ public class GameManager : MonoBehaviour
         StartCoroutine(AwaitHighscoresFromApiBeforeStart());
     }
 
+    public void PlayAgain()
+    {
+        //AnimationManager.instance.AnimatePlayerController();
+
+        StartCoroutine(AwaitHighscoresFromApiBeforeStart());
+    }
+
     private IEnumerator AwaitHighscoresFromApiBeforeStart()
     {
-        // Get leaderboard from API before doing anything else
+        // Get LeaderBoard from API before doing anything else
 
         Debug.Log("AwaitHighscoresFromApiBeforeStart: before");
         
-        yield return StartCoroutine(scoreService.GetHighscoresFromApi());
-
-
-        Debug.Log("AwaitHighscoresFromApiBeforeStart: after");
-
         isGameOver = false;
         remainingBudget = startingBudget;
 
         Resets();
-        GetHighScore();
-        UpdateScoreDisplay();
-        UpdateHighscoreDisplay();
         InitialiseFundingEventLives();
 
         AnimationManager.instance.ActivateMonitor("Monitor1", false);
@@ -145,7 +135,13 @@ public class GameManager : MonoBehaviour
         AnimationManager.instance.ActivateMonitor("Monitor3", false);
         AnimationManager.instance.ActivateMonitor("Monitor4", false);
         AnimationManager.instance.BoxesThruFloor(false);
+        AnimationManager.instance.FadeOutHighScoresTable(1, false);
         AnimationManager.instance.FadeOutHighScoresTable(2, true);
+        AnimationManager.instance.FadeOutPlayButton(false);
+        AnimationManager.instance.LowerStartButton(false);
+
+        OperationsManager.instance.GetOperations();
+        OperationsManager.instance.Initialise();
         OperationsManager.instance.SetRotateOperations(false);
 
         HudOnOff(false);
@@ -154,18 +150,33 @@ public class GameManager : MonoBehaviour
         CurrentOpsChartShowHide(false);
         FundraisingEventsChartShowHide(false);
         ActivateExitBlocker(false);
+        StartButtonText("Ready to help!");
 
-        StartCountdown();
+        personalMessage.text = "";
+        hudTextMesh.text = "";
 
         if (debugStartSettings)
         {
             inputManager.EngageGame();
-            AnimationManager.instance.AnimateHighScoresTable();
+            //AnimationManager.instance.AnimateHighScoresTable();
             AnimationManager.instance.FadeOutHighScoresTable(1, true);
         }
 
+
+        yield return StartCoroutine(scoreService.GetHighscoresFromApi());
+
+        Debug.Log("AwaitHighscoresFromApiBeforeStart: after");
+
+        //AnimationManager.instance.FadeFireCurtain(false);
+
+        GetHighScore();
+        UpdateScoreDisplay();
+        UpdateHighscoreDisplay();
+
         var highscores = scoreService.GetHighscoresSorted(true);
         highscoresTable1.FillHighscoresTable(highscores);
+
+        StartCountdown();
     }
 
     void FixedUpdate()
@@ -222,11 +233,6 @@ public class GameManager : MonoBehaviour
     {
         countdown = (timeAllowed * 60);
         countdownStarted = true;
-    }
-
-    public string CurrentScene()
-    {
-        return scene.name;
     }
 
     public void PlayAudio(string audioFile)
@@ -415,14 +421,11 @@ public class GameManager : MonoBehaviour
     #endregion
 
 
-
-
-
     #region Coroutines
 
     private IEnumerator GameOver(string reason, int secondsDelay)
     {
-        HudMessage($"Game Over! - {reason}", 6);
+        HudMessage($"Game Over! - {reason}", secondsDelay - 1);
 
         isGameOver = true;
         OperationsManager.instance.AllowOpsToFail = false;
@@ -437,13 +440,19 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(secondsDelay);
 
+
+        ActivateExitBlocker(false);
+
+        AnimationManager.instance.AnimatePlayerController();
+
         //Initiate.Fade("WaitingRoom", Color.green, 2.0f);
 
-        AnimationManager.instance.ActivateMonitor("Monitor1", false);
-        AnimationManager.instance.ActivateMonitor("Monitor2", false);
-        AnimationManager.instance.ActivateMonitor("Monitor3", false);
-        AnimationManager.instance.ActivateMonitor("Monitor4", false);
+        //AnimationManager.instance.ActivateMonitor("Monitor1", false);
+        //AnimationManager.instance.ActivateMonitor("Monitor2", false);
+        //AnimationManager.instance.ActivateMonitor("Monitor3", false);
+        //AnimationManager.instance.ActivateMonitor("Monitor4", false);
 
+        //AnimationManager.instance.DropDownPlayAgainButton();
     }
 
     private IEnumerator CountdownTasks()

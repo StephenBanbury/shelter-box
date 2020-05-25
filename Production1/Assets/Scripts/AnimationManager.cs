@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 namespace Com.MachineApps.PrepareAndDeploy
@@ -19,12 +20,18 @@ namespace Com.MachineApps.PrepareAndDeploy
         [SerializeField] private Animator fadeOutHighScoresTable1;
         [SerializeField] private Animator fadeOutHighScoresTable2;
         [SerializeField] private Animator boxesThruFloor;
+        [SerializeField] private Animator dropDownPlayAgainButton;
 
+        [SerializeField] private GameObject playerController;
         [SerializeField] private GameObject highscoresTable1;
+        [SerializeField] private GameObject fireCurtain;
+
 
         private bool animateHighscoreTable;
-        public float speed = 1.0f;
+        private bool animatePlayerController;
+        public float speed = 1.5f;
         private Vector3 highScoreTableTarget = new Vector3(0, 2f, 2.5f);
+        private Vector3 playerControllerTarget = new Vector3(0, 1f, -6f);
 
 
         void Awake()
@@ -43,30 +50,74 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         private void FixedUpdate()
         {
-            if (animateHighscoreTable)
+            //if (animateHighscoreTable)
+            //{
+            //    StartCoroutine(MoveHighscoresTable());
+            //}
+
+            if (animatePlayerController)
             {
-                StartCoroutine(MoveHighscoresTable());
+                StartCoroutine(ReturnPlayerToPosition());
             }
         }
 
-        private IEnumerator MoveHighscoresTable()
+        //private IEnumerator MoveHighscoresTable()
+        //{
+        //    if (highscoresTable1.transform.position == highScoreTableTarget)
+        //    {
+        //        //Debug.Log("Highscore reached target");
+        //        animateHighscoreTable = false;
+        //    }
+
+        //    float step = speed * Time.deltaTime;
+        //    highscoresTable1.transform.position =
+        //        Vector3.MoveTowards(highscoresTable1.transform.position, highScoreTableTarget, step);
+
+        //    yield return new WaitForSeconds(0.1f);
+        //}
+
+        private IEnumerator ReturnPlayerToPosition()
         {
-            if (highscoresTable1.transform.position == highScoreTableTarget)
+            if (playerController.transform.position == playerControllerTarget)
             {
-                //Debug.Log("Highscore reached target");
-                animateHighscoreTable = false;
+                Debug.Log("playerController reached target");
+
+                FadeFireCurtain(false);
+                FadeOutPlayButton(false);
+                FadeOutHighScoresTable(1, false);
+                LowerStartButton(false);
+
+                GameManager.instance.PlayAgain();
+
+                animatePlayerController = false;
             }
 
             float step = speed * Time.deltaTime;
-            highscoresTable1.transform.position =
-                Vector3.MoveTowards(highscoresTable1.transform.position, highScoreTableTarget, step);
+            playerController.transform.position =
+                Vector3.MoveTowards(playerController.transform.position, playerControllerTarget, step);
 
             yield return new WaitForSeconds(0.1f);
         }
 
-        public void AnimateHighScoresTable()
+        //public void DropDownPlayAgainButton()
+        //{
+        //    Debug.Log($"DropDownPlayAgainButton");
+        //    dropDownPlayAgainButton.SetBool("drop", true);
+        //}
+
+        //public void AnimateHighScoresTable()
+        //{
+        //    animateHighscoreTable = true;
+        //}
+
+        public void AnimatePlayerController()
         {
-            animateHighscoreTable = true;
+            ActivateMonitor("Monitor1", false);
+            ActivateMonitor("Monitor2", false);
+            ActivateMonitor("Monitor3", false);
+            ActivateMonitor("Monitor4", false);
+
+            animatePlayerController = true;
         }
 
         public void BoxesThruFloor(bool up)
@@ -88,11 +139,19 @@ namespace Com.MachineApps.PrepareAndDeploy
             {
                 case 1:
                     fadeOutHighScoresTable1.SetBool("fadeOut", fadeOut);
+                    StartCoroutine(fadeOut ? ActivateHighscoresTable(false, 6) : ActivateHighscoresTable(true, 0));
+
                     break;
                 case 2:
                     fadeOutHighScoresTable2.SetBool("fadeOut", fadeOut);
                     break;
             }
+        }
+
+        private IEnumerator ActivateHighscoresTable(bool active, int secsDelay)
+        {
+            yield return new WaitForSeconds(secsDelay);
+            highscoresTable1.SetActive(active);
         }
 
         public void FadeFireCurtain(bool fadeOut)
@@ -122,7 +181,7 @@ namespace Com.MachineApps.PrepareAndDeploy
         public void ActivateMonitor(string monitor, bool activate)
         {
             Debug.Log($"Activate {monitor}: {activate}");
-            
+
             switch (monitor)
             {
                 case "Monitor1":

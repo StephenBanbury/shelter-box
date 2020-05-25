@@ -97,10 +97,10 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
 
             //Debug.Log($"Combined and de-duped: {deduped.ToList().Count}");
 
-            deduped.ToList().ForEach(h =>
-            {
-                Debug.Log($"highscoresSorted: {h.name} / {h.score}");
-            });
+            //deduped.ToList().ForEach(h =>
+            //{
+            //    Debug.Log($"highscoresSorted: {h.name} / {h.score}");
+            //});
 
             highscoresSorted = new Highscores { highscoreEntryList = deduped.Take(numberToFetch).ToList() };
 
