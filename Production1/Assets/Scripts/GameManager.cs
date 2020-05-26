@@ -396,6 +396,15 @@ public class GameManager : MonoBehaviour
         //BudgetMeter.text = $"{BudgetRemaining.ToString("C", CultureInfo.CurrentCulture).Replace(".00", "")}";
         budgetText.text = $"£{remainingBudget.ToString().Replace(".00", "")}";
 
+        var percentRemaining = remainingBudget / (float) startingBudget * 100;
+
+        //if (percentRemaining <= 10)
+        //{
+        //    StartCoroutine(BudgetWarning(3));
+        //}
+
+        IndicateBudget(percentRemaining);
+
         var numberOfEventLivesLeft =
             FundRaisingEventManager.instance.NumberOfEventsAllowed -
             FundRaisingEventManager.instance.NumberOfEventsUsed;
