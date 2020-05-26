@@ -28,6 +28,7 @@ namespace Com.MachineApps.PrepareAndDeploy
                     GameManager.instance.ActivateExitBlocker(true);
 
                     OperationsManager.instance.SetRotateOperations(true);
+                    OperationsManager.instance.AllowOpsToFail = true;
 
                     LightingManager.instance.BoxLightsFade(true, 4, 0, 7f);
                     LightingManager.instance.OverheadLightsFade(true, 4, 0, 3f);

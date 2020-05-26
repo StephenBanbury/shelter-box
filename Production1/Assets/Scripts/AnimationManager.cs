@@ -82,10 +82,10 @@ namespace Com.MachineApps.PrepareAndDeploy
             {
                 Debug.Log("playerController reached target");
 
-                FadeFireCurtain(false);
                 FadeOutPlayButton(false);
                 FadeOutHighScoresTable(1, false);
                 LowerStartButton(false);
+                RaiseCentrePartition(false);
 
                 GameManager.instance.PlayAgain();
 
@@ -116,6 +116,8 @@ namespace Com.MachineApps.PrepareAndDeploy
             ActivateMonitor("Monitor2", false);
             ActivateMonitor("Monitor3", false);
             ActivateMonitor("Monitor4", false);
+
+            FadeFireCurtain(false);
 
             animatePlayerController = true;
         }

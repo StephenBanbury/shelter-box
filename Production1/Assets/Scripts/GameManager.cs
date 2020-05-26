@@ -143,6 +143,7 @@ public class GameManager : MonoBehaviour
         OperationsManager.instance.GetOperations();
         OperationsManager.instance.Initialise();
         OperationsManager.instance.SetRotateOperations(false);
+        OperationsManager.instance.AllowOpsToFail = false;
 
         HudOnOff(false);
         BudgetLivesOnOff(false);

@@ -107,13 +107,6 @@ namespace Com.MachineApps.PrepareAndDeploy
             {
                 Destroy(gameObject);
             }
-
-            //DontDestroyOnLoad(gameObject);
-        }
-
-        void Start()
-        {
-            Debug.Log("OperationManager Start");
         }
 
         void FixedUpdate()
@@ -123,6 +116,8 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public void GetOperations()
         {
+            Debug.Log("OperationManager GetOperations");
+
             operations = operationService.GetOperations();
 
             if (numberOfOperations < operations.Count)
@@ -136,6 +131,8 @@ namespace Com.MachineApps.PrepareAndDeploy
 
         public void Initialise()
         {
+            Debug.Log("OperationManager Initialise");
+
             reviewDateTime = startDateTime.AddSeconds(failedOpsInterval);
 
             // Randomize Operations at start

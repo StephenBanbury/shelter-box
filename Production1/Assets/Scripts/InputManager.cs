@@ -30,6 +30,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             Debug.Log("EngageGame");
             GameManager.instance.PlayAudio("useKeyboard");
             AnimationManager.instance.OpenInputKeyboard(true);
+            playerNameInputField.text = "";
             GameManager.instance.StartButtonText("Please enter your name");
         }
 
