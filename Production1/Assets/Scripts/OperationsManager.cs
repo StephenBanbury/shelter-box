@@ -52,10 +52,9 @@ namespace Com.MachineApps.PrepareAndDeploy
         private int operationId3 = 3;
 
         private static List<Operation> operations;
-        private DateTime startDateTime = DateTime.UtcNow;
         private DateTime reviewDateTime;
         private readonly OperationService operationService = new OperationService();
-        private readonly List<int> usedIndexes = new List<int>();
+        private List<int> usedIndexes;
         private bool updatingFailedOperation;
         private bool updatingSuccessfulOperation;
         private bool rotateOperations;
@@ -74,7 +73,7 @@ namespace Com.MachineApps.PrepareAndDeploy
             set => allowOpsToFail = value;
         }
 
-        public int OperationId(int monitorId)
+        public int GetMonitorOperationId(int monitorId)
         {
             int operationId = 0;
 
@@ -114,26 +113,13 @@ namespace Com.MachineApps.PrepareAndDeploy
             if (allowOpsToFail) StartCoroutine(CheckForFailedOperation());
         }
 
-        public void GetOperations()
-        {
-            Debug.Log("OperationManager GetOperations");
-
-            operations = operationService.GetOperations();
-
-            if (numberOfOperations < operations.Count)
-            {
-                operations = operations.Take(numberOfOperations).ToList();
-            }
-
-            // Dubugging
-            //DebugHelper.instance.EnumerateOperations(operations, "OperationsManager");
-        }
-
         public void Initialise()
         {
             Debug.Log("OperationManager Initialise");
 
-            reviewDateTime = startDateTime.AddSeconds(failedOpsInterval);
+            reviewDateTime = DateTime.UtcNow.AddSeconds(failedOpsInterval);
+
+            usedIndexes = new List<int>();
 
             // Randomize Operations at start
             while (usedIndexes.Count < 4)
@@ -162,26 +148,19 @@ namespace Com.MachineApps.PrepareAndDeploy
             AssignOperationsToMonitors();
         }
 
-        private IEnumerator CheckForFailedOperation()
+        public void GetOperations()
         {
-            if (DateTime.UtcNow >= reviewDateTime
-                && rotateOperations
-                && !updatingSuccessfulOperation
-                && !updatingFailedOperation)
-            {
-                // Select random operation and replace it with a new operation
-                updatingFailedOperation = true;
+            Debug.Log("OperationManager GetOperations");
 
-                StartCoroutine(WaitAndAssignNewOperation(4));
+            operations = operationService.GetOperations();
 
-                reviewDateTime = DateTime.UtcNow.AddSeconds(failedOpsInterval);
-            }
-            else
+            if (numberOfOperations < operations.Count)
             {
-                updatingFailedOperation = false;
+                operations = operations.Take(numberOfOperations).ToList();
             }
 
-            yield return  new WaitForSeconds(0.1f);
+            // Dubugging
+            //DebugHelper.instance.EnumerateOperations(operations, "OperationsManager");
         }
 
         public void SetRotateOperations(bool rotate)
@@ -292,6 +271,28 @@ namespace Com.MachineApps.PrepareAndDeploy
             }
 
             return response;
+        }
+
+        private IEnumerator CheckForFailedOperation()
+        {
+            if (DateTime.UtcNow >= reviewDateTime
+                && rotateOperations
+                && !updatingSuccessfulOperation
+                && !updatingFailedOperation)
+            {
+                // Select random operation and replace it with a new operation
+                updatingFailedOperation = true;
+
+                StartCoroutine(WaitAndAssignNewOperation(4));
+
+                reviewDateTime = DateTime.UtcNow.AddSeconds(failedOpsInterval);
+            }
+            else
+            {
+                updatingFailedOperation = false;
+            }
+
+            yield return new WaitForSeconds(0.1f);
         }
 
         private IEnumerator WaitAndAssignNewOperation(int waitForSeconds)

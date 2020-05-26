@@ -71,16 +71,16 @@ namespace Com.MachineApps.PrepareAndDeploy
                 switch (transform.parent.name)
                 {
                     case "Box1":
-                        operationId = OperationsManager.instance.OperationId(0);
+                        operationId = OperationsManager.instance.GetMonitorOperationId(0);
                         break;
                     case "Box2":
-                        operationId = OperationsManager.instance.OperationId(1);
+                        operationId = OperationsManager.instance.GetMonitorOperationId(1);
                         break;
                     case "Box3":
-                        operationId = OperationsManager.instance.OperationId(2);
+                        operationId = OperationsManager.instance.GetMonitorOperationId(2);
                         break;
                     case "Box4":
-                        operationId = OperationsManager.instance.OperationId(3);
+                        operationId = OperationsManager.instance.GetMonitorOperationId(3);
                         break;
                 }
 

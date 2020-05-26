@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject hudCanvas;
     [Tooltip("Heads-up display text")]
     [SerializeField] private TMP_Text hudTextMesh;
-    [Tooltip("Minutes allowed for game countdown")]
-    [SerializeField] private int timeAllowed = 5;
     [Tooltip("Personalised message displayed in control room")]
     [SerializeField] private Text personalMessage;
     [SerializeField] private TMP_Text startButtonText;
@@ -145,6 +143,8 @@ public class GameManager : MonoBehaviour
         OperationsManager.instance.SetRotateOperations(false);
         OperationsManager.instance.AllowOpsToFail = false;
 
+        FundRaisingEventManager.instance.Initialise();
+
         HudOnOff(false);
         BudgetLivesOnOff(false);
         ScorePanelOnOff(false);
@@ -163,7 +163,6 @@ public class GameManager : MonoBehaviour
             AnimationManager.instance.FadeOutHighScoresTable(1, true);
         }
 
-
         yield return StartCoroutine(scoreService.GetHighscoresFromApi());
 
         Debug.Log("AwaitHighscoresFromApiBeforeStart: after");
@@ -177,7 +176,8 @@ public class GameManager : MonoBehaviour
         var highscores = scoreService.GetHighscoresSorted(true);
         highscoresTable1.FillHighscoresTable(highscores);
 
-        StartCountdown();
+        // TODO time allowed can go, but it's still here as some arbitrary figure is required
+        StartCountdown(60);
     }
 
     void FixedUpdate()
@@ -230,7 +230,7 @@ public class GameManager : MonoBehaviour
         return remainingBudget;
     }
 
-    public void StartCountdown()
+    public void StartCountdown(int timeAllowed)
     {
         countdown = (timeAllowed * 60);
         countdownStarted = true;
@@ -627,20 +627,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //private void IndicateBudget(float percentRemaining)
-    //{
-    //    for (var i = 1; i <= 5; i++)
-    //    {
-    //        var colour = new Color(0, 0, 0, 0);
+    private void IndicateBudget(float percentRemaining)
+    {
+        for (var i = 1; i <= 5; i++)
+        {
+            var colour = new Color(0, 0, 0, 0);
 
-    //        // colour indicator light if within budget remaining
-    //        if (percentRemaining >= i * 16.7)
-    //        {
-    //            colour = new Color(240, 255, 0, 255);
-    //        }
-    //        GameObject.Find($"BudgetLife{i}").GetComponent<Renderer>().material.color = colour;
-    //    }
-    //}
+            // colour indicator light if within budget remaining
+            if (percentRemaining >= i * 16.7)
+            {
+                colour = new Color(240, 255, 0, 255);
+            }
+            GameObject.Find($"BudgetLife{i}").GetComponent<Renderer>().material.color = colour;
+        }
+    }
 
     //private void LightUpAllBudgetLights()
     //{

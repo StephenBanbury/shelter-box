@@ -47,19 +47,17 @@ namespace Com.MachineApps.PrepareAndDeploy
             if (instance == null)
             {
                 instance = this;
-                fundRaisingEvents = fundRaisingEventService.GetFundRaisingEvents();
             }
             else if (instance != this)
             {
                 Destroy(gameObject);
             }
-
-            //DontDestroyOnLoad(gameObject);
         }
 
-        void Start()
+        public void Initialise()
         {
-            Debug.Log("FundRaisingEventManager Start()");
+            Debug.Log("FundRaisingEventManager Initialise");
+            fundRaisingEvents = fundRaisingEventService.GetFundRaisingEvents();
             NextDisplayedEvent();
             UpdateFundraisingEventsChart();
         }
