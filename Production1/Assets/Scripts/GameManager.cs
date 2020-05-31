@@ -176,6 +176,9 @@ public class GameManager : MonoBehaviour
         var highscores = scoreService.GetHighscoresSorted(true);
         highscoresTable1.FillHighscoresTable(highscores);
 
+        yield return new WaitForSeconds(5);
+        highscoresTable1.FillHighscoresTable(highscores);
+
         // TODO time allowed can go, but it's still here as some arbitrary figure is required
         StartCountdown(60);
     }
@@ -403,7 +406,7 @@ public class GameManager : MonoBehaviour
         //    StartCoroutine(BudgetWarning(3));
         //}
 
-        IndicateBudget(percentRemaining);
+        IndicateBudgetHealth(percentRemaining);
 
         var numberOfEventLivesLeft =
             FundRaisingEventManager.instance.NumberOfEventsAllowed -
@@ -636,7 +639,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void IndicateBudget(float percentRemaining)
+    private void IndicateBudgetHealth(float percentRemaining)
     {
         for (var i = 1; i <= 5; i++)
         {

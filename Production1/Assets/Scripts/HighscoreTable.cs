@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Com.MachineApps.PrepareAndDeploy.Models;
 using Com.MachineApps.PrepareAndDeploy.Services;
@@ -42,10 +43,23 @@ namespace Com.MachineApps.PrepareAndDeploy
             if (highscores != null)
             {
                 highscoreEntryTransformList = new List<Transform>();
+
+                // Destroy any previous entries on the board
+                for (var i = 1; i <= 10; i++)
+                {
+                    var tr = entryContainer.FindChildRecursive($"entryTransform{i}");
+                    if (tr != null)
+                    {
+                        Destroy(tr.gameObject);
+                    }
+                }
+
+                // Create new entries
                 foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
                 {
-                    CreateHighscoreEntryTransform(highscoreEntry, entryContainer); //, highscoreEntryTransformList);
+                    CreateHighscoreEntryTransform(highscoreEntry, entryContainer);
                 }
+
             }
         }
 
@@ -57,7 +71,11 @@ namespace Com.MachineApps.PrepareAndDeploy
             entryRectTransform.anchoredPosition = new Vector2(0, -templateHeight * highscoreEntryTransformList.Count);
             entryTransform.gameObject.SetActive(true);
 
-            int rank = highscoreEntryTransformList.Count + 1; string rankString;
+            int rank = highscoreEntryTransformList.Count + 1;
+
+            entryTransform.name = $"entryTransform{rank}";
+
+            string rankString;
             switch (rank)
             {
                 default:
@@ -68,13 +86,23 @@ namespace Com.MachineApps.PrepareAndDeploy
                 case 3: rankString = "3RD"; break;
             }
 
-            entryTransform.Find("posText").GetComponent<Text>().text = rankString;
+            //var existingTransform = highscoreEntryTransformList[rank - 1];
+
+            //entryTransform.Find("posText").GetComponent<Text>().text = rankString;
+            var posText = entryTransform.Find("posText").GetComponent<Text>();
+            if (posText.text != rankString) posText.text = rankString;
+
 
             int score = highscoreEntry.score;
-            entryTransform.Find("scoreText").GetComponent<Text>().text = score.ToString();
+           // entryTransform.Find("scoreText").GetComponent<Text>().text = score.ToString();
+            var scoreText = entryTransform.Find("scoreText").GetComponent<Text>();
+            if (scoreText.text != score.ToString()) scoreText.text = score.ToString();
+            
 
             string name = highscoreEntry.name;
             entryTransform.Find("nameText").GetComponent<Text>().text = name;
+            var nameText = entryTransform.Find("nameText").GetComponent<Text>();
+            if (nameText.text != name) nameText.text = "zzzz";
 
             // Set background visible if odds and evens
             entryTransform.Find("background").gameObject.SetActive(rank % 2 == 1);

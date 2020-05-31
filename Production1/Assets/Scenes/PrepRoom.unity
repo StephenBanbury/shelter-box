@@ -3098,7 +3098,7 @@ MonoBehaviour:
   hudTextMesh: {fileID: 156502378}
   personalMessage: {fileID: 1477996288}
   startButtonText: {fileID: 1876759998}
-  startingBudget: 3000
+  startingBudget: 6000
   pendingOpsText: {fileID: 310007334}
   successfulOpsText: {fileID: 941072288}
   failedOpsText: {fileID: 160916448}
@@ -3236,7 +3236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   computerText: {fileID: 503237092}
-  numberOfEventsAllowed: 2
+  numberOfEventsAllowed: 6
 --- !u!82 &187238238
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3361,8 +3361,8 @@ MonoBehaviour:
   video2: {fileID: 1653390935}
   video3: {fileID: 1829980808}
   video4: {fileID: 162296540}
-  numberOfOperations: 5
-  failedOpsInterval: 7
+  numberOfOperations: 11
+  failedOpsInterval: 35
   allowOpsToFail: 1
   replaceFailedOps: 1
   replaceSuccessfulOps: 1
