@@ -335,7 +335,7 @@ public class GameManager : MonoBehaviour
         for (int i = 1; i <= fundingEventLives.Count; i++)
         {
             var lifeObjectColor = i <= numberOfEventLivesLeft
-                ? new Color(240, 255, 0, 255)
+                ? new Color(217, 255 - (3 * i), 0, 255)
                 : new Color(190, 205, 207, 255);
 
             var lifeObjectName = fundingEventLives[i - 1];
@@ -648,7 +648,7 @@ public class GameManager : MonoBehaviour
             // colour indicator light if within budget remaining
             if (percentRemaining >= i * 16.7)
             {
-                colour = new Color(240, 255, 0, 255);
+                colour = new Color(217, 255, 0, 255);
             }
             GameObject.Find($"BudgetLife{i}").GetComponent<Renderer>().material.color = colour;
         }

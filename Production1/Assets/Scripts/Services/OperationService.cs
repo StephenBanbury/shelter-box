@@ -62,7 +62,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     },
                     CollectedResources = new List<int>(),
                     OperationStatus = OperationStatus.None,
-                    MovieTitle = ""
+                    MovieTitle = "Bahamas_HurricainDorian_2019.mp4"
                 },
                 new Operation
                 {
@@ -130,7 +130,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     },
                     CollectedResources = new List<int>(),
                     OperationStatus = OperationStatus.None,
-                    MovieTitle = ""
+                    MovieTitle = "Bangladesh_Flood_2019.mp4"
                 },
                 new Operation
                 {
@@ -152,7 +152,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     },
                     CollectedResources = new List<int>(),
                     OperationStatus = OperationStatus.None,
-                    MovieTitle = ""
+                    MovieTitle = "BurkinaFaso_Conflict_2020.mp4"
                 },
                 new Operation
                 {
@@ -174,7 +174,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     },
                     CollectedResources = new List<int>(),
                     OperationStatus = OperationStatus.None,
-                    MovieTitle = ""
+                    MovieTitle = "Bangladesh_Flood_2019.mp4"
                 },
                 new Operation
                 {
@@ -196,7 +196,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     },
                     CollectedResources = new List<int>(),
                     OperationStatus = OperationStatus.None,
-                    MovieTitle = ""
+                    MovieTitle = "Bahamas_HurricainDorian_2019.mp4"
                 },
                 new Operation
                 {
@@ -218,7 +218,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     },
                     CollectedResources = new List<int>(),
                     OperationStatus = OperationStatus.None,
-                    MovieTitle = ""
+                    MovieTitle = "BurkinaFaso_Conflict_2020.mp4"
                 },
                 new Operation
                 {
@@ -240,7 +240,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     },
                     CollectedResources = new List<int>(),
                     OperationStatus = OperationStatus.None,
-                    MovieTitle = ""
+                    MovieTitle = "Bahamas_HurricainDorian_2019.mp4"
                 },
                 new Operation
                 {
@@ -262,7 +262,7 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
                     },
                     CollectedResources = new List<int>(),
                     OperationStatus = OperationStatus.None,
-                    MovieTitle = ""
+                    MovieTitle = "Bangladesh_Flood_2019.mp4"
                 }
             };
 

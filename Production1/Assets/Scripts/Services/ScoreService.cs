@@ -1,11 +1,8 @@
 ﻿using Com.MachineApps.PrepareAndDeploy.Enums;
 using Com.MachineApps.PrepareAndDeploy.Models;
-using Proyecto26;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 
@@ -15,7 +12,6 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
     {
         private readonly int numberToFetch;
 
-        private Highscores highscoresFromPlayerPrefs;
         private Highscores highscoresFromApi;
         private Highscores highscoresSorted;
 
@@ -36,40 +32,12 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
             return scoreValue;
         }
 
-        //public Highscores GetHighscoresSorted()
-        //{
-        //    // Load saved Highscores
-        //    string jsonString = PlayerPrefs.GetString("HighScoreTable");
-        //    Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
-
-        //    if (highscores != null)
-        //    {
-        //        // Sort list by score
-        //        highscores = SortHighscores(highscores);
-
-        //        // Take top x
-        //        if (numberToFetch != -1)
-        //        {
-        //            highscores.highscoreEntryList = highscores.highscoreEntryList.Take(numberToFetch).ToList();
-        //        }
-        //    }
-        //    return highscores;
-        //}
-
         public  Highscores GetHighscoresSorted(bool useApi)
         {
             // Highscores from Firebase will have already been loaded into highscoresFromApi
 
             // Load saved Highscores from PlayerPrefs
             var highscoresFromPlayerPrefs = GetHighscoresFromPlayerPrefs();
-
-            //highscoresFromPlayerPrefs.highscoreEntryList.ForEach(h =>
-            //{
-            //    Debug.Log($"highscoresFromPlayerPrefs: {h.name} / {h.score}");
-            //});
-            //highscoresFromApi.highscoreEntryList.ForEach(h =>
-            //{
-            //    Debug.Log($"highscoresFromApi: {h.name} / {h.score}");
             //});
 
             IEnumerable<HighscoreEntry> combined = new List<HighscoreEntry>();
@@ -87,22 +55,15 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
 
             // De-dup - Where there are duplicate players, take highest score for each duplicate
             // If there is a tie this should still take a single entry
-            var deduped = (
+            var deDuped = (
                     from c in combined
                     group c by c.name
                     into grp
                     select grp.OrderByDescending(c => c.score).FirstOrDefault())
                 .OrderByDescending(h => h.score)
                 .ThenBy(h => h.name);
-
-            //Debug.Log($"Combined and de-duped: {deduped.ToList().Count}");
-
-            //deduped.ToList().ForEach(h =>
-            //{
-            //    Debug.Log($"highscoresSorted: {h.name} / {h.score}");
-            //});
-
-            highscoresSorted = new Highscores { highscoreEntryList = deduped.Take(numberToFetch).ToList() };
+            
+            highscoresSorted = new Highscores { highscoreEntryList = deDuped.Take(numberToFetch).ToList() };
 
             return highscoresSorted;
         }
@@ -226,62 +187,5 @@ namespace Com.MachineApps.PrepareAndDeploy.Services
         }
 
         #endregion
-
-        //#region API operations
-
-        //public void HighscoresPut()
-        //{
-        //    // Using Put rather than Post. Rest specification : -
-        //    // 1. If the Request-URI refers to an already existing resource – an update operation will happen, otherwise create operation should happen if Request-URI is a valid resource URI
-        //    // 2. PUT method is idempotent. So if you send retry a request multiple times, that should be equivalent to single request modification. In this case this is good because the first, i.e. highest score will be taken if multiple exist
-
-        //    try
-        //    {
-        //        var highscores = GetHighscoresSorted();
-        //        var uri = $"https://shelterbox-cbg1.firebaseio.com/";
-
-        //        if (highscores?.highscoreEntryList != null)
-        //        {
-        //            var ix = 1;
-
-        //            foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
-        //            {
-        //                RestClient.Put(uri + $"/{ix}.json", JsonUtility.ToJson(highscoreEntry)).Then(response =>
-        //                {
-        //                    Debug.Log($"HighscoresPut: {highscoreEntry.name} / {highscoreEntry.score}");
-        //                });
-
-        //                ix++;
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
-        //public void HighscoresGet()
-        //{
-        //    try
-        //    {
-        //        var uri = "https://shelterbox-cbg1.firebaseio.com/";
-
-        //        RestClient.GetArray<HighscoreEntry>(uri + ".json").Then(response =>
-        //        {
-        //            foreach (var highscoreEntry in response.Where(r => r.name != null))
-        //            {
-        //                EditorUtility.DisplayDialog("Response", $"{highscoreEntry.name}: {highscoreEntry.score}", "Ok");
-        //            }
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
-
-        //#endregion
-
     }
 }
